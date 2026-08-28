@@ -1,6 +1,6 @@
 {
   "note": "Produced by `pnpm demo`. Excludes itself and `redaction-canary/`, which are written after it. Every entry names what produced it; nothing here came from a model.",
-  "generatedAt": "2026-08-28T02:56:09.616Z",
+  "generatedAt": "2026-08-28T03:12:28.081Z",
   "files": [
     {
       "path": "artifact/README.md",
@@ -17,13 +17,13 @@
     {
       "path": "artifact/approver.spki.pem",
       "bytes": 113,
-      "sha256": "602df80a17719b0269e8ff00d525b37589c5ae09ac800ccdd86614654e92e9f2",
+      "sha256": "aeeb2c992cf6eb9a656107610eb1f981eb7d8585566a9b14a1d4401d92424b76",
       "producer": "hand-authored (no model) — see README §Provenance"
     },
     {
       "path": "artifact/artifact.json",
       "bytes": 59071,
-      "sha256": "938cfda8f4424f345a98a1793ad683d09002d221e8302f5800a6af39f4ea3bd3",
+      "sha256": "0230453b81a696dd0075f3dfde9d33a9bb01d787b2124253cd701afdb59e9f91",
       "producer": "hand-authored (no model) — see README §Provenance"
     },
     {
@@ -41,25 +41,25 @@
     {
       "path": "cli-replay/console.txt",
       "bytes": 1055,
-      "sha256": "888f0f8a73d6667b1e7f4cc81747a80480231d3bfad0189b63b653da1cff3802",
+      "sha256": "c41623b9f02334901c4f60ec2c7292aadb91f6f9af5b02fecdaef0e1798fa7f2",
       "producer": "`crr replay` (shipped CLI), no model"
     },
     {
       "path": "cli-replay/journal.jsonl",
       "bytes": 32104,
-      "sha256": "18d6b93c2b8dde915ba56767eda9e740e8741ced90aceaeb61c6e56e1fd4a86f",
+      "sha256": "3f098448962e26de2e5c22764c42ac0c2ba50f1aa122123548b9216fd2d32a4d",
       "producer": "`crr replay` (shipped CLI), no model"
     },
     {
-      "path": "cli-replay/observations/journal-247ddc0f53ad2faacaa07ad405bd82774fd9c4907efe8e31ac7055b1350f28a3.json",
+      "path": "cli-replay/observations/journal-732eb72ca7740cc0cd30871b35940d9b03aae9f34b52da6fe0f952dce514e004.json",
       "bytes": 41477,
-      "sha256": "76cd32457d16b94583333456136c072a26e379f09005606c9ad858f67a8435c9",
+      "sha256": "11d3331cb0e2d25ca3102ab71c0d0c654aa53ab4df66de50954538028cf66497",
       "producer": "`crr replay` (shipped CLI), no model"
     },
     {
       "path": "demo.log",
       "bytes": 6286,
-      "sha256": "dac7bc1f34c015003db1e49963e95cd456cc156c5f6089d3bf2eb18a407738a2",
+      "sha256": "a57706ff10a90f719b27cd4cd3960920a73d861a3d948326f3a9c5312421ed1d",
       "producer": "`pnpm demo`"
     },
     {
@@ -215,25 +215,25 @@
     {
       "path": "replay-01-green/journal.jsonl",
       "bytes": 32103,
-      "sha256": "b4e0a6046ba8605b1052cc385fb2aa11b1f4e59fcb06c3939df99c1fd127bb5e",
+      "sha256": "2e5b2806e6df20e43a97c1595af226ab9e81b80617f8e431c0c6e088d8e14f41",
       "producer": "`@crr/runtime` `replay()` over `@crr/surface-browser`, no model"
     },
     {
-      "path": "replay-01-green/observations/journal-9ea505c461182d9dbd114b6229ddec7bf27d05fb91bdc01a1db5931580777069.json",
+      "path": "replay-01-green/observations/journal-0c376ccf43f0f582a7d07047a8f4947f095f828379e9d0632860074bf8c2cfbc.json",
       "bytes": 41476,
-      "sha256": "a79f60bc9acd9c0c7b27300dc248049a04e756f4a04ec387f91f757383de3d0e",
+      "sha256": "af8fc6f59798084efd645b2c9779ce990771df9f2523dea8a1fd122c65ddfba3",
       "producer": "`@crr/runtime` `replay()` over `@crr/surface-browser`, no model"
     },
     {
       "path": "replay-01-green/result.json",
       "bytes": 8106,
-      "sha256": "6814d9aaee528286d1813706f2bb1092eb1f67f807f06b6222e4230d5ff9599b",
+      "sha256": "4396c86bbb61867ffc27c9e36d5e9e707d29e5dc8535b6c06980736fc651c271",
       "producer": "`@crr/runtime` `replay()` over `@crr/surface-browser`, no model"
     },
     {
       "path": "replay-01-green/run.log",
       "bytes": 581,
-      "sha256": "96d053430058ef737c74c57a5911f566fbf38bb2138c7a66aa9eff768876a18f",
+      "sha256": "befeaecbd5a746016f64db2efa62286ce4f5bb77ce8a6fede5e4cf5596a95258",
       "producer": "`@crr/runtime` `replay()` over `@crr/surface-browser`, no model"
     },
     {
@@ -245,13 +245,13 @@
     {
       "path": "replay-02-outcome-member-not-found/journal.jsonl",
       "bytes": 11275,
-      "sha256": "973956b99276f5ad3edf420261acb16985e100727639507c67200bda611fd142",
+      "sha256": "00ce187e097685024759cb193089ae72ab5bdfec1d54675bb25dbbf9fd82603c",
       "producer": "`@crr/runtime` `replay()` over `@crr/surface-browser`, no model"
     },
     {
-      "path": "replay-02-outcome-member-not-found/observations/journal-f1ef506c9b9694f93f0a0e9e4fa8f4a8de7c077c66b4e9e3708c5a0675d04cad.json",
+      "path": "replay-02-outcome-member-not-found/observations/journal-6960cefb5b7205981c4ce064eb4b41bda24d4df49906862cec3d9cbe88fe7224.json",
       "bytes": 14538,
-      "sha256": "394c979e703ad8f897c0f1b279f60757c3c62dfce09e8a36e9980781a2006ca2",
+      "sha256": "d77ebd513e1bce7d65dd043f36ad575416169fa3f8ceaa401cd2db8cd7f9eb97",
       "producer": "`@crr/runtime` `replay()` over `@crr/surface-browser`, no model"
     },
     {
@@ -263,13 +263,13 @@
     {
       "path": "replay-02-outcome-member-not-found/result.json",
       "bytes": 4527,
-      "sha256": "87f73986cce38bcd2a8d3497fad33bfe7a2cfd5dd88804037e9d777e4b1ef850",
+      "sha256": "897a3b80beb32fb3136f8d9e3076259af11c6016527c2ced7e1328c080445587",
       "producer": "`@crr/runtime` `replay()` over `@crr/surface-browser`, no model"
     },
     {
       "path": "replay-02-outcome-member-not-found/run.log",
       "bytes": 749,
-      "sha256": "439b109338bbf72c6123d43d1e492a91d2b9eb845b42b2c98b2f500f89675f27",
+      "sha256": "7dd934fc5c552724e38178ce5ccedeeb1ee2522463c81e479789b35639e2072f",
       "producer": "`@crr/runtime` `replay()` over `@crr/surface-browser`, no model"
     },
     {
@@ -281,25 +281,25 @@
     {
       "path": "replay-03-recovered-interstitial/journal.jsonl",
       "bytes": 44786,
-      "sha256": "cb61e0ab704c98702b69df72206c441c6d00eb9dcc25e9507df5de71cd147768",
+      "sha256": "03358a23f98940b95d35277eb0b0c3f02f97272130970e201cb5a71402b0801b",
       "producer": "`@crr/runtime` `replay()` over `@crr/surface-browser`, no model"
     },
     {
-      "path": "replay-03-recovered-interstitial/observations/journal-747ba91946df79af39f1b0e7008a21dfcbfb6fbd06a7c4cf347cf0c58ef91e82.json",
+      "path": "replay-03-recovered-interstitial/observations/journal-7973786164cee0846f7d1164a1e33dfdf3601f3324c8af82c7e9f6e35e6938fe.json",
       "bytes": 59661,
-      "sha256": "6760bc6ca85a03e3fa728297c1e18d6cfb8bcf1962e8c9f955797eb617c83db2",
+      "sha256": "b4b977377ecf9848d7626b643d317a7fa71bab15a0b2e5c98ed45ed604a45615",
       "producer": "`@crr/runtime` `replay()` over `@crr/surface-browser`, no model"
     },
     {
       "path": "replay-03-recovered-interstitial/result.json",
       "bytes": 14038,
-      "sha256": "d4226027d1355d01470a629ed3cc45dbcad8ea122f9e9a6e20f732a79802dbef",
+      "sha256": "bc518704616c76b50476232c6daeed034777fd98cd0a8d6778a741a849a6eb39",
       "producer": "`@crr/runtime` `replay()` over `@crr/surface-browser`, no model"
     },
     {
       "path": "replay-03-recovered-interstitial/run.log",
       "bytes": 836,
-      "sha256": "7c77a4e883fc9a96e021d272f180cd8ae3a2f15ba15e56ee401962dfb7151fa2",
+      "sha256": "acc9ed347c2280f36c72b2d6c3025da2aae915ec0ea6f8a21cbf4774bdfbdb6d",
       "producer": "`@crr/runtime` `replay()` over `@crr/surface-browser`, no model"
     },
     {
@@ -311,31 +311,31 @@
     {
       "path": "replay-04-failed-app-error/journal.jsonl",
       "bytes": 39368,
-      "sha256": "d2bfb957737b0c6c91d352860aaed70627552338e879da08673a6ae83e634e86",
+      "sha256": "06de940b87d7c34384ff80a1be7292ac4acf392ef409e0d6c3c707cb34922596",
       "producer": "`@crr/runtime` `replay()` over `@crr/surface-browser`, no model"
     },
     {
-      "path": "replay-04-failed-app-error/observations/journal-9a6f1b8257f5c31698670860dbe7d5b33aa91f14a8938443e7cdbaca57eb1fca.json",
+      "path": "replay-04-failed-app-error/observations/journal-5fc071c4b832fe9bea13686bd01c93163b85b3becd06a11560fc46fd7fb80453.json",
       "bytes": 51430,
-      "sha256": "930f3a9a117b39230482eb117e2eb7d2520cd637d2a9ade2d77785b9577939a9",
+      "sha256": "862148bac89d75322c74e86b59684e201c67dc451a190c808ad7238924f114b0",
       "producer": "`@crr/runtime` `replay()` over `@crr/surface-browser`, no model"
     },
     {
-      "path": "replay-04-failed-app-error/observations/obs-09adb420116943f708f54f8f9693d60c5045f76a5d1518f6b21d7cef52930932.json",
+      "path": "replay-04-failed-app-error/observations/obs-a50b2fbc343314a2a07f3922a050c0663c4c8829032b8e464337d648325f538a.json",
       "bytes": 80347,
-      "sha256": "75827d342f5cc3b5970f759192a254388c0a42255be2c6d865036f0ed933abaa",
+      "sha256": "a8215fda993a2a22b3c3c7efafaba8cff5e932abb7bea592d9c5528943b551c2",
       "producer": "`@crr/runtime` `replay()` over `@crr/surface-browser`, no model"
     },
     {
       "path": "replay-04-failed-app-error/result.json",
       "bytes": 13828,
-      "sha256": "ee54415917b2e2bf5c0a47e8b527fc515379ab6d8c05281cedbc71a9a86cff10",
+      "sha256": "c948f66c3b350a91276db465a34f6068d2c12106a6c9956716ef6f4e437ba10a",
       "producer": "`@crr/runtime` `replay()` over `@crr/surface-browser`, no model"
     },
     {
       "path": "replay-04-failed-app-error/run.log",
       "bytes": 774,
-      "sha256": "548ce2dfecb4df9508009545358eec0c6e8756b34ce1c24b4190e5932d7d7d58",
+      "sha256": "d5d68dab4efc3ec70f5718fe318c923dd5e0e19a399a8bdd87372ddca306f6b0",
       "producer": "`@crr/runtime` `replay()` over `@crr/surface-browser`, no model"
     },
     {
@@ -347,31 +347,31 @@
     {
       "path": "replay-05-failed-session-expired/journal.jsonl",
       "bytes": 19063,
-      "sha256": "a012c7175f93c5badffd8a2fce2821bc31f74e0d0b931a62e81049adb89c3125",
+      "sha256": "c771ac04984cfacaa91fa0fceb47cdc24544f5da9cc2e63ef45db17c80c71278",
       "producer": "`@crr/runtime` `replay()` over `@crr/surface-browser`, no model"
     },
     {
-      "path": "replay-05-failed-session-expired/observations/journal-4ddb4d90cdfa748abb7a9c2980d43fac0175b83ab04e708ea05efeaff09abd33.json",
+      "path": "replay-05-failed-session-expired/observations/journal-b9734c4c7258253a16ae9c29b9e1fbbbf915f67c7e053f556a1b98dfdbf27c68.json",
       "bytes": 24621,
-      "sha256": "96960e76f5f59b24ea9427d33a7ca249fcf09d962cd276c913521500c4c17fb6",
+      "sha256": "1058ccc5746a48a01f65d968cb305a57f5cdced166ce793a68815617bcfcbd4b",
       "producer": "`@crr/runtime` `replay()` over `@crr/surface-browser`, no model"
     },
     {
-      "path": "replay-05-failed-session-expired/observations/obs-fdbdca2a5299692a7942a46669ea842936d036cd118df74eedbe1f8bca59deb8.json",
+      "path": "replay-05-failed-session-expired/observations/obs-cecf7d7a2153937b264ec98be62344ffc8cea15109392dd913904f84d9fcd0e5.json",
       "bytes": 114081,
-      "sha256": "f12fb51424216b042b0ba9e36826c06095fdcd512ca11a0e026b74144a623866",
+      "sha256": "0210d90fdda76e92ff6b7ab227c3986e69d05a1b6aa0259922541e99c56cce4a",
       "producer": "`@crr/runtime` `replay()` over `@crr/surface-browser`, no model"
     },
     {
       "path": "replay-05-failed-session-expired/result.json",
       "bytes": 7537,
-      "sha256": "8587e65b5a448d3d1e9ea15d0e79d8cb048bc88c36a42c8642952da71ff98964",
+      "sha256": "a1d62901f13907e1d49404560e9ba5b876abd7704b16e4af2a1ff3f7f50e55de",
       "producer": "`@crr/runtime` `replay()` over `@crr/surface-browser`, no model"
     },
     {
       "path": "replay-05-failed-session-expired/run.log",
       "bytes": 828,
-      "sha256": "f3f517c7636c49c135a1f2c6989e26dd4f997cdc01c05caba9adec614468b2de",
+      "sha256": "910b2f8aff0df4e97571e9e45e7efa67668919c984acfba6269739974897a672",
       "producer": "`@crr/runtime` `replay()` over `@crr/surface-browser`, no model"
     }
   ]

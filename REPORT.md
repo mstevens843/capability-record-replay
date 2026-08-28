@@ -29,19 +29,19 @@ There is **one seam**: a `Surface` port. `perceive(): Observation` returns a nor
 `UINode`s — role, accessible name, value, state, bounds, container path. `act(Action, lease)` takes a
 closed set of typed actions. Nothing above that port knows what a browser or a pixel is.
 
-The package line is drawn on **purity**, not subject matter: `@crr/core` holds the schema, the
-linker, the classifier, the target resolver and the policy predicate, and cannot do I/O, read a clock
-or generate a random number. That is not a comment. Contract tests read the repository off disk and
-fail on core impurity, on CSS/XPath vocabulary above the drivers, on a driver import above the
-drivers, and on any `Surface.act` call site not immediately preceded by a policy `check` on the same
-action. **Each was verified by injecting a real violation into a real module and watching it fail.**
+The package line is drawn on **purity**: `@crr/core` holds the schema, the linker, the classifier,
+the resolver and the policy predicate, and cannot do I/O, read a clock or generate a random number.
+That is not a comment. Contract tests read the repository off disk and fail on core impurity, on
+CSS/XPath vocabulary above the drivers, on a driver import above the drivers, and on any
+`Surface.act` call site not immediately preceded by a policy `check` on the same action. **Each was
+verified by injecting a real violation into a real module and watching it fail.**
 
 **The discovery loop is hand-written against the Messages API, not an SDK helper**: every tool call
 must pass the policy chokepoint and be journaled, and I did not want a beta dependency in the
-critical path. It sets `disable_parallel_tool_use: true`, because a computer-use loop must observe
-the consequence of each action before choosing the next, and interleaved actions would make the
-recorded step order meaningless. The stable prompt and tool definitions are `cache_control`-marked
-ahead of the changing observation payload; the run measured **55.4% cache hits**.
+critical path. It sets `disable_parallel_tool_use: true` — a computer-use loop must observe the
+consequence of each action before choosing the next, and interleaved actions would make the recorded
+step order meaningless. The stable prompt and tool defs are `cache_control`-marked ahead of the
+changing observation payload; the run measured **55.4% cache hits**.
 
 Every run records its transcript to a VCR fixture a `replay` adapter serves back, which is why
 `pnpm test` passes with no credentials. **The live run took three attempts and the first two cost
@@ -61,9 +61,9 @@ durability path was built before the run rather than after it.
 | `artifact` | the interpreter, the security reviewer | the program: routes, vocabulary, steps, descriptors, checkpoints, detectors, budgets, effect summary. |
 | `overlay` | the linker, per tenant | additive, non-semantic overrides only. |
 
-**Detectors live on the artifact's steps, never on the contract.** That single placement is what lets
-one contract be implemented by two programs — a browser one and a green-screen one — because "how you
-tell that this screen means *no such member*" is a property of a surface, and "the caller may receive
+**Detectors live on the artifact's steps, never on the contract.** That placement is what lets one
+contract be implemented by two programs, a browser one and a green-screen one: "how you tell that
+this screen means *no such member*" is a property of a surface; "the caller may receive
 `MEMBER_NOT_FOUND`" is not.
 
 **The artifact stores shapes, never values.** A concrete value that came from the goal is bound as a
@@ -71,11 +71,11 @@ typed parameter; routes canonicalize (`/member/12345` → `/member/:memberId`); 
 template holes. One mechanism is simultaneously the reuse story — a capability, not a macro — and the
 primary PII control (§6). The live contract offers `memberId: {kind:"string", charset:"digits"}` and
 `shareBalance: {kind:"money", currency:"USD"}`; the member number the model typed is nowhere in it.
-Parameter *names* come from a deterministic chain ending at the same label anchor the locator uses,
-never from a model and never from the value's shape — a name derived from a value would put a member
-number in the caller's public API.
+Parameter *names* come from a deterministic chain ending at the label anchor the locator itself uses
+— never from a model, and never from the value's shape, which would put a member number in the
+caller's public API.
 
-The artifact is **data, not code**: a non-Turing-complete DSL, canonical-JSON digested, with approval
+The artifact is **data, not code**: a non-Turing-complete DSL, canonical-JSON digested, approval
 signing over the digest. Playwright output is a *secondary export*; generated code cannot be diffed
 by a non-programmer, linked against a tenant overlay, or refused by a linker.
 
@@ -92,9 +92,9 @@ no negative outcome may be classified against a surface that has not demonstrabl
 declares `expect` (a checkpoint), `outcomes` (business results with detectors) and `recoveries`
 (bounded remedies with budgets); outcomes and recoveries are evaluated *before* the checkpoint, and
 anything else is a hard failure naming the step, the expectation and the observation. The result
-contract has four arms: `ok | outcome | suspended | failed`. A confirmation dialog is not an
-interruption but the *postcondition of the click that raised it*, so a step declares `expect.dialog`
-and the interception band stands down to the checkpoint for that dialog alone.
+contract has four arms: `ok | outcome | suspended | failed`. A confirmation dialog is not an interruption but the
+*postcondition of the click that raised it*, so a step declares `expect.dialog` and the interception
+band stands down to the checkpoint for that dialog alone.
 
 The model **never authors a locator**. It picks a node id from the observation it was shown, and
 deterministic code derives independently computed descriptors (role+name, label-anchored, table
@@ -111,11 +111,10 @@ kill matrix: 9 mutants x 25 scenarios — every mutant killed, 0 survivors      
 The mutants are the **real `replay()`** — same linker, lease, budgets, journal — with exactly one
 pure decision function swapped through an injection seam, enforced by function identity, so the suite
 is not merely telling a real engine from a stub. **17 kills, 13 of them false successes**: the mutant
-told a caller `ok`, or told it a business outcome, for a broken run. `nearestMatch`, the
-fallback-chain mutant, is killed by six scenarios and **all six are false successes**. The suite was
-itself checked: deleting scenario 21 produced `SURVIVORS: noContinuity`. Drift is the secondary
-concern the assignment says it is — an abstaining descriptor is a signal reported on success, never
-a verdict.
+told a caller `ok`, or a business outcome, for a broken run. `nearestMatch`, the fallback-chain
+mutant, is killed by six scenarios and **all six are false successes**. The suite was itself checked:
+deleting scenario 21 produced `SURVIVORS: noContinuity`. Drift is the secondary concern the
+assignment says it is — an abstaining descriptor is a signal on success, never a verdict.
 
 ## 4. Heterogeneity & multi-tenant
 
@@ -129,9 +128,9 @@ screen's readiness signal is silence and a torn repaint is silent: the driver re
 on a half-painted frame. There is no observation where the flag is false and a verdict hangs on it.
 **On that surface the settle gate cannot be the gate, which is why the checkpoint has to be.**
 Quiescence proposes; the checkpoint disposes. The union of both corpora kills all nine: the *suite*
-discriminates, the green-screen corpus alone does not, for four reasons each a property of the
-surface. Where the port bent is recorded too: `detect()` emits no node for unlabelled prose, so the
-terminal declares its own contract rather than publish one it cannot satisfy.
+discriminates; the green-screen corpus alone does not, for four reasons each a property of the
+surface. Where the port bent is recorded too — `detect()` emits no node for unlabelled prose, so the
+terminal declares its own contract rather than publish one it cannot meet.
 
 Multi-tenant is **base artifact + per-tenant overlay**, overrides only: vocabulary tokens, route base
 paths, wait budgets, extra recoveries. One artifact replays green on both fixture tenants through a
@@ -156,22 +155,21 @@ automation run that believes it still holds a session a human has taken.
 `SuspensionReason` only where a person at a terminal could plausibly finish the job:
 `unclassified-state`, `recovery-exhausted`, `approval-required`, `target-ambiguous`, `session-lost`,
 `effect-in-doubt`. A bad artifact, an invalid argument or a policy denial is **never** escalatable —
-a human at the app cannot fix those by clicking. A test asserts a decision exists for *every* failure
-class, so a new one cannot arrive undecided, and `effect-in-doubt` escalates whatever the caller
-asked for: nobody says "fail and go home" about an irreversible action whose result was never seen.
+a human at the app cannot fix those by clicking. A test asserts a decision for *every* failure class,
+so a new one cannot arrive undecided, and `effect-in-doubt` escalates whatever the caller asked for:
+nobody says "fail and go home" about an irreversible action whose result was never seen.
 
 The operator console is four routes and no build step: claim the lease at epoch+1, render
 `Surface.capture()` (masked PNG, or masked grid dump for the terminal), inject typed `Action`s
-**into the same live session** — policy-checked exactly like an automation action, journaled by
-*title*, never by value, with the operator's id.
+**into the same live session** — policy-checked like any automation action and journaled by *title*,
+never by value, with the operator's id.
 
 Hand-back is where most designs put a TODO. Resume is not "continue at pc": re-acquire at epoch+1,
 re-`perceive`, re-classify at `phase:"pre"`, re-verify the precondition, re-verify continuity,
 re-check the effect gate, then re-run the step from the top. The acceptance cases are the refusals —
 `packages/runtime/test/escalation.test.ts`, **31 tests, re-run here** — among them *refuses when the
 human navigated away*, *refuses on continuity when the human left the session on a different member*,
-and *terminates on a declared business outcome rather than resuming into it*. A run a human touched
-is never reported as a purely automated success.
+and *terminates on a declared business outcome rather than resuming into it*.
 
 **Mocked:** the console polls captures rather than streaming them (production wants CDP screencast),
 and the operator in the tests is a harness. The lease, both enforcement points, the policy check on
@@ -183,8 +181,8 @@ the human's action and the seven-step resume are real code.
 `check(action, ctx)` over lease, allowlisted origin and canonicalized route, action kind, both effect
 ceilings, approval state and taint sink, first refusal winning. It is not a package, because a
 package boundary does not make something the *only* chokepoint; the contract test does. **Effect
-classes** `READ | WRITE_REVERSIBLE | WRITE_IRREVERSIBLE`, where irreversible requires an approval
-token *by the type*, forbids retries and restarts across it, and turns unobserved dispatch into an
+classes** `READ | WRITE_REVERSIBLE | WRITE_IRREVERSIBLE`: irreversible requires an approval token *by
+the type*, forbids retries and restarts across it, and turns unobserved dispatch into an
 auto-escalation. **A taint model**: a `sensitive` parameter produces a handle at bind time, and the
 handle — never the value — is what the policy engine, the journal, the classifier trace and every
 capture hold.
@@ -196,7 +194,7 @@ would not have found any of them by reading the code.
    accessible name into the query it derived — and on a legacy grid a cell's accessible name *is* the
    value. The artifact carried both in `flow.vocabulary`, the one document that is committed, diffed
    and signed. Parameterization could not have caught it: the name was never in the goal, so it was
-   never bound to anything. Found by *executing* what synthesis emits, not by linking it.
+   never bound to anything. Found by *executing* what synthesis emits.
 2. **Every delivered string output was case-folded**, so a caller would have been read their own name
    back in lower case.
 3. **On the live run, the canary caught the model's own prose.** The synthesis *report* quoted the
@@ -205,12 +203,12 @@ would not have found any of them by reading the code.
    about observed data cannot be redacted, only withheld, and now it is.
 
 One false positive was a different real bug: 14 reported leaks in `spend.json` were IEEE-754 noise,
-`"turnUsd": 0.014200999999999998`. Money was being serialized as a float artifact; it is now rounded
-to the microdollar at record time.
+`"turnUsd": 0.014200999999999998`. Money was being serialized as a float; it is now rounded to the
+microdollar at record time.
 
 **Limits.** `effect` is *declared, never proven* — a step marked `READ` that posts an audit row is
 invisible to the chokepoint, the restart gate and the approval blast radius alike. The PII lint is
-shape-based and will both miss and over-trigger. Fail-closed decays toward "everything is a hard
+shape-based and will both miss and over-trigger. And fail-closed decays toward "everything is a hard
 failure" if nobody staffs the review that adds rules.
 
 ## 7. Cuts
@@ -220,17 +218,15 @@ failure" if nobody staffs the review that adds rules.
 - **No branching, no loops, no conditionals.** Steps are a straight line; the only branch is a
   terminal outcome. With an `if`, "which steps are irreversible" and "what blast radius is a human
   signing" both become *"depending"*, and a signature over a digest stops meaning anything precise. A
-  flow needing a branch is two capabilities composed by the calling agent, which is already a
-  branching machine. **The trigger to revisit**: an optional interstitial that is not really a
-  decision — an "accept terms" screen — is modelled today as a *recovery*, which abuses the concept.
-  When a second one appears, or one needs to bind a value, the fix is an `optional-step` marker with
-  a declared skip predicate, not general branching.
+  flow needing a branch is two capabilities composed by the calling agent. **The trigger to
+  revisit**: an optional interstitial that is not really a decision — an "accept terms" screen — is
+  modelled today as a *recovery*, which abuses the concept. When a second one appears, the fix is an
+  `optional-step` marker with a declared skip predicate — not general branching.
 - **No outcome detectors are synthesized.** The model's candidates ride in the synthesis report with
   a `needs-detector` note and `contract.outcomes` comes out `[]`. A generated detector for a screen
   the run never observed is how a false `MEMBER_NOT_FOUND` ships.
 - **No routing prose is generated.** `whenToUse`/`whenNotToUse` are hand-authored or stamped
-  `NEEDS AN AUTHOR`. Models mis-route far more often than they mis-fill arguments, so a generated
-  line there is a generated routing decision.
+  `NEEDS AN AUTHOR`. Models mis-route far more often than they mis-fill arguments.
 - **No queue, database, auth service, admin SPA, or desktop driver.** The anti-goals are explicit.
 
 **Gaps, named rather than smoothed over.**
@@ -241,18 +237,19 @@ failure" if nobody staffs the review that adds rules.
 - **No live run has exercised the spend ledger's mid-run cap binding at turn *n***, only the turn-0
   boundary. A $2 cap over a $0.14 run is not the test that matters.
 - **`resume: "continue"` does not exist.** An interstitial arriving *after* a step has acted cannot
-  be recovered: `retry-step` re-resolves a target the action already navigated away from. Conformance
-  scenario 25 pins the wrong behaviour deliberately and says so in its title, so the day the mode
-  lands, a test fails.
+  be recovered: `retry-step` re-resolves a target the action already navigated away from. Scenario 25
+  pins the wrong behaviour deliberately and says so in its title, so the day the mode lands, a test
+  fails.
 - **A measured constant was silently reverted.** `stableSamples` was swept to 3, a refactor restored
   the placeholder 2, and nothing failed, because it is applied by a recorder at emission and never by
-  a validator. A guard now pins it to the sweep — but that class of gap is not systematically closed.
-- **No key custody, and no concurrency story.** A hundred simultaneous invocations against a legacy
-  core sized for forty tellers is the first production incident.
+  a validator. A guard now pins it to the sweep; that whole class of gap is not systematically closed.
+- **No concurrency story.** A hundred simultaneous invocations against a legacy core sized for forty
+  tellers is the first production incident.
 
 **Next, in order.** (1) The fifth canary pass over `provenance.json`, gated, with a planted-needle
 self-test like the other four. (2) `text` nodes for unlabelled prose in both drivers — one fix, two
 surfaces: it stops the write flow's confirmation screen returning no outputs and lets the terminal
 satisfy the browser's contract. It moves node counts the divergence report asserts, so it is a
-decision with a blast radius, which is why it is written down and not made. (3) A second live run
-against a surface I did not build, because until then the first claim in this document stands.
+decision with a blast radius rather than a one-liner. (3) A second live run against a surface I did
+not build, because until then the first claim in this document stands.
+

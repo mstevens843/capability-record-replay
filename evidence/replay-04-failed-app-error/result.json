@@ -65,10 +65,10 @@
     "attempts": [],
     "retriable": "same-inputs",
     "operatorAction": "The application returned its own error page; capture and report to the vendor.",
-    "observationRef": "obs:09adb420116943f708f54f8f9693d60c5045f76a5d1518f6b21d7cef52930932"
+    "observationRef": "obs:a50b2fbc343314a2a07f3922a050c0663c4c8829032b8e464337d648325f538a"
   },
   "run": {
-    "runId": "run-19f14752-218f-440e-a4b6-463e16beba2d",
+    "runId": "run-89ffedc8-f11f-491c-a747-de80b21e6313",
     "capability": {
       "name": "corebank.member.read_share_position",
       "version": "1.0.0"
@@ -86,9 +86,9 @@
     },
     "surface": "web-legacy",
     "engineVersion": "crr-runtime/0.1.0",
-    "startedAt": "2026-08-28T02:56:04.686Z",
-    "endedAt": "2026-08-28T02:56:06.290Z",
-    "durationMs": 1604,
+    "startedAt": "2026-08-28T03:12:23.126Z",
+    "endedAt": "2026-08-28T03:12:24.737Z",
+    "durationMs": 1611,
     "stepsExecuted": 4,
     "stepsTotal": 9,
     "budgets": {
@@ -109,7 +109,7 @@
         "limit": 1
       },
       "wallClockMs": {
-        "used": 1606,
+        "used": 1612,
         "limit": 180000
       }
     },
@@ -135,7 +135,7 @@
         },
         "skeletonDigest": "sha256:77133a7a47cabfb23d8a04fdd48bd97dff3e5670d891b221c3db0bf8275c79c4",
         "observationRef": null,
-        "elapsedMs": 147
+        "elapsedMs": 148
       },
       {
         "stepId": "enter-member-id",
@@ -146,7 +146,7 @@
         },
         "skeletonDigest": "sha256:014aa733ad56a65ca562941a1edf215144446165bd3145f7af8bce711be1ce89",
         "observationRef": null,
-        "elapsedMs": 162,
+        "elapsedMs": 157,
         "resolution": [
           {
             "descriptorId": "member-id-right-of-label",
@@ -173,7 +173,7 @@
         },
         "skeletonDigest": "sha256:8be7e5b0e9750e40cd59049e6b76df8a9fdd68cacd9ea33dad97cd28d9f46800",
         "observationRef": null,
-        "elapsedMs": 163,
+        "elapsedMs": 161,
         "resolution": [
           {
             "descriptorId": "search-by-name",
@@ -219,7 +219,7 @@
         },
         "skeletonDigest": "sha256:8be7e5b0e9750e40cd59049e6b76df8a9fdd68cacd9ea33dad97cd28d9f46800",
         "observationRef": null,
-        "elapsedMs": 159
+        "elapsedMs": 164
       },
       {
         "stepId": "open-member-record",
@@ -240,7 +240,7 @@
         },
         "skeletonDigest": "sha256:89ae112647051c26f14edd9813f0426095c77120b1e56154fadd16266b8326f0",
         "observationRef": null,
-        "elapsedMs": 160,
+        "elapsedMs": 168,
         "resolution": [
           {
             "descriptorId": "open-by-row-key",
@@ -278,7 +278,7 @@
         },
         "skeletonDigest": "sha256:014aa733ad56a65ca562941a1edf215144446165bd3145f7af8bce711be1ce89",
         "observationRef": null,
-        "elapsedMs": 158,
+        "elapsedMs": 155,
         "resolution": [
           {
             "descriptorId": "member-id-right-of-label",
@@ -305,7 +305,7 @@
         },
         "skeletonDigest": "sha256:8be7e5b0e9750e40cd59049e6b76df8a9fdd68cacd9ea33dad97cd28d9f46800",
         "observationRef": null,
-        "elapsedMs": 166,
+        "elapsedMs": 167,
         "resolution": [
           {
             "descriptorId": "search-by-name",
@@ -424,8 +424,8 @@
           }
         },
         "skeletonDigest": "sha256:89ae112647051c26f14edd9813f0426095c77120b1e56154fadd16266b8326f0",
-        "observationRef": "obs:09adb420116943f708f54f8f9693d60c5045f76a5d1518f6b21d7cef52930932",
-        "elapsedMs": 162,
+        "observationRef": "obs:a50b2fbc343314a2a07f3922a050c0663c4c8829032b8e464337d648325f538a",
+        "elapsedMs": 164,
         "resolution": [
           {
             "descriptorId": "open-by-row-key",
@@ -452,10 +452,10 @@
       "needsSpecialization": false
     },
     "evidence": [
-      "obs:09adb420116943f708f54f8f9693d60c5045f76a5d1518f6b21d7cef52930932",
-      "journal:9a6f1b8257f5c31698670860dbe7d5b33aa91f14a8938443e7cdbaca57eb1fca"
+      "obs:a50b2fbc343314a2a07f3922a050c0663c4c8829032b8e464337d648325f538a",
+      "journal:5fc071c4b832fe9bea13686bd01c93163b85b3becd06a11560fc46fd7fb80453"
     ],
-    "journalRef": "journal:9a6f1b8257f5c31698670860dbe7d5b33aa91f14a8938443e7cdbaca57eb1fca",
+    "journalRef": "journal:5fc071c4b832fe9bea13686bd01c93163b85b3becd06a11560fc46fd7fb80453",
     "warnings": []
   }
 }

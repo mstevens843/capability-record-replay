@@ -20,9 +20,9 @@ bundle     /Users/devlegacy/Desktop/projects/ai-gap-coverage-projects/capability
    args      ["memberId"] (values withheld from this log)
    broker    can-reauthenticate
    arm       OK   outputs: memberName, shareBalance, accountStatus, shareAccounts
-   run       9/9 steps, 1804ms, 9 step attempts
+   run       9/9 steps, 1823ms, 9 step attempts
    budgets   actions 5, observations 29, remediations 0, program attempts 0
-   evidence  1 frozen observation(s), journal journal:9ea505c461182d9dbd114b6229ddec7bf27d05fb91bdc01a1db5931580777069
+   evidence  1 frozen observation(s), journal journal:0c376ccf43f0f582a7d07047a8f4947f095f828379e9d0632860074bf8c2cfbc
    checked   every declared expectation held
 
 ── replay-02-outcome-member-not-found ─ the core holds no such member
@@ -32,9 +32,9 @@ bundle     /Users/devlegacy/Desktop/projects/ai-gap-coverage-projects/capability
    broker    can-reauthenticate
    armed     {"ok":true,"session":"s000001","armed":{"id":"not-found","screen":"results","mode":"sticky","delayMs":1200}}
    arm       OUTCOME   MEMBER_NOT_FOUND (terminal=true, callerAction=retry-different-input)
-   run       2/9 steps, 481ms, 3 step attempts
+   run       2/9 steps, 486ms, 3 step attempts
    budgets   actions 3, observations 9, remediations 0, program attempts 0
-   evidence  2 frozen observation(s), journal journal:f1ef506c9b9694f93f0a0e9e4fa8f4a8de7c077c66b4e9e3708c5a0675d04cad
+   evidence  2 frozen observation(s), journal journal:6960cefb5b7205981c4ce064eb4b41bda24d4df49906862cec3d9cbe88fe7224
    checked   every declared expectation held
 
 ── replay-03-recovered-interstitial ─ a declared maintenance modal, dismissed inside its budget
@@ -44,10 +44,10 @@ bundle     /Users/devlegacy/Desktop/projects/ai-gap-coverage-projects/capability
    broker    can-reauthenticate
    armed     {"ok":true,"session":"s000001","armed":{"id":"interstitial","screen":"results","mode":"once","delayMs":1200}}
    arm       OK   outputs: memberName, shareBalance, accountStatus, shareAccounts
-   run       11/9 steps, 2229ms, 12 step attempts
+   run       11/9 steps, 2253ms, 12 step attempts
    budgets   actions 9, observations 38, remediations 1, program attempts 0
    recovery  DISMISS_SYSTEM_NOTICE at submit-search: cleared after 1
-   evidence  1 frozen observation(s), journal journal:747ba91946df79af39f1b0e7008a21dfcbfb6fbd06a7c4cf347cf0c58ef91e82
+   evidence  1 frozen observation(s), journal journal:7973786164cee0846f7d1164a1e33dfdf3601f3324c8af82c7e9f6e35e6938fe
    checked   every declared expectation held
 
 ── replay-04-failed-app-error ─ an application error page that will not clear
@@ -57,10 +57,10 @@ bundle     /Users/devlegacy/Desktop/projects/ai-gap-coverage-projects/capability
    broker    can-reauthenticate
    armed     {"ok":true,"session":"s000001","armed":{"id":"app-error","screen":"detail","mode":"sticky","delayMs":1200}}
    arm       FAILED   app-error at open-member-record
-   run       4/9 steps, 1604ms, 10 step attempts
+   run       4/9 steps, 1611ms, 10 step attempts
    budgets   actions 9, observations 30, remediations 1, program attempts 1
    recovery  APP_ERROR_PAGE at open-member-record: cleared after 1
-   evidence  2 frozen observation(s), journal journal:9a6f1b8257f5c31698670860dbe7d5b33aa91f14a8938443e7cdbaca57eb1fca
+   evidence  2 frozen observation(s), journal journal:5fc071c4b832fe9bea13686bd01c93163b85b3becd06a11560fc46fd7fb80453
    checked   every declared expectation held
 
 ── replay-05-failed-session-expired ─ the session expires mid-flow and cannot be re-established
@@ -70,10 +70,10 @@ bundle     /Users/devlegacy/Desktop/projects/ai-gap-coverage-projects/capability
    broker    cannot-reauthenticate
    armed     {"ok":true,"session":"s000001","armed":{"id":"session-timeout","screen":"detail","mode":"sticky","delayMs":1200}}
    arm       FAILED   session-expired-unrecoverable at open-member-record
-   run       4/9 steps, 819ms, 5 step attempts
+   run       4/9 steps, 824ms, 5 step attempts
    budgets   actions 4, observations 15, remediations 1, program attempts 0
    recovery  SESSION_EXPIRED at open-member-record: exhausted after 1
-   evidence  2 frozen observation(s), journal journal:4ddb4d90cdfa748abb7a9c2980d43fac0175b83ab04e708ea05efeaff09abd33
+   evidence  2 frozen observation(s), journal journal:b9734c4c7258253a16ae9c29b9e1fbbbf915f67c7e053f556a1b98dfdbf27c68
    checked   every declared expectation held
 
 ── masked-capture ─ region masking of a field bound to a sensitive parameter
@@ -85,7 +85,7 @@ bundle     /Users/devlegacy/Desktop/projects/ai-gap-coverage-projects/capability
 
 ── cli-replay ─ the same replay, through the shipped `crr` command
    $ node packages/runtime/dist/cli.js replay evidence/artifact/contract.json evidence/artifact/artifact.json --surface packages/runtime/demo/surface-entry.mjs --args '{"memberId":"<A FIVE-DIGIT MEMBER NUMBER>"}' --allowlist evidence/artifact/allowlist.json --trusted-key ops-approval-key-1:evidence/artifact/approver.spki.pem --tenant riverbend --app riverbend-corebank-fixture --journal evidence/cli-replay/journal.jsonl --evidence evidence/cli-replay/observations
-   | OK  run run-15ed9d37-3ac4-4d90-bdd3-9560762c1302  9/9 steps  1767ms
+   | OK  run run-d9c2eb5d-15b8-4de4-93de-ba6118b8ea14  9/9 steps  1788ms
    | {
    |   "memberName": "ALVAREZ, DANA (SYNTHETIC)",
    |   "shareBalance": {
@@ -128,7 +128,7 @@ REDACTION CANARY  CLEAN
   suppressed    0 (inside a digest-shaped hex run)
   credentials   0
 
-   67 files in the bundle, produced in 10s
+   67 files in the bundle, produced in 10.1s
    discovery-live/  a LIVE model run is present - see its own README.md and provenance.json
    A SECOND, WHOLE-BUNDLE canary pass runs after this file is written - covering this log,
    evidence/README.md and the canary's own report - and ITS verdict is the exit code.

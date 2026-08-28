@@ -13,7 +13,7 @@
   },
   "alsoMatched": [],
   "run": {
-    "runId": "run-6878f739-3bd6-4a69-a10c-14caaedfc8ec",
+    "runId": "run-d073a419-b8f6-48f9-bcae-9109eb6e90cb",
     "capability": {
       "name": "corebank.member.read_share_position",
       "version": "1.0.0"
@@ -31,9 +31,9 @@
     },
     "surface": "web-legacy",
     "engineVersion": "crr-runtime/0.1.0",
-    "startedAt": "2026-08-28T02:56:01.722Z",
-    "endedAt": "2026-08-28T02:56:02.203Z",
-    "durationMs": 481,
+    "startedAt": "2026-08-28T03:12:20.138Z",
+    "endedAt": "2026-08-28T03:12:20.624Z",
+    "durationMs": 486,
     "stepsExecuted": 2,
     "stepsTotal": 9,
     "budgets": {
@@ -54,7 +54,7 @@
         "limit": 1
       },
       "wallClockMs": {
-        "used": 481,
+        "used": 487,
         "limit": 180000
       }
     },
@@ -84,7 +84,7 @@
         },
         "skeletonDigest": "sha256:db600b4254e71da42a08128d6538ea5853a8a1c4746452d7875ee7345501fee3",
         "observationRef": null,
-        "elapsedMs": 162,
+        "elapsedMs": 165,
         "resolution": [
           {
             "descriptorId": "member-id-right-of-label",
@@ -142,9 +142,9 @@
     },
     "evidence": [
       "obs:cc8860759ba233933ca099bbc7309c462de290e68e6711ebf61865ff434dc165",
-      "journal:f1ef506c9b9694f93f0a0e9e4fa8f4a8de7c077c66b4e9e3708c5a0675d04cad"
+      "journal:6960cefb5b7205981c4ce064eb4b41bda24d4df49906862cec3d9cbe88fe7224"
     ],
-    "journalRef": "journal:f1ef506c9b9694f93f0a0e9e4fa8f4a8de7c077c66b4e9e3708c5a0675d04cad",
+    "journalRef": "journal:6960cefb5b7205981c4ce064eb4b41bda24d4df49906862cec3d9cbe88fe7224",
     "warnings": []
   }
 }
