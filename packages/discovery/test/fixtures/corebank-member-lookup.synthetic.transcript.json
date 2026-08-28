@@ -59,25 +59,28 @@
               "description": "The text for fill, the option for select, \"true\"/\"false\" for setToggle. null otherwise."
             },
             "key": {
-              "type": [
-                "string",
-                "null"
-              ],
-              "enum": [
-                "Enter",
-                "Tab",
-                "Escape",
-                "Backspace",
-                "Delete",
-                "ArrowUp",
-                "ArrowDown",
-                "ArrowLeft",
-                "ArrowRight",
-                "Home",
-                "End",
-                "PageUp",
-                "PageDown",
-                null
+              "anyOf": [
+                {
+                  "type": "string",
+                  "enum": [
+                    "Enter",
+                    "Tab",
+                    "Escape",
+                    "Backspace",
+                    "Delete",
+                    "ArrowUp",
+                    "ArrowDown",
+                    "ArrowLeft",
+                    "ArrowRight",
+                    "Home",
+                    "End",
+                    "PageUp",
+                    "PageDown"
+                  ]
+                },
+                {
+                  "type": "null"
+                }
               ],
               "description": "The key for pressKey. null otherwise."
             },
@@ -209,7 +212,7 @@
         }
       }
     ],
-    "digest": "sha256:2063c371dc545961f43da3d7c7ef7682c6c4dc4ee231bd333dede001be46deb9"
+    "digest": "sha256:c0949e5b6e2aa32e3aed91f3598dda68a90fe54391fc5dedf7052182ca30a259"
   },
   "turns": [
     {

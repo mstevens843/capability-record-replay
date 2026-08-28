@@ -1,0 +1,232 @@
+{
+  "_provenance": {
+    "producedBy": "@crr/runtime verifyAndDraft()",
+    "modelInTheLoop": false,
+    "note": "BRIEF section 3.4. This replay is what promotes the artifact from `proposed` to `draft`, and it ran with no model in the decision path - which is the property the whole system exists to establish.",
+    "recordingAdapter": "anthropic",
+    "recordingModelId": "claude-opus-5"
+  },
+  "mode": "replay-dry",
+  "status": "verified",
+  "grade": "full",
+  "coveredThroughStep": "activate-open",
+  "stoppedBeforeStep": null,
+  "reason": "the whole flow replayed with the model out of the loop, through step activate-open",
+  "verification": {
+    "mode": "replay-dry",
+    "status": "verified",
+    "coveredThroughStep": "activate-open",
+    "grade": "full",
+    "runId": "run-3853f258-7642-498f-be57-ac3e3edb82d1",
+    "at": "2026-08-28T02:24:47.272Z"
+  },
+  "result": {
+    "status": "ok",
+    "outputs": {
+      "memberName": "CHEN, MIN (SYNTHETIC)",
+      "shareBalance": {
+        "amount": "15900.00",
+        "currency": "USD"
+      },
+      "membershipStatus": "ACTIVE"
+    },
+    "run": {
+      "runId": "run-3853f258-7642-498f-be57-ac3e3edb82d1",
+      "capability": {
+        "name": "corebank.member.read_share_position",
+        "version": "1.0.0"
+      },
+      "artifact": {
+        "artifactId": "corebank.member.read_share_position.web-legacy.v1",
+        "version": 1,
+        "digest": "sha256:923ab02f53216ad9285b60f432660332ef48218b59e14487c55a8304d925bf2c",
+        "overlayDigest": null,
+        "effectiveDigest": "sha256:842fff1490644306a98c9899be08e1ed8a0f324b149fc4a027b00b4fae60428c"
+      },
+      "tenant": {
+        "tenantId": "riverbend",
+        "appInstanceId": "riverbend-corebank-live"
+      },
+      "surface": "web-legacy",
+      "engineVersion": "crr-runtime/0.1.0",
+      "startedAt": "2026-08-28T02:24:45.598Z",
+      "endedAt": "2026-08-28T02:24:47.272Z",
+      "durationMs": 1674,
+      "stepsExecuted": 4,
+      "stepsTotal": 4,
+      "budgets": {
+        "actions": {
+          "used": 3,
+          "limit": 13
+        },
+        "observations": {
+          "used": 17,
+          "limit": 48
+        },
+        "remediations": {
+          "used": 0,
+          "limit": 0
+        },
+        "programAttempts": {
+          "used": 0,
+          "limit": 1
+        },
+        "wallClockMs": {
+          "used": 1676,
+          "limit": 120000
+        }
+      },
+      "recoveriesApplied": [],
+      "attribution": {
+        "by": "automation",
+        "transfers": []
+      },
+      "steps": [
+        {
+          "stepId": "fill-fill",
+          "attempt": 1,
+          "verdict": {
+            "kind": "advance",
+            "outputs": []
+          },
+          "skeletonDigest": "sha256:2f3557f174d28b8eb81a201ee0ec50ba3934271eabbff33503d7baf7ae6e8045",
+          "observationRef": null,
+          "elapsedMs": 358,
+          "resolution": [
+            {
+              "descriptorId": "label-anchored",
+              "kind": "label-anchored",
+              "evidenceSource": "labelText",
+              "verdict": "resolved",
+              "resolvedNodeId": "textbox:f3-113"
+            },
+            {
+              "descriptorId": "ordinal-in-container",
+              "kind": "ordinal-in-container",
+              "evidenceSource": "ordinal",
+              "verdict": "resolved",
+              "resolvedNodeId": "textbox:f3-113"
+            }
+          ]
+        },
+        {
+          "stepId": "activate-search",
+          "attempt": 1,
+          "verdict": {
+            "kind": "advance",
+            "outputs": []
+          },
+          "skeletonDigest": "sha256:e92109f34b764dee9668adc4e53ed53954b33eff095c7489a4dd63eeb48d2671",
+          "observationRef": null,
+          "elapsedMs": 386,
+          "resolution": [
+            {
+              "descriptorId": "role-name",
+              "kind": "role-name",
+              "evidenceSource": "accessibleName",
+              "verdict": "resolved",
+              "resolvedNodeId": "button:f3-123"
+            },
+            {
+              "descriptorId": "label-anchored",
+              "kind": "label-anchored",
+              "evidenceSource": "labelText",
+              "verdict": "resolved",
+              "resolvedNodeId": "button:f3-123"
+            },
+            {
+              "descriptorId": "ordinal-in-container",
+              "kind": "ordinal-in-container",
+              "evidenceSource": "ordinal",
+              "verdict": "resolved",
+              "resolvedNodeId": "button:f3-123"
+            }
+          ]
+        },
+        {
+          "stepId": "read-membername-sharebalance-membershipstatus",
+          "attempt": 1,
+          "verdict": {
+            "kind": "advance",
+            "outputs": [
+              {
+                "output": "memberName",
+                "value": "CHEN, MIN (SYNTHETIC)",
+                "sensitivity": "internal"
+              },
+              {
+                "output": "shareBalance",
+                "value": {
+                  "amount": "15900.00",
+                  "currency": "USD"
+                },
+                "sensitivity": "internal"
+              },
+              {
+                "output": "membershipStatus",
+                "value": "ACTIVE",
+                "sensitivity": "internal"
+              }
+            ]
+          },
+          "skeletonDigest": "sha256:e92109f34b764dee9668adc4e53ed53954b33eff095c7489a4dd63eeb48d2671",
+          "observationRef": null,
+          "elapsedMs": 369
+        },
+        {
+          "stepId": "activate-open",
+          "attempt": 1,
+          "verdict": {
+            "kind": "advance",
+            "outputs": []
+          },
+          "skeletonDigest": "sha256:a334d7ea61cb27cac5c4b1fa4d5edefbabac6d376fbc7c328a95917db42877df",
+          "observationRef": null,
+          "elapsedMs": 549,
+          "resolution": [
+            {
+              "descriptorId": "role-name",
+              "kind": "role-name",
+              "evidenceSource": "accessibleName",
+              "verdict": "resolved",
+              "resolvedNodeId": "link:f3-207"
+            },
+            {
+              "descriptorId": "label-anchored",
+              "kind": "label-anchored",
+              "evidenceSource": "labelText",
+              "verdict": "resolved",
+              "resolvedNodeId": "link:f3-207"
+            },
+            {
+              "descriptorId": "table-cell",
+              "kind": "table-cell",
+              "evidenceSource": "columnHeader",
+              "verdict": "resolved",
+              "resolvedNodeId": "link:f3-207"
+            },
+            {
+              "descriptorId": "ordinal-in-container",
+              "kind": "ordinal-in-container",
+              "evidenceSource": "ordinal",
+              "verdict": "resolved",
+              "resolvedNodeId": "link:f3-207"
+            }
+          ]
+        }
+      ],
+      "drift": {
+        "fingerprint": "sha256:8c461194c209031eeae363902273b18bfe8d7f2f7f3a22f9d13963083ce76c5b",
+        "expected": "sha256:06693b82645c7b0e9e50645933b63c57d8998e004577f8061278581a9e18a34f",
+        "divergence": 0,
+        "changed": [],
+        "needsSpecialization": false
+      },
+      "evidence": [
+        "journal:e95e0286f07bb437a4415df675e4f266c284a0709d91ade878070f4bb2fe3095"
+      ],
+      "journalRef": "journal:e95e0286f07bb437a4415df675e4f266c284a0709d91ade878070f4bb2fe3095",
+      "warnings": []
+    }
+  }
+}

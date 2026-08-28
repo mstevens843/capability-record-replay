@@ -1,9 +1,9 @@
 # The member number this run was given is REDACTED from this transcript. It is a `sensitive`
 # parameter, and a command line is a log. Any member in fixtures/corebank-web/src/data.js works.
 
-$ node packages/runtime/dist/cli.js evidence/artifact/contract.json evidence/artifact/artifact.json --surface packages/runtime/demo/surface-entry.mjs --args '{"memberId":"<A FIVE-DIGIT MEMBER NUMBER>"}' --allowlist evidence/artifact/allowlist.json --trusted-key ops-approval-key-1:evidence/artifact/approver.spki.pem --tenant riverbend --app riverbend-corebank-fixture --journal evidence/cli-replay/journal.jsonl --evidence evidence/cli-replay/observations
+$ node packages/runtime/dist/cli.js replay evidence/artifact/contract.json evidence/artifact/artifact.json --surface packages/runtime/demo/surface-entry.mjs --args '{"memberId":"<A FIVE-DIGIT MEMBER NUMBER>"}' --allowlist evidence/artifact/allowlist.json --trusted-key ops-approval-key-1:evidence/artifact/approver.spki.pem --tenant riverbend --app riverbend-corebank-fixture --journal evidence/cli-replay/journal.jsonl --evidence evidence/cli-replay/observations
 
-OK  run run-8df752e6-a21a-4ed2-9cad-a46f62518510  9/9 steps  1765ms
+OK  run run-15ed9d37-3ac4-4d90-bdd3-9560762c1302  9/9 steps  1767ms
 {
   "memberName": "ALVAREZ, DANA (SYNTHETIC)",
   "shareBalance": {

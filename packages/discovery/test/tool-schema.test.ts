@@ -27,7 +27,16 @@ import {
   toolsWithCacheBreakpoint,
 } from "../src/index.js";
 
-const TOOLS_DIGEST = "sha256:0421eff66bb23df408511afa24b79ca4c47c84bf9c71d670761c6fce12538c77";
+// Updated 2026-08-27 for the `act.key` schema change, and the update is the point: the pin failed,
+// which is what it is for. The tool surface is judged by a provider we do not control and cannot
+// test against for free, so a silent change to it is the one regression that costs money to find.
+//
+// What moved: `key` went from `{ type: ["string","null"], enum: [...KEYS, null] }` to
+// `{ anyOf: [{ type: "string", enum: [...KEYS] }, { type: "null" }] }`. The old form is valid JSON
+// Schema and the Anthropic API rejects it under `strict: true` — "Enum value 'Enter' does not match
+// declared type '['string', 'null']'" (req_011CeUK5RB1g, first live run, turn 1). A union `type`
+// array is accepted on its own; combined with an `enum` it is not.
+const TOOLS_DIGEST = "sha256:d8f508034ed6861a5677e37763580f7b6f2ba4a21b3dee897fc85b035fb75732";
 const PROMPT_DIGEST = "sha256:43ce7bfbe5cc9c3d5e32295309c704dd0d87070b7eed797792953dc8b08ca52e";
 
 interface JsonSchema {

@@ -1,0 +1,162 @@
+PASS 1 DOCUMENTS - the synthesized documents
+  BRIEF 3.6: an artifact stores shapes, never values - neither the caller's nor the member's
+  GATES the exit code.
+
+REDACTION CANARY  CLEAN
+  bundle        /Users/devlegacy/Desktop/projects/ai-gap-coverage-projects/capability-record-replay/evidence/discovery-live
+  scanned       4 files, 71114 bytes
+  searched for  3 value(s) x 14 encodings = 34 distinct needles
+  self-test     PASSED - 34/34 planted needles were found
+  not searched  the goal's member number (the caller's argument) / base64 - no needle of at least 6 characters
+  not searched  the goal's member number (the caller's argument) / base64url - no needle of at least 6 characters
+  hits          0
+  suppressed    0 (inside a digest-shaped hex run)
+  credentials   0
+
+
+PASS 2 REPLAY - everything the verification replay wrote
+  SPEC 8.3: at replay time the caller's argument is a bound value, and this claim is total
+  GATES the exit code.
+
+REDACTION CANARY  CLEAN
+  bundle        /Users/devlegacy/Desktop/projects/ai-gap-coverage-projects/capability-record-replay/evidence/discovery-live
+  scanned       5 files, 105632 bytes
+  searched for  1 value(s) x 14 encodings = 7 distinct needles
+  self-test     PASSED - 7/7 planted needles were found
+  not searched  the goal's member number (the caller's argument) / base64 - no needle of at least 6 characters
+  not searched  the goal's member number (the caller's argument) / base64url - no needle of at least 6 characters
+  hits          0
+  suppressed    0 (inside a digest-shaped hex run)
+  credentials   0
+
+
+PASS 3 CREDENTIALS - the whole bundle, credential shapes only
+  a key in an evidence file is a finding whatever any parameter was bound to
+  GATES the exit code.
+
+REDACTION CANARY  CLEAN
+  bundle        /Users/devlegacy/Desktop/projects/ai-gap-coverage-projects/capability-record-replay/evidence/discovery-live
+  scanned       20 files, 276609 bytes
+  searched for  0 value(s) x 14 encodings = 0 distinct needles
+  self-test     PASSED - 0/0 planted needles were found
+  hits          0
+  suppressed    0 (inside a digest-shaped hex run)
+  credentials   0
+
+
+PASS 4 RECORDING - the discovery recording (reported, not gated)
+  the model was told the number, typed it, and was shown it; every hit below is one of those
+  REPORTED ONLY - see runCanaries() in tools/discover.ts for why.
+
+REDACTION CANARY  FAILED
+  bundle        /Users/devlegacy/Desktop/projects/ai-gap-coverage-projects/capability-record-replay/evidence/discovery-live
+  scanned       3 files, 58713 bytes
+  searched for  1 value(s) x 14 encodings = 7 distinct needles
+  self-test     PASSED - 7/7 planted needles were found
+  not searched  the goal's member number (the caller's argument) / base64 - no needle of at least 6 characters
+  not searched  the goal's member number (the caller's argument) / base64url - no needle of at least 6 characters
+  hits          49
+    LEAK  discovery.log:17  the goal's member number (the caller's argument) as utf8
+           goal            Look up member <5 REDACTED BYTES> in the riverbend core banking b
+    LEAK  discovery.log:18  the goal's member number (the caller's argument) as utf8
+          r record..      member          <5 REDACTED BYTES>, synthetic, and deliberately NO
+    LEAK  discovery.log:60  the goal's member number (the caller's argument) as utf8
+          mary         Searched member ID <5 REDACTED BYTES> from /search, which returned on
+    LEAK  journal.jsonl:8  the goal's member number (the caller's argument) as utf8
+          :"n84","action":"fill","value":"<5 REDACTED BYTES>","key":null,"why":"Enter the me
+    LEAK  journal.jsonl:8  the goal's member number (the caller's argument) as utf8
+          null,"why":"Enter the member ID <5 REDACTED BYTES> into the first search field to 
+    LEAK  journal.jsonl:14  the goal's member number (the caller's argument) as utf8
+          ":"Submit the search for member <5 REDACTED BYTES>."},"seq":13,"at":"2026-08-28T02
+    LEAK  journal.jsonl:20  the goal's member number (the caller's argument) as utf8
+          ","meaning":"The name of member <5 REDACTED BYTES> as shown in the search results.
+    LEAK  journal.jsonl:24  the goal's member number (the caller's argument) as utf8
+          g":"The share balance of member <5 REDACTED BYTES>."},"seq":23,"at":"2026-08-28T02
+    LEAK  journal.jsonl:28  the goal's member number (the caller's argument) as utf8
+          The membership status of member <5 REDACTED BYTES>."},"seq":27,"at":"2026-08-28T02
+    LEAK  journal.jsonl:32  the goal's member number (the caller's argument) as utf8
+          hy":"Open the member record for <5 REDACTED BYTES> as requested by the task."},"se
+    LEAK  journal.jsonl:42  the goal's member number (the caller's argument) as utf8
+          ","summary":"Searched member ID <5 REDACTED BYTES> from /search, which returned on
+    LEAK  journal.jsonl:42  the goal's member number (the caller's argument) as utf8
+          R_FOUND_ACTIVE","title":"Member <5 REDACTED BYTES> found and active","why":"The re
+    LEAK  journal.jsonl:42  the goal's member number (the caller's argument) as utf8
+          ","why":"The results row showed <5 REDACTED BYTES> / CHEN, MIN (SYNTHETIC) / 15,90
+    LEAK  transcript.json:223  the goal's member number (the caller's argument) as utf8
+          content": "TASK: Look up member <5 REDACTED BYTES> in the riverbend core banking b
+    LEAK  transcript.json:304  the goal's member number (the caller's argument) as utf8
+          "fill",.              "value": "<5 REDACTED BYTES>",.              "key": null,.  
+    LEAK  transcript.json:306  the goal's member number (the caller's argument) as utf8
+              "why": "Enter the member ID <5 REDACTED BYTES> into the first search field to 
+    LEAK  transcript.json:344  the goal's member number (the caller's argument) as utf8
+          ill",.                "value": "<5 REDACTED BYTES>",.                "key": null,.
+    LEAK  transcript.json:346  the goal's member number (the caller's argument) as utf8
+              "why": "Enter the member ID <5 REDACTED BYTES> into the first search field to 
+    LEAK  transcript.json:357  the goal's member number (the caller's argument) as utf8
+          "  frame=top\n[n84]  textbox  \"<5 REDACTED BYTES>\"  value=\".....\"  focused  fr
+    LEAK  transcript.json:357  the goal's member number (the caller's argument) as utf8
+          4]  textbox  \".....\"  value=\"<5 REDACTED BYTES>\"  focused  frame=top\n[n93]  t
+    LEAK  transcript.json:375  the goal's member number (the caller's argument) as utf8
+          : "Submit the search for member <5 REDACTED BYTES>.".            },.            "c
+    LEAK  transcript.json:406  the goal's member number (the caller's argument) as utf8
+          : "Submit the search for member <5 REDACTED BYTES>.".              }.            }
+    LEAK  transcript.json:417  the goal's member number (the caller's argument) as utf8
+          s?ctl00$ctl32$g$9a1$txtMemberId=<5 REDACTED BYTES>&ctl00$ctl32$g$9a1$txtLast=&ctl0
+    LEAK  transcript.json:417  the goal's member number (the caller's argument) as utf8
+          "  frame=top\n[n84]  textbox  \"<5 REDACTED BYTES>\"  value=\".....\"  frame=top\n
+    LEAK  transcript.json:417  the goal's member number (the caller's argument) as utf8
+          4]  textbox  \".....\"  value=\"<5 REDACTED BYTES>\"  frame=top\n[n93]  textbox  \
+    LEAK  transcript.json:417  the goal's member number (the caller's argument) as utf8
+           IDNameShare BalanceStatusAction<5 REDACTED BYTES>CHEN, MIN (SYNTHETIC)15,900.00AC
+    LEAK  transcript.json:417  the goal's member number (the caller's argument) as utf8
+          on] col=Action?\n[n118]  row  \"<5 REDACTED BYTES>CHEN, MIN (SYNTHETIC)15,900.00AC
+    LEAK  transcript.json:417  the goal's member number (the caller's argument) as utf8
+          n\"  frame=top\n[n119]  cell  \"<5 REDACTED BYTES>\"  frame=top  table[Member ID,N
+    LEAK  transcript.json:443  the goal's member number (the caller's argument) as utf8
+           "meaning": "The name of member <5 REDACTED BYTES> as shown in the search results.
+    LEAK  transcript.json:481  the goal's member number (the caller's argument) as utf8
+           "meaning": "The name of member <5 REDACTED BYTES> as shown in the search results.
+    LEAK  transcript.json:508  the goal's member number (the caller's argument) as utf8
+          ": "The share balance of member <5 REDACTED BYTES>.".            },.            "c
+    LEAK  transcript.json:537  the goal's member number (the caller's argument) as utf8
+          ": "The share balance of member <5 REDACTED BYTES>.".              }.            }
+    LEAK  transcript.json:564  the goal's member number (the caller's argument) as utf8
+          The membership status of member <5 REDACTED BYTES>.".            },.            "c
+    LEAK  transcript.json:593  the goal's member number (the caller's argument) as utf8
+          The membership status of member <5 REDACTED BYTES>.".              }.            }
+    LEAK  transcript.json:627  the goal's member number (the caller's argument) as utf8
+          y": "Open the member record for <5 REDACTED BYTES> as requested by the task.".    
+    LEAK  transcript.json:662  the goal's member number (the caller's argument) as utf8
+          y": "Open the member record for <5 REDACTED BYTES> as requested by the task.".    
+    LEAK  transcript.json:756  the goal's member number (the caller's argument) as utf8
+           "summary": "Searched member ID <5 REDACTED BYTES> from /search, which returned on
+    LEAK  transcript.json:760  the goal's member number (the caller's argument) as utf8
+                         "title": "Member <5 REDACTED BYTES> found and active",.            
+    LEAK  transcript.json:761  the goal's member number (the caller's argument) as utf8
+           "why": "The results row showed <5 REDACTED BYTES> / CHEN, MIN (SYNTHETIC) / 15,90
+    LEAK  transcript.json:797  the goal's member number (the caller's argument) as utf8
+          ion": "fill",.        "value": "<5 REDACTED BYTES>",.        "key": null,.        
+    LEAK  transcript.json:799  the goal's member number (the caller's argument) as utf8
+              "why": "Enter the member ID <5 REDACTED BYTES> into the first search field to 
+    LEAK  transcript.json:814  the goal's member number (the caller's argument) as utf8
+          : "Submit the search for member <5 REDACTED BYTES>.".      },.      "outcome": "ok
+    LEAK  transcript.json:827  the goal's member number (the caller's argument) as utf8
+           "meaning": "The name of member <5 REDACTED BYTES> as shown in the search results.
+    LEAK  transcript.json:840  the goal's member number (the caller's argument) as utf8
+          ": "The share balance of member <5 REDACTED BYTES>.".      },.      "outcome": "ok
+    LEAK  transcript.json:853  the goal's member number (the caller's argument) as utf8
+          The membership status of member <5 REDACTED BYTES>.".      },.      "outcome": "ok
+    LEAK  transcript.json:868  the goal's member number (the caller's argument) as utf8
+          y": "Open the member record for <5 REDACTED BYTES> as requested by the task.".    
+    LEAK  transcript.json:889  the goal's member number (the caller's argument) as utf8
+           "summary": "Searched member ID <5 REDACTED BYTES> from /search, which returned on
+    LEAK  transcript.json:893  the goal's member number (the caller's argument) as utf8
+          ",.            "title": "Member <5 REDACTED BYTES> found and active",.            
+    LEAK  transcript.json:894  the goal's member number (the caller's argument) as utf8
+           "why": "The results row showed <5 REDACTED BYTES> / CHEN, MIN (SYNTHETIC) / 15,90
+  suppressed    0 (inside a digest-shaped hex run)
+  credentials   0
+
+
+NOT SEARCHED, and why:
+  membershipStatus: 6 characters, under the 8-character floor for a distinctive needle

@@ -12,6 +12,10 @@
 //      `parameterizeText`, and then the finished documents are walked exhaustively and refused if a
 //      value is found anyway (`values.ts`). The emitter does not trust its own discipline; a
 //      substitution applied at forty call sites is one somebody forgets at the forty-first.
+//      A substitution can only replace a value that was BOUND, though, and a value the model read
+//      off the screen never was. So every piece of free model prose - a step's intent, an output's
+//      meaning, an outcome candidate's two sentences - additionally goes through `prose.ts`, which
+//      withholds it, visibly, when it still carries a value the run declared as an output.
 //   2. EVERY CHECKPOINT DEMONSTRABLY HELD AT RECORD TIME. Each candidate postcondition is evaluated
 //      by `@crr/core`'s own `evaluatePredicate` against the observation the step actually produced,
 //      and a conjunct that did not hold is dropped rather than shipped. A recorder that emits a
@@ -82,10 +86,25 @@ import {
 import { surfaceFingerprintOf } from "./fingerprint.js";
 import { type DerivedOutput, deriveOutputs } from "./outputs.js";
 import { inferParameters } from "./parameters.js";
-import { SynthesisError, type SynthesisNote, type SynthesisReport } from "./report.js";
+import {
+  type ObservedValue,
+  type ProseWithholding,
+  observedValuesOf,
+  scrubProse,
+  unsearchableDetail,
+  withholdingDetail,
+} from "./prose.js";
+import {
+  type ReportedOutcomeCandidate,
+  SynthesisError,
+  type SynthesisNote,
+  type SynthesisReport,
+} from "./report.js";
 import { RouteTable } from "./routes.js";
 import {
   type ValueBinding,
+  bindingIn,
+  containsValue,
   findBoundValues,
   parameterizeText,
   slugOf,
@@ -176,10 +195,37 @@ export function synthesizeCapability(input: SynthesizeInput): SynthesisResult {
   const vocabulary = new Vocabulary(bindings);
   const routes = new RouteTable(bindings, inferred.taken);
 
-  const walked = walkSteps(run, input, bindings, vocabulary, routes, inferred.byHandle);
+  // The second half of BRIEF section 3.6, and the half a substitution cannot reach. Every value the
+  // run declared as an OUTPUT is member data by definition, and none of it was ever bound to a
+  // parameter, so `parameterizeText` walks past it. Model prose is tested against this set and
+  // WITHHELD when it carries one - see `prose.ts`. Computed once, here, so every prose site in the
+  // pipeline is measured against the same list.
+  const observed = observedValuesOf(run.outputs);
+  if (observed.unsearchable.length > 0) {
+    notes.push({
+      code: "prose-unchecked",
+      severity: "info",
+      detail: unsearchableDetail(observed.unsearchable),
+    });
+  }
+
+  const walked = walkSteps(
+    run,
+    input,
+    bindings,
+    vocabulary,
+    routes,
+    inferred.byHandle,
+    observed.values,
+  );
   notes.push(...walked.notes);
 
-  const outputs = deriveOutputs({ outputs: run.outputs, bindings, vocabulary });
+  const outputs = deriveOutputs({
+    outputs: run.outputs,
+    bindings,
+    vocabulary,
+    observed: observed.values,
+  });
   notes.push(...outputs.notes);
 
   const ordered = interleave(walked.acted, outputs.outputs, routes, bindings);
@@ -271,6 +317,16 @@ export function synthesizeCapability(input: SynthesizeInput): SynthesisResult {
     );
   }
 
+  // THE MODEL'S OWN SENTENCES, AND THE ONLY PLACE THEY ARE ALLOWED TO LAND.
+  //
+  // `finish` returns a code and two sentences of free prose about what the run saw. The code is
+  // `SCREAMING_SNAKE` by regex and is kept as typed; the sentences are the field the first live
+  // run leaked a member's name and balance through, because they were carried verbatim and neither
+  // value was ever a parameter for a substitution to replace. See `prose.ts`.
+  const candidates = run.outcomeCandidates.map((candidate) =>
+    reportedCandidateOf(candidate, bindings, observed.values, notes),
+  );
+
   notes.push({
     code: "outcome-candidate-needs-detector",
     severity: run.outcomeCandidates.length === 0 ? "info" : "review",
@@ -285,7 +341,7 @@ export function synthesizeCapability(input: SynthesizeInput): SynthesisResult {
     artifact,
     report: {
       notes,
-      outcomeCandidates: run.outcomeCandidates,
+      outcomeCandidates: candidates,
       parameters: inferred.params.map((param) => ({
         name: param.name,
         sensitivity: param.sensitivity,
@@ -295,6 +351,75 @@ export function synthesizeCapability(input: SynthesizeInput): SynthesisResult {
       descriptors: walked.descriptorsByStep,
     },
   };
+}
+
+/**
+ * One outcome candidate, scrubbed, with a note for every sentence that had to be withheld.
+ *
+ * The candidate is not dropped when its prose is: `code` is the machine-readable half and the whole
+ * reason the report carries candidates at all, and a reviewer who can see MEMBER_NOT_FOUND was
+ * proposed can go and write the detector. Losing the sentence costs them one trip to the transcript.
+ */
+function reportedCandidateOf(
+  candidate: { readonly code: string; readonly title: string; readonly why: string },
+  bindings: readonly ValueBinding[],
+  observed: readonly ObservedValue[],
+  notes: SynthesisNote[],
+): ReportedOutcomeCandidate {
+  // THE CODE IS KEPT, AND THE TWO THINGS THAT CAN BE WRONG WITH IT ARE SAID OUT LOUD INSTEAD.
+  //
+  // `SCREAMING_SNAKE` by regex makes a code safe from most of what prose is not, but it does not
+  // make it safe from a model that spells a value into it, and the two cases are different:
+  //
+  //   · A BOUND value - `MEMBER_10043_FOUND` - is the exact leak the redaction canary caught in the
+  //     first live run, one field along, and it is exactly substitutable. It is parameterized, the
+  //     same as every other string that reaches a document. Substituting is not withholding: the
+  //     code survives, readable, and a reviewer is told to rename it.
+  //   · An OBSERVED value - `MEMBER_FOUND_ACTIVE`, where `ACTIVE` is what the status column said -
+  //     cannot be substituted into anything that is still a legal outcome code, and withholding the
+  //     code would throw away the entire machine-readable half of the candidate to hide a word that
+  //     is also ordinary English. So it is kept, and the note is the control.
+  const code = parameterizeText(candidate.code, bindings);
+  if (code !== candidate.code) {
+    notes.push({
+      code: "outcome-code-carries-recorded-value",
+      severity: "review",
+      detail: `the proposed outcome code spelled a value bound to the parameter "${bindingIn(candidate.code, bindings)?.param ?? "unknown"}"; it is parameterized here, and a person must rename it before it becomes an OutcomeDecl - an outcome code that names one member is not an outcome`,
+    });
+  }
+  const spelled = [
+    ...new Set(observed.filter((one) => containsValue(code, one.value)).map((one) => one.output)),
+  ];
+  if (spelled.length > 0) {
+    notes.push({
+      code: "outcome-code-carries-recorded-value",
+      severity: "review",
+      detail: `the proposed outcome code ${code} spells a value this run recorded as the output ${spelled.map((name) => `"${name}"`).join(", ")}; a symbolic code is kept rather than withheld, so a person must confirm the wording is the application's vocabulary and not this member's data`,
+    });
+  }
+
+  // Every note below names the PARAMETERIZED code, never `candidate.code`. Found by the regression
+  // test in `test/synthesis-prose.test.ts`: a note that quotes `MEMBER_10041_FOUND` in order to
+  // report a leak has put the caller's argument in the log that reported it, which is the same
+  // mistake one level up - the rule `ValueLeak.path` follows for exactly the same reason.
+  const title = scrubProse(candidate.title, bindings, observed);
+  const why = scrubProse(candidate.why, bindings, observed);
+
+  const withheld: ProseWithholding[] = [];
+  for (const [field, scrubbed] of [
+    ["title", title],
+    ["why", why],
+  ] as const) {
+    if (scrubbed.withheldFor.length === 0) continue;
+    withheld.push({ field, outputs: scrubbed.withheldFor });
+    notes.push({
+      code: "prose-withheld",
+      severity: "review",
+      detail: withholdingDetail(`${field} for the proposed outcome ${code}`, scrubbed.withheldFor),
+    });
+  }
+
+  return { code, title: title.text, why: why.text, withheld };
 }
 
 // ---------------------------------------------------------------------------------------------
@@ -336,6 +461,7 @@ function walkSteps(
   vocabulary: Vocabulary,
   routes: RouteTable,
   byHandle: ReadonlyMap<string, string>,
+  observed: readonly ObservedValue[],
 ): WalkResult {
   const notes: SynthesisNote[] = [];
   const acted: DraftStep[] = [];
@@ -407,10 +533,25 @@ function walkSteps(
     const navigated =
       afterRoute !== null && (beforeRoute === null || afterRoute.id !== beforeRoute.id);
 
+    // `Step.intent` is the model's own words, and it is persisted in the document an approval SIGNS
+    // OVER. Parameterization alone was never enough here for the same reason it was not enough in
+    // the report: "clicked the row for <a member's name>" carries a value that was never a
+    // parameter. A withheld intent is inert - SPEC section 6.4 requires that no executable path
+    // read this field - so the cost is entirely to the reader, and it is visible to them.
+    const intent = scrubProse(step.intent, bindings, observed);
+    if (intent.withheldFor.length > 0) {
+      notes.push({
+        code: "prose-withheld",
+        severity: "review",
+        detail: withholdingDetail("stated intent for this step", intent.withheldFor),
+        stepId: id,
+      });
+    }
+
     acted.push({
       id,
       title: titleOf(lowered, node, bindings),
-      intent: parameterizeText(step.intent, bindings).slice(0, 1000),
+      intent: intent.text.slice(0, 1000),
       effect: step.effect,
       instruction: lowered,
       target,

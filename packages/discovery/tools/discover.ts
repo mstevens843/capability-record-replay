@@ -575,11 +575,22 @@ class SpendLedger implements SpendSnapshot {
         this.#usage.cacheCreationInputTokens + usage.cacheCreationInputTokens,
       cacheReadInputTokens: this.#usage.cacheReadInputTokens + usage.cacheReadInputTokens,
     };
+    // Rounded to the microdollar before it is recorded, not just before it is printed. Two reasons,
+    // and the second one is why it is here rather than in the formatter.
+    //
+    // 1. `this.spentUsd - before` is IEEE-754 subtraction over rates like 5/1e6, so it produces
+    //    values such as 0.014200999999999998. That is not a cost; it is a float artifact with
+    //    twelve digits of noise where money has six.
+    // 2. Those digits are not inert. `pnpm demo`'s whole-bundle canary greps evidence for the
+    //    fixture's ABSENT_MEMBER_ID, "99999" - and 0.0142009999999999_98 contains it. A run of 9s
+    //    from float representation was reported as a leak of a member id, 14 times. A redaction
+    //    check that cries wolf gets ignored, and an ignored canary is worse than none.
+    const usd = (n: number): number => Math.round(n * 1e6) / 1e6;
     const row: TurnCost = {
       turn,
       usage,
-      turnUsd: this.spentUsd - before,
-      runUsd: this.spentUsd,
+      turnUsd: usd(this.spentUsd - before),
+      runUsd: usd(this.spentUsd),
       stopReason,
       latencyMs,
     };

@@ -515,7 +515,10 @@ function cliReplay(): { readonly ok: boolean; readonly summary: string } {
     "--evidence",
     "evidence/cli-replay/observations",
   ];
-  const shown = argv.slice(1).map((arg) => (arg === args ? argsShape : arg));
+  // `argv` in full, verb included: the printed command is one a reviewer copy-pastes, and a
+  // transcript that drops `replay` prints something that exits non-zero. Only the argument VALUE is
+  // substituted, for the reason given above.
+  const shown = argv.map((arg) => (arg === args ? argsShape : arg));
   const command = `node packages/runtime/dist/cli.js ${shown.map(quote).join(" ")}`;
   log("── cli-replay ─ the same replay, through the shipped `crr` command");
   log(`   $ ${command}`);

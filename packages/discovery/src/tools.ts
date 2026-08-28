@@ -165,9 +165,16 @@ export const DISCOVERY_TOOLS: readonly StrictTool[] = Object.freeze([
         value: nullableStr(
           'The text for fill, the option for select, "true"/"false" for setToggle. null otherwise.',
         ),
+        // `anyOf`, not `type: ["string", "null"]` with a null in the enum. The latter is valid
+        // JSON Schema and is what this was, and the Anthropic API rejects it under `strict: true`:
+        //   tools.1.custom: Invalid schema: Enum value 'Enter' does not match declared type
+        //   '['string', 'null']'
+        // A union `type` array is accepted on its own - `value` below still uses one - but not in
+        // combination with an `enum`, because the validator compares each enum member against the
+        // array rather than against its members. Found on the first live run (req_011CeUK5RB1g),
+        // which no local test could have caught: this shape is only ever judged by the provider.
         key: {
-          type: ["string", "null"],
-          enum: [...ArtifactKeySchema.options, null],
+          anyOf: [{ type: "string", enum: [...ArtifactKeySchema.options] }, { type: "null" }],
           description: "The key for pressKey. null otherwise.",
         },
         why: str(

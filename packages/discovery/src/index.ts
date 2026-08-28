@@ -45,12 +45,14 @@ export * from "./adapters/openai.js";
 // -- SYNTHESIS (SPEC section 1.1): a recording becomes a contract and an artifact, deterministically
 // -- and with no model in the loop. Ordered the way the pipeline runs: the substitution table that
 // -- keeps values out of documents, then parameters, routes, locators, outputs, the fingerprint,
-// -- what could not be decided without a person, and finally the emitter that assembles all of it.
+// -- the withholding of model prose no substitution can reach, what could not be decided without a
+// -- person, and finally the emitter that assembles all of it.
 export * from "./synthesis/values.js";
 export * from "./synthesis/parameters.js";
 export * from "./synthesis/routes.js";
 export * from "./synthesis/descriptors.js";
 export * from "./synthesis/outputs.js";
 export * from "./synthesis/fingerprint.js";
+export * from "./synthesis/prose.js";
 export * from "./synthesis/report.js";
 export * from "./synthesis/emit.js";

@@ -1,0 +1,41 @@
+{
+  "bundleDir": "/Users/devlegacy/Desktop/projects/ai-gap-coverage-projects/capability-record-replay/evidence/discovery-live",
+  "filesScanned": 4,
+  "bytesScanned": 71114,
+  "secrets": [
+    "the goal's member number (the caller's argument)",
+    "recorded member datum / memberName (read off the screen)",
+    "recorded member datum / shareBalance (read off the screen)"
+  ],
+  "encodings": [
+    "utf8",
+    "utf8-lower",
+    "utf8-upper",
+    "utf16le",
+    "json-escape",
+    "json-unicode",
+    "uri-component",
+    "percent-bytes",
+    "html-entity-decimal",
+    "html-entity-hex",
+    "hex-lower",
+    "hex-upper",
+    "base64",
+    "base64url"
+  ],
+  "needles": 34,
+  "skippedEncodings": [
+    "the goal's member number (the caller's argument) / base64 - no needle of at least 6 characters",
+    "the goal's member number (the caller's argument) / base64url - no needle of at least 6 characters"
+  ],
+  "hits": [],
+  "suppressed": [],
+  "forbidden": [],
+  "selfTest": {
+    "planted": 34,
+    "found": 34,
+    "missed": [],
+    "ok": true
+  },
+  "clean": true
+}

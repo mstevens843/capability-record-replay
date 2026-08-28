@@ -7,18 +7,13 @@
 members, balances and account numbers in it exist nowhere else and are marked `(SYNTHETIC)` on
 the screens themselves. No real PII and no real credential appears in this repository.
 
-## The one thing that is missing, said first
+## The live discovery run
 
-[`discovery-live/`](discovery-live/) **is empty.** It is the slot for the live discovery run —
-the model-in-the-loop half of the system — and it is empty because a discovery run costs the
-author money and no agent working on this repository is permitted to spend it. The mechanism
-is built and tested and `pnpm discover --dry-run` rehearses all of it for free; the run
-itself is the author's to initiate. See
-[`discovery-live/PENDING.md`](discovery-live/PENDING.md) for exactly what will land there and
-what may never be put there in its place.
-
-Nothing in this bundle claims a model discovered anything. Every run below is a **replay**,
-which is the half that runs in production with no model in the decision path.
+[`discovery-live/`](discovery-live/) holds a real one, produced by `pnpm discover --yes`.
+It is the only thing in this bundle a model produced; read its own `README.md` and
+`provenance.json` for the adapter, the model id, the measured token usage and the measured
+spend. Everything else below is a **replay**, which is the half that runs in production
+with no model in the decision path.
 
 ## Provenance — which adapter produced what
 
@@ -29,7 +24,7 @@ which is the half that runs in production with no model in the decision path.
 | [`cli-replay/`](cli-replay/) | the shipped `crr` binary | **none** |
 | [`masked-capture/`](masked-capture/) | `@crr/surface-browser` `capture()` | **none** |
 | [`redaction-canary/`](redaction-canary/) | `@crr/runtime` `runRedactionCanary()` | **none** |
-| [`discovery-live/`](discovery-live/) | *pending* — will be `pnpm discover` over the `anthropic` adapter | *pending* |
+| [`discovery-live/`](discovery-live/) | `pnpm discover` — the `anthropic` adapter against the Messages API | see `discovery-live/provenance.json` |
 
 ### About `artifact/`
 
@@ -101,7 +96,7 @@ alignment, which is too few to tell from noise. Those pairs are listed under `no
 [`redaction-canary/report.txt`](redaction-canary/report.txt). An encoding that was never searched
 for is not coverage, and a report that quietly dropped it would be claiming more than it checked.
 
-Result of the run that produced this bundle: **CLEAN** — 44 files, 920593 bytes, 26 distinct needles, 0 hits, 0 credential-shaped strings, self-test passed (26/26).
+Result of the run that produced this bundle: **CLEAN** — 63 files, 1205897 bytes, 26 distinct needles, 0 hits, 0 credential-shaped strings, self-test passed (26/26).
 
 That report covers every file that existed when it ran. This `README.md`, the report itself and
 the finished `demo.log` are written afterwards, so a **second whole-bundle pass** runs once every

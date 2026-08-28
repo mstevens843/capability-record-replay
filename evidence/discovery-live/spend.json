@@ -1,0 +1,129 @@
+{
+  "_provenance": {
+    "adapter": "anthropic",
+    "modelId": "claude-opus-5"
+  },
+  "capUsd": 2,
+  "maxOutputTokens": 2000,
+  "maxTotalTokens": 750000,
+  "totalUsd": 0.140904,
+  "turns": [
+    {
+      "turn": 1,
+      "usage": {
+        "inputTokens": 180,
+        "outputTokens": 37,
+        "cacheCreationInputTokens": 0,
+        "cacheReadInputTokens": 2512
+      },
+      "turnUsd": 0.003081,
+      "runUsd": 0.003081,
+      "stopReason": "tool_use",
+      "latencyMs": 2246
+    },
+    {
+      "turn": 2,
+      "usage": {
+        "inputTokens": 423,
+        "outputTokens": 256,
+        "cacheCreationInputTokens": 0,
+        "cacheReadInputTokens": 2512
+      },
+      "turnUsd": 0.009771,
+      "runUsd": 0.012852,
+      "stopReason": "tool_use",
+      "latencyMs": 5352
+    },
+    {
+      "turn": 3,
+      "usage": {
+        "inputTokens": 900,
+        "outputTokens": 143,
+        "cacheCreationInputTokens": 0,
+        "cacheReadInputTokens": 2512
+      },
+      "turnUsd": 0.009331,
+      "runUsd": 0.022183,
+      "stopReason": "tool_use",
+      "latencyMs": 3160
+    },
+    {
+      "turn": 4,
+      "usage": {
+        "inputTokens": 1995,
+        "outputTokens": 138,
+        "cacheCreationInputTokens": 0,
+        "cacheReadInputTokens": 2512
+      },
+      "turnUsd": 0.014681,
+      "runUsd": 0.036864,
+      "stopReason": "tool_use",
+      "latencyMs": 3177
+    },
+    {
+      "turn": 5,
+      "usage": {
+        "inputTokens": 2147,
+        "outputTokens": 109,
+        "cacheCreationInputTokens": 0,
+        "cacheReadInputTokens": 2512
+      },
+      "turnUsd": 0.014716,
+      "runUsd": 0.05158,
+      "stopReason": "tool_use",
+      "latencyMs": 2694
+    },
+    {
+      "turn": 6,
+      "usage": {
+        "inputTokens": 2272,
+        "outputTokens": 110,
+        "cacheCreationInputTokens": 0,
+        "cacheReadInputTokens": 2512
+      },
+      "turnUsd": 0.015366,
+      "runUsd": 0.066946,
+      "stopReason": "tool_use",
+      "latencyMs": 2464
+    },
+    {
+      "turn": 7,
+      "usage": {
+        "inputTokens": 2399,
+        "outputTokens": 160,
+        "cacheCreationInputTokens": 0,
+        "cacheReadInputTokens": 2512
+      },
+      "turnUsd": 0.017251,
+      "runUsd": 0.084197,
+      "stopReason": "tool_use",
+      "latencyMs": 4121
+    },
+    {
+      "turn": 8,
+      "usage": {
+        "inputTokens": 3464,
+        "outputTokens": 75,
+        "cacheCreationInputTokens": 0,
+        "cacheReadInputTokens": 2512
+      },
+      "turnUsd": 0.020451,
+      "runUsd": 0.104648,
+      "stopReason": "tool_use",
+      "latencyMs": 3495
+    },
+    {
+      "turn": 9,
+      "usage": {
+        "inputTokens": 4440,
+        "outputTokens": 512,
+        "cacheCreationInputTokens": 0,
+        "cacheReadInputTokens": 2512
+      },
+      "turnUsd": 0.036256,
+      "runUsd": 0.140904,
+      "stopReason": "tool_use",
+      "latencyMs": 7763
+    }
+  ]
+}

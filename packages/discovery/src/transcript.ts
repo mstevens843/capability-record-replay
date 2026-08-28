@@ -63,7 +63,7 @@ import { TOOL_NAMES } from "./tools.js";
  * the type the adapter returns. We declare no citable documents, so in practice it is always null -
  * which is why it defaults, letting a hand-written fixture omit the noise.
  */
-const ResponseTextBlockSchema = z.strictObject({
+const ResponseTextBlockSchema = z.looseObject({
   type: z.literal("text"),
   text: z.string(),
   citations: z.array(z.unknown()).nullable().default(null),
@@ -72,16 +72,26 @@ const ResponseTextBlockSchema = z.strictObject({
 /** A text block as it goes OUT in a message. `toParamBlocks` never emits citations, so a citation
  *  appearing here would mean the history no longer matches what was sent. */
 const TextBlockSchema = z.strictObject({ type: z.literal("text"), text: z.string() });
-const ThinkingBlockSchema = z.strictObject({
+// The three blocks below are LOOSE, and the ones we author stay STRICT. That asymmetry is the
+// point: we own the shape of our own documents and may forbid a stray key in them, but we do not
+// own the provider's response schema and cannot forbid it growing a field.
+//
+// Found on the second live run: Anthropic returned a `tool_use` block carrying a `caller` key
+// (programmatic tool calling) and `z.strictObject` rejected it AFTER the turn had been paid for.
+// Strict-validating someone else's schema converts their additive, backwards-compatible change
+// into our outage - and it fails on a path where the money is already spent. Unknown keys are
+// recorded as they arrived; the redaction canary greps the bundle either way, so tolerating a new
+// field does not weaken the data-handling claim.
+const ThinkingBlockSchema = z.looseObject({
   type: z.literal("thinking"),
   thinking: z.string(),
   signature: z.string(),
 });
-const RedactedThinkingBlockSchema = z.strictObject({
+const RedactedThinkingBlockSchema = z.looseObject({
   type: z.literal("redacted_thinking"),
   data: z.string(),
 });
-const ToolUseBlockSchema = z.strictObject({
+const ToolUseBlockSchema = z.looseObject({
   type: z.literal("tool_use"),
   id: z.string().min(1),
   name: z.string().min(1),

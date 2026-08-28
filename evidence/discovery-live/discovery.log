@@ -1,0 +1,183 @@
+
+  ╔══════════════════════════════════════════════════════════════════════════════════════════╗
+  ║  capability-record-replay - LIVE DISCOVERY RUNNER                                         ║
+  ║  The model discovers once. The recording becomes a capability. Replay needs no model.     ║
+  ╚══════════════════════════════════════════════════════════════════════════════════════════╝
+
+      .env loaded (.env); set here: ANTHROPIC_API_KEY, CLAUDE_CODE_OAUTH_TOKEN, OPENAI_API_KEY, CRR_MODEL
+      values are never printed, and an already-set variable always wins
+
+── WHAT THIS RUN WILL DO - read it, then decide ────────────────────────────────────────────────
+
+      mode            LIVE - THIS SPENDS REAL MONEY
+      adapter         anthropic (Messages API)
+      model           claude-opus-5   $5/Mtok in, $25/Mtok out
+      effort          high
+
+      goal            Look up member 10043 in the riverbend core banking back office, report their name, share balance and membership status, and open their member record.
+      member          10043, synthetic, and deliberately NOT the member `pnpm demo` uses
+      tenant          riverbend / riverbend-corebank-live
+      target          http://127.0.0.1:63466   (alias "corebank", loopback fixture)
+      entry           /search
+
+      ALLOWLIST - this is everything the model may do while it drives
+        corebank/search                              WRITE_REVERSIBLE
+        corebank/search/results                      WRITE_REVERSIBLE
+        corebank/member/:memberId                    WRITE_REVERSIBLE
+        action kinds            click, type, select, setChecked, pressKey, focus, navigate
+        discoveryMaxEffect      WRITE_REVERSIBLE   <- no irreversible action can be dispatched
+        approval token          none (the loop is given approval: null)
+
+      BUDGET - enforced between turns from the usage the provider returns
+        max spend, whole run    $2.00   (20% of the $10 project cap)
+        max_tokens per turn     2,000   (adapter default is 16,000; lowered - see DISCOVER_MAX_OUTPUT_TOKENS)
+        max turns               24
+        max billed tokens       750,000   price-independent backstop
+        one turn's ceiling      ~$0.06 at max_tokens with a 2,000-token prompt
+
+      THE GUARD IS A CEILING, NOT A TARGET. Before every turn the runner projects that
+      turn's worst case - the whole prompt at full input rate, the output at max_tokens -
+      and stops the run cleanly if it would cross the cap. Nothing is thrown away when it
+      does: the transcript, the journal and the recorded steps are all written down.
+
+      destination     evidence/discovery-live
+      credential      ANTHROPIC_API_KEY, CLAUDE_CODE_OAUTH_TOKEN, OPENAI_API_KEY, CRR_MODEL loaded from .env
+
+
+── 1. DISCOVERY - the model drives, and every action passes the policy chokepoint ──────────────
+
+      turn  1  in     180  cache w/r 0/2,512  out     37  tool_use   turn $0.0031   RUN $0.0031 / $2.00
+      turn  2  in     423  cache w/r 0/2,512  out    256  tool_use   turn $0.0098   RUN $0.01 / $2.00
+      turn  3  in     900  cache w/r 0/2,512  out    143  tool_use   turn $0.0093   RUN $0.02 / $2.00
+      turn  4  in   1,995  cache w/r 0/2,512  out    138  tool_use   turn $0.01   RUN $0.04 / $2.00
+      turn  5  in   2,147  cache w/r 0/2,512  out    109  tool_use   turn $0.01   RUN $0.05 / $2.00
+      turn  6  in   2,272  cache w/r 0/2,512  out    110  tool_use   turn $0.02   RUN $0.07 / $2.00
+      turn  7  in   2,399  cache w/r 0/2,512  out    160  tool_use   turn $0.02   RUN $0.08 / $2.00
+      turn  8  in   3,464  cache w/r 0/2,512  out     75  tool_use   turn $0.02   RUN $0.10 / $2.00
+      turn  9  in   4,440  cache w/r 0/2,512  out    512  tool_use   turn $0.04   RUN $0.14 / $2.00
+
+      status          reached-goal
+      summary         Searched member ID 10043 from /search, which returned one result on /search/results: CHEN, MIN (SYNTHETIC), share balance 15,900.00, status ACTIVE. Noted those three values as outputs, then activated the "Open" action to load the member record at /member/:memberId, which shows the member's two share sub-accounts (0001 Regular 900.00 opened 2012-01-19; 0002 Holiday Club 15,000.00 opened 2021-11-04) totalling the 15,900.00 share balance. No write actions were performed (the "Open Sub-Account" button was left untouched).
+      turns           9
+      steps recorded  3
+      outputs noted   memberName, shareBalance, membershipStatus
+      cache hit rate  55.4%
+      MEASURED SPEND  $0.14  over 42,368 billed tokens
+
+── 2. SYNTHESIS - the recording becomes a typed, parameterized, content-addressed document ─────
+
+      capability      corebank.member.read_share_position@1.0.0
+      contract digest sha256:0a83a5c764c6199c46e4d08268cc71b262c6557e86812e288d1c4f128be9afdf
+      artifact digest sha256:923ab02f53216ad9285b60f432660332ef48218b59e14487c55a8304d925bf2c
+      steps           fill -> activate -> read -> activate
+      parameters      memberId:sensitive (named from adjacent-label)
+      outputs         memberName, shareBalance, membershipStatus
+      outcomes        (none - synthesis will not invent a detector)
+      maxEffect       WRITE_REVERSIBLE
+      lifecycle       proposed   verification unverified
+      report notes    13
+        info     parameter-bound  memberId was bound from the goal and is stored nowhere in the artifact
+        info     descriptor-rejected  role-name: the node has no accessible name
+        info     descriptor-rejected  table-cell: the node is not in a table row addressable by a bound value
+        info     descriptor-rejected  geometric: the node carries no geometry relative to a named anchor
+        info     descriptor-rejected  table-cell: the node is not in a table row addressable by a bound value
+        info     descriptor-rejected  geometric: the node carries no geometry relative to a named anchor
+        info     descriptor-rejected  geometric: the node carries no geometry relative to a named anchor
+        review   prose-needs-author  output "memberName" is free text, and no deterministic rule can tell a balance from a member's name; a person must confirm its sensitivity and agentDisclosure before this contract is published
+        review   prose-needs-author  output "membershipStatus" is free text, and no deterministic rule can tell a balance from a member's name; a person must confirm its sensitivity and agentDisclosure before this contract is published
+        review   outcome-code-carries-recorded-value  the proposed outcome code MEMBER_FOUND_ACTIVE spells a value this run recorded as the output "membershipStatus"; a symbolic code is kept rather than withheld, so a person must confirm the wording is the application's vocabulary and not this member's data
+        review   prose-withheld  the model's title for the proposed outcome MEMBER_FOUND_ACTIVE quoted a value recorded as the output "membershipStatus"; it is withheld rather than rewritten, because free-form prose about observed data cannot be reliably redacted
+        review   prose-withheld  the model's why for the proposed outcome MEMBER_FOUND_ACTIVE quoted a value recorded as the output "memberName", "shareBalance", "membershipStatus"; it is withheld rather than rewritten, because free-form prose about observed data cannot be reliably redacted
+        review   outcome-candidate-needs-detector  the model proposed 1 business outcome(s); no detector was written for any of them, because a detector for a screen the run never observed is exactly how a false MEMBER_NOT_FOUND is emitted
+
+── 3. VERIFICATION - the same artifact replayed with the MODEL OUT OF THE LOOP ─────────────────
+
+      mode            replay-dry
+      status          verified
+      grade           full
+      covered through activate-open
+      replay arm      ok
+      reason          the whole flow replayed with the model out of the loop, through step activate-open
+
+      proposed -> draft   verification verified/full
+      That promotion is the RESULT of a replay rather than a field somebody set.
+
+── 4. THE EVIDENCE BUNDLE ──────────────────────────────────────────────────────────────────────
+
+      wrote           provenance.json
+      wrote           transcript.json
+      wrote           spend.json
+      wrote           README.md
+
+── 5. REDACTION CANARY - the bundle is grepped before it is published ──────────────────────────
+
+      pass 1 documents    CLEAN    4 files, 71,114 bytes, 34 needles, 0 hits, 0 credential shapes
+               BRIEF 3.6: an artifact stores shapes, never values - neither the caller's nor the member's
+      pass 2 replay       CLEAN    5 files, 105,632 bytes, 7 needles, 0 hits, 0 credential shapes
+               SPEC 8.3: at replay time the caller's argument is a bound value, and this claim is total
+      pass 3 credentials  CLEAN    20 files, 276,609 bytes, 0 needles, 0 hits, 0 credential shapes
+               a key in an evidence file is a finding whatever any parameter was bound to
+      pass 4 recording    reported 3 files, 58,713 bytes, 7 needles, 49 hits, 0 credential shapes
+               the model was told the number, typed it, and was shown it; every hit below is one of those
+        seen  discovery.log:17  the goal's member number (the caller's argument) as utf8
+        seen  discovery.log:18  the goal's member number (the caller's argument) as utf8
+        seen  discovery.log:60  the goal's member number (the caller's argument) as utf8
+        seen  journal.jsonl:8  the goal's member number (the caller's argument) as utf8
+        seen  journal.jsonl:8  the goal's member number (the caller's argument) as utf8
+        seen  journal.jsonl:14  the goal's member number (the caller's argument) as utf8
+        seen  journal.jsonl:20  the goal's member number (the caller's argument) as utf8
+        seen  journal.jsonl:24  the goal's member number (the caller's argument) as utf8
+        seen  journal.jsonl:28  the goal's member number (the caller's argument) as utf8
+        seen  journal.jsonl:32  the goal's member number (the caller's argument) as utf8
+        seen  journal.jsonl:42  the goal's member number (the caller's argument) as utf8
+        seen  journal.jsonl:42  the goal's member number (the caller's argument) as utf8
+        seen  journal.jsonl:42  the goal's member number (the caller's argument) as utf8
+        seen  transcript.json:223  the goal's member number (the caller's argument) as utf8
+        seen  transcript.json:304  the goal's member number (the caller's argument) as utf8
+        seen  transcript.json:306  the goal's member number (the caller's argument) as utf8
+        seen  transcript.json:344  the goal's member number (the caller's argument) as utf8
+        seen  transcript.json:346  the goal's member number (the caller's argument) as utf8
+        seen  transcript.json:357  the goal's member number (the caller's argument) as utf8
+        seen  transcript.json:357  the goal's member number (the caller's argument) as utf8
+        seen  transcript.json:375  the goal's member number (the caller's argument) as utf8
+        seen  transcript.json:406  the goal's member number (the caller's argument) as utf8
+        seen  transcript.json:417  the goal's member number (the caller's argument) as utf8
+        seen  transcript.json:417  the goal's member number (the caller's argument) as utf8
+        seen  transcript.json:417  the goal's member number (the caller's argument) as utf8
+        seen  transcript.json:417  the goal's member number (the caller's argument) as utf8
+        seen  transcript.json:417  the goal's member number (the caller's argument) as utf8
+        seen  transcript.json:417  the goal's member number (the caller's argument) as utf8
+        seen  transcript.json:443  the goal's member number (the caller's argument) as utf8
+        seen  transcript.json:481  the goal's member number (the caller's argument) as utf8
+        seen  transcript.json:508  the goal's member number (the caller's argument) as utf8
+        seen  transcript.json:537  the goal's member number (the caller's argument) as utf8
+        seen  transcript.json:564  the goal's member number (the caller's argument) as utf8
+        seen  transcript.json:593  the goal's member number (the caller's argument) as utf8
+        seen  transcript.json:627  the goal's member number (the caller's argument) as utf8
+        seen  transcript.json:662  the goal's member number (the caller's argument) as utf8
+        seen  transcript.json:756  the goal's member number (the caller's argument) as utf8
+        seen  transcript.json:760  the goal's member number (the caller's argument) as utf8
+        seen  transcript.json:761  the goal's member number (the caller's argument) as utf8
+        seen  transcript.json:797  the goal's member number (the caller's argument) as utf8
+        seen  transcript.json:799  the goal's member number (the caller's argument) as utf8
+        seen  transcript.json:814  the goal's member number (the caller's argument) as utf8
+        seen  transcript.json:827  the goal's member number (the caller's argument) as utf8
+        seen  transcript.json:840  the goal's member number (the caller's argument) as utf8
+        seen  transcript.json:853  the goal's member number (the caller's argument) as utf8
+        seen  transcript.json:868  the goal's member number (the caller's argument) as utf8
+        seen  transcript.json:889  the goal's member number (the caller's argument) as utf8
+        seen  transcript.json:893  the goal's member number (the caller's argument) as utf8
+        seen  transcript.json:894  the goal's member number (the caller's argument) as utf8
+      not searched  membershipStatus: 6 characters, under the 8-character floor for a distinctive needle
+
+── VERDICT ─────────────────────────────────────────────────────────────────────────────────────
+
+      discovery reached the goal    yes
+      it replayed without a model   yes
+      the artifact is a draft       yes
+      the bundle is clean           yes
+      measured spend                $0.14
+
+      A REAL DISCOVERY RUN IS ON DISK. Commit it, then run `pnpm demo` so the bundle's
+      MANIFEST and its own whole-bundle canary cover these files too.
+

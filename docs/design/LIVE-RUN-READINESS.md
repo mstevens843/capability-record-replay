@@ -304,6 +304,43 @@ and `failed` all write the same files through the same function; what differs be
 
 ## 5. What can still go wrong — read this before you spend
 
+**Where this section stands after the pass that regenerated `docs/design/FINAL-STATUS.md`:**
+
+| § | the risk | where it stands now |
+|---|---|---|
+| §5.1 | `pnpm demo` overwrote a live run's slot | **fixed**, and re-verified: the demo was re-run and left `evidence/discovery-live/PENDING.md` alone |
+| §5.2 | a mid-run API error lost the transcript | **fixed**, and re-verified: `test/loop-failure.test.ts` → `18 passed (18)` |
+| §5.3 | the spend guard has only fired before turn 1 | **still true.** Both guards were re-observed firing, and both fired at the same pre-turn-1 boundary, for the reason below |
+| §5.4 | a refused dry run litters `evidence/` first | **still true.** Read off the source; not exercised, because exercising it means aiming a dry run at `evidence/` |
+| §5.5 | the contract offered `value1` | **fixed**, and re-verified: 67 tests green, the committed fixture re-emitted byte-identical, and the rehearsal prints `memberId:sensitive (named from adjacent-label)` |
+| §5.6 | the transcript's provenance note was wrong | **fixed** in the pass that wrote this document; not re-derived here beyond `pnpm typecheck` / `pnpm lint` being green |
+| §5.7 | FINAL-STATUS §7.1 was factually wrong | **fixed** — that document was regenerated |
+| §5.8 | leave-behinds | one file that must be deleted is still not deletable; `evidence/` moved when the demo was re-run |
+
+The whole board was re-run for that pass. Nothing regressed:
+
+```
+$ TURBO_FORCE=1 pnpm build                              8/8 tasks,  5.333s          exit 0
+$ TURBO_FORCE=1 pnpm typecheck                          14/14 tasks, 5.715s         exit 0
+$ pnpm lint                                             Checked 314 files           exit 0
+$ env -u ANTHROPIC_API_KEY -u ANTHROPIC_AUTH_TOKEN -u OPENAI_API_KEY \
+      -u CLAUDE_CODE_OAUTH_TOKEN TURBO_FORCE=1 pnpm test
+                                    1,820 passed across 102 files, 14/14 tasks       exit 0
+$ env -u … pnpm demo                7/7 exhibits, 48 files, canary CLEAN both passes exit 0
+$ pnpm preflight                    NOT READY - 1 blocker (no key in THIS shell), 14 passed exit 1
+$ ANTHROPIC_API_KEY=<well-formed fake> pnpm preflight   READY. 15 check(s) passed.   exit 0
+$ pnpm discover --dry-run --force   reached-goal / verified / draft / canary clean   exit 0
+```
+
+`pnpm build`, `pnpm typecheck` and `pnpm lint` read no credential, so they were run plainly. The
+three `pnpm discover --dry-run` invocations were run with the three credential variables **shadowed
+by obviously fake values**, so that `loadDotEnv` could not lift the real key out of `.env` and a bug
+could not have authenticated even in principle. **No live model API call was made at any point in
+that pass, to any provider.** A bare `pnpm discover` — the `--yes` gate demonstration in §4 — was
+**not** re-run: it is the author's command, and the gate was re-verified by reading the branch order
+off the source instead (refusal at `discover.ts:1078`, fixture boot at `:1092`, client construction
+at `:1102`).
+
 ### 5.1 `pnpm demo` re-created `PENDING.md` on top of a live run — **fixed**
 
 `packages/runtime/demo/main.ts` defines `discoverySlot()`, which writes
@@ -356,6 +393,14 @@ inverted — so it is a scanner that can fail rather than one that passes becaus
 nothing. **`evidence/` was not touched by any of this**; the real bundle is still the author's to
 regenerate after the live run.
 
+**Re-verified in the regeneration pass, from the direction that matters most.** That pass ran
+`pnpm demo` for real, against the real `evidence/` — the situation this section is about — and
+afterwards `evidence/discovery-live/` still held `PENDING.md` and nothing else, with the demo
+reporting `discovery-live/  EMPTY - a live model run, pending the author's approval`. The rest of
+the bundle was rewritten, which is what the command is for; the protected directory was not. **After
+the live run, that same line is what tells you the guard worked**: it should read
+`── discovery-live ─ a live run is present; PENDING.md not written`.
+
 ### 5.2 A mid-run API error lost the transcript you had already paid for — **fixed**
 
 `runDiscoveryLoop` did not catch a `DiscoveryModelError`. A rate limit, a 400 or a dropped
@@ -406,6 +451,10 @@ writes the bundle through the same function the runner calls, into a `mkdtemp` d
 $ pnpm -F @crr/discovery exec vitest run test/loop-failure.test.ts
  ✓ test/loop-failure.test.ts (18 tests) 35ms
    Test Files  1 passed (1)        Tests  18 passed (18)                        exit 0
+
+# re-run in the regeneration pass:
+ ✓ test/loop-failure.test.ts (18 tests) 36ms
+   Test Files  1 passed (1)        Tests  18 passed (18)                        exit 0
 ```
 
 What it asserts, in the order the money leaves:
@@ -438,12 +487,27 @@ will usually not reach this path at all.
 
 ### 5.3 The spend guard has only been observed firing *before turn 1*
 
+**Still true, and re-observed rather than carried forward.** Both guards were run again in the
+regeneration pass, and both fired at the same boundary:
+
+```
+$ pnpm discover --dry-run --force --max-usd 0.05 --out .scratch/budget-usd
+      status  budget-exhausted   turns 0                                             exit 1
+$ pnpm discover --dry-run --force --max-total-tokens 100 --out .scratch/budget-tokens
+      status  budget-exhausted   turns 0                                             exit 1
+$ python3 <read the loop.* events out of both journals>
+      {"type":"loop.started"}
+      {"type":"loop.finished","status":"budget-exhausted","turns":0,"actions":0,…}   (both)
+```
+
 Under `--dry-run` the scripted model reports `ZERO_USAGE`, so the ledger's inputs never move:
 `spent` stays $0 and `projectNext()` returns the same constant every turn. The guard can therefore
-only be observed at the turn-0 → turn-1 boundary, which is where both rehearsals above caught it.
+only be observed at the turn-0 → turn-1 boundary, which is where every rehearsal has caught it.
 **The mid-run boundary — spend accumulating across turns and the cap binding at turn *n* — has never
-executed.** So has the ledger's `record()` path over non-zero provider numbers, its measured
-tool-result growth, and its cache accounting.
+executed.** Neither has the ledger's `record()` path over non-zero provider numbers, its measured
+tool-result growth, or its cache accounting. That will happen for the first time on the run this
+document exists to authorise, which is exactly why §6.6 says to check `spend.json` against the
+console.
 
 What *was* checked this pass is the arithmetic underneath it. The shipped `costOf()` and
 `billedTokens()` from `tools/live-run.ts` were run at non-zero usage:
@@ -459,9 +523,10 @@ That last row is the useful one: `costOf()` and preflight's own independent cost
 cent on the 24-turn figure. The pricing arithmetic is right; the *ledger that feeds it* is what has
 not run against real numbers.
 
-There is no unit test for `stopBeforeTurn` — `packages/discovery/test/loop.test.ts` covers
-`maxTurns`, `maxActions` and `maxConsecutiveRefusals` exhaustion, not the hook. The hook is the one
-addition to `packages/discovery/src/loop.ts` that the 250 discovery tests do not touch.
+There is still no unit test for `stopBeforeTurn` — `packages/discovery/test/loop.test.ts` covers
+`maxTurns`, `maxActions` and `maxConsecutiveRefusals` exhaustion, not the hook. Re-grepped in the
+regeneration pass: the only caller anywhere in the tree is `tools/discover.ts:1191`. The hook is the
+one addition to `packages/discovery/src/loop.ts` that the **282** discovery tests do not touch.
 
 ### 5.4 A dry run aimed at `evidence/` is refused, but not before it litters
 
@@ -543,6 +608,14 @@ $ env -u ANTHROPIC_API_KEY … pnpm demo                  7/7, 48 files, canary 
 $ pnpm typecheck && pnpm lint                           315 files, no findings           exit 0
 ```
 
+**Re-run in the regeneration pass, and all of it still holds** — with one number moved and not
+edited above, because rewriting recorded output is the one thing this document may not do:
+`pnpm lint` now reports **`Checked 314 files`**, not 315, because `/.exports.mjs` was deleted by a
+commit between the two passes. The tests, the demo and the fixture re-emit are unchanged:
+`67 passed (67)` on the two synthesis files, `9 passed (9)` on `synthesized-replay.test.ts`,
+`1,820 passed` on the full suite, `7/7` on the demo, and `fixtures:synthesized` producing a
+byte-identical file (same md5 before and after).
+
 **Both halves are tested, and so is the stopping.** The labelled cases name the parameter and raise
 no flag — one test per rung, plus a precedence test proving rung 1 beats rungs 2 and 3. The
 genuinely-unlabelled case produces `value1` **and** the `review` note **and** the `NEEDS A NAME`
@@ -563,23 +636,56 @@ provenance claim inside the one committed evidence file BRIEF §10 governs is a 
 the note (`discover.ts:1128`) and the stale file header (`:37`) were rewritten to describe what the
 runner actually does. No logic changed; `pnpm typecheck` and `pnpm lint` are green.
 
-### 5.7 `docs/design/FINAL-STATUS.md` §7.1 is now factually wrong
+### 5.7 `docs/design/FINAL-STATUS.md` §7.1 was factually wrong — **fixed**
 
-It still says *"THE COMMAND IS THE THING THAT IS MISSING"*, quotes a `grep` showing
-`createAnthropicModel` has no caller, and reproduces a preflight verdict with a `[recorder] BLOCK`
-line and two cost warnings. All four claims are false as of this pass. Regenerate it — that document
-has an owner and a voice, and §7.1 cannot be rewritten in isolation without contradicting §1 and §6.
+It said *"THE COMMAND IS THE THING THAT IS MISSING"*, quoted a `grep` showing `createAnthropicModel`
+has no caller, and reproduced a preflight verdict with a `[recorder] BLOCK  no runner exists` line
+and two cost warnings. All four claims were false once the runner landed. The document has been
+**regenerated end to end** rather than patched at §7.1, because §7.1 could not be rewritten in
+isolation without contradicting §1, §6, §10 and §12.
 
-### 5.8 Leave-behinds from this rehearsal
+Every number in it was re-derived by re-running the command that produces it — the browser and
+terminal kill matrices, the flake rate and per-descriptor table, the settle sweep, the cross-tenant
+divergence table, the demo bundle, the no-Chromium skip count, the build sizes and every per-package
+test count. **Every limitation the old §7.1 recorded that is still true was kept**, and they are
+listed together under "What is still not proved, and what is still weak": no model has ever driven
+this system, `pnpm preflight` has no automated test, `U` is assumed rather than measured, the cache
+saving is small, the spend guard has only fired before turn 1 (§5.3 below), and a dry run aimed at
+`evidence/` litters before it is refused (§5.4 below). Four *new* corrections to that document's own
+prior claims were added at its §11: the stale chokepoint line numbers, a `COMBINED SURVIVORS` line
+that no command produced, the imprecise `whenToUse` stub row, and the moved counts.
+
+### 5.8 Leave-behinds
+
+From the rehearsal that produced this document:
 
 - `.scratch/discovery-dry-run/` was overwritten with `--force`; `.scratch/budget-usd/` and
   `.scratch/budget-tokens/` are new. All gitignored. `verification-evidence/` in the dry-run bundle
-  now holds **two** journals, because `--force` overwrites files but does not clean the directory.
-- **`packages/discovery/.cost-check.scratch.ts` must be deleted:**
-  `rm packages/discovery/.cost-check.scratch.ts`. It is the §5.3 arithmetic check; this session's
-  sandbox denied every `rm` and `mv`, so it could not be removed here. It is lint-clean (biome now
-  reads 313 files, not 312) and outside `tsconfig`'s `include`, so it breaks nothing — but it is not
-  part of the deliverable.
+  holds **two** journals, because `--force` overwrites files but does not clean the directory.
+
+From the verification pass that regenerated FINAL-STATUS.md, which re-ran all three:
+
+- The same three directories were overwritten again with `--force`. `.scratch/` holds 99 files.
+- **`pnpm demo` rewrote `evidence/`**, which is what that command is for. Count and verdict are
+  unchanged — 48 files, 934,441 bytes, canary CLEAN on both passes, exit 0 — but `git status` shows
+  8 deletions and 8 additions under `evidence/<scenario>/observations/`, because those files are
+  named by the digest of a journal carrying that run's own timestamps. **`evidence/discovery-live/`
+  was not touched**: it still holds `PENDING.md` and nothing else, and §5.1's guard is why.
+- `pnpm -F @crr/discovery fixtures:synthesized` was re-run as a check and produced **byte-identical**
+  output (same md5 before and after). The `74192 bytes` the script prints is its own measure of the
+  JSON it serialized; the file on disk is 74,194 bytes. That is the script's reporting, not drift.
+
+Still to be deleted, and still not deletable:
+
+- **`packages/discovery/.cost-check.scratch.ts`** — `rm packages/discovery/.cost-check.scratch.ts`.
+  It is the §5.3 arithmetic check. **It is tracked by git, so it would ship.** Every agent session in
+  this tree has had `rm` denied, re-confirmed in the regeneration pass:
+  `Permission to use Bash with command 'rm -f …' has been denied.` It is lint-clean and outside
+  `tsconfig`'s `include`, so it breaks nothing — it is simply not part of the deliverable. Biome now
+  reads **314** files; deleting it takes that to 313. `packages/conformance/probe.ts` and
+  `packages/conformance/src/__probe.ts` are in the same position; see FINAL-STATUS §9 for the full
+  list, which is one entry shorter than it was because `/.exports.mjs` has since been removed by a
+  commit.
 
 ---
 

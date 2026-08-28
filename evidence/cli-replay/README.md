@@ -4,7 +4,7 @@ The same nine-step replay driven by the shipped `crr` binary rather than by the 
 call into `replay()`, so the bundle contains one transcript a reviewer can reproduce verbatim:
 
 ```
-$ node packages/runtime/dist/cli.js evidence/artifact/contract.json evidence/artifact/artifact.json --surface packages/runtime/demo/surface-entry.mjs --args '{"memberId":"<A FIVE-DIGIT MEMBER NUMBER>"}' --allowlist evidence/artifact/allowlist.json --trusted-key ops-approval-key-1:evidence/artifact/approver.spki.pem --tenant riverbend --app riverbend-corebank-fixture --journal evidence/cli-replay/journal.jsonl --evidence evidence/cli-replay/observations
+$ node packages/runtime/dist/cli.js replay evidence/artifact/contract.json evidence/artifact/artifact.json --surface packages/runtime/demo/surface-entry.mjs --args '{"memberId":"<A FIVE-DIGIT MEMBER NUMBER>"}' --allowlist evidence/artifact/allowlist.json --trusted-key ops-approval-key-1:evidence/artifact/approver.spki.pem --tenant riverbend --app riverbend-corebank-fixture --journal evidence/cli-replay/journal.jsonl --evidence evidence/cli-replay/observations
 ```
 
 `--surface` is a **module path**, not a flag with a fixed set of values. `@crr/runtime` does

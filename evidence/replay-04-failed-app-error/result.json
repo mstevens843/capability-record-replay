@@ -65,10 +65,10 @@
     "attempts": [],
     "retriable": "same-inputs",
     "operatorAction": "The application returned its own error page; capture and report to the vendor.",
-    "observationRef": "obs:a50b2fbc343314a2a07f3922a050c0663c4c8829032b8e464337d648325f538a"
+    "observationRef": "obs:09adb420116943f708f54f8f9693d60c5045f76a5d1518f6b21d7cef52930932"
   },
   "run": {
-    "runId": "run-94d6ebda-00fd-49b8-bb1d-f0666ccdbe88",
+    "runId": "run-19f14752-218f-440e-a4b6-463e16beba2d",
     "capability": {
       "name": "corebank.member.read_share_position",
       "version": "1.0.0"
@@ -86,9 +86,9 @@
     },
     "surface": "web-legacy",
     "engineVersion": "crr-runtime/0.1.0",
-    "startedAt": "2026-08-28T01:09:55.431Z",
-    "endedAt": "2026-08-28T01:09:57.059Z",
-    "durationMs": 1628,
+    "startedAt": "2026-08-28T02:56:04.686Z",
+    "endedAt": "2026-08-28T02:56:06.290Z",
+    "durationMs": 1604,
     "stepsExecuted": 4,
     "stepsTotal": 9,
     "budgets": {
@@ -109,7 +109,7 @@
         "limit": 1
       },
       "wallClockMs": {
-        "used": 1630,
+        "used": 1606,
         "limit": 180000
       }
     },
@@ -135,7 +135,7 @@
         },
         "skeletonDigest": "sha256:77133a7a47cabfb23d8a04fdd48bd97dff3e5670d891b221c3db0bf8275c79c4",
         "observationRef": null,
-        "elapsedMs": 149
+        "elapsedMs": 147
       },
       {
         "stepId": "enter-member-id",
@@ -173,7 +173,7 @@
         },
         "skeletonDigest": "sha256:8be7e5b0e9750e40cd59049e6b76df8a9fdd68cacd9ea33dad97cd28d9f46800",
         "observationRef": null,
-        "elapsedMs": 177,
+        "elapsedMs": 163,
         "resolution": [
           {
             "descriptorId": "search-by-name",
@@ -188,6 +188,138 @@
             "evidenceSource": "geometry",
             "verdict": "resolved",
             "resolvedNodeId": "button:f3-168"
+          }
+        ]
+      },
+      {
+        "stepId": "read-member-summary",
+        "attempt": 1,
+        "verdict": {
+          "kind": "advance",
+          "outputs": [
+            {
+              "output": "memberName",
+              "value": "ALVAREZ, DANA (SYNTHETIC)",
+              "sensitivity": "sensitive"
+            },
+            {
+              "output": "shareBalance",
+              "value": {
+                "amount": "1204.55",
+                "currency": "USD"
+              },
+              "sensitivity": "internal"
+            },
+            {
+              "output": "accountStatus",
+              "value": "ACTIVE",
+              "sensitivity": "internal"
+            }
+          ]
+        },
+        "skeletonDigest": "sha256:8be7e5b0e9750e40cd59049e6b76df8a9fdd68cacd9ea33dad97cd28d9f46800",
+        "observationRef": null,
+        "elapsedMs": 159
+      },
+      {
+        "stepId": "open-member-record",
+        "attempt": 1,
+        "verdict": {
+          "kind": "recover",
+          "recoveryName": "APP_ERROR_PAGE",
+          "remedy": {
+            "kind": "actions",
+            "instructions": [
+              {
+                "kind": "navigate",
+                "route": "member-search"
+              }
+            ]
+          },
+          "attempt": 1
+        },
+        "skeletonDigest": "sha256:89ae112647051c26f14edd9813f0426095c77120b1e56154fadd16266b8326f0",
+        "observationRef": null,
+        "elapsedMs": 160,
+        "resolution": [
+          {
+            "descriptorId": "open-by-row-key",
+            "kind": "table-cell",
+            "evidenceSource": "columnHeader",
+            "verdict": "resolved",
+            "resolvedNodeId": "link:f3-252"
+          },
+          {
+            "descriptorId": "open-by-link-text",
+            "kind": "role-name",
+            "evidenceSource": "accessibleName",
+            "verdict": "resolved",
+            "resolvedNodeId": "link:f3-252"
+          }
+        ]
+      },
+      {
+        "stepId": "open-search",
+        "attempt": 1,
+        "verdict": {
+          "kind": "advance",
+          "outputs": []
+        },
+        "skeletonDigest": "sha256:3ece383379d324a6b5bdff0a737d1bcc46e2ce4cd242fc56032c283c904771e7",
+        "observationRef": null,
+        "elapsedMs": 153
+      },
+      {
+        "stepId": "enter-member-id",
+        "attempt": 1,
+        "verdict": {
+          "kind": "advance",
+          "outputs": []
+        },
+        "skeletonDigest": "sha256:014aa733ad56a65ca562941a1edf215144446165bd3145f7af8bce711be1ce89",
+        "observationRef": null,
+        "elapsedMs": 158,
+        "resolution": [
+          {
+            "descriptorId": "member-id-right-of-label",
+            "kind": "label-anchored",
+            "evidenceSource": "labelText",
+            "verdict": "resolved",
+            "resolvedNodeId": "textbox:f3-395"
+          },
+          {
+            "descriptorId": "member-id-first-in-form",
+            "kind": "ordinal-in-container",
+            "evidenceSource": "ordinal",
+            "verdict": "resolved",
+            "resolvedNodeId": "textbox:f3-395"
+          }
+        ]
+      },
+      {
+        "stepId": "submit-search",
+        "attempt": 1,
+        "verdict": {
+          "kind": "advance",
+          "outputs": []
+        },
+        "skeletonDigest": "sha256:8be7e5b0e9750e40cd59049e6b76df8a9fdd68cacd9ea33dad97cd28d9f46800",
+        "observationRef": null,
+        "elapsedMs": 166,
+        "resolution": [
+          {
+            "descriptorId": "search-by-name",
+            "kind": "role-name",
+            "evidenceSource": "accessibleName",
+            "verdict": "resolved",
+            "resolvedNodeId": "button:f3-405"
+          },
+          {
+            "descriptorId": "search-right-of-member-id",
+            "kind": "geometric",
+            "evidenceSource": "geometry",
+            "verdict": "resolved",
+            "resolvedNodeId": "button:f3-405"
           }
         ]
       },
@@ -220,138 +352,6 @@
         "skeletonDigest": "sha256:8be7e5b0e9750e40cd59049e6b76df8a9fdd68cacd9ea33dad97cd28d9f46800",
         "observationRef": null,
         "elapsedMs": 163
-      },
-      {
-        "stepId": "open-member-record",
-        "attempt": 1,
-        "verdict": {
-          "kind": "recover",
-          "recoveryName": "APP_ERROR_PAGE",
-          "remedy": {
-            "kind": "actions",
-            "instructions": [
-              {
-                "kind": "navigate",
-                "route": "member-search"
-              }
-            ]
-          },
-          "attempt": 1
-        },
-        "skeletonDigest": "sha256:89ae112647051c26f14edd9813f0426095c77120b1e56154fadd16266b8326f0",
-        "observationRef": null,
-        "elapsedMs": 161,
-        "resolution": [
-          {
-            "descriptorId": "open-by-row-key",
-            "kind": "table-cell",
-            "evidenceSource": "columnHeader",
-            "verdict": "resolved",
-            "resolvedNodeId": "link:f3-252"
-          },
-          {
-            "descriptorId": "open-by-link-text",
-            "kind": "role-name",
-            "evidenceSource": "accessibleName",
-            "verdict": "resolved",
-            "resolvedNodeId": "link:f3-252"
-          }
-        ]
-      },
-      {
-        "stepId": "open-search",
-        "attempt": 1,
-        "verdict": {
-          "kind": "advance",
-          "outputs": []
-        },
-        "skeletonDigest": "sha256:3ece383379d324a6b5bdff0a737d1bcc46e2ce4cd242fc56032c283c904771e7",
-        "observationRef": null,
-        "elapsedMs": 155
-      },
-      {
-        "stepId": "enter-member-id",
-        "attempt": 1,
-        "verdict": {
-          "kind": "advance",
-          "outputs": []
-        },
-        "skeletonDigest": "sha256:014aa733ad56a65ca562941a1edf215144446165bd3145f7af8bce711be1ce89",
-        "observationRef": null,
-        "elapsedMs": 159,
-        "resolution": [
-          {
-            "descriptorId": "member-id-right-of-label",
-            "kind": "label-anchored",
-            "evidenceSource": "labelText",
-            "verdict": "resolved",
-            "resolvedNodeId": "textbox:f3-395"
-          },
-          {
-            "descriptorId": "member-id-first-in-form",
-            "kind": "ordinal-in-container",
-            "evidenceSource": "ordinal",
-            "verdict": "resolved",
-            "resolvedNodeId": "textbox:f3-395"
-          }
-        ]
-      },
-      {
-        "stepId": "submit-search",
-        "attempt": 1,
-        "verdict": {
-          "kind": "advance",
-          "outputs": []
-        },
-        "skeletonDigest": "sha256:8be7e5b0e9750e40cd59049e6b76df8a9fdd68cacd9ea33dad97cd28d9f46800",
-        "observationRef": null,
-        "elapsedMs": 164,
-        "resolution": [
-          {
-            "descriptorId": "search-by-name",
-            "kind": "role-name",
-            "evidenceSource": "accessibleName",
-            "verdict": "resolved",
-            "resolvedNodeId": "button:f3-405"
-          },
-          {
-            "descriptorId": "search-right-of-member-id",
-            "kind": "geometric",
-            "evidenceSource": "geometry",
-            "verdict": "resolved",
-            "resolvedNodeId": "button:f3-405"
-          }
-        ]
-      },
-      {
-        "stepId": "read-member-summary",
-        "attempt": 1,
-        "verdict": {
-          "kind": "advance",
-          "outputs": [
-            {
-              "output": "memberName",
-              "value": "ALVAREZ, DANA (SYNTHETIC)",
-              "sensitivity": "sensitive"
-            },
-            {
-              "output": "shareBalance",
-              "value": {
-                "amount": "1204.55",
-                "currency": "USD"
-              },
-              "sensitivity": "internal"
-            },
-            {
-              "output": "accountStatus",
-              "value": "ACTIVE",
-              "sensitivity": "internal"
-            }
-          ]
-        },
-        "skeletonDigest": "sha256:8be7e5b0e9750e40cd59049e6b76df8a9fdd68cacd9ea33dad97cd28d9f46800",
-        "observationRef": null,
-        "elapsedMs": 160
       },
       {
         "stepId": "open-member-record",
@@ -424,8 +424,8 @@
           }
         },
         "skeletonDigest": "sha256:89ae112647051c26f14edd9813f0426095c77120b1e56154fadd16266b8326f0",
-        "observationRef": "obs:a50b2fbc343314a2a07f3922a050c0663c4c8829032b8e464337d648325f538a",
-        "elapsedMs": 165,
+        "observationRef": "obs:09adb420116943f708f54f8f9693d60c5045f76a5d1518f6b21d7cef52930932",
+        "elapsedMs": 162,
         "resolution": [
           {
             "descriptorId": "open-by-row-key",
@@ -452,10 +452,10 @@
       "needsSpecialization": false
     },
     "evidence": [
-      "obs:a50b2fbc343314a2a07f3922a050c0663c4c8829032b8e464337d648325f538a",
-      "journal:075cc098e12c838f3cb0f8190086545eb2c1f1452414cf77232b7acf36f4383a"
+      "obs:09adb420116943f708f54f8f9693d60c5045f76a5d1518f6b21d7cef52930932",
+      "journal:9a6f1b8257f5c31698670860dbe7d5b33aa91f14a8938443e7cdbaca57eb1fca"
     ],
-    "journalRef": "journal:075cc098e12c838f3cb0f8190086545eb2c1f1452414cf77232b7acf36f4383a",
+    "journalRef": "journal:9a6f1b8257f5c31698670860dbe7d5b33aa91f14a8938443e7cdbaca57eb1fca",
     "warnings": []
   }
 }

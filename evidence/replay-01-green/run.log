@@ -4,8 +4,8 @@
    args      ["memberId"] (values withheld from this log)
    broker    can-reauthenticate
    arm       OK   outputs: memberName, shareBalance, accountStatus, shareAccounts
-   run       9/9 steps, 1823ms, 9 step attempts
+   run       9/9 steps, 1804ms, 9 step attempts
    budgets   actions 5, observations 29, remediations 0, program attempts 0
-   evidence  1 frozen observation(s), journal journal:920db53c79b5612af247a1ea9d09aa18c2e79d8fca00cb3518486c84fc16a4d7
+   evidence  1 frozen observation(s), journal journal:9ea505c461182d9dbd114b6229ddec7bf27d05fb91bdc01a1db5931580777069
    checked   every declared expectation held
 

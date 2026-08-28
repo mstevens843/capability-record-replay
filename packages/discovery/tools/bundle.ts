@@ -23,6 +23,7 @@
 import { mkdirSync, writeFileSync } from "node:fs";
 import { dirname, join } from "node:path";
 import type { DiscoveryRun } from "../src/loop.js";
+import { observedValuesOf, scrubProse } from "../src/synthesis/prose.js";
 import type { Transcript } from "../src/transcript.js";
 import { LIVE_GOAL, LIVE_MEMBER_ID, type ModelRate, SPEND_CAP_USD } from "./live-run.js";
 
@@ -156,7 +157,18 @@ export function writeCoreBundle(input: CoreBundleInput): readonly string[] {
     },
     run: {
       status: run.status,
-      summary: run.summary,
+      // THE MODEL'S CLOSING SENTENCES, AND THE ONE FILE NO GATING CANARY PASS COVERS.
+      //
+      // `finish.summary` is free prose about what the run saw, and this file is committed. Pass 1
+      // of the canary scans `synthesized/` only, pass 2 scans `verification*`, pass 4 scans the
+      // recording files - and `provenance.json` is in none of those scopes, deliberately, because
+      // it states the member number the goal supplied as a plain field. That exemption is about the
+      // CALLER'S ARGUMENT and it was never meant to cover the member's name and balance, which is
+      // what a summary like "the results table returned one match: <name>, share balance <amount>"
+      // puts here. Same treatment as everything else the model wrote: withheld, visibly, when it
+      // carries a value the run declared as an output. No bindings are passed - substituting the
+      // member number in a file whose next field prints it would be theatre.
+      summary: scrubProse(run.summary, [], observedValuesOf(run.outputs).values).text,
       turns: run.turns,
       steps: run.steps.length,
       outputs: run.outputs.map((o) => o.outputName),

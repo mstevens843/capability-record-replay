@@ -37,8 +37,9 @@ import {
 } from "@crr/core";
 import type { RecordedOutput } from "../loop.js";
 import { type Vocabulary, containerMatcherOf, rowKeyFor } from "./descriptors.js";
+import { type ObservedValue, observedValuesOf, scrubProse, withholdingDetail } from "./prose.js";
 import type { SynthesisNote } from "./report.js";
-import { type ValueBinding, parameterizeText } from "./values.js";
+import type { ValueBinding } from "./values.js";
 
 export interface DerivedOutput {
   readonly spec: OutputSpec;
@@ -52,6 +53,10 @@ export interface DeriveOutputsInput {
   readonly outputs: readonly RecordedOutput[];
   readonly bindings: readonly ValueBinding[];
   readonly vocabulary: Vocabulary;
+  /** Every value the run declared as an output, so `meaning` can be tested against it. Defaults to
+   *  the values of `outputs`; the emitter passes its own copy so the whole pipeline measures model
+   *  prose against one list and reports the too-short ones exactly once. */
+  readonly observed?: readonly ObservedValue[];
 }
 
 export interface DerivedOutputs {
@@ -63,6 +68,7 @@ export function deriveOutputs(input: DeriveOutputsInput): DerivedOutputs {
   const notes: SynthesisNote[] = [];
   const derived: DerivedOutput[] = [];
   const seen = new Set<string>();
+  const observed = input.observed ?? observedValuesOf(input.outputs).values;
 
   for (const output of input.outputs) {
     if (seen.has(output.outputName)) continue;
@@ -156,10 +162,27 @@ export function deriveOutputs(input: DeriveOutputsInput): DerivedOutputs {
       continue;
     }
 
-    const observed = readableValueOf(node);
-    const reading = readingOf(observed);
-    const sensitivity: Sensitivity = piiShapeOf(observed) === null ? "internal" : "sensitive";
+    const displayed = readableValueOf(node);
+    const reading = readingOf(displayed);
+    const sensitivity: Sensitivity = piiShapeOf(displayed) === null ? "internal" : "sensitive";
     const from = extractorOf(node, where);
+
+    // `meaning` is a sentence the model wrote about a value it was looking at, and it lands in the
+    // CONTRACT as `OutputSpec.description` - a committed, signed, model-facing document. Same
+    // treatment as `Step.intent` and the outcome candidates: parameterize, then withhold if it
+    // still carries a value the run declared as an output. A description reading "the balance,
+    // 15,900.00" is the same defect as the report's, in the document that matters more.
+    const meaning = scrubProse(output.meaning, input.bindings, observed);
+    if (meaning.withheldFor.length > 0) {
+      notes.push({
+        code: "prose-withheld",
+        severity: "review",
+        detail: withholdingDetail(
+          `stated meaning for the output "${output.outputName}"`,
+          meaning.withheldFor,
+        ),
+      });
+    }
 
     seen.add(output.outputName);
     derived.push({
@@ -168,7 +191,7 @@ export function deriveOutputs(input: DeriveOutputsInput): DerivedOutputs {
         name: output.outputName,
         type: reading.type,
         required: true,
-        description: parameterizeText(output.meaning, input.bindings).slice(0, 1000),
+        description: meaning.text.slice(0, 1000),
         sensitivity,
         // `deliver` is the balance where reading the value is the point of the call; a value that
         // already looks like regulated data is masked from the MODEL even though the typed result

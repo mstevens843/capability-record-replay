@@ -62,7 +62,7 @@
     "observationRef": "obs:fdbdca2a5299692a7942a46669ea842936d036cd118df74eedbe1f8bca59deb8"
   },
   "run": {
-    "runId": "run-3ceb95f4-751c-4481-b2f2-cda2f2b539ef",
+    "runId": "run-36a5f108-1775-4f71-8aec-73412b48f316",
     "capability": {
       "name": "corebank.member.read_share_position",
       "version": "1.0.0"
@@ -80,9 +80,9 @@
     },
     "surface": "web-legacy",
     "engineVersion": "crr-runtime/0.1.0",
-    "startedAt": "2026-08-28T01:09:57.190Z",
-    "endedAt": "2026-08-28T01:09:58.002Z",
-    "durationMs": 812,
+    "startedAt": "2026-08-28T02:56:06.417Z",
+    "endedAt": "2026-08-28T02:56:07.236Z",
+    "durationMs": 819,
     "stepsExecuted": 4,
     "stepsTotal": 9,
     "budgets": {
@@ -103,7 +103,7 @@
         "limit": 1
       },
       "wallClockMs": {
-        "used": 813,
+        "used": 820,
         "limit": 180000
       }
     },
@@ -129,7 +129,7 @@
         },
         "skeletonDigest": "sha256:77133a7a47cabfb23d8a04fdd48bd97dff3e5670d891b221c3db0bf8275c79c4",
         "observationRef": null,
-        "elapsedMs": 149
+        "elapsedMs": 147
       },
       {
         "stepId": "enter-member-id",
@@ -140,7 +140,7 @@
         },
         "skeletonDigest": "sha256:014aa733ad56a65ca562941a1edf215144446165bd3145f7af8bce711be1ce89",
         "observationRef": null,
-        "elapsedMs": 165,
+        "elapsedMs": 164,
         "resolution": [
           {
             "descriptorId": "member-id-right-of-label",
@@ -167,7 +167,7 @@
         },
         "skeletonDigest": "sha256:8be7e5b0e9750e40cd59049e6b76df8a9fdd68cacd9ea33dad97cd28d9f46800",
         "observationRef": null,
-        "elapsedMs": 163,
+        "elapsedMs": 176,
         "resolution": [
           {
             "descriptorId": "search-by-name",
@@ -228,7 +228,7 @@
         },
         "skeletonDigest": "sha256:659180a60bf9b19e64be202a63135c2ed945f5a16c27d8275049ab25431e1bd9",
         "observationRef": null,
-        "elapsedMs": 166,
+        "elapsedMs": 162,
         "resolution": [
           {
             "descriptorId": "open-by-row-key",
@@ -256,9 +256,9 @@
     },
     "evidence": [
       "obs:fdbdca2a5299692a7942a46669ea842936d036cd118df74eedbe1f8bca59deb8",
-      "journal:d760a6938f796cb255c65eb1aa680dc5fa9414cb048dd3f9b33759a94707fe7e"
+      "journal:4ddb4d90cdfa748abb7a9c2980d43fac0175b83ab04e708ea05efeaff09abd33"
     ],
-    "journalRef": "journal:d760a6938f796cb255c65eb1aa680dc5fa9414cb048dd3f9b33759a94707fe7e",
+    "journalRef": "journal:4ddb4d90cdfa748abb7a9c2980d43fac0175b83ab04e708ea05efeaff09abd33",
     "warnings": []
   }
 }

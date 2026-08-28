@@ -1,0 +1,130 @@
+{
+  "_provenance": {
+    "adapter": "anthropic",
+    "modelId": "claude-opus-5",
+    "producedBy": "@crr/discovery synthesizeCapability()"
+  },
+  "report": {
+    "notes": [
+      {
+        "code": "parameter-bound",
+        "severity": "info",
+        "detail": "memberId was bound from the goal and is stored nowhere in the artifact"
+      },
+      {
+        "code": "descriptor-rejected",
+        "severity": "info",
+        "detail": "role-name: the node has no accessible name",
+        "stepId": "fill-fill"
+      },
+      {
+        "code": "descriptor-rejected",
+        "severity": "info",
+        "detail": "table-cell: the node is not in a table row addressable by a bound value",
+        "stepId": "fill-fill"
+      },
+      {
+        "code": "descriptor-rejected",
+        "severity": "info",
+        "detail": "geometric: the node carries no geometry relative to a named anchor",
+        "stepId": "fill-fill"
+      },
+      {
+        "code": "descriptor-rejected",
+        "severity": "info",
+        "detail": "table-cell: the node is not in a table row addressable by a bound value",
+        "stepId": "activate-search"
+      },
+      {
+        "code": "descriptor-rejected",
+        "severity": "info",
+        "detail": "geometric: the node carries no geometry relative to a named anchor",
+        "stepId": "activate-search"
+      },
+      {
+        "code": "descriptor-rejected",
+        "severity": "info",
+        "detail": "geometric: the node carries no geometry relative to a named anchor",
+        "stepId": "activate-open"
+      },
+      {
+        "code": "prose-needs-author",
+        "severity": "review",
+        "detail": "output \"memberName\" is free text, and no deterministic rule can tell a balance from a member's name; a person must confirm its sensitivity and agentDisclosure before this contract is published"
+      },
+      {
+        "code": "prose-needs-author",
+        "severity": "review",
+        "detail": "output \"membershipStatus\" is free text, and no deterministic rule can tell a balance from a member's name; a person must confirm its sensitivity and agentDisclosure before this contract is published"
+      },
+      {
+        "code": "outcome-code-carries-recorded-value",
+        "severity": "review",
+        "detail": "the proposed outcome code MEMBER_FOUND_ACTIVE spells a value this run recorded as the output \"membershipStatus\"; a symbolic code is kept rather than withheld, so a person must confirm the wording is the application's vocabulary and not this member's data"
+      },
+      {
+        "code": "prose-withheld",
+        "severity": "review",
+        "detail": "the model's title for the proposed outcome MEMBER_FOUND_ACTIVE quoted a value recorded as the output \"membershipStatus\"; it is withheld rather than rewritten, because free-form prose about observed data cannot be reliably redacted"
+      },
+      {
+        "code": "prose-withheld",
+        "severity": "review",
+        "detail": "the model's why for the proposed outcome MEMBER_FOUND_ACTIVE quoted a value recorded as the output \"memberName\", \"shareBalance\", \"membershipStatus\"; it is withheld rather than rewritten, because free-form prose about observed data cannot be reliably redacted"
+      },
+      {
+        "code": "outcome-candidate-needs-detector",
+        "severity": "review",
+        "detail": "the model proposed 1 business outcome(s); no detector was written for any of them, because a detector for a screen the run never observed is exactly how a false MEMBER_NOT_FOUND is emitted"
+      }
+    ],
+    "outcomeCandidates": [
+      {
+        "code": "MEMBER_FOUND_ACTIVE",
+        "title": "WITHHELD: the model's wording here quoted a value this run recorded as the output \"membershipStatus\", which is member data by definition. Free-form prose about observed data cannot be redacted, only withheld, so the sentence is not persisted. The wording is in the run transcript, which is a recording and not a published document.",
+        "why": "WITHHELD: the model's wording here quoted a value this run recorded as the output \"memberName\", \"shareBalance\", \"membershipStatus\", which is member data by definition. Free-form prose about observed data cannot be redacted, only withheld, so the sentence is not persisted. The wording is in the run transcript, which is a recording and not a published document.",
+        "withheld": [
+          {
+            "field": "title",
+            "outputs": [
+              "membershipStatus"
+            ]
+          },
+          {
+            "field": "why",
+            "outputs": [
+              "memberName",
+              "shareBalance",
+              "membershipStatus"
+            ]
+          }
+        ]
+      }
+    ],
+    "parameters": [
+      {
+        "name": "memberId",
+        "sensitivity": "sensitive",
+        "discoveredFrom": "goal",
+        "namedFrom": "adjacent-label"
+      }
+    ],
+    "descriptors": {
+      "fill-fill": [
+        "label-anchored",
+        "ordinal-in-container"
+      ],
+      "activate-search": [
+        "role-name",
+        "label-anchored",
+        "ordinal-in-container"
+      ],
+      "activate-open": [
+        "role-name",
+        "label-anchored",
+        "table-cell",
+        "ordinal-in-container"
+      ]
+    }
+  }
+}

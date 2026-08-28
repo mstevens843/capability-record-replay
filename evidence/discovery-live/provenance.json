@@ -1,0 +1,56 @@
+{
+  "_readme": "Provenance for every file in this directory. BRIEF section 10 requires each one to state which adapter produced it and with which model id; the two documents under synthesized/ are the exceptions, because they are content-addressed and an added field would move the digest an approval signs over - artifact.json carries the same facts in its own `provenance` block, and synthesized/README.md carries them for contract.json.",
+  "producedBy": "pnpm discover",
+  "command": "pnpm discover --yes",
+  "at": "2026-08-28T02:24:10.144Z",
+  "synthetic": false,
+  "isEvidenceOfADiscoveryRun": true,
+  "adapter": "anthropic",
+  "modelId": "claude-opus-5",
+  "effort": "high",
+  "maxTokensPerTurn": 2000,
+  "promptVersion": "discovery/1",
+  "goal": "Look up member 10043 in the riverbend core banking back office, report their name, share balance and membership status, and open their member record.",
+  "memberId": "10043",
+  "target": {
+    "fixture": "fixtures/corebank-web",
+    "tenantId": "riverbend",
+    "entryRoute": "/search",
+    "driver": "surface-browser@0.1.0"
+  },
+  "run": {
+    "status": "reached-goal",
+    "summary": "WITHHELD: the model's wording here quoted a value this run recorded as the output \"memberName\", \"shareBalance\", \"membershipStatus\", which is member data by definition. Free-form prose about observed data cannot be redacted, only withheld, so the sentence is not persisted. The wording is in the run transcript, which is a recording and not a published document.",
+    "turns": 9,
+    "steps": 3,
+    "outputs": [
+      "memberName",
+      "shareBalance",
+      "membershipStatus"
+    ],
+    "failure": null
+  },
+  "transcript": {
+    "present": true,
+    "turns": 9
+  },
+  "usage": {
+    "inputTokens": 18220,
+    "outputTokens": 1540,
+    "cacheCreationInputTokens": 0,
+    "cacheReadInputTokens": 22608
+  },
+  "cacheHitRate": 0.5537376310375233,
+  "spend": {
+    "measuredUsd": 0.140904,
+    "billedTokens": 42368,
+    "capUsd": 2,
+    "projectCapUsd": 10,
+    "rate": {
+      "model": "claude-opus-5",
+      "inputPerMTok": 5,
+      "outputPerMTok": 25
+    },
+    "note": "measuredUsd is computed from the token counts the provider returned, at the published rates in packages/discovery/tools/live-run.ts. It is this repository's arithmetic, not an invoice; the authority is the provider's console."
+  }
+}
