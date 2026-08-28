@@ -1,0 +1,2080 @@
+{
+  "schemaVersion": "capability.artifact/v1",
+  "artifactId": "corebank-member-share-position-web",
+  "implements": {
+    "name": "corebank.member.read_share_position",
+    "version": "1.0.0",
+    "contractDigest": "sha256:7558ab653209bf677b9917252396f9e055af4634eba206a5983a3e33c175aac2"
+  },
+  "version": 1,
+  "digest": "sha256:ba09bc6061370dbf99ecb3c541ab41d22b7808a668591a9730356d952cc726f3",
+  "target": {
+    "product": "CoreBank Servicing",
+    "productVersionRange": ">=8.0 <9.0",
+    "surfaceKind": "web-legacy",
+    "requires": [
+      "accessibility-tree",
+      "table-position",
+      "containers",
+      "geometry",
+      "route"
+    ],
+    "sessionProfile": "corebank-teller"
+  },
+  "lifecycle": {
+    "status": "approved",
+    "supersedes": null,
+    "approval": {
+      "approvedBy": "ops-approver-4",
+      "approvedAt": "2026-02-11T15:20:04.000Z",
+      "signature": "M-nw9cB8OjF5TjQRkOxu1zlK55IQzREaFgf-ZaTXgadSO9_xrb5ReX9PguDgWxbfr0mRjT8A5gtWIbLGvTdbCw",
+      "keyId": "ops-approval-key-1",
+      "alg": "ed25519",
+      "over": "sha256:ba09bc6061370dbf99ecb3c541ab41d22b7808a668591a9730356d952cc726f3",
+      "acknowledgedEffects": [
+        "READ"
+      ],
+      "acknowledgedGrade": "full"
+    }
+  },
+  "flow": {
+    "entry": {
+      "route": "member-search",
+      "precondition": {
+        "kind": "route-matches",
+        "route": "member-search"
+      }
+    },
+    "routes": [
+      {
+        "id": "member-search",
+        "originAlias": "corebank",
+        "path": "/search",
+        "frame": "content"
+      },
+      {
+        "id": "member-results",
+        "originAlias": "corebank",
+        "path": "/search/results",
+        "frame": "content"
+      },
+      {
+        "id": "member-detail",
+        "originAlias": "corebank",
+        "path": "/member/:memberId",
+        "frame": "content"
+      },
+      {
+        "id": "subaccount-new",
+        "originAlias": "corebank",
+        "path": "/member/:memberId/subaccount/new",
+        "frame": "content"
+      }
+    ],
+    "vocabulary": {
+      "member-id-label": [
+        "Member ID"
+      ],
+      "search-button": [
+        "Search"
+      ],
+      "member-column": [
+        "Member ID"
+      ],
+      "name-column": [
+        "Name"
+      ],
+      "balance-column": [
+        "Share Balance"
+      ],
+      "status-column": [
+        "Status"
+      ],
+      "action-column": [
+        "Action"
+      ],
+      "open-row-link": [
+        "Open"
+      ],
+      "member-detail-heading": [
+        "Member Detail"
+      ],
+      "subaccount-list-heading": [
+        "Share Accounts"
+      ],
+      "subaccount-number-column": [
+        "Acct"
+      ],
+      "subaccount-product-column": [
+        "Share Account"
+      ],
+      "subaccount-opened-column": [
+        "Opened"
+      ],
+      "open-subaccount-button": [
+        "Open Sub-Account"
+      ],
+      "subaccount-type-label": [
+        "Sub-Account Type"
+      ],
+      "initial-deposit-label": [
+        "Initial Deposit"
+      ],
+      "not-found-banner": [
+        "No members matched the search criteria"
+      ],
+      "session-expired-banner": [
+        "Your session has ended due to inactivity"
+      ],
+      "app-error-banner": [
+        "Server Error in",
+        "unhandled exception occurred"
+      ],
+      "notice-dialog": [
+        "System Notice"
+      ],
+      "notice-dismiss-button": [
+        "Acknowledge",
+        "OK"
+      ]
+    },
+    "resumePoints": [
+      "open-search"
+    ],
+    "steps": [
+      {
+        "id": "open-search",
+        "title": "Open the member search screen",
+        "intent": "Get to the search form so a member number can be entered.",
+        "effect": "READ",
+        "instruction": {
+          "kind": "navigate",
+          "route": "member-search"
+        },
+        "target": null,
+        "precondition": null,
+        "settle": {
+          "stableSamples": 2,
+          "pollIntervalMs": 120,
+          "maxWaitMs": 8000
+        },
+        "expect": {
+          "predicate": {
+            "all": [
+              {
+                "kind": "settled"
+              },
+              {
+                "kind": "route-matches",
+                "route": "member-search"
+              },
+              {
+                "kind": "count",
+                "where": {
+                  "scope": {
+                    "path": [
+                      {
+                        "kind": "frame",
+                        "name": {
+                          "mode": "exact",
+                          "value": "content",
+                          "normalize": "std.text@1"
+                        }
+                      },
+                      {
+                        "kind": "landmark",
+                        "role": "form"
+                      }
+                    ]
+                  },
+                  "role": "textbox"
+                },
+                "op": "gte",
+                "n": 2
+              }
+            ]
+          },
+          "delta": {
+            "mustChange": false,
+            "navigatedTo": "member-search"
+          },
+          "continuity": []
+        },
+        "outcomes": [],
+        "recoveries": [],
+        "extract": [],
+        "budgets": {
+          "perRecoveryMaxAttempts": {},
+          "maxRemediationCycles": 2
+        },
+        "evidence": {
+          "captureOn": [
+            "failure"
+          ]
+        }
+      },
+      {
+        "id": "enter-member-id",
+        "title": "Type the member number into the search box",
+        "intent": "Put the caller's member number in the field the search reads from.",
+        "effect": "READ",
+        "instruction": {
+          "kind": "fill",
+          "value": {
+            "from": "param",
+            "param": "memberId"
+          },
+          "mode": "replace"
+        },
+        "target": {
+          "scope": {
+            "path": [
+              {
+                "kind": "frame",
+                "name": {
+                  "mode": "exact",
+                  "value": "content",
+                  "normalize": "std.text@1"
+                }
+              },
+              {
+                "kind": "landmark",
+                "role": "form"
+              }
+            ]
+          },
+          "role": "textbox",
+          "descriptors": [
+            {
+              "id": "member-id-right-of-label",
+              "kind": "label-anchored",
+              "evidenceSource": "labelText",
+              "label": {
+                "mode": "token",
+                "token": "member-id-label",
+                "normalize": "std.label@1"
+              },
+              "role": "textbox",
+              "relation": "right-of",
+              "maxDistance": {
+                "unit": "px",
+                "value": 60
+              }
+            },
+            {
+              "id": "member-id-first-in-form",
+              "kind": "ordinal-in-container",
+              "evidenceSource": "ordinal",
+              "container": {
+                "path": [
+                  {
+                    "kind": "frame",
+                    "name": {
+                      "mode": "exact",
+                      "value": "content",
+                      "normalize": "std.text@1"
+                    }
+                  },
+                  {
+                    "kind": "landmark",
+                    "role": "form"
+                  }
+                ]
+              },
+              "role": "textbox",
+              "index": 0
+            }
+          ],
+          "quorum": {
+            "min": 2,
+            "distinctEvidenceSources": 2,
+            "requireIdentical": true,
+            "onUnderQuorum": "fail",
+            "expectUnique": true
+          },
+          "assert": {
+            "role": "textbox",
+            "enabled": true,
+            "visible": true
+          },
+          "recordedNode": {
+            "ariaRole": "textbox",
+            "name": "",
+            "containerPath": [
+              {
+                "kind": "frame",
+                "name": "top"
+              },
+              {
+                "kind": "frame",
+                "name": "content"
+              },
+              {
+                "kind": "landmark",
+                "role": "form",
+                "name": null
+              }
+            ],
+            "tablePosition": null,
+            "boundsBucket": "px:12x2"
+          }
+        },
+        "precondition": {
+          "kind": "node-state",
+          "where": {
+            "scope": {
+              "path": [
+                {
+                  "kind": "frame",
+                  "name": {
+                    "mode": "exact",
+                    "value": "content",
+                    "normalize": "std.text@1"
+                  }
+                },
+                {
+                  "kind": "landmark",
+                  "role": "form"
+                }
+              ]
+            },
+            "role": "textbox",
+            "state": {
+              "readonly": false
+            }
+          },
+          "state": "readonly",
+          "equals": false
+        },
+        "settle": {
+          "stableSamples": 2,
+          "pollIntervalMs": 120,
+          "maxWaitMs": 8000
+        },
+        "expect": {
+          "predicate": {
+            "all": [
+              {
+                "kind": "settled"
+              },
+              {
+                "kind": "count",
+                "where": {
+                  "scope": {
+                    "path": [
+                      {
+                        "kind": "frame",
+                        "name": {
+                          "mode": "exact",
+                          "value": "content",
+                          "normalize": "std.text@1"
+                        }
+                      },
+                      {
+                        "kind": "landmark",
+                        "role": "form"
+                      }
+                    ]
+                  },
+                  "role": "textbox"
+                },
+                "op": "gte",
+                "n": 2
+              }
+            ]
+          },
+          "delta": {
+            "mustChange": false
+          },
+          "continuity": []
+        },
+        "outcomes": [],
+        "recoveries": [],
+        "extract": [],
+        "budgets": {
+          "perRecoveryMaxAttempts": {},
+          "maxRemediationCycles": 2
+        },
+        "evidence": {
+          "captureOn": [
+            "failure"
+          ]
+        }
+      },
+      {
+        "id": "submit-search",
+        "title": "Run the search",
+        "intent": "Submit the search form and wait for the results grid.",
+        "effect": "READ",
+        "instruction": {
+          "kind": "activate"
+        },
+        "target": {
+          "scope": {
+            "path": [
+              {
+                "kind": "frame",
+                "name": {
+                  "mode": "exact",
+                  "value": "content",
+                  "normalize": "std.text@1"
+                }
+              },
+              {
+                "kind": "landmark",
+                "role": "form"
+              }
+            ]
+          },
+          "role": "button",
+          "descriptors": [
+            {
+              "id": "search-by-name",
+              "kind": "role-name",
+              "evidenceSource": "accessibleName",
+              "role": "button",
+              "name": {
+                "mode": "token",
+                "token": "search-button",
+                "normalize": "std.label@1"
+              }
+            },
+            {
+              "id": "search-right-of-member-id",
+              "kind": "geometric",
+              "evidenceSource": "geometry",
+              "anchor": {
+                "id": "search-anchor-member-id",
+                "kind": "label-anchored",
+                "evidenceSource": "labelText",
+                "label": {
+                  "mode": "token",
+                  "token": "member-id-label",
+                  "normalize": "std.label@1"
+                },
+                "role": "textbox",
+                "relation": "right-of",
+                "maxDistance": {
+                  "unit": "px",
+                  "value": 60
+                }
+              },
+              "role": "button",
+              "direction": "right-of",
+              "maxDistance": {
+                "unit": "px",
+                "value": 300
+              }
+            }
+          ],
+          "quorum": {
+            "min": 2,
+            "distinctEvidenceSources": 2,
+            "requireIdentical": true,
+            "onUnderQuorum": "fail",
+            "expectUnique": true
+          },
+          "assert": {
+            "role": "button",
+            "enabled": true,
+            "visible": true
+          },
+          "recordedNode": {
+            "ariaRole": "button",
+            "name": "Search",
+            "containerPath": [
+              {
+                "kind": "frame",
+                "name": "top"
+              },
+              {
+                "kind": "frame",
+                "name": "content"
+              },
+              {
+                "kind": "landmark",
+                "role": "form",
+                "name": null
+              }
+            ],
+            "tablePosition": null,
+            "boundsBucket": "px:7x2"
+          }
+        },
+        "precondition": {
+          "kind": "node-state",
+          "where": {
+            "scope": {
+              "path": [
+                {
+                  "kind": "frame",
+                  "name": {
+                    "mode": "exact",
+                    "value": "content",
+                    "normalize": "std.text@1"
+                  }
+                },
+                {
+                  "kind": "landmark",
+                  "role": "form"
+                }
+              ]
+            },
+            "role": "button",
+            "name": {
+              "mode": "token",
+              "token": "search-button",
+              "normalize": "std.label@1"
+            }
+          },
+          "state": "disabled",
+          "equals": false
+        },
+        "settle": {
+          "stableSamples": 2,
+          "pollIntervalMs": 120,
+          "maxWaitMs": 12000
+        },
+        "expect": {
+          "predicate": {
+            "all": [
+              {
+                "kind": "settled"
+              },
+              {
+                "kind": "route-matches",
+                "route": "member-results"
+              },
+              {
+                "kind": "count",
+                "where": {
+                  "scope": {
+                    "path": [
+                      {
+                        "kind": "frame",
+                        "name": {
+                          "mode": "exact",
+                          "value": "content",
+                          "normalize": "std.text@1"
+                        }
+                      },
+                      {
+                        "kind": "table",
+                        "headers": [
+                          {
+                            "mode": "token",
+                            "token": "member-column",
+                            "normalize": "std.label@1"
+                          },
+                          {
+                            "mode": "token",
+                            "token": "name-column",
+                            "normalize": "std.label@1"
+                          },
+                          {
+                            "mode": "token",
+                            "token": "status-column",
+                            "normalize": "std.label@1"
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  "role": "row"
+                },
+                "op": "gte",
+                "n": 2
+              },
+              {
+                "kind": "continuity",
+                "ref": "subjectMember",
+                "scope": {
+                  "path": [
+                    {
+                      "kind": "frame",
+                      "name": {
+                        "mode": "exact",
+                        "value": "content",
+                        "normalize": "std.text@1"
+                      }
+                    },
+                    {
+                      "kind": "table",
+                      "headers": [
+                        {
+                          "mode": "token",
+                          "token": "member-column",
+                          "normalize": "std.label@1"
+                        },
+                        {
+                          "mode": "token",
+                          "token": "name-column",
+                          "normalize": "std.label@1"
+                        },
+                        {
+                          "mode": "token",
+                          "token": "status-column",
+                          "normalize": "std.label@1"
+                        }
+                      ]
+                    }
+                  ]
+                }
+              }
+            ]
+          },
+          "delta": {
+            "mustChange": true,
+            "navigatedTo": "member-results"
+          },
+          "continuity": [
+            "subjectMember"
+          ]
+        },
+        "outcomes": [
+          {
+            "code": "MEMBER_NOT_FOUND",
+            "detect": {
+              "kind": "text-present",
+              "scope": {
+                "path": [
+                  {
+                    "kind": "frame",
+                    "name": {
+                      "mode": "exact",
+                      "value": "content",
+                      "normalize": "std.text@1"
+                    }
+                  }
+                ]
+              },
+              "text": {
+                "mode": "token",
+                "token": "not-found-banner",
+                "normalize": "std.label@1"
+              }
+            },
+            "priority": 10,
+            "phase": "post",
+            "requiresSettled": true,
+            "capture": []
+          }
+        ],
+        "recoveries": [],
+        "extract": [],
+        "budgets": {
+          "perRecoveryMaxAttempts": {},
+          "maxRemediationCycles": 2
+        },
+        "evidence": {
+          "captureOn": [
+            "failure",
+            "outcome"
+          ]
+        }
+      },
+      {
+        "id": "read-member-summary",
+        "title": "Read the member's summary from the results grid",
+        "intent": "Read the member's name, total share balance and status off the row we searched for.",
+        "effect": "READ",
+        "instruction": {
+          "kind": "read"
+        },
+        "target": null,
+        "precondition": {
+          "kind": "route-matches",
+          "route": "member-results"
+        },
+        "settle": {
+          "stableSamples": 2,
+          "pollIntervalMs": 120,
+          "maxWaitMs": 8000
+        },
+        "expect": {
+          "predicate": {
+            "all": [
+              {
+                "kind": "settled"
+              },
+              {
+                "kind": "continuity",
+                "ref": "subjectMember",
+                "scope": {
+                  "path": [
+                    {
+                      "kind": "frame",
+                      "name": {
+                        "mode": "exact",
+                        "value": "content",
+                        "normalize": "std.text@1"
+                      }
+                    },
+                    {
+                      "kind": "table",
+                      "headers": [
+                        {
+                          "mode": "token",
+                          "token": "member-column",
+                          "normalize": "std.label@1"
+                        },
+                        {
+                          "mode": "token",
+                          "token": "name-column",
+                          "normalize": "std.label@1"
+                        },
+                        {
+                          "mode": "token",
+                          "token": "status-column",
+                          "normalize": "std.label@1"
+                        }
+                      ]
+                    }
+                  ]
+                }
+              }
+            ]
+          },
+          "delta": {
+            "mustChange": false
+          },
+          "continuity": [
+            "subjectMember"
+          ]
+        },
+        "outcomes": [],
+        "recoveries": [],
+        "extract": [
+          {
+            "output": "memberName",
+            "from": "cell@1",
+            "where": {
+              "cell": {
+                "table": {
+                  "path": [
+                    {
+                      "kind": "frame",
+                      "name": {
+                        "mode": "exact",
+                        "value": "content",
+                        "normalize": "std.text@1"
+                      }
+                    },
+                    {
+                      "kind": "table",
+                      "headers": [
+                        {
+                          "mode": "token",
+                          "token": "member-column",
+                          "normalize": "std.label@1"
+                        },
+                        {
+                          "mode": "token",
+                          "token": "name-column",
+                          "normalize": "std.label@1"
+                        },
+                        {
+                          "mode": "token",
+                          "token": "status-column",
+                          "normalize": "std.label@1"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                "rowKey": {
+                  "columnHeader": {
+                    "mode": "token",
+                    "token": "member-column",
+                    "normalize": "std.label@1"
+                  },
+                  "value": {
+                    "from": "param",
+                    "param": "memberId"
+                  }
+                },
+                "columnHeader": {
+                  "mode": "token",
+                  "token": "name-column",
+                  "normalize": "std.label@1"
+                }
+              }
+            },
+            "parse": "string@1",
+            "normalize": "std.identity@1",
+            "onMissing": "fail"
+          },
+          {
+            "output": "shareBalance",
+            "from": "cell@1",
+            "where": {
+              "cell": {
+                "table": {
+                  "path": [
+                    {
+                      "kind": "frame",
+                      "name": {
+                        "mode": "exact",
+                        "value": "content",
+                        "normalize": "std.text@1"
+                      }
+                    },
+                    {
+                      "kind": "table",
+                      "headers": [
+                        {
+                          "mode": "token",
+                          "token": "member-column",
+                          "normalize": "std.label@1"
+                        },
+                        {
+                          "mode": "token",
+                          "token": "name-column",
+                          "normalize": "std.label@1"
+                        },
+                        {
+                          "mode": "token",
+                          "token": "status-column",
+                          "normalize": "std.label@1"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                "rowKey": {
+                  "columnHeader": {
+                    "mode": "token",
+                    "token": "member-column",
+                    "normalize": "std.label@1"
+                  },
+                  "value": {
+                    "from": "param",
+                    "param": "memberId"
+                  }
+                },
+                "columnHeader": {
+                  "mode": "token",
+                  "token": "balance-column",
+                  "normalize": "std.label@1"
+                }
+              }
+            },
+            "parse": "moneyUSD@1",
+            "normalize": "std.money@1",
+            "onMissing": "fail"
+          },
+          {
+            "output": "accountStatus",
+            "from": "cell@1",
+            "where": {
+              "cell": {
+                "table": {
+                  "path": [
+                    {
+                      "kind": "frame",
+                      "name": {
+                        "mode": "exact",
+                        "value": "content",
+                        "normalize": "std.text@1"
+                      }
+                    },
+                    {
+                      "kind": "table",
+                      "headers": [
+                        {
+                          "mode": "token",
+                          "token": "member-column",
+                          "normalize": "std.label@1"
+                        },
+                        {
+                          "mode": "token",
+                          "token": "name-column",
+                          "normalize": "std.label@1"
+                        },
+                        {
+                          "mode": "token",
+                          "token": "status-column",
+                          "normalize": "std.label@1"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                "rowKey": {
+                  "columnHeader": {
+                    "mode": "token",
+                    "token": "member-column",
+                    "normalize": "std.label@1"
+                  },
+                  "value": {
+                    "from": "param",
+                    "param": "memberId"
+                  }
+                },
+                "columnHeader": {
+                  "mode": "token",
+                  "token": "status-column",
+                  "normalize": "std.label@1"
+                }
+              }
+            },
+            "parse": "enum@1",
+            "normalize": "std.text@1",
+            "onMissing": "fail"
+          }
+        ],
+        "budgets": {
+          "perRecoveryMaxAttempts": {},
+          "maxRemediationCycles": 2
+        },
+        "evidence": {
+          "captureOn": [
+            "failure"
+          ]
+        }
+      },
+      {
+        "id": "open-member-record",
+        "title": "Open the matching member's record",
+        "intent": "Follow the row whose member number is the one we were asked about.",
+        "effect": "READ",
+        "instruction": {
+          "kind": "activate"
+        },
+        "target": {
+          "scope": {
+            "path": [
+              {
+                "kind": "frame",
+                "name": {
+                  "mode": "exact",
+                  "value": "content",
+                  "normalize": "std.text@1"
+                }
+              },
+              {
+                "kind": "table",
+                "headers": [
+                  {
+                    "mode": "token",
+                    "token": "member-column",
+                    "normalize": "std.label@1"
+                  },
+                  {
+                    "mode": "token",
+                    "token": "name-column",
+                    "normalize": "std.label@1"
+                  },
+                  {
+                    "mode": "token",
+                    "token": "status-column",
+                    "normalize": "std.label@1"
+                  }
+                ]
+              }
+            ]
+          },
+          "role": "link",
+          "descriptors": [
+            {
+              "id": "open-by-row-key",
+              "kind": "table-cell",
+              "evidenceSource": "columnHeader",
+              "table": {
+                "path": [
+                  {
+                    "kind": "frame",
+                    "name": {
+                      "mode": "exact",
+                      "value": "content",
+                      "normalize": "std.text@1"
+                    }
+                  },
+                  {
+                    "kind": "table",
+                    "headers": [
+                      {
+                        "mode": "token",
+                        "token": "member-column",
+                        "normalize": "std.label@1"
+                      },
+                      {
+                        "mode": "token",
+                        "token": "name-column",
+                        "normalize": "std.label@1"
+                      },
+                      {
+                        "mode": "token",
+                        "token": "status-column",
+                        "normalize": "std.label@1"
+                      }
+                    ]
+                  }
+                ]
+              },
+              "rowKey": {
+                "columnHeader": {
+                  "mode": "token",
+                  "token": "member-column",
+                  "normalize": "std.label@1"
+                },
+                "value": {
+                  "from": "param",
+                  "param": "memberId"
+                }
+              },
+              "columnHeader": {
+                "mode": "token",
+                "token": "action-column",
+                "normalize": "std.label@1"
+              },
+              "childRole": "link",
+              "headerProvenance": "first-row-heuristic"
+            },
+            {
+              "id": "open-by-link-text",
+              "kind": "role-name",
+              "evidenceSource": "accessibleName",
+              "role": "link",
+              "name": {
+                "mode": "token",
+                "token": "open-row-link",
+                "normalize": "std.label@1"
+              }
+            }
+          ],
+          "quorum": {
+            "min": 2,
+            "distinctEvidenceSources": 2,
+            "requireIdentical": true,
+            "onUnderQuorum": "fail",
+            "expectUnique": true
+          },
+          "assert": {
+            "role": "link",
+            "rowKeyEquals": {
+              "columnHeader": {
+                "mode": "token",
+                "token": "member-column",
+                "normalize": "std.label@1"
+              },
+              "value": {
+                "from": "param",
+                "param": "memberId"
+              }
+            }
+          },
+          "recordedNode": {
+            "ariaRole": "link",
+            "name": "Open",
+            "containerPath": [
+              {
+                "kind": "frame",
+                "name": "top"
+              },
+              {
+                "kind": "frame",
+                "name": "content"
+              },
+              {
+                "kind": "landmark",
+                "role": "form",
+                "name": null
+              },
+              {
+                "kind": "table",
+                "headers": [
+                  "Member ID",
+                  "Name",
+                  "Share Balance",
+                  "Status",
+                  "Action"
+                ]
+              }
+            ],
+            "tablePosition": {
+              "rowHeader": null,
+              "colHeader": "Action"
+            },
+            "boundsBucket": "px:5x2"
+          }
+        },
+        "precondition": {
+          "kind": "count",
+          "where": {
+            "scope": {
+              "path": [
+                {
+                  "kind": "frame",
+                  "name": {
+                    "mode": "exact",
+                    "value": "content",
+                    "normalize": "std.text@1"
+                  }
+                },
+                {
+                  "kind": "table",
+                  "headers": [
+                    {
+                      "mode": "token",
+                      "token": "member-column",
+                      "normalize": "std.label@1"
+                    },
+                    {
+                      "mode": "token",
+                      "token": "name-column",
+                      "normalize": "std.label@1"
+                    },
+                    {
+                      "mode": "token",
+                      "token": "status-column",
+                      "normalize": "std.label@1"
+                    }
+                  ]
+                }
+              ]
+            },
+            "role": "row"
+          },
+          "op": "gte",
+          "n": 2
+        },
+        "settle": {
+          "stableSamples": 2,
+          "pollIntervalMs": 120,
+          "maxWaitMs": 12000
+        },
+        "expect": {
+          "predicate": {
+            "all": [
+              {
+                "kind": "settled"
+              },
+              {
+                "kind": "route-matches",
+                "route": "member-detail"
+              },
+              {
+                "kind": "text-present",
+                "scope": {
+                  "path": [
+                    {
+                      "kind": "frame",
+                      "name": {
+                        "mode": "exact",
+                        "value": "content",
+                        "normalize": "std.text@1"
+                      }
+                    }
+                  ]
+                },
+                "text": {
+                  "mode": "token",
+                  "token": "member-detail-heading",
+                  "normalize": "std.label@1"
+                }
+              },
+              {
+                "kind": "continuity",
+                "ref": "subjectMember",
+                "scope": {
+                  "path": [
+                    {
+                      "kind": "frame",
+                      "name": {
+                        "mode": "exact",
+                        "value": "content",
+                        "normalize": "std.text@1"
+                      }
+                    }
+                  ]
+                }
+              }
+            ]
+          },
+          "delta": {
+            "mustChange": true,
+            "navigatedTo": "member-detail"
+          },
+          "continuity": [
+            "subjectMember"
+          ]
+        },
+        "outcomes": [],
+        "recoveries": [],
+        "extract": [],
+        "budgets": {
+          "perRecoveryMaxAttempts": {},
+          "maxRemediationCycles": 2
+        },
+        "evidence": {
+          "captureOn": [
+            "failure"
+          ]
+        }
+      },
+      {
+        "id": "verify-member-record",
+        "title": "Confirm we are on the right member's record",
+        "intent": "Re-observe the detail screen and check the subject is still the member we were asked about before anything is read from it.",
+        "effect": "READ",
+        "instruction": {
+          "kind": "assert"
+        },
+        "target": null,
+        "precondition": {
+          "kind": "route-matches",
+          "route": "member-detail"
+        },
+        "settle": {
+          "stableSamples": 2,
+          "pollIntervalMs": 120,
+          "maxWaitMs": 8000
+        },
+        "expect": {
+          "predicate": {
+            "all": [
+              {
+                "kind": "settled"
+              },
+              {
+                "kind": "continuity",
+                "ref": "subjectMember",
+                "scope": {
+                  "path": [
+                    {
+                      "kind": "frame",
+                      "name": {
+                        "mode": "exact",
+                        "value": "content",
+                        "normalize": "std.text@1"
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "kind": "count",
+                "where": {
+                  "scope": {
+                    "path": [
+                      {
+                        "kind": "frame",
+                        "name": {
+                          "mode": "exact",
+                          "value": "subacct",
+                          "normalize": "std.text@1"
+                        }
+                      },
+                      {
+                        "kind": "table",
+                        "headers": [
+                          {
+                            "mode": "token",
+                            "token": "subaccount-number-column",
+                            "normalize": "std.label@1"
+                          },
+                          {
+                            "mode": "token",
+                            "token": "subaccount-product-column",
+                            "normalize": "std.label@1"
+                          },
+                          {
+                            "mode": "token",
+                            "token": "balance-column",
+                            "normalize": "std.label@1"
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  "role": "row"
+                },
+                "op": "gte",
+                "n": 1
+              }
+            ]
+          },
+          "delta": {
+            "mustChange": false
+          },
+          "continuity": [
+            "subjectMember"
+          ]
+        },
+        "outcomes": [],
+        "recoveries": [],
+        "extract": [],
+        "budgets": {
+          "perRecoveryMaxAttempts": {},
+          "maxRemediationCycles": 2
+        },
+        "evidence": {
+          "captureOn": [
+            "failure"
+          ]
+        }
+      },
+      {
+        "id": "read-share-accounts",
+        "title": "List the member's existing share accounts",
+        "intent": "Read the share-account grid in the nested frame, bounded.",
+        "effect": "READ",
+        "instruction": {
+          "kind": "readTable"
+        },
+        "target": null,
+        "precondition": {
+          "kind": "route-matches",
+          "route": "member-detail"
+        },
+        "settle": {
+          "stableSamples": 2,
+          "pollIntervalMs": 120,
+          "maxWaitMs": 8000
+        },
+        "expect": {
+          "predicate": {
+            "all": [
+              {
+                "kind": "settled"
+              },
+              {
+                "kind": "count",
+                "where": {
+                  "scope": {
+                    "path": [
+                      {
+                        "kind": "frame",
+                        "name": {
+                          "mode": "exact",
+                          "value": "subacct",
+                          "normalize": "std.text@1"
+                        }
+                      },
+                      {
+                        "kind": "table",
+                        "headers": [
+                          {
+                            "mode": "token",
+                            "token": "subaccount-number-column",
+                            "normalize": "std.label@1"
+                          },
+                          {
+                            "mode": "token",
+                            "token": "subaccount-product-column",
+                            "normalize": "std.label@1"
+                          },
+                          {
+                            "mode": "token",
+                            "token": "balance-column",
+                            "normalize": "std.label@1"
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  "role": "row"
+                },
+                "op": "gte",
+                "n": 1
+              }
+            ]
+          },
+          "delta": {
+            "mustChange": false
+          },
+          "continuity": []
+        },
+        "outcomes": [],
+        "recoveries": [],
+        "extract": [
+          {
+            "output": "shareAccounts",
+            "from": "cell@1",
+            "where": {
+              "scope": {
+                "path": [
+                  {
+                    "kind": "frame",
+                    "name": {
+                      "mode": "exact",
+                      "value": "subacct",
+                      "normalize": "std.text@1"
+                    }
+                  },
+                  {
+                    "kind": "table",
+                    "headers": [
+                      {
+                        "mode": "token",
+                        "token": "subaccount-number-column",
+                        "normalize": "std.label@1"
+                      },
+                      {
+                        "mode": "token",
+                        "token": "subaccount-product-column",
+                        "normalize": "std.label@1"
+                      },
+                      {
+                        "mode": "token",
+                        "token": "balance-column",
+                        "normalize": "std.label@1"
+                      }
+                    ]
+                  }
+                ]
+              },
+              "role": "cell"
+            },
+            "parse": "string@1",
+            "normalize": "std.identity@1",
+            "onMissing": "fail",
+            "columnHeaders": {
+              "Acct": {
+                "mode": "token",
+                "token": "subaccount-number-column",
+                "normalize": "std.label@1"
+              },
+              "Share Account": {
+                "mode": "token",
+                "token": "subaccount-product-column",
+                "normalize": "std.label@1"
+              },
+              "Share Balance": {
+                "mode": "token",
+                "token": "balance-column",
+                "normalize": "std.label@1"
+              },
+              "Opened": {
+                "mode": "token",
+                "token": "subaccount-opened-column",
+                "normalize": "std.label@1"
+              }
+            },
+            "rows": {
+              "minRows": 1,
+              "maxRows": 25,
+              "onTruncate": "fail"
+            }
+          }
+        ],
+        "budgets": {
+          "perRecoveryMaxAttempts": {},
+          "maxRemediationCycles": 2
+        },
+        "evidence": {
+          "captureOn": [
+            "failure"
+          ]
+        }
+      },
+      {
+        "id": "open-subaccount-form",
+        "title": "Open the sub-account form for this member",
+        "intent": "Leave the servicing session on the open-sub-account form for this member, so a teller can complete the write.",
+        "effect": "READ",
+        "instruction": {
+          "kind": "activate"
+        },
+        "target": {
+          "scope": {
+            "path": [
+              {
+                "kind": "frame",
+                "name": {
+                  "mode": "exact",
+                  "value": "content",
+                  "normalize": "std.text@1"
+                }
+              },
+              {
+                "kind": "landmark",
+                "role": "form"
+              }
+            ]
+          },
+          "role": "button",
+          "descriptors": [
+            {
+              "id": "open-subaccount-by-name",
+              "kind": "role-name",
+              "evidenceSource": "accessibleName",
+              "role": "button",
+              "name": {
+                "mode": "token",
+                "token": "open-subaccount-button",
+                "normalize": "std.label@1"
+              }
+            },
+            {
+              "id": "open-subaccount-only-control",
+              "kind": "ordinal-in-container",
+              "evidenceSource": "ordinal",
+              "container": {
+                "path": [
+                  {
+                    "kind": "frame",
+                    "name": {
+                      "mode": "exact",
+                      "value": "content",
+                      "normalize": "std.text@1"
+                    }
+                  },
+                  {
+                    "kind": "landmark",
+                    "role": "form"
+                  }
+                ]
+              },
+              "role": "button",
+              "index": 0
+            }
+          ],
+          "quorum": {
+            "min": 2,
+            "distinctEvidenceSources": 2,
+            "requireIdentical": true,
+            "onUnderQuorum": "fail",
+            "expectUnique": true
+          },
+          "assert": {
+            "role": "button",
+            "enabled": true,
+            "visible": true
+          },
+          "recordedNode": {
+            "ariaRole": "button",
+            "name": "Open Sub-Account",
+            "containerPath": [
+              {
+                "kind": "frame",
+                "name": "top"
+              },
+              {
+                "kind": "frame",
+                "name": "content"
+              },
+              {
+                "kind": "landmark",
+                "role": "form",
+                "name": null
+              }
+            ],
+            "tablePosition": null,
+            "boundsBucket": "px:16x2"
+          }
+        },
+        "precondition": {
+          "kind": "route-matches",
+          "route": "member-detail"
+        },
+        "settle": {
+          "stableSamples": 2,
+          "pollIntervalMs": 120,
+          "maxWaitMs": 12000
+        },
+        "expect": {
+          "predicate": {
+            "all": [
+              {
+                "kind": "settled"
+              },
+              {
+                "kind": "route-matches",
+                "route": "subaccount-new"
+              },
+              {
+                "kind": "continuity",
+                "ref": "subjectMember",
+                "scope": {
+                  "path": [
+                    {
+                      "kind": "frame",
+                      "name": {
+                        "mode": "exact",
+                        "value": "content",
+                        "normalize": "std.text@1"
+                      }
+                    }
+                  ]
+                }
+              }
+            ]
+          },
+          "delta": {
+            "mustChange": true,
+            "navigatedTo": "subaccount-new"
+          },
+          "continuity": [
+            "subjectMember"
+          ]
+        },
+        "outcomes": [],
+        "recoveries": [],
+        "extract": [],
+        "budgets": {
+          "perRecoveryMaxAttempts": {},
+          "maxRemediationCycles": 2
+        },
+        "evidence": {
+          "captureOn": [
+            "failure"
+          ]
+        }
+      },
+      {
+        "id": "confirm-form-ready",
+        "title": "Confirm the sub-account form is ready for the teller",
+        "intent": "Check the product list and the deposit field are present and usable before handing the session over.",
+        "effect": "READ",
+        "instruction": {
+          "kind": "assert"
+        },
+        "target": null,
+        "precondition": {
+          "kind": "route-matches",
+          "route": "subaccount-new"
+        },
+        "settle": {
+          "stableSamples": 2,
+          "pollIntervalMs": 120,
+          "maxWaitMs": 8000
+        },
+        "expect": {
+          "predicate": {
+            "all": [
+              {
+                "kind": "settled"
+              },
+              {
+                "kind": "text-present",
+                "scope": {
+                  "path": [
+                    {
+                      "kind": "frame",
+                      "name": {
+                        "mode": "exact",
+                        "value": "content",
+                        "normalize": "std.text@1"
+                      }
+                    }
+                  ]
+                },
+                "text": {
+                  "mode": "token",
+                  "token": "subaccount-type-label",
+                  "normalize": "std.label@1"
+                }
+              },
+              {
+                "kind": "text-present",
+                "scope": {
+                  "path": [
+                    {
+                      "kind": "frame",
+                      "name": {
+                        "mode": "exact",
+                        "value": "content",
+                        "normalize": "std.text@1"
+                      }
+                    }
+                  ]
+                },
+                "text": {
+                  "mode": "token",
+                  "token": "initial-deposit-label",
+                  "normalize": "std.label@1"
+                }
+              },
+              {
+                "kind": "node-state",
+                "where": {
+                  "scope": {
+                    "path": [
+                      {
+                        "kind": "frame",
+                        "name": {
+                          "mode": "exact",
+                          "value": "content",
+                          "normalize": "std.text@1"
+                        }
+                      },
+                      {
+                        "kind": "landmark",
+                        "role": "form"
+                      }
+                    ]
+                  },
+                  "role": "combobox"
+                },
+                "state": "disabled",
+                "equals": false
+              },
+              {
+                "kind": "continuity",
+                "ref": "subjectMember",
+                "scope": {
+                  "path": [
+                    {
+                      "kind": "frame",
+                      "name": {
+                        "mode": "exact",
+                        "value": "content",
+                        "normalize": "std.text@1"
+                      }
+                    }
+                  ]
+                }
+              }
+            ]
+          },
+          "delta": {
+            "mustChange": false
+          },
+          "continuity": [
+            "subjectMember"
+          ]
+        },
+        "outcomes": [],
+        "recoveries": [],
+        "extract": [],
+        "budgets": {
+          "perRecoveryMaxAttempts": {},
+          "maxRemediationCycles": 2
+        },
+        "evidence": {
+          "captureOn": [
+            "failure"
+          ]
+        }
+      }
+    ],
+    "ambient": [
+      {
+        "name": "APP_ERROR_PAGE",
+        "band": "environment",
+        "detect": {
+          "kind": "text-present",
+          "scope": {
+            "path": [
+              {
+                "kind": "frame",
+                "name": {
+                  "mode": "exact",
+                  "value": "content",
+                  "normalize": "std.text@1"
+                }
+              }
+            ]
+          },
+          "text": {
+            "mode": "token",
+            "token": "app-error-banner",
+            "normalize": "std.label@1"
+          }
+        },
+        "priority": 10,
+        "phase": "both",
+        "remedy": {
+          "kind": "actions",
+          "instructions": [
+            {
+              "kind": "navigate",
+              "route": "member-search"
+            }
+          ]
+        },
+        "maxAttempts": 1,
+        "allowUnsettled": true,
+        "afterRemedy": "reverify",
+        "resume": "restart-program"
+      },
+      {
+        "name": "SESSION_EXPIRED",
+        "band": "environment",
+        "detect": {
+          "kind": "text-present",
+          "scope": {
+            "path": [
+              {
+                "kind": "frame",
+                "name": {
+                  "mode": "exact",
+                  "value": "content",
+                  "normalize": "std.text@1"
+                }
+              }
+            ]
+          },
+          "text": {
+            "mode": "token",
+            "token": "session-expired-banner",
+            "normalize": "std.label@1"
+          }
+        },
+        "priority": 20,
+        "phase": "both",
+        "remedy": {
+          "kind": "reauthenticate"
+        },
+        "maxAttempts": 1,
+        "allowUnsettled": true,
+        "afterRemedy": "reverify",
+        "resume": "restart-program"
+      },
+      {
+        "name": "DISMISS_SYSTEM_NOTICE",
+        "band": "interception",
+        "detect": {
+          "kind": "node-exists",
+          "where": {
+            "scope": {
+              "path": [
+                {
+                  "kind": "frame",
+                  "name": {
+                    "mode": "exact",
+                    "value": "content",
+                    "normalize": "std.text@1"
+                  }
+                },
+                {
+                  "kind": "landmark",
+                  "role": "dialog",
+                  "name": {
+                    "mode": "token",
+                    "token": "notice-dialog",
+                    "normalize": "std.label@1"
+                  }
+                }
+              ]
+            },
+            "role": "button",
+            "name": {
+              "mode": "token",
+              "token": "notice-dismiss-button",
+              "normalize": "std.label@1"
+            }
+          }
+        },
+        "priority": 30,
+        "phase": "both",
+        "remedy": {
+          "kind": "actions",
+          "instructions": [
+            {
+              "kind": "activate",
+              "target": {
+                "scope": {
+                  "path": [
+                    {
+                      "kind": "frame",
+                      "name": {
+                        "mode": "exact",
+                        "value": "content",
+                        "normalize": "std.text@1"
+                      }
+                    },
+                    {
+                      "kind": "landmark",
+                      "role": "dialog",
+                      "name": {
+                        "mode": "token",
+                        "token": "notice-dialog",
+                        "normalize": "std.label@1"
+                      }
+                    }
+                  ]
+                },
+                "role": "button",
+                "descriptors": [
+                  {
+                    "id": "notice-ack-by-name",
+                    "kind": "role-name",
+                    "evidenceSource": "accessibleName",
+                    "role": "button",
+                    "name": {
+                      "mode": "token",
+                      "token": "notice-dismiss-button",
+                      "normalize": "std.label@1"
+                    }
+                  },
+                  {
+                    "id": "notice-ack-only-control",
+                    "kind": "ordinal-in-container",
+                    "evidenceSource": "ordinal",
+                    "container": {
+                      "path": [
+                        {
+                          "kind": "frame",
+                          "name": {
+                            "mode": "exact",
+                            "value": "content",
+                            "normalize": "std.text@1"
+                          }
+                        },
+                        {
+                          "kind": "landmark",
+                          "role": "dialog",
+                          "name": {
+                            "mode": "token",
+                            "token": "notice-dialog",
+                            "normalize": "std.label@1"
+                          }
+                        }
+                      ]
+                    },
+                    "role": "button",
+                    "index": 0
+                  }
+                ],
+                "quorum": {
+                  "min": 2,
+                  "distinctEvidenceSources": 2,
+                  "requireIdentical": true,
+                  "onUnderQuorum": "fail",
+                  "expectUnique": true
+                },
+                "assert": {
+                  "role": "button",
+                  "enabled": true,
+                  "visible": true
+                },
+                "recordedNode": {
+                  "ariaRole": "button",
+                  "name": "Acknowledge",
+                  "containerPath": [
+                    {
+                      "kind": "frame",
+                      "name": "top"
+                    },
+                    {
+                      "kind": "frame",
+                      "name": "content"
+                    },
+                    {
+                      "kind": "landmark",
+                      "role": "dialog",
+                      "name": "System Notice"
+                    }
+                  ],
+                  "tablePosition": null,
+                  "boundsBucket": "px:11x2"
+                }
+              }
+            }
+          ]
+        },
+        "maxAttempts": 2,
+        "allowUnsettled": false,
+        "afterRemedy": "reverify",
+        "resume": "restart-from-checkpoint",
+        "resumeAt": "open-search"
+      }
+    ]
+  },
+  "continuity": [
+    {
+      "id": "subjectMember",
+      "source": {
+        "from": "param",
+        "param": "memberId"
+      },
+      "compare": {
+        "via": "std.text@1",
+        "type": {
+          "kind": "string",
+          "charset": "digits"
+        }
+      }
+    }
+  ],
+  "provenance": {
+    "discoveryRunId": "run-unit11-hand-authored",
+    "goalTemplate": "look up member {memberId} in the back office, read their share position, and open the sub-account form for them",
+    "model": {
+      "adapter": "replay",
+      "modelId": "none:hand-authored-for-unit-11",
+      "promptVersion": "n/a"
+    },
+    "transcriptRef": null,
+    "recordedAt": "2026-02-11T14:03:22.000Z",
+    "recordedAgainst": {
+      "tenantId": "riverbend",
+      "appInstanceId": "riverbend-corebank-fixture",
+      "fingerprint": {
+        "perStep": {
+          "open-search": "fp:search",
+          "enter-member-id": "fp:search",
+          "submit-search": "fp:results",
+          "read-member-summary": "fp:results",
+          "open-member-record": "fp:results",
+          "verify-member-record": "fp:detail",
+          "read-share-accounts": "fp:detail",
+          "open-subaccount-form": "fp:detail",
+          "confirm-form-ready": "fp:newsub"
+        }
+      }
+    }
+  },
+  "verification": {
+    "mode": "replay-full",
+    "status": "verified",
+    "coveredThroughStep": "confirm-form-ready",
+    "grade": "full",
+    "runId": "run-unit11-verify",
+    "at": "2026-02-11T14:05:41.000Z"
+  },
+  "policy": {
+    "originAliases": [
+      "corebank"
+    ],
+    "maxEffect": "READ",
+    "requiresApprovalToken": false,
+    "redaction": {
+      "taintedParams": [
+        "memberId"
+      ],
+      "maskScreenshotRegions": true
+    }
+  },
+  "effects": {
+    "maxEffect": "READ",
+    "irreversibleSteps": [],
+    "routesTouched": [
+      "member-search",
+      "member-results",
+      "member-detail",
+      "subaccount-new"
+    ],
+    "reads": [
+      {
+        "field": "memberName",
+        "sensitivity": "sensitive"
+      },
+      {
+        "field": "shareBalance",
+        "sensitivity": "internal"
+      },
+      {
+        "field": "accountStatus",
+        "sensitivity": "internal"
+      },
+      {
+        "field": "shareAccounts",
+        "sensitivity": "internal"
+      }
+    ],
+    "requiresApproval": false,
+    "restartSafeUpToPc": 9
+  },
+  "budgets": {
+    "maxActions": 40,
+    "maxObservations": 400,
+    "maxTotalRemediations": 6,
+    "maxProgramAttempts": 1,
+    "deadlineMs": 180000
+  },
+  "signatures": []
+}

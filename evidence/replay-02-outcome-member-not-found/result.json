@@ -1,0 +1,150 @@
+{
+  "status": "outcome",
+  "outcome": "MEMBER_NOT_FOUND",
+  "data": {},
+  "terminal": true,
+  "callerAction": "retry-different-input",
+  "retryable": "with_different_inputs",
+  "guidance": "Tell the member that number is not on file and ask them to read it again from their card or statement. Do not guess a different number on their behalf.",
+  "detectedAt": {
+    "stepId": "submit-search",
+    "stepIndex": 2,
+    "priority": 10
+  },
+  "alsoMatched": [],
+  "run": {
+    "runId": "run-df5fd617-4732-4a9e-b634-6962f672626f",
+    "capability": {
+      "name": "corebank.member.read_share_position",
+      "version": "1.0.0"
+    },
+    "artifact": {
+      "artifactId": "corebank-member-share-position-web",
+      "version": 1,
+      "digest": "sha256:ba09bc6061370dbf99ecb3c541ab41d22b7808a668591a9730356d952cc726f3",
+      "overlayDigest": null,
+      "effectiveDigest": "sha256:b98064075b3bbe086ce5130f1cf997fe0ac4d67449b7c826314bbba459cb3b8f"
+    },
+    "tenant": {
+      "tenantId": "riverbend",
+      "appInstanceId": "riverbend-corebank-fixture"
+    },
+    "surface": "web-legacy",
+    "engineVersion": "crr-runtime/0.1.0",
+    "startedAt": "2026-08-28T01:09:52.443Z",
+    "endedAt": "2026-08-28T01:09:52.928Z",
+    "durationMs": 485,
+    "stepsExecuted": 2,
+    "stepsTotal": 9,
+    "budgets": {
+      "actions": {
+        "used": 3,
+        "limit": 40
+      },
+      "observations": {
+        "used": 9,
+        "limit": 400
+      },
+      "remediations": {
+        "used": 0,
+        "limit": 6
+      },
+      "programAttempts": {
+        "used": 0,
+        "limit": 1
+      },
+      "wallClockMs": {
+        "used": 485,
+        "limit": 180000
+      }
+    },
+    "recoveriesApplied": [],
+    "attribution": {
+      "by": "automation",
+      "transfers": []
+    },
+    "steps": [
+      {
+        "stepId": "open-search",
+        "attempt": 1,
+        "verdict": {
+          "kind": "advance",
+          "outputs": []
+        },
+        "skeletonDigest": "sha256:77133a7a47cabfb23d8a04fdd48bd97dff3e5670d891b221c3db0bf8275c79c4",
+        "observationRef": null,
+        "elapsedMs": 151
+      },
+      {
+        "stepId": "enter-member-id",
+        "attempt": 1,
+        "verdict": {
+          "kind": "advance",
+          "outputs": []
+        },
+        "skeletonDigest": "sha256:db600b4254e71da42a08128d6538ea5853a8a1c4746452d7875ee7345501fee3",
+        "observationRef": null,
+        "elapsedMs": 164,
+        "resolution": [
+          {
+            "descriptorId": "member-id-right-of-label",
+            "kind": "label-anchored",
+            "evidenceSource": "labelText",
+            "verdict": "resolved",
+            "resolvedNodeId": "textbox:f3-158"
+          },
+          {
+            "descriptorId": "member-id-first-in-form",
+            "kind": "ordinal-in-container",
+            "evidenceSource": "ordinal",
+            "verdict": "resolved",
+            "resolvedNodeId": "textbox:f3-158"
+          }
+        ]
+      },
+      {
+        "stepId": "submit-search",
+        "attempt": 1,
+        "verdict": {
+          "kind": "outcome",
+          "code": "MEMBER_NOT_FOUND",
+          "data": [],
+          "priority": 10,
+          "alsoMatched": []
+        },
+        "skeletonDigest": "sha256:7fac544c14c45e1dea55558a9c3132523d3132f6887ecf70e5a7aa608d48d15a",
+        "observationRef": "obs:cc8860759ba233933ca099bbc7309c462de290e68e6711ebf61865ff434dc165",
+        "elapsedMs": 161,
+        "resolution": [
+          {
+            "descriptorId": "search-by-name",
+            "kind": "role-name",
+            "evidenceSource": "accessibleName",
+            "verdict": "resolved",
+            "resolvedNodeId": "button:f3-168"
+          },
+          {
+            "descriptorId": "search-right-of-member-id",
+            "kind": "geometric",
+            "evidenceSource": "geometry",
+            "verdict": "resolved",
+            "resolvedNodeId": "button:f3-168"
+          }
+        ]
+      }
+    ],
+    "drift": {
+      "fingerprint": "sha256:c3a47730351498f5f12491f4562fb3f3c17b01caab2eb6d4d08c83d74710434b",
+      "expected": "sha256:a51c2e7c52b067496e1abdcf46cfaa35cfc59450b6c2b5949cb205881fc2c46d",
+      "divergence": 0,
+      "changed": [],
+      "needsSpecialization": false
+    },
+    "evidence": [
+      "obs:cc8860759ba233933ca099bbc7309c462de290e68e6711ebf61865ff434dc165",
+      "journal:235702529cf4f360a28bb51890e73096ccdc43260133e5e72afbd4c9555c406c"
+    ],
+    "journalRef": "journal:235702529cf4f360a28bb51890e73096ccdc43260133e5e72afbd4c9555c406c",
+    "warnings": []
+  }
+}

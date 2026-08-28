@@ -1,0 +1,459 @@
+{
+  "status": "ok",
+  "outputs": {
+    "memberName": "ALVAREZ, DANA (SYNTHETIC)",
+    "shareBalance": {
+      "amount": "1204.55",
+      "currency": "USD"
+    },
+    "accountStatus": "ACTIVE",
+    "shareAccounts": [
+      {
+        "Acct": "0001",
+        "Share Account": "Share Account - Regular",
+        "Share Balance": "1,204.55",
+        "Opened": "2019-03-11"
+      }
+    ]
+  },
+  "run": {
+    "runId": "run-59286595-4031-41fe-b3c7-21fc3060531e",
+    "capability": {
+      "name": "corebank.member.read_share_position",
+      "version": "1.0.0"
+    },
+    "artifact": {
+      "artifactId": "corebank-member-share-position-web",
+      "version": 1,
+      "digest": "sha256:ba09bc6061370dbf99ecb3c541ab41d22b7808a668591a9730356d952cc726f3",
+      "overlayDigest": null,
+      "effectiveDigest": "sha256:b98064075b3bbe086ce5130f1cf997fe0ac4d67449b7c826314bbba459cb3b8f"
+    },
+    "tenant": {
+      "tenantId": "riverbend",
+      "appInstanceId": "riverbend-corebank-fixture"
+    },
+    "surface": "web-legacy",
+    "engineVersion": "crr-runtime/0.1.0",
+    "startedAt": "2026-08-28T01:09:53.047Z",
+    "endedAt": "2026-08-28T01:09:55.301Z",
+    "durationMs": 2254,
+    "stepsExecuted": 11,
+    "stepsTotal": 9,
+    "budgets": {
+      "actions": {
+        "used": 9,
+        "limit": 40
+      },
+      "observations": {
+        "used": 38,
+        "limit": 400
+      },
+      "remediations": {
+        "used": 1,
+        "limit": 6
+      },
+      "programAttempts": {
+        "used": 0,
+        "limit": 1
+      },
+      "wallClockMs": {
+        "used": 2255,
+        "limit": 180000
+      }
+    },
+    "recoveriesApplied": [
+      {
+        "stepId": "submit-search",
+        "name": "DISMISS_SYSTEM_NOTICE",
+        "attempts": 1,
+        "result": "cleared"
+      }
+    ],
+    "attribution": {
+      "by": "automation",
+      "transfers": []
+    },
+    "steps": [
+      {
+        "stepId": "open-search",
+        "attempt": 1,
+        "verdict": {
+          "kind": "advance",
+          "outputs": []
+        },
+        "skeletonDigest": "sha256:77133a7a47cabfb23d8a04fdd48bd97dff3e5670d891b221c3db0bf8275c79c4",
+        "observationRef": null,
+        "elapsedMs": 149
+      },
+      {
+        "stepId": "enter-member-id",
+        "attempt": 1,
+        "verdict": {
+          "kind": "advance",
+          "outputs": []
+        },
+        "skeletonDigest": "sha256:014aa733ad56a65ca562941a1edf215144446165bd3145f7af8bce711be1ce89",
+        "observationRef": null,
+        "elapsedMs": 161,
+        "resolution": [
+          {
+            "descriptorId": "member-id-right-of-label",
+            "kind": "label-anchored",
+            "evidenceSource": "labelText",
+            "verdict": "resolved",
+            "resolvedNodeId": "textbox:f3-158"
+          },
+          {
+            "descriptorId": "member-id-first-in-form",
+            "kind": "ordinal-in-container",
+            "evidenceSource": "ordinal",
+            "verdict": "resolved",
+            "resolvedNodeId": "textbox:f3-158"
+          }
+        ]
+      },
+      {
+        "stepId": "submit-search",
+        "attempt": 1,
+        "verdict": {
+          "kind": "recover",
+          "recoveryName": "DISMISS_SYSTEM_NOTICE",
+          "remedy": {
+            "kind": "actions",
+            "instructions": [
+              {
+                "kind": "activate",
+                "target": {
+                  "scope": {
+                    "path": [
+                      {
+                        "kind": "frame",
+                        "name": {
+                          "mode": "exact",
+                          "value": "content",
+                          "normalize": "std.text@1"
+                        }
+                      },
+                      {
+                        "kind": "landmark",
+                        "role": "dialog",
+                        "name": {
+                          "mode": "token",
+                          "token": "notice-dialog",
+                          "normalize": "std.label@1"
+                        }
+                      }
+                    ]
+                  },
+                  "role": "button",
+                  "descriptors": [
+                    {
+                      "id": "notice-ack-by-name",
+                      "kind": "role-name",
+                      "evidenceSource": "accessibleName",
+                      "role": "button",
+                      "name": {
+                        "mode": "token",
+                        "token": "notice-dismiss-button",
+                        "normalize": "std.label@1"
+                      }
+                    },
+                    {
+                      "id": "notice-ack-only-control",
+                      "kind": "ordinal-in-container",
+                      "evidenceSource": "ordinal",
+                      "container": {
+                        "path": [
+                          {
+                            "kind": "frame",
+                            "name": {
+                              "mode": "exact",
+                              "value": "content",
+                              "normalize": "std.text@1"
+                            }
+                          },
+                          {
+                            "kind": "landmark",
+                            "role": "dialog",
+                            "name": {
+                              "mode": "token",
+                              "token": "notice-dialog",
+                              "normalize": "std.label@1"
+                            }
+                          }
+                        ]
+                      },
+                      "role": "button",
+                      "index": 0
+                    }
+                  ],
+                  "quorum": {
+                    "min": 2,
+                    "distinctEvidenceSources": 2,
+                    "requireIdentical": true,
+                    "onUnderQuorum": "fail",
+                    "expectUnique": true
+                  },
+                  "assert": {
+                    "role": "button",
+                    "enabled": true,
+                    "visible": true
+                  },
+                  "recordedNode": {
+                    "ariaRole": "button",
+                    "name": "Acknowledge",
+                    "containerPath": [
+                      {
+                        "kind": "frame",
+                        "name": "top"
+                      },
+                      {
+                        "kind": "frame",
+                        "name": "content"
+                      },
+                      {
+                        "kind": "landmark",
+                        "role": "dialog",
+                        "name": "System Notice"
+                      }
+                    ],
+                    "tablePosition": null,
+                    "boundsBucket": "px:11x2"
+                  }
+                }
+              }
+            ]
+          },
+          "attempt": 1
+        },
+        "skeletonDigest": "sha256:d8918436559b24e0878ae7f6cba1543655b46fe356deb42199f5a9f2ab29b0d7",
+        "observationRef": null,
+        "elapsedMs": 179,
+        "resolution": [
+          {
+            "descriptorId": "search-by-name",
+            "kind": "role-name",
+            "evidenceSource": "accessibleName",
+            "verdict": "resolved",
+            "resolvedNodeId": "button:f3-168"
+          },
+          {
+            "descriptorId": "search-right-of-member-id",
+            "kind": "geometric",
+            "evidenceSource": "geometry",
+            "verdict": "resolved",
+            "resolvedNodeId": "button:f3-168"
+          }
+        ]
+      },
+      {
+        "stepId": "open-search",
+        "attempt": 1,
+        "verdict": {
+          "kind": "advance",
+          "outputs": []
+        },
+        "skeletonDigest": "sha256:3ece383379d324a6b5bdff0a737d1bcc46e2ce4cd242fc56032c283c904771e7",
+        "observationRef": null,
+        "elapsedMs": 156
+      },
+      {
+        "stepId": "enter-member-id",
+        "attempt": 1,
+        "verdict": {
+          "kind": "advance",
+          "outputs": []
+        },
+        "skeletonDigest": "sha256:014aa733ad56a65ca562941a1edf215144446165bd3145f7af8bce711be1ce89",
+        "observationRef": null,
+        "elapsedMs": 151,
+        "resolution": [
+          {
+            "descriptorId": "member-id-right-of-label",
+            "kind": "label-anchored",
+            "evidenceSource": "labelText",
+            "verdict": "resolved",
+            "resolvedNodeId": "textbox:f3-323"
+          },
+          {
+            "descriptorId": "member-id-first-in-form",
+            "kind": "ordinal-in-container",
+            "evidenceSource": "ordinal",
+            "verdict": "resolved",
+            "resolvedNodeId": "textbox:f3-323"
+          }
+        ]
+      },
+      {
+        "stepId": "submit-search",
+        "attempt": 1,
+        "verdict": {
+          "kind": "advance",
+          "outputs": []
+        },
+        "skeletonDigest": "sha256:8be7e5b0e9750e40cd59049e6b76df8a9fdd68cacd9ea33dad97cd28d9f46800",
+        "observationRef": null,
+        "elapsedMs": 166,
+        "resolution": [
+          {
+            "descriptorId": "search-by-name",
+            "kind": "role-name",
+            "evidenceSource": "accessibleName",
+            "verdict": "resolved",
+            "resolvedNodeId": "button:f3-333"
+          },
+          {
+            "descriptorId": "search-right-of-member-id",
+            "kind": "geometric",
+            "evidenceSource": "geometry",
+            "verdict": "resolved",
+            "resolvedNodeId": "button:f3-333"
+          }
+        ]
+      },
+      {
+        "stepId": "read-member-summary",
+        "attempt": 1,
+        "verdict": {
+          "kind": "advance",
+          "outputs": [
+            {
+              "output": "memberName",
+              "value": "ALVAREZ, DANA (SYNTHETIC)",
+              "sensitivity": "sensitive"
+            },
+            {
+              "output": "shareBalance",
+              "value": {
+                "amount": "1204.55",
+                "currency": "USD"
+              },
+              "sensitivity": "internal"
+            },
+            {
+              "output": "accountStatus",
+              "value": "ACTIVE",
+              "sensitivity": "internal"
+            }
+          ]
+        },
+        "skeletonDigest": "sha256:8be7e5b0e9750e40cd59049e6b76df8a9fdd68cacd9ea33dad97cd28d9f46800",
+        "observationRef": null,
+        "elapsedMs": 163
+      },
+      {
+        "stepId": "open-member-record",
+        "attempt": 1,
+        "verdict": {
+          "kind": "advance",
+          "outputs": []
+        },
+        "skeletonDigest": "sha256:6725713cbb0da874b78434cfa7dd767fdb0e08707461775eb490ce717e14bf1c",
+        "observationRef": null,
+        "elapsedMs": 318,
+        "resolution": [
+          {
+            "descriptorId": "open-by-row-key",
+            "kind": "table-cell",
+            "evidenceSource": "columnHeader",
+            "verdict": "resolved",
+            "resolvedNodeId": "link:f3-417"
+          },
+          {
+            "descriptorId": "open-by-link-text",
+            "kind": "role-name",
+            "evidenceSource": "accessibleName",
+            "verdict": "resolved",
+            "resolvedNodeId": "link:f3-417"
+          }
+        ]
+      },
+      {
+        "stepId": "verify-member-record",
+        "attempt": 1,
+        "verdict": {
+          "kind": "advance",
+          "outputs": []
+        },
+        "skeletonDigest": "sha256:6725713cbb0da874b78434cfa7dd767fdb0e08707461775eb490ce717e14bf1c",
+        "observationRef": null,
+        "elapsedMs": 169
+      },
+      {
+        "stepId": "read-share-accounts",
+        "attempt": 1,
+        "verdict": {
+          "kind": "advance",
+          "outputs": [
+            {
+              "output": "shareAccounts",
+              "value": [
+                {
+                  "Acct": "0001",
+                  "Share Account": "Share Account - Regular",
+                  "Share Balance": "1,204.55",
+                  "Opened": "2019-03-11"
+                }
+              ],
+              "sensitivity": "internal"
+            }
+          ]
+        },
+        "skeletonDigest": "sha256:6725713cbb0da874b78434cfa7dd767fdb0e08707461775eb490ce717e14bf1c",
+        "observationRef": null,
+        "elapsedMs": 167
+      },
+      {
+        "stepId": "open-subaccount-form",
+        "attempt": 1,
+        "verdict": {
+          "kind": "advance",
+          "outputs": []
+        },
+        "skeletonDigest": "sha256:6b04886f6fde3e01b6d3612c04ff73504e429f1f8cd0f02682394209af62822a",
+        "observationRef": null,
+        "elapsedMs": 300,
+        "resolution": [
+          {
+            "descriptorId": "open-subaccount-by-name",
+            "kind": "role-name",
+            "evidenceSource": "accessibleName",
+            "verdict": "resolved",
+            "resolvedNodeId": "button:f3-514"
+          },
+          {
+            "descriptorId": "open-subaccount-only-control",
+            "kind": "ordinal-in-container",
+            "evidenceSource": "ordinal",
+            "verdict": "resolved",
+            "resolvedNodeId": "button:f3-514"
+          }
+        ]
+      },
+      {
+        "stepId": "confirm-form-ready",
+        "attempt": 1,
+        "verdict": {
+          "kind": "advance",
+          "outputs": []
+        },
+        "skeletonDigest": "sha256:6b04886f6fde3e01b6d3612c04ff73504e429f1f8cd0f02682394209af62822a",
+        "observationRef": null,
+        "elapsedMs": 163
+      }
+    ],
+    "drift": {
+      "fingerprint": "sha256:1697d326e78c72a6f02569d4af7e64a9a0204ff8d4f2f97f3e5f22b55425f00b",
+      "expected": "sha256:a51c2e7c52b067496e1abdcf46cfaa35cfc59450b6c2b5949cb205881fc2c46d",
+      "divergence": 0,
+      "changed": [],
+      "needsSpecialization": false
+    },
+    "evidence": [
+      "journal:8b6195eb402d88ce93032731a5f3ad97a223815faf3609e4c335ead357d61b62"
+    ],
+    "journalRef": "journal:8b6195eb402d88ce93032731a5f3ad97a223815faf3609e4c335ead357d61b62",
+    "warnings": []
+  }
+}

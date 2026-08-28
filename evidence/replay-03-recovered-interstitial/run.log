@@ -1,0 +1,13 @@
+── replay-03-recovered-interstitial ─ a declared maintenance modal, dismissed inside its budget
+   taxonomy  recoverable condition
+   fault     interstitial at results (once)
+   args      ["memberId"] (values withheld from this log)
+   broker    can-reauthenticate
+   armed     {"ok":true,"session":"s000001","armed":{"id":"interstitial","screen":"results","mode":"once","delayMs":1200}}
+   arm       OK   outputs: memberName, shareBalance, accountStatus, shareAccounts
+   run       11/9 steps, 2254ms, 12 step attempts
+   budgets   actions 9, observations 38, remediations 1, program attempts 0
+   recovery  DISMISS_SYSTEM_NOTICE at submit-search: cleared after 1
+   evidence  1 frozen observation(s), journal journal:8b6195eb402d88ce93032731a5f3ad97a223815faf3609e4c335ead357d61b62
+   checked   every declared expectation held
+

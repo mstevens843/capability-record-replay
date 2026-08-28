@@ -1,0 +1,615 @@
+{
+  "version": 1,
+  "synthetic": true,
+  "provenance": {
+    "adapter": "scripted",
+    "modelId": "synthetic-script",
+    "recordedAt": null,
+    "note": "SYNTHETIC. The assistant turns in this file were authored by hand in packages/discovery/test/fixtures/build-transcript.ts; no model produced them and no provider was called, which is why every token count is zero. It exists so the discovery loop can be exercised with no credentials. It is NOT evidence of a discovery run."
+  },
+  "prefix": {
+    "system": [
+      {
+        "type": "text",
+        "text": "You are discovering how to accomplish one task in a back-office banking application, so that\nthe steps can be recorded and replayed later with no model involved. A person will review the\nrecording. Work the way a careful operator would: look, act once, look again.\n\nHOW YOU SEE THE SCREEN\nYou are shown a filtered list of the controls and readable values that are visible right now.\nEach line starts with a reference like [n7]. Those references are valid only for the screen you\nwere just shown; after any action the screen is re-read and the references are renumbered.\nAlways act on a reference from the most recent listing.\n\nYou cannot see the page source, and you never write a selector of any kind. You choose a node\nreference from what you were shown; the recording system derives the durable way to find that\ncontrol afterwards. This is deliberate - do not ask for markup, ids or attributes.\n\nHOW YOU ACT\nOne action per call, then look at the result before choosing the next. If a tool result says\nthe screen has not settled, call observe again rather than acting into a moving screen.\nActions are checked against a safety allowlist before they happen; a refusal tells you the\nreason and is not something to work around. If you are refused twice for the same reason, stop\nand finish with status stuck.\n\nWHAT TO RECORD\nWhen the screen shows a value the caller of this capability would need back, call note_output on\nit. Prefer the specific node holding the value over a heading near it.\n\nHOW TO FINISH\nCall finish exactly once, at the end.\nUse status reached-goal only if the screen in front of you demonstrates the task is done.\nUse status stuck if it cannot be done from here. Being stuck is a good answer and an honest one;\na wrong reached-goal is the most expensive thing you can produce, because it is recorded and\nthen replayed unattended.\n\nIf the application gave a definite business answer - no such member, account restricted, request\nnot permitted for this record - list it in outcomeCandidates. An outcome is a fact about the\nrequest or the record that would still be true on a second attempt. A timeout, a slow page, an\nexpired session or an application error is NOT an outcome; it is a fact about this attempt, and\nit does not belong in that list.",
+        "cache_control": {
+          "type": "ephemeral"
+        }
+      }
+    ],
+    "tools": [
+      {
+        "name": "observe",
+        "description": "Look at the current screen. Returns the list of controls and readable values that are visible right now, each with a nodeRef you can act on. Call this whenever you are unsure what the screen shows, or when the last action reported that the screen had not settled.",
+        "strict": true,
+        "input_schema": {
+          "type": "object",
+          "properties": {},
+          "required": [],
+          "additionalProperties": false
+        }
+      },
+      {
+        "name": "act",
+        "description": "Do one thing to one control on the current screen. Choose nodeRef from the list you were most recently shown; a nodeRef from an earlier turn is stale and will be refused. activate = press a button or follow a link. fill = replace the text in a field (set value). select = choose an option in a dropdown (set value). setToggle = check or uncheck (set value to \"true\" or \"false\"). pressKey = send a key to the control (set key). Exactly one action per call: you must see what happened before choosing the next one.",
+        "strict": true,
+        "input_schema": {
+          "type": "object",
+          "properties": {
+            "nodeRef": {
+              "type": "string",
+              "description": "The n<k> reference of the control, from the list you were just shown."
+            },
+            "action": {
+              "type": "string",
+              "enum": [
+                "activate",
+                "fill",
+                "select",
+                "setToggle",
+                "pressKey"
+              ],
+              "description": "What to do to it."
+            },
+            "value": {
+              "type": [
+                "string",
+                "null"
+              ],
+              "description": "The text for fill, the option for select, \"true\"/\"false\" for setToggle. null otherwise."
+            },
+            "key": {
+              "type": [
+                "string",
+                "null"
+              ],
+              "enum": [
+                "Enter",
+                "Tab",
+                "Escape",
+                "Backspace",
+                "Delete",
+                "ArrowUp",
+                "ArrowDown",
+                "ArrowLeft",
+                "ArrowRight",
+                "Home",
+                "End",
+                "PageUp",
+                "PageDown",
+                null
+              ],
+              "description": "The key for pressKey. null otherwise."
+            },
+            "why": {
+              "type": "string",
+              "description": "One sentence: why this action, in the words a colleague reviewing the recording would need. This is kept as the step's intent and is read only by people."
+            }
+          },
+          "required": [
+            "nodeRef",
+            "action",
+            "value",
+            "key",
+            "why"
+          ],
+          "additionalProperties": false
+        }
+      },
+      {
+        "name": "go",
+        "description": "Navigate to a route on the application you were given. Give an absolute path such as /members/search - never a full address, and never another application. The path is checked against the allowlist before anything happens, and a path that is not on it is refused.",
+        "strict": true,
+        "input_schema": {
+          "type": "object",
+          "properties": {
+            "routeHint": {
+              "type": "string",
+              "description": "An absolute path on the target application, e.g. /members/search."
+            },
+            "why": {
+              "type": "string",
+              "description": "One sentence: why this route."
+            }
+          },
+          "required": [
+            "routeHint",
+            "why"
+          ],
+          "additionalProperties": false
+        }
+      },
+      {
+        "name": "note_output",
+        "description": "Mark a value on the current screen as something the caller of this capability should receive back. Use it for the answer the task was asking for, not for scaffolding.",
+        "strict": true,
+        "input_schema": {
+          "type": "object",
+          "properties": {
+            "nodeRef": {
+              "type": "string",
+              "description": "The n<k> reference of the node holding the value."
+            },
+            "outputName": {
+              "type": "string",
+              "description": "A short lowerCamelCase name for it, e.g. shareBalance."
+            },
+            "meaning": {
+              "type": "string",
+              "description": "One sentence: what this value is, in business terms."
+            }
+          },
+          "required": [
+            "nodeRef",
+            "outputName",
+            "meaning"
+          ],
+          "additionalProperties": false
+        }
+      },
+      {
+        "name": "finish",
+        "description": "End the run. Use reached-goal when the task is done, and stuck when it cannot be done from here - being stuck is a useful, honest answer and is far better than guessing. If the application reported a definite business answer (no such member, account restricted), list it in outcomeCandidates so it can be turned into a typed result the caller can act on.",
+        "strict": true,
+        "input_schema": {
+          "type": "object",
+          "properties": {
+            "status": {
+              "type": "string",
+              "enum": [
+                "reached-goal",
+                "stuck"
+              ],
+              "description": "Whether the goal was reached."
+            },
+            "summary": {
+              "type": "string",
+              "description": "What you did and what the screen showed at the end."
+            },
+            "outcomeCandidates": {
+              "type": [
+                "array",
+                "null"
+              ],
+              "description": "Definite business answers the application gave, or null. Not errors, not timeouts: an outcome is a fact about the record that would still be true on a second attempt.",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "code": {
+                    "type": "string",
+                    "description": "SCREAMING_SNAKE_CASE, e.g. MEMBER_NOT_FOUND."
+                  },
+                  "title": {
+                    "type": "string",
+                    "description": "A short human title."
+                  },
+                  "why": {
+                    "type": "string",
+                    "description": "What on the screen said so."
+                  }
+                },
+                "required": [
+                  "code",
+                  "title",
+                  "why"
+                ],
+                "additionalProperties": false
+              }
+            }
+          },
+          "required": [
+            "status",
+            "summary",
+            "outcomeCandidates"
+          ],
+          "additionalProperties": false
+        },
+        "cache_control": {
+          "type": "ephemeral"
+        }
+      }
+    ],
+    "digest": "sha256:2063c371dc545961f43da3d7c7ef7682c6c4dc4ee231bd333dede001be46deb9"
+  },
+  "turns": [
+    {
+      "index": 1,
+      "appended": [
+        {
+          "role": "user",
+          "content": "TASK: Look up member 50001 in the riverbend core banking back office and report their share balance.\n\nApplication: corebank (tenant riverbend)\nYou start at: /members/search\nRoutes you are permitted to visit with go:\n  /members/search\n  /members/:memberId\n\nCall observe first."
+        }
+      ],
+      "messagesDigest": "sha256:cf7bf78ddc5593c841c975ad7db4d66b1e08433ba824ae552797d5fc12a4cb74",
+      "response": {
+        "stopReason": "tool_use",
+        "content": [
+          {
+            "type": "text",
+            "text": "Let me look at the search screen first.",
+            "citations": null
+          },
+          {
+            "type": "tool_use",
+            "id": "toolu_scripted_1_1",
+            "name": "observe",
+            "input": {}
+          }
+        ],
+        "usage": {
+          "inputTokens": 0,
+          "outputTokens": 0,
+          "cacheCreationInputTokens": 0,
+          "cacheReadInputTokens": 0
+        }
+      },
+      "latencyMs": 1
+    },
+    {
+      "index": 2,
+      "appended": [
+        {
+          "role": "assistant",
+          "content": [
+            {
+              "type": "text",
+              "text": "Let me look at the search screen first."
+            },
+            {
+              "type": "tool_use",
+              "id": "toolu_scripted_1_1",
+              "name": "observe",
+              "input": {}
+            }
+          ]
+        },
+        {
+          "role": "user",
+          "content": [
+            {
+              "type": "tool_result",
+              "tool_use_id": "toolu_scripted_1_1",
+              "content": "screen: settled  route=corebank/members/search\n[n0]  heading  \"Member Search\"  frame=content\n[n1]  textbox  \"Member ID\"  value=\"\"  required  capacity=12  frame=content\n[n2]  button  \"Search\"  frame=content"
+            }
+          ]
+        }
+      ],
+      "messagesDigest": "sha256:831419d642c1073a4fdd6a1c975d9d07a8809b6d605b42c069506686d7e691fa",
+      "response": {
+        "stopReason": "tool_use",
+        "content": [
+          {
+            "type": "tool_use",
+            "id": "toolu_scripted_2_1",
+            "name": "act",
+            "input": {
+              "nodeRef": "n1",
+              "action": "fill",
+              "value": "50001",
+              "key": null,
+              "why": "The task names member 50001 and this is the Member ID field on the search form."
+            }
+          }
+        ],
+        "usage": {
+          "inputTokens": 0,
+          "outputTokens": 0,
+          "cacheCreationInputTokens": 0,
+          "cacheReadInputTokens": 0
+        }
+      },
+      "latencyMs": 1
+    },
+    {
+      "index": 3,
+      "appended": [
+        {
+          "role": "assistant",
+          "content": [
+            {
+              "type": "tool_use",
+              "id": "toolu_scripted_2_1",
+              "name": "act",
+              "input": {
+                "nodeRef": "n1",
+                "action": "fill",
+                "value": "50001",
+                "key": null,
+                "why": "The task names member 50001 and this is the Member ID field on the search form."
+              }
+            }
+          ]
+        },
+        {
+          "role": "user",
+          "content": [
+            {
+              "type": "tool_result",
+              "tool_use_id": "toolu_scripted_2_1",
+              "content": "Done.\nscreen: settled  route=corebank/members/search\n[n0]  heading  \"Member Search\"  frame=content\n[n1]  textbox  \"Member ID\"  value=\"50001\"  required,focused  capacity=12  frame=content\n[n2]  button  \"Search\"  frame=content"
+            }
+          ]
+        }
+      ],
+      "messagesDigest": "sha256:20af18b83e6e3787349cc66df1b334851338b5cc6d15146a339a41455d47f955",
+      "response": {
+        "stopReason": "tool_use",
+        "content": [
+          {
+            "type": "tool_use",
+            "id": "toolu_scripted_3_1",
+            "name": "act",
+            "input": {
+              "nodeRef": "n2",
+              "action": "activate",
+              "value": null,
+              "key": null,
+              "why": "Submit the search now that the member number is entered."
+            }
+          }
+        ],
+        "usage": {
+          "inputTokens": 0,
+          "outputTokens": 0,
+          "cacheCreationInputTokens": 0,
+          "cacheReadInputTokens": 0
+        }
+      },
+      "latencyMs": 1
+    },
+    {
+      "index": 4,
+      "appended": [
+        {
+          "role": "assistant",
+          "content": [
+            {
+              "type": "tool_use",
+              "id": "toolu_scripted_3_1",
+              "name": "act",
+              "input": {
+                "nodeRef": "n2",
+                "action": "activate",
+                "value": null,
+                "key": null,
+                "why": "Submit the search now that the member number is entered."
+              }
+            }
+          ]
+        },
+        {
+          "role": "user",
+          "content": [
+            {
+              "type": "tool_result",
+              "tool_use_id": "toolu_scripted_3_1",
+              "content": "Done.\nscreen: settled  route=corebank/members/search\n[n0]  heading  \"Search Results\"  frame=content\n[n1]  cell  \"Member ID\"  frame=content  table[Member ID,Member Name,Status,Actions] col=Member ID?\n[n2]  cell  \"Member Name\"  frame=content  table[Member ID,Member Name,Status,Actions] col=Member Name?\n[n3]  cell  \"Status\"  frame=content  table[Member ID,Member Name,Status,Actions] col=Status?\n[n4]  cell  \"50001\"  frame=content  table[Member ID,Member Name,Status,Actions] col=Member ID?\n[n5]  cell  \"AVERY SYNTHETIC\"  frame=content  table[Member ID,Member Name,Status,Actions] col=Member Name?\n[n6]  cell  \"ACTIVE\"  frame=content  table[Member ID,Member Name,Status,Actions] col=Status?\n[n7]  link  \"Select\"  frame=content  row: Member ID=50001 | Member Name=AVERY SYNTHETIC | Status=ACTIVE"
+            }
+          ]
+        }
+      ],
+      "messagesDigest": "sha256:a84b783d039cea68b006491b5ea022e7917403508fb18935948d2224cced04e3",
+      "response": {
+        "stopReason": "tool_use",
+        "content": [
+          {
+            "type": "tool_use",
+            "id": "toolu_scripted_4_1",
+            "name": "act",
+            "input": {
+              "nodeRef": "n7",
+              "action": "activate",
+              "value": null,
+              "key": null,
+              "why": "Open the member whose Member ID column reads 50001."
+            }
+          }
+        ],
+        "usage": {
+          "inputTokens": 0,
+          "outputTokens": 0,
+          "cacheCreationInputTokens": 0,
+          "cacheReadInputTokens": 0
+        }
+      },
+      "latencyMs": 1
+    },
+    {
+      "index": 5,
+      "appended": [
+        {
+          "role": "assistant",
+          "content": [
+            {
+              "type": "tool_use",
+              "id": "toolu_scripted_4_1",
+              "name": "act",
+              "input": {
+                "nodeRef": "n7",
+                "action": "activate",
+                "value": null,
+                "key": null,
+                "why": "Open the member whose Member ID column reads 50001."
+              }
+            }
+          ]
+        },
+        {
+          "role": "user",
+          "content": [
+            {
+              "type": "tool_result",
+              "tool_use_id": "toolu_scripted_4_1",
+              "content": "Done.\nscreen: settled  route=corebank/members/:memberId\n[n0]  heading  \"Member Detail\"  frame=content\n[n1]  textbox  \"Member Name\"  value=\"AVERY SYNTHETIC\"  readonly  frame=content\n[n2]  textbox  \"Share Balance\"  value=\"1204.55\"  readonly  frame=content"
+            }
+          ]
+        }
+      ],
+      "messagesDigest": "sha256:669617b1dab6c91035a344df7ece8f78d594461021ee3af5d467e28efd19b3a5",
+      "response": {
+        "stopReason": "tool_use",
+        "content": [
+          {
+            "type": "tool_use",
+            "id": "toolu_scripted_5_1",
+            "name": "note_output",
+            "input": {
+              "nodeRef": "n2",
+              "outputName": "shareBalance",
+              "meaning": "The member's current share account balance, which is what the task asked for."
+            }
+          }
+        ],
+        "usage": {
+          "inputTokens": 0,
+          "outputTokens": 0,
+          "cacheCreationInputTokens": 0,
+          "cacheReadInputTokens": 0
+        }
+      },
+      "latencyMs": 1
+    },
+    {
+      "index": 6,
+      "appended": [
+        {
+          "role": "assistant",
+          "content": [
+            {
+              "type": "tool_use",
+              "id": "toolu_scripted_5_1",
+              "name": "note_output",
+              "input": {
+                "nodeRef": "n2",
+                "outputName": "shareBalance",
+                "meaning": "The member's current share account balance, which is what the task asked for."
+              }
+            }
+          ]
+        },
+        {
+          "role": "user",
+          "content": [
+            {
+              "type": "tool_result",
+              "tool_use_id": "toolu_scripted_5_1",
+              "content": "Noted shareBalance."
+            }
+          ]
+        }
+      ],
+      "messagesDigest": "sha256:b503ac1c98cfae50011312bcc020fe8bfbe0e89a0e5889f372fff3fca97bc76a",
+      "response": {
+        "stopReason": "tool_use",
+        "content": [
+          {
+            "type": "tool_use",
+            "id": "toolu_scripted_6_1",
+            "name": "finish",
+            "input": {
+              "status": "reached-goal",
+              "summary": "Searched for member 50001, opened the matching row, and read the share balance from the member detail screen.",
+              "outcomeCandidates": null
+            }
+          }
+        ],
+        "usage": {
+          "inputTokens": 0,
+          "outputTokens": 0,
+          "cacheCreationInputTokens": 0,
+          "cacheReadInputTokens": 0
+        }
+      },
+      "latencyMs": 1
+    }
+  ],
+  "toolCalls": [
+    {
+      "turn": 1,
+      "toolUseId": "toolu_scripted_1_1",
+      "name": "observe",
+      "input": {},
+      "outcome": "ok",
+      "detail": "observed",
+      "latencyMs": 1
+    },
+    {
+      "turn": 2,
+      "toolUseId": "toolu_scripted_2_1",
+      "name": "act",
+      "input": {
+        "nodeRef": "n1",
+        "action": "fill",
+        "value": "50001",
+        "key": null,
+        "why": "The task names member 50001 and this is the Member ID field on the search form."
+      },
+      "outcome": "ok",
+      "detail": "Done.",
+      "latencyMs": 1
+    },
+    {
+      "turn": 3,
+      "toolUseId": "toolu_scripted_3_1",
+      "name": "act",
+      "input": {
+        "nodeRef": "n2",
+        "action": "activate",
+        "value": null,
+        "key": null,
+        "why": "Submit the search now that the member number is entered."
+      },
+      "outcome": "ok",
+      "detail": "Done.",
+      "latencyMs": 1
+    },
+    {
+      "turn": 4,
+      "toolUseId": "toolu_scripted_4_1",
+      "name": "act",
+      "input": {
+        "nodeRef": "n7",
+        "action": "activate",
+        "value": null,
+        "key": null,
+        "why": "Open the member whose Member ID column reads 50001."
+      },
+      "outcome": "ok",
+      "detail": "Done.",
+      "latencyMs": 1
+    },
+    {
+      "turn": 5,
+      "toolUseId": "toolu_scripted_5_1",
+      "name": "note_output",
+      "input": {
+        "nodeRef": "n2",
+        "outputName": "shareBalance",
+        "meaning": "The member's current share account balance, which is what the task asked for."
+      },
+      "outcome": "ok",
+      "detail": "noted",
+      "latencyMs": 1
+    },
+    {
+      "turn": 6,
+      "toolUseId": "toolu_scripted_6_1",
+      "name": "finish",
+      "input": {
+        "status": "reached-goal",
+        "summary": "Searched for member 50001, opened the matching row, and read the share balance from the member detail screen.",
+        "outcomeCandidates": null
+      },
+      "outcome": "ok",
+      "detail": "reached-goal",
+      "latencyMs": 1
+    }
+  ],
+  "usage": {
+    "inputTokens": 0,
+    "outputTokens": 0,
+    "cacheCreationInputTokens": 0,
+    "cacheReadInputTokens": 0
+  },
+  "cacheHitRate": 0
+}

@@ -1,0 +1,11 @@
+── replay-01-green ─ the nine-step share-position flow, no fault armed
+   taxonomy  green
+   fault     none armed
+   args      ["memberId"] (values withheld from this log)
+   broker    can-reauthenticate
+   arm       OK   outputs: memberName, shareBalance, accountStatus, shareAccounts
+   run       9/9 steps, 1823ms, 9 step attempts
+   budgets   actions 5, observations 29, remediations 0, program attempts 0
+   evidence  1 frozen observation(s), journal journal:920db53c79b5612af247a1ea9d09aa18c2e79d8fca00cb3518486c84fc16a4d7
+   checked   every declared expectation held
+

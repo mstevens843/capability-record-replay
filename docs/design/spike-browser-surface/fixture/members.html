@@ -1,0 +1,64 @@
+<html><head><title>Member Search</title></head>
+<body bgcolor="#FFFFFF" leftmargin="4" topmargin="4">
+
+<!-- OUTER LAYOUT TABLE: no th, no scope, used purely for positioning -->
+<table width="100%" cellpadding="0" cellspacing="0" border="0"><tr><td valign="top">
+
+<table cellpadding="2" cellspacing="0" border="0">
+<tr>
+  <td><font face="Arial" size="2">Member ID</font></td>
+  <td><input type="text" name="ctl00$ctl32$g_9a1$txtMemberId" id="ctl00_ctl32_g_9a1_txtMemberId" size="12"></td>
+  <td><font face="Arial" size="2">Last Name</font></td>
+  <td><input type="text" name="ctl00$ctl32$g_9a1$txtLast" id="ctl00_ctl32_g_9a1_txtLast" size="18"></td>
+  <td><input type="submit" name="ctl00$ctl32$g_9a1$btnGo" id="ctl00_ctl32_g_9a1_btnGo" value="Search"></td>
+</tr>
+</table>
+
+<br>
+<font face="Arial" size="2"><b>Search Results</b> &nbsp; (3 records)</font><br>
+
+<!-- RESULTS GRID: legacy style. NO <th>, NO scope=, NO caption, NO test ids. -->
+<table id="ctl00_ctl32_g_9a1_grdResults" cellpadding="3" cellspacing="0" border="1" bordercolor="#999999">
+<tr bgcolor="#CCCCCC">
+  <td><font face="Arial" size="2"><b>Member ID</b></font></td>
+  <td><font face="Arial" size="2"><b>Name</b></font></td>
+  <td><font face="Arial" size="2"><b>Share Balance</b></font></td>
+  <td><font face="Arial" size="2"><b>Status</b></font></td>
+  <td><font face="Arial" size="2"><b>Action</b></font></td>
+</tr>
+<tr>
+  <td><font face="Arial" size="2">10041</font></td>
+  <td><font face="Arial" size="2">ALVAREZ, DANA (SYNTHETIC)</font></td>
+  <td align="right"><font face="Arial" size="2">1,204.55</font></td>
+  <td><font face="Arial" size="2">ACTIVE</font></td>
+  <td><a href="detail.html?m=10041" target="detail"><font face="Arial" size="2">Open</font></a></td>
+</tr>
+<tr bgcolor="#F4F4F4">
+  <td><font face="Arial" size="2">10042</font></td>
+  <td><font face="Arial" size="2">BOOKER, RAY (SYNTHETIC)</font></td>
+  <td align="right"><font face="Arial" size="2">88.10</font></td>
+  <td><font face="Arial" size="2">DORMANT</font></td>
+  <td><a href="detail.html?m=10042" target="detail"><font face="Arial" size="2">Open</font></a></td>
+</tr>
+<tr>
+  <td><font face="Arial" size="2">10043</font></td>
+  <td><font face="Arial" size="2">CHEN, MIN (SYNTHETIC)</font></td>
+  <td align="right"><font face="Arial" size="2">15,900.00</font></td>
+  <td><font face="Arial" size="2">ACTIVE</font></td>
+  <td><a href="detail.html?m=10043" target="detail"><font face="Arial" size="2">Open</font></a></td>
+</tr>
+</table>
+
+<br>
+<font face="Arial" size="2"><b>Control table (semantic, for comparison only)</b></font><br>
+<table border="1" cellspacing="0" cellpadding="3">
+<tr><th scope="col">Member ID</th><th scope="col">Name</th><th scope="col">Share Balance</th></tr>
+<tr><td>20001</td><td>SEMANTIC, ROW (SYNTHETIC)</td><td>7.00</td></tr>
+</table>
+
+<br>
+<!-- NESTED SAME-ORIGIN IFRAME inside a frame of the frameset -->
+<iframe name="detail" src="detail.html?m=10041" width="620" height="180" frameborder="1"></iframe>
+
+</td></tr></table>
+</body></html>

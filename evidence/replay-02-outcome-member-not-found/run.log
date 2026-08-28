@@ -1,0 +1,12 @@
+── replay-02-outcome-member-not-found ─ the core holds no such member
+   taxonomy  expected business outcome
+   fault     not-found at results (sticky)
+   args      ["memberId"] (values withheld from this log)
+   broker    can-reauthenticate
+   armed     {"ok":true,"session":"s000001","armed":{"id":"not-found","screen":"results","mode":"sticky","delayMs":1200}}
+   arm       OUTCOME   MEMBER_NOT_FOUND (terminal=true, callerAction=retry-different-input)
+   run       2/9 steps, 485ms, 3 step attempts
+   budgets   actions 3, observations 9, remediations 0, program attempts 0
+   evidence  2 frozen observation(s), journal journal:235702529cf4f360a28bb51890e73096ccdc43260133e5e72afbd4c9555c406c
+   checked   every declared expectation held
+

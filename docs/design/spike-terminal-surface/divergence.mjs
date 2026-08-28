@@ -1,0 +1,27 @@
+import { execFileSync } from 'node:child_process';
+const cap = (t) => JSON.parse(execFileSync(process.execPath, ['-e', `
+  process.env.TENANT='${t}';
+  const {openTransport,makeTerm,writeTerm,snapshot}=await import('./harness.mjs');
+  const {detect}=await import('./detect.mjs');
+  const tr=openTransport('pipe',process.execPath,['./teller.mjs']);
+  tr.proc.stdin.on('error',()=>{});
+  const term=makeTerm(); let bytes=0,last=Date.now(),p=Promise.resolve();
+  tr.onData(d=>{bytes+=d.length;last=Date.now();p=p.then(()=>writeTerm(term,d))});
+  while(!(bytes>0&&Date.now()-last>=60)) await new Promise(r=>setTimeout(r,5));
+  await p; console.log(JSON.stringify(detect(snapshot(term)))); tr.kill(); process.exit(0);
+`], { env: { ...process.env, TENANT: t }, encoding: 'utf8' }).trim());
+const a = cap('riverbend'), b = cap('summit');
+const ia = a.nodes.map(n => n.id), ib = b.nodes.map(n => n.id);
+const shared = ia.filter(x => ib.includes(x));
+console.log('riverbend node ids:', ia.join(', '));
+console.log('summit    node ids:', ib.join(', '));
+console.log(`shared ${shared.length}/${ia.length}  ->  divergence ${(100 * (1 - shared.length / ia.length)).toFixed(0)}%`);
+console.log('diverged:', ia.filter(x => !ib.includes(x)).join(', '), '  vs  ', ib.filter(x => !ia.includes(x)).join(', '));
+const INTERACTIVE = new Set(['textbox','button','list']);
+const ja = a.nodes.filter(n=>INTERACTIVE.has(n.role)).map(n=>n.id);
+const jb = b.nodes.filter(n=>INTERACTIVE.has(n.role)).map(n=>n.id);
+const sh2 = ja.filter(x=>jb.includes(x));
+console.log(`interactive-only: shared ${sh2.length}/${ja.length} -> divergence ${(100*(1-sh2.length/ja.length)).toFixed(0)}%`);
+const ka = Object.fromEntries(a.nodes.filter(n=>n.role==='button').map(n=>[n.name,n.key]));
+const kb = Object.fromEntries(b.nodes.filter(n=>n.role==='button').map(n=>[n.name,n.key]));
+console.log('control "Exit" keystroke:', ka.Exit, '(riverbend) vs', kb.Exit, '(summit)  -- same node id, different key');

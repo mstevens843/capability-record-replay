@@ -1,0 +1,43 @@
+{
+  "bundleDir": "/Users/devlegacy/Desktop/projects/ai-gap-coverage-projects/capability-record-replay/evidence",
+  "filesScanned": 44,
+  "bytesScanned": 920593,
+  "secrets": [
+    "scenarios 01/03/04/05 + cli-replay / args.memberId",
+    "scenario 02 / args.memberId (absent member)",
+    "masked-capture / initial deposit (sensitive fill)"
+  ],
+  "encodings": [
+    "utf8",
+    "utf8-lower",
+    "utf8-upper",
+    "utf16le",
+    "json-escape",
+    "json-unicode",
+    "uri-component",
+    "percent-bytes",
+    "html-entity-decimal",
+    "html-entity-hex",
+    "hex-lower",
+    "hex-upper",
+    "base64",
+    "base64url"
+  ],
+  "needles": 26,
+  "skippedEncodings": [
+    "scenarios 01/03/04/05 + cli-replay / args.memberId / base64 - no needle of at least 6 characters",
+    "scenarios 01/03/04/05 + cli-replay / args.memberId / base64url - no needle of at least 6 characters",
+    "scenario 02 / args.memberId (absent member) / base64 - no needle of at least 6 characters",
+    "scenario 02 / args.memberId (absent member) / base64url - no needle of at least 6 characters"
+  ],
+  "hits": [],
+  "suppressed": [],
+  "forbidden": [],
+  "selfTest": {
+    "planted": 26,
+    "found": 26,
+    "missed": [],
+    "ok": true
+  },
+  "clean": true
+}

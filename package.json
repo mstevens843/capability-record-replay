@@ -1,0 +1,41 @@
+{
+  "name": "capability-record-replay-monorepo",
+  "version": "0.0.0",
+  "private": true,
+  "description": "An LLM discovers a flow in a legacy back-office app once; the recording becomes a typed, versioned capability that replays deterministically with no model in the loop.",
+  "license": "MIT",
+  "author": "Mathew Stevens",
+  "type": "module",
+  "packageManager": "pnpm@10.33.0",
+  "engines": {
+    "node": ">=20 <25"
+  },
+  "scripts": {
+    "build": "turbo run build --continue=dependencies-successful",
+    "test": "turbo run test --continue=dependencies-successful",
+    "typecheck": "turbo run typecheck --continue=dependencies-successful",
+    "codegen": "tsx packages/runtime/src/codegen-cli.ts",
+    "demo": "turbo run build --filter=@crr/runtime && tsx packages/runtime/demo/main.ts",
+    "preflight": "pnpm -F @crr/discovery preflight",
+    "discover": "pnpm -F @crr/discovery discover",
+    "lint": "biome check .",
+    "lint:fix": "biome check --fix --unsafe .",
+    "format": "biome format --write .",
+    "clean": "turbo run clean --continue=always && rm -rf node_modules"
+  },
+  "pnpm": {
+    "onlyBuiltDependencies": ["@biomejs/biome", "esbuild"]
+  },
+  "devDependencies": {
+    "@biomejs/biome": "^1.9.4",
+    "@types/node": "^22.10.2",
+    "tsup": "^8.3.0",
+    "tsx": "^4.19.2",
+    "turbo": "^2.2.3",
+    "typescript": "^5.6.3",
+    "vitest": "^2.1.4"
+  },
+  "dependencies": {
+    "zod": "^4.4.3"
+  }
+}

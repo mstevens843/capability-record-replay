@@ -1,0 +1,7 @@
+── masked-capture ─ region masking of a field bound to a sensitive parameter
+   typed into  role=textbox name="" (sensitive: true)
+   driver      blanked 1 node value(s) in every later observation
+   echoed      2 node(s) print a supplied value back and are masked too
+   regions     3 blanked, 43814 bytes written as capture-272f9fdb46d18596b1000145561d93b108b5eba4148705391e33fef4da17a507.png
+   digest      sha256:272f9fdb46d18596b1000145561d93b108b5eba4148705391e33fef4da17a507 (differs from the unmasked capture: true)
+

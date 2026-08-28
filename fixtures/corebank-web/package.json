@@ -1,0 +1,21 @@
+{
+  "name": "@crr/fixture-corebank-web",
+  "version": "0.0.0",
+  "private": true,
+  "description": "The hostile proxy surface: a frameset-era credit-union back office with per-session fault injection and two tenant variants of one vendor product. Synthetic data only.",
+  "type": "module",
+  "main": "./src/server.js",
+  "types": "./dist/server.d.ts",
+  "exports": {
+    ".": { "types": "./dist/server.d.ts", "import": "./src/server.js" }
+  },
+  "files": ["src", "dist"],
+  "scripts": {
+    "start": "node src/server.js",
+    "build": "tsc -p tsconfig.build.json",
+    "test": "vitest run",
+    "typecheck": "tsc --noEmit",
+    "clean": "rm -rf dist .turbo"
+  },
+  "devDependencies": { "typescript": "^5.6.3", "vitest": "^2.1.4" }
+}

@@ -1,0 +1,30 @@
+{
+  "note": "The masked PNG is the only screenshot in this bundle. An unmasked one was taken in memory to prove the mask changed the bytes, and was never written.",
+  "ref": "capture-272f9fdb46d18596b1000145561d93b108b5eba4148705391e33fef4da17a507.png",
+  "digest": "sha256:272f9fdb46d18596b1000145561d93b108b5eba4148705391e33fef4da17a507",
+  "maskedRegions": 3,
+  "regions": [
+    {
+      "x": 309,
+      "y": 138,
+      "w": 36,
+      "h": 15
+    },
+    {
+      "x": 309,
+      "y": 203,
+      "w": 97,
+      "h": 21
+    },
+    {
+      "x": 313,
+      "y": 206,
+      "w": 48,
+      "h": 15
+    }
+  ],
+  "unmaskableNodes": 0,
+  "absentNodes": 0,
+  "differsFromUnmasked": true,
+  "pixelLevelVerification": "packages/surface-browser/test/browser-capture.test.ts decodes the PNG with an independently written codec and asserts the masked pixels are the mask colour and the neighbouring pixels are not. A byte scan cannot check a raster, so that test - not the canary - is the evidence for the pixels."
+}

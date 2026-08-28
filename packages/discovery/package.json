@@ -1,0 +1,36 @@
+{
+  "name": "@crr/discovery",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    }
+  },
+  "scripts": {
+    "build": "tsup src/index.ts --format esm --dts --clean",
+    "test": "vitest run",
+    "typecheck": "tsc --noEmit",
+    "fixtures:synthetic": "tsx test/fixtures/regenerate.ts",
+    "fixtures:capture": "tsx test/fixtures/capture-corebank-web.ts",
+    "fixtures:synthesized": "tsx test/fixtures/emit-corebank-web.ts",
+    "fixtures:digests": "tsx test/fixtures/print-digests.ts",
+    "preflight": "tsx tools/preflight.ts",
+    "discover": "tsx tools/discover.ts",
+    "clean": "rm -rf dist .turbo"
+  },
+  "dependencies": {
+    "@crr/core": "workspace:*",
+    "@anthropic-ai/sdk": "^0.71.0",
+    "zod": "^4.4.3"
+  },
+  "devDependencies": {
+    "typescript": "^5.6.3",
+    "vitest": "^2.1.4",
+    "tsup": "^8.3.0"
+  }
+}

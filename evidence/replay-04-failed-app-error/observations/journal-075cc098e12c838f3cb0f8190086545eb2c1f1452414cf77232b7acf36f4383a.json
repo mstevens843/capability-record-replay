@@ -1,0 +1,1907 @@
+[
+  {
+    "seq": 0,
+    "runId": "run-94d6ebda-00fd-49b8-bb1d-f0666ccdbe88",
+    "at": "2026-08-28T01:09:55.431Z",
+    "type": "run.started",
+    "mode": "replay",
+    "capability": "corebank.member.read_share_position",
+    "artifactDigest": "sha256:ba09bc6061370dbf99ecb3c541ab41d22b7808a668591a9730356d952cc726f3",
+    "effectiveDigest": "sha256:ba09bc6061370dbf99ecb3c541ab41d22b7808a668591a9730356d952cc726f3",
+    "tenantId": "riverbend",
+    "argsShape": {
+      "memberId": "digits(5)"
+    }
+  },
+  {
+    "seq": 1,
+    "runId": "run-94d6ebda-00fd-49b8-bb1d-f0666ccdbe88",
+    "at": "2026-08-28T01:09:55.436Z",
+    "type": "link.completed",
+    "checksRun": 28,
+    "errors": []
+  },
+  {
+    "seq": 2,
+    "runId": "run-94d6ebda-00fd-49b8-bb1d-f0666ccdbe88",
+    "at": "2026-08-28T01:09:55.436Z",
+    "type": "session.opened",
+    "sessionId": "corebank-demo",
+    "sessionProfile": "corebank-teller"
+  },
+  {
+    "seq": 3,
+    "runId": "run-94d6ebda-00fd-49b8-bb1d-f0666ccdbe88",
+    "at": "2026-08-28T01:09:55.436Z",
+    "type": "lease.acquired",
+    "holder": "automation",
+    "actorId": "run:run-94d6ebda-00fd-49b8-bb1d-f0666ccdbe88",
+    "epoch": 1
+  },
+  {
+    "seq": 4,
+    "runId": "run-94d6ebda-00fd-49b8-bb1d-f0666ccdbe88",
+    "at": "2026-08-28T01:09:55.436Z",
+    "type": "step.entered",
+    "stepId": "open-search",
+    "index": 0,
+    "attempt": 1,
+    "effect": "READ"
+  },
+  {
+    "seq": 5,
+    "runId": "run-94d6ebda-00fd-49b8-bb1d-f0666ccdbe88",
+    "at": "2026-08-28T01:09:55.436Z",
+    "type": "budget.charged",
+    "ledger": "observations",
+    "used": 1,
+    "limit": 400
+  },
+  {
+    "seq": 6,
+    "runId": "run-94d6ebda-00fd-49b8-bb1d-f0666ccdbe88",
+    "at": "2026-08-28T01:09:55.443Z",
+    "type": "observed",
+    "stepId": "open-search",
+    "obsSeq": 0,
+    "skeletonDigest": "sha256:77133a7a47cabfb23d8a04fdd48bd97dff3e5670d891b221c3db0bf8275c79c4",
+    "settled": true,
+    "nodeCount": 99,
+    "observationRef": null
+  },
+  {
+    "seq": 7,
+    "runId": "run-94d6ebda-00fd-49b8-bb1d-f0666ccdbe88",
+    "at": "2026-08-28T01:09:55.443Z",
+    "type": "classified",
+    "stepId": "open-search",
+    "phase": "pre",
+    "verdict": {
+      "kind": "advance",
+      "outputs": []
+    },
+    "alsoMatched": []
+  },
+  {
+    "seq": 8,
+    "runId": "run-94d6ebda-00fd-49b8-bb1d-f0666ccdbe88",
+    "at": "2026-08-28T01:09:55.444Z",
+    "type": "policy.decided",
+    "decision": {
+      "allow": true,
+      "effect": "READ",
+      "ruleId": "route:corebank/search"
+    },
+    "actionKind": "navigate",
+    "effect": "READ"
+  },
+  {
+    "seq": 9,
+    "runId": "run-94d6ebda-00fd-49b8-bb1d-f0666ccdbe88",
+    "at": "2026-08-28T01:09:55.444Z",
+    "type": "budget.charged",
+    "ledger": "actions",
+    "used": 1,
+    "limit": 40
+  },
+  {
+    "seq": 10,
+    "runId": "run-94d6ebda-00fd-49b8-bb1d-f0666ccdbe88",
+    "at": "2026-08-28T01:09:55.447Z",
+    "type": "acted",
+    "stepId": "open-search",
+    "actionKind": "navigate",
+    "targetTitle": "Open the member search screen",
+    "valueRef": null,
+    "valueLength": null,
+    "result": "dispatched"
+  },
+  {
+    "seq": 11,
+    "runId": "run-94d6ebda-00fd-49b8-bb1d-f0666ccdbe88",
+    "at": "2026-08-28T01:09:55.447Z",
+    "type": "budget.charged",
+    "ledger": "observations",
+    "used": 2,
+    "limit": 400
+  },
+  {
+    "seq": 12,
+    "runId": "run-94d6ebda-00fd-49b8-bb1d-f0666ccdbe88",
+    "at": "2026-08-28T01:09:55.575Z",
+    "type": "budget.charged",
+    "ledger": "observations",
+    "used": 3,
+    "limit": 400
+  },
+  {
+    "seq": 13,
+    "runId": "run-94d6ebda-00fd-49b8-bb1d-f0666ccdbe88",
+    "at": "2026-08-28T01:09:55.584Z",
+    "type": "settled",
+    "stepId": "open-search",
+    "polls": 2,
+    "elapsedMs": 138,
+    "settled": true
+  },
+  {
+    "seq": 14,
+    "runId": "run-94d6ebda-00fd-49b8-bb1d-f0666ccdbe88",
+    "at": "2026-08-28T01:09:55.584Z",
+    "type": "observed",
+    "stepId": "open-search",
+    "obsSeq": 2,
+    "skeletonDigest": "sha256:77133a7a47cabfb23d8a04fdd48bd97dff3e5670d891b221c3db0bf8275c79c4",
+    "settled": true,
+    "nodeCount": 99,
+    "observationRef": null
+  },
+  {
+    "seq": 15,
+    "runId": "run-94d6ebda-00fd-49b8-bb1d-f0666ccdbe88",
+    "at": "2026-08-28T01:09:55.585Z",
+    "type": "classified",
+    "stepId": "open-search",
+    "phase": "post",
+    "verdict": {
+      "kind": "advance",
+      "outputs": []
+    },
+    "alsoMatched": []
+  },
+  {
+    "seq": 16,
+    "runId": "run-94d6ebda-00fd-49b8-bb1d-f0666ccdbe88",
+    "at": "2026-08-28T01:09:55.585Z",
+    "type": "checkpoint",
+    "stepId": "open-search",
+    "passed": true,
+    "trace": {
+      "rendered": "the surface has settled and the surface is on route member-search and a textbox inside frame exactly \"content\", inside the form occurs at least 2 time(s)",
+      "clauses": [
+        {
+          "rendered": "the surface has settled",
+          "verdict": true
+        },
+        {
+          "rendered": "the surface is on route member-search",
+          "verdict": true
+        },
+        {
+          "rendered": "a textbox inside frame exactly \"content\", inside the form occurs at least 2 time(s)",
+          "verdict": true,
+          "nodeSummary": "2 nodes matched"
+        }
+      ]
+    }
+  },
+  {
+    "seq": 17,
+    "runId": "run-94d6ebda-00fd-49b8-bb1d-f0666ccdbe88",
+    "at": "2026-08-28T01:09:55.585Z",
+    "type": "step.entered",
+    "stepId": "enter-member-id",
+    "index": 1,
+    "attempt": 1,
+    "effect": "READ"
+  },
+  {
+    "seq": 18,
+    "runId": "run-94d6ebda-00fd-49b8-bb1d-f0666ccdbe88",
+    "at": "2026-08-28T01:09:55.585Z",
+    "type": "budget.charged",
+    "ledger": "observations",
+    "used": 4,
+    "limit": 400
+  },
+  {
+    "seq": 19,
+    "runId": "run-94d6ebda-00fd-49b8-bb1d-f0666ccdbe88",
+    "at": "2026-08-28T01:09:55.592Z",
+    "type": "observed",
+    "stepId": "enter-member-id",
+    "obsSeq": 3,
+    "skeletonDigest": "sha256:77133a7a47cabfb23d8a04fdd48bd97dff3e5670d891b221c3db0bf8275c79c4",
+    "settled": true,
+    "nodeCount": 99,
+    "observationRef": null
+  },
+  {
+    "seq": 20,
+    "runId": "run-94d6ebda-00fd-49b8-bb1d-f0666ccdbe88",
+    "at": "2026-08-28T01:09:55.593Z",
+    "type": "classified",
+    "stepId": "enter-member-id",
+    "phase": "pre",
+    "verdict": {
+      "kind": "advance",
+      "outputs": []
+    },
+    "alsoMatched": []
+  },
+  {
+    "seq": 21,
+    "runId": "run-94d6ebda-00fd-49b8-bb1d-f0666ccdbe88",
+    "at": "2026-08-28T01:09:55.593Z",
+    "type": "resolved",
+    "stepId": "enter-member-id",
+    "descriptors": [
+      {
+        "id": "member-id-right-of-label",
+        "kind": "label-anchored",
+        "evidenceSource": "labelText",
+        "verdict": "resolved",
+        "nodeId": "textbox:f3-158"
+      },
+      {
+        "id": "member-id-first-in-form",
+        "kind": "ordinal-in-container",
+        "evidenceSource": "ordinal",
+        "verdict": "resolved",
+        "nodeId": "textbox:f3-158"
+      }
+    ],
+    "agreed": true,
+    "distinctSources": 2
+  },
+  {
+    "seq": 22,
+    "runId": "run-94d6ebda-00fd-49b8-bb1d-f0666ccdbe88",
+    "at": "2026-08-28T01:09:55.593Z",
+    "type": "policy.decided",
+    "decision": {
+      "allow": true,
+      "effect": "READ",
+      "ruleId": "route:corebank/search"
+    },
+    "actionKind": "type",
+    "effect": "READ"
+  },
+  {
+    "seq": 23,
+    "runId": "run-94d6ebda-00fd-49b8-bb1d-f0666ccdbe88",
+    "at": "2026-08-28T01:09:55.593Z",
+    "type": "budget.charged",
+    "ledger": "actions",
+    "used": 2,
+    "limit": 40
+  },
+  {
+    "seq": 24,
+    "runId": "run-94d6ebda-00fd-49b8-bb1d-f0666ccdbe88",
+    "at": "2026-08-28T01:09:55.608Z",
+    "type": "acted",
+    "stepId": "enter-member-id",
+    "actionKind": "type",
+    "targetTitle": "the textbox to the right of the label <member-id-label>, within 60px, inside frame exactly \"content\", inside the form",
+    "valueRef": "taint:memberId-1",
+    "valueLength": 5,
+    "result": "dispatched"
+  },
+  {
+    "seq": 25,
+    "runId": "run-94d6ebda-00fd-49b8-bb1d-f0666ccdbe88",
+    "at": "2026-08-28T01:09:55.608Z",
+    "type": "budget.charged",
+    "ledger": "observations",
+    "used": 5,
+    "limit": 400
+  },
+  {
+    "seq": 26,
+    "runId": "run-94d6ebda-00fd-49b8-bb1d-f0666ccdbe88",
+    "at": "2026-08-28T01:09:55.736Z",
+    "type": "budget.charged",
+    "ledger": "observations",
+    "used": 6,
+    "limit": 400
+  },
+  {
+    "seq": 27,
+    "runId": "run-94d6ebda-00fd-49b8-bb1d-f0666ccdbe88",
+    "at": "2026-08-28T01:09:55.747Z",
+    "type": "settled",
+    "stepId": "enter-member-id",
+    "polls": 2,
+    "elapsedMs": 138,
+    "settled": true
+  },
+  {
+    "seq": 28,
+    "runId": "run-94d6ebda-00fd-49b8-bb1d-f0666ccdbe88",
+    "at": "2026-08-28T01:09:55.747Z",
+    "type": "observed",
+    "stepId": "enter-member-id",
+    "obsSeq": 5,
+    "skeletonDigest": "sha256:014aa733ad56a65ca562941a1edf215144446165bd3145f7af8bce711be1ce89",
+    "settled": true,
+    "nodeCount": 100,
+    "observationRef": null
+  },
+  {
+    "seq": 29,
+    "runId": "run-94d6ebda-00fd-49b8-bb1d-f0666ccdbe88",
+    "at": "2026-08-28T01:09:55.747Z",
+    "type": "classified",
+    "stepId": "enter-member-id",
+    "phase": "post",
+    "verdict": {
+      "kind": "advance",
+      "outputs": []
+    },
+    "alsoMatched": []
+  },
+  {
+    "seq": 30,
+    "runId": "run-94d6ebda-00fd-49b8-bb1d-f0666ccdbe88",
+    "at": "2026-08-28T01:09:55.748Z",
+    "type": "checkpoint",
+    "stepId": "enter-member-id",
+    "passed": true,
+    "trace": {
+      "rendered": "the surface has settled and a textbox inside frame exactly \"content\", inside the form occurs at least 2 time(s) - NOTE: the field is masked because its value is bound to a sensitive parameter, so the written value could not be read back; a truncating maxlength or input mask on this field would not be detected",
+      "clauses": [
+        {
+          "rendered": "the surface has settled",
+          "verdict": true
+        },
+        {
+          "rendered": "a textbox inside frame exactly \"content\", inside the form occurs at least 2 time(s)",
+          "verdict": true,
+          "nodeSummary": "2 nodes matched"
+        }
+      ]
+    }
+  },
+  {
+    "seq": 31,
+    "runId": "run-94d6ebda-00fd-49b8-bb1d-f0666ccdbe88",
+    "at": "2026-08-28T01:09:55.748Z",
+    "type": "step.entered",
+    "stepId": "submit-search",
+    "index": 2,
+    "attempt": 1,
+    "effect": "READ"
+  },
+  {
+    "seq": 32,
+    "runId": "run-94d6ebda-00fd-49b8-bb1d-f0666ccdbe88",
+    "at": "2026-08-28T01:09:55.748Z",
+    "type": "budget.charged",
+    "ledger": "observations",
+    "used": 7,
+    "limit": 400
+  },
+  {
+    "seq": 33,
+    "runId": "run-94d6ebda-00fd-49b8-bb1d-f0666ccdbe88",
+    "at": "2026-08-28T01:09:55.755Z",
+    "type": "observed",
+    "stepId": "submit-search",
+    "obsSeq": 6,
+    "skeletonDigest": "sha256:014aa733ad56a65ca562941a1edf215144446165bd3145f7af8bce711be1ce89",
+    "settled": true,
+    "nodeCount": 100,
+    "observationRef": null
+  },
+  {
+    "seq": 34,
+    "runId": "run-94d6ebda-00fd-49b8-bb1d-f0666ccdbe88",
+    "at": "2026-08-28T01:09:55.756Z",
+    "type": "classified",
+    "stepId": "submit-search",
+    "phase": "pre",
+    "verdict": {
+      "kind": "advance",
+      "outputs": []
+    },
+    "alsoMatched": []
+  },
+  {
+    "seq": 35,
+    "runId": "run-94d6ebda-00fd-49b8-bb1d-f0666ccdbe88",
+    "at": "2026-08-28T01:09:55.756Z",
+    "type": "resolved",
+    "stepId": "submit-search",
+    "descriptors": [
+      {
+        "id": "search-by-name",
+        "kind": "role-name",
+        "evidenceSource": "accessibleName",
+        "verdict": "resolved",
+        "nodeId": "button:f3-168"
+      },
+      {
+        "id": "search-right-of-member-id",
+        "kind": "geometric",
+        "evidenceSource": "geometry",
+        "verdict": "resolved",
+        "nodeId": "button:f3-168"
+      }
+    ],
+    "agreed": true,
+    "distinctSources": 2
+  },
+  {
+    "seq": 36,
+    "runId": "run-94d6ebda-00fd-49b8-bb1d-f0666ccdbe88",
+    "at": "2026-08-28T01:09:55.756Z",
+    "type": "policy.decided",
+    "decision": {
+      "allow": true,
+      "effect": "READ",
+      "ruleId": "route:corebank/search"
+    },
+    "actionKind": "click",
+    "effect": "READ"
+  },
+  {
+    "seq": 37,
+    "runId": "run-94d6ebda-00fd-49b8-bb1d-f0666ccdbe88",
+    "at": "2026-08-28T01:09:55.756Z",
+    "type": "budget.charged",
+    "ledger": "actions",
+    "used": 3,
+    "limit": 40
+  },
+  {
+    "seq": 38,
+    "runId": "run-94d6ebda-00fd-49b8-bb1d-f0666ccdbe88",
+    "at": "2026-08-28T01:09:55.758Z",
+    "type": "acted",
+    "stepId": "submit-search",
+    "actionKind": "click",
+    "targetTitle": "the button named <search-button>, inside frame exactly \"content\", inside the form",
+    "valueRef": null,
+    "valueLength": null,
+    "result": "dispatched"
+  },
+  {
+    "seq": 39,
+    "runId": "run-94d6ebda-00fd-49b8-bb1d-f0666ccdbe88",
+    "at": "2026-08-28T01:09:55.758Z",
+    "type": "budget.charged",
+    "ledger": "observations",
+    "used": 8,
+    "limit": 400
+  },
+  {
+    "seq": 40,
+    "runId": "run-94d6ebda-00fd-49b8-bb1d-f0666ccdbe88",
+    "at": "2026-08-28T01:09:55.907Z",
+    "type": "budget.charged",
+    "ledger": "observations",
+    "used": 9,
+    "limit": 400
+  },
+  {
+    "seq": 41,
+    "runId": "run-94d6ebda-00fd-49b8-bb1d-f0666ccdbe88",
+    "at": "2026-08-28T01:09:55.923Z",
+    "type": "settled",
+    "stepId": "submit-search",
+    "polls": 2,
+    "elapsedMs": 165,
+    "settled": true
+  },
+  {
+    "seq": 42,
+    "runId": "run-94d6ebda-00fd-49b8-bb1d-f0666ccdbe88",
+    "at": "2026-08-28T01:09:55.923Z",
+    "type": "observed",
+    "stepId": "submit-search",
+    "obsSeq": 8,
+    "skeletonDigest": "sha256:8be7e5b0e9750e40cd59049e6b76df8a9fdd68cacd9ea33dad97cd28d9f46800",
+    "settled": true,
+    "nodeCount": 130,
+    "observationRef": null
+  },
+  {
+    "seq": 43,
+    "runId": "run-94d6ebda-00fd-49b8-bb1d-f0666ccdbe88",
+    "at": "2026-08-28T01:09:55.924Z",
+    "type": "classified",
+    "stepId": "submit-search",
+    "phase": "post",
+    "verdict": {
+      "kind": "advance",
+      "outputs": []
+    },
+    "alsoMatched": []
+  },
+  {
+    "seq": 44,
+    "runId": "run-94d6ebda-00fd-49b8-bb1d-f0666ccdbe88",
+    "at": "2026-08-28T01:09:55.924Z",
+    "type": "checkpoint",
+    "stepId": "submit-search",
+    "passed": true,
+    "trace": {
+      "rendered": "the surface has settled and the surface is on route member-results and a row inside frame exactly \"content\", inside the table with columns [<member-column>, <name-column>, <status-column>] occurs at least 2 time(s) and the run is still on the record bound to `subjectMember` inside frame exactly \"content\", inside the table with columns [<member-column>, <name-column>, <status-column>]",
+      "clauses": [
+        {
+          "rendered": "the surface has settled",
+          "verdict": true
+        },
+        {
+          "rendered": "the surface is on route member-results",
+          "verdict": true
+        },
+        {
+          "rendered": "a row inside frame exactly \"content\", inside the table with columns [<member-column>, <name-column>, <status-column>] occurs at least 2 time(s)",
+          "verdict": true,
+          "nodeSummary": "2 nodes matched"
+        },
+        {
+          "rendered": "the run is still on the record bound to `subjectMember` inside frame exactly \"content\", inside the table with columns [<member-column>, <name-column>, <status-column>]",
+          "verdict": true
+        }
+      ]
+    }
+  },
+  {
+    "seq": 45,
+    "runId": "run-94d6ebda-00fd-49b8-bb1d-f0666ccdbe88",
+    "at": "2026-08-28T01:09:55.924Z",
+    "type": "step.entered",
+    "stepId": "read-member-summary",
+    "index": 3,
+    "attempt": 1,
+    "effect": "READ"
+  },
+  {
+    "seq": 46,
+    "runId": "run-94d6ebda-00fd-49b8-bb1d-f0666ccdbe88",
+    "at": "2026-08-28T01:09:55.925Z",
+    "type": "budget.charged",
+    "ledger": "observations",
+    "used": 10,
+    "limit": 400
+  },
+  {
+    "seq": 47,
+    "runId": "run-94d6ebda-00fd-49b8-bb1d-f0666ccdbe88",
+    "at": "2026-08-28T01:09:55.936Z",
+    "type": "observed",
+    "stepId": "read-member-summary",
+    "obsSeq": 9,
+    "skeletonDigest": "sha256:8be7e5b0e9750e40cd59049e6b76df8a9fdd68cacd9ea33dad97cd28d9f46800",
+    "settled": true,
+    "nodeCount": 130,
+    "observationRef": null
+  },
+  {
+    "seq": 48,
+    "runId": "run-94d6ebda-00fd-49b8-bb1d-f0666ccdbe88",
+    "at": "2026-08-28T01:09:55.937Z",
+    "type": "classified",
+    "stepId": "read-member-summary",
+    "phase": "pre",
+    "verdict": {
+      "kind": "advance",
+      "outputs": []
+    },
+    "alsoMatched": []
+  },
+  {
+    "seq": 49,
+    "runId": "run-94d6ebda-00fd-49b8-bb1d-f0666ccdbe88",
+    "at": "2026-08-28T01:09:55.937Z",
+    "type": "budget.charged",
+    "ledger": "observations",
+    "used": 11,
+    "limit": 400
+  },
+  {
+    "seq": 50,
+    "runId": "run-94d6ebda-00fd-49b8-bb1d-f0666ccdbe88",
+    "at": "2026-08-28T01:09:56.070Z",
+    "type": "budget.charged",
+    "ledger": "observations",
+    "used": 12,
+    "limit": 400
+  },
+  {
+    "seq": 51,
+    "runId": "run-94d6ebda-00fd-49b8-bb1d-f0666ccdbe88",
+    "at": "2026-08-28T01:09:56.085Z",
+    "type": "settled",
+    "stepId": "read-member-summary",
+    "polls": 2,
+    "elapsedMs": 149,
+    "settled": true
+  },
+  {
+    "seq": 52,
+    "runId": "run-94d6ebda-00fd-49b8-bb1d-f0666ccdbe88",
+    "at": "2026-08-28T01:09:56.085Z",
+    "type": "observed",
+    "stepId": "read-member-summary",
+    "obsSeq": 11,
+    "skeletonDigest": "sha256:8be7e5b0e9750e40cd59049e6b76df8a9fdd68cacd9ea33dad97cd28d9f46800",
+    "settled": true,
+    "nodeCount": 130,
+    "observationRef": null
+  },
+  {
+    "seq": 53,
+    "runId": "run-94d6ebda-00fd-49b8-bb1d-f0666ccdbe88",
+    "at": "2026-08-28T01:09:56.087Z",
+    "type": "classified",
+    "stepId": "read-member-summary",
+    "phase": "post",
+    "verdict": {
+      "kind": "advance",
+      "outputs": [
+        {
+          "output": "memberName",
+          "value": "ALVAREZ, DANA (SYNTHETIC)",
+          "sensitivity": "sensitive"
+        },
+        {
+          "output": "shareBalance",
+          "value": {
+            "amount": "1204.55",
+            "currency": "USD"
+          },
+          "sensitivity": "internal"
+        },
+        {
+          "output": "accountStatus",
+          "value": "ACTIVE",
+          "sensitivity": "internal"
+        }
+      ]
+    },
+    "alsoMatched": []
+  },
+  {
+    "seq": 54,
+    "runId": "run-94d6ebda-00fd-49b8-bb1d-f0666ccdbe88",
+    "at": "2026-08-28T01:09:56.087Z",
+    "type": "extracted",
+    "stepId": "read-member-summary",
+    "output": "memberName",
+    "sensitivity": "sensitive",
+    "present": true
+  },
+  {
+    "seq": 55,
+    "runId": "run-94d6ebda-00fd-49b8-bb1d-f0666ccdbe88",
+    "at": "2026-08-28T01:09:56.087Z",
+    "type": "extracted",
+    "stepId": "read-member-summary",
+    "output": "shareBalance",
+    "sensitivity": "internal",
+    "present": true
+  },
+  {
+    "seq": 56,
+    "runId": "run-94d6ebda-00fd-49b8-bb1d-f0666ccdbe88",
+    "at": "2026-08-28T01:09:56.087Z",
+    "type": "extracted",
+    "stepId": "read-member-summary",
+    "output": "accountStatus",
+    "sensitivity": "internal",
+    "present": true
+  },
+  {
+    "seq": 57,
+    "runId": "run-94d6ebda-00fd-49b8-bb1d-f0666ccdbe88",
+    "at": "2026-08-28T01:09:56.087Z",
+    "type": "checkpoint",
+    "stepId": "read-member-summary",
+    "passed": true,
+    "trace": {
+      "rendered": "the surface has settled and the run is still on the record bound to `subjectMember` inside frame exactly \"content\", inside the table with columns [<member-column>, <name-column>, <status-column>]",
+      "clauses": [
+        {
+          "rendered": "the surface has settled",
+          "verdict": true
+        },
+        {
+          "rendered": "the run is still on the record bound to `subjectMember` inside frame exactly \"content\", inside the table with columns [<member-column>, <name-column>, <status-column>]",
+          "verdict": true
+        }
+      ]
+    }
+  },
+  {
+    "seq": 58,
+    "runId": "run-94d6ebda-00fd-49b8-bb1d-f0666ccdbe88",
+    "at": "2026-08-28T01:09:56.088Z",
+    "type": "step.entered",
+    "stepId": "open-member-record",
+    "index": 4,
+    "attempt": 1,
+    "effect": "READ"
+  },
+  {
+    "seq": 59,
+    "runId": "run-94d6ebda-00fd-49b8-bb1d-f0666ccdbe88",
+    "at": "2026-08-28T01:09:56.088Z",
+    "type": "budget.charged",
+    "ledger": "observations",
+    "used": 13,
+    "limit": 400
+  },
+  {
+    "seq": 60,
+    "runId": "run-94d6ebda-00fd-49b8-bb1d-f0666ccdbe88",
+    "at": "2026-08-28T01:09:56.099Z",
+    "type": "observed",
+    "stepId": "open-member-record",
+    "obsSeq": 12,
+    "skeletonDigest": "sha256:8be7e5b0e9750e40cd59049e6b76df8a9fdd68cacd9ea33dad97cd28d9f46800",
+    "settled": true,
+    "nodeCount": 130,
+    "observationRef": null
+  },
+  {
+    "seq": 61,
+    "runId": "run-94d6ebda-00fd-49b8-bb1d-f0666ccdbe88",
+    "at": "2026-08-28T01:09:56.100Z",
+    "type": "classified",
+    "stepId": "open-member-record",
+    "phase": "pre",
+    "verdict": {
+      "kind": "advance",
+      "outputs": []
+    },
+    "alsoMatched": []
+  },
+  {
+    "seq": 62,
+    "runId": "run-94d6ebda-00fd-49b8-bb1d-f0666ccdbe88",
+    "at": "2026-08-28T01:09:56.100Z",
+    "type": "resolved",
+    "stepId": "open-member-record",
+    "descriptors": [
+      {
+        "id": "open-by-row-key",
+        "kind": "table-cell",
+        "evidenceSource": "columnHeader",
+        "verdict": "resolved",
+        "nodeId": "link:f3-252"
+      },
+      {
+        "id": "open-by-link-text",
+        "kind": "role-name",
+        "evidenceSource": "accessibleName",
+        "verdict": "resolved",
+        "nodeId": "link:f3-252"
+      }
+    ],
+    "agreed": true,
+    "distinctSources": 2
+  },
+  {
+    "seq": 63,
+    "runId": "run-94d6ebda-00fd-49b8-bb1d-f0666ccdbe88",
+    "at": "2026-08-28T01:09:56.101Z",
+    "type": "policy.decided",
+    "decision": {
+      "allow": true,
+      "effect": "READ",
+      "ruleId": "route:corebank/search/results"
+    },
+    "actionKind": "click",
+    "effect": "READ"
+  },
+  {
+    "seq": 64,
+    "runId": "run-94d6ebda-00fd-49b8-bb1d-f0666ccdbe88",
+    "at": "2026-08-28T01:09:56.101Z",
+    "type": "budget.charged",
+    "ledger": "actions",
+    "used": 4,
+    "limit": 40
+  },
+  {
+    "seq": 65,
+    "runId": "run-94d6ebda-00fd-49b8-bb1d-f0666ccdbe88",
+    "at": "2026-08-28T01:09:56.104Z",
+    "type": "acted",
+    "stepId": "open-member-record",
+    "actionKind": "click",
+    "targetTitle": "the link named <open-row-link>, inside frame exactly \"content\", inside the table with columns [<member-column>, <name-column>, <status-column>]",
+    "valueRef": null,
+    "valueLength": null,
+    "result": "dispatched"
+  },
+  {
+    "seq": 66,
+    "runId": "run-94d6ebda-00fd-49b8-bb1d-f0666ccdbe88",
+    "at": "2026-08-28T01:09:56.104Z",
+    "type": "budget.charged",
+    "ledger": "observations",
+    "used": 14,
+    "limit": 400
+  },
+  {
+    "seq": 67,
+    "runId": "run-94d6ebda-00fd-49b8-bb1d-f0666ccdbe88",
+    "at": "2026-08-28T01:09:56.238Z",
+    "type": "budget.charged",
+    "ledger": "observations",
+    "used": 15,
+    "limit": 400
+  },
+  {
+    "seq": 68,
+    "runId": "run-94d6ebda-00fd-49b8-bb1d-f0666ccdbe88",
+    "at": "2026-08-28T01:09:56.248Z",
+    "type": "settled",
+    "stepId": "open-member-record",
+    "polls": 2,
+    "elapsedMs": 144,
+    "settled": true
+  },
+  {
+    "seq": 69,
+    "runId": "run-94d6ebda-00fd-49b8-bb1d-f0666ccdbe88",
+    "at": "2026-08-28T01:09:56.249Z",
+    "type": "observed",
+    "stepId": "open-member-record",
+    "obsSeq": 14,
+    "skeletonDigest": "sha256:89ae112647051c26f14edd9813f0426095c77120b1e56154fadd16266b8326f0",
+    "settled": true,
+    "nodeCount": 86,
+    "observationRef": null
+  },
+  {
+    "seq": 70,
+    "runId": "run-94d6ebda-00fd-49b8-bb1d-f0666ccdbe88",
+    "at": "2026-08-28T01:09:56.249Z",
+    "type": "classified",
+    "stepId": "open-member-record",
+    "phase": "post",
+    "verdict": {
+      "kind": "recover",
+      "recoveryName": "APP_ERROR_PAGE",
+      "remedy": {
+        "kind": "actions",
+        "instructions": [
+          {
+            "kind": "navigate",
+            "route": "member-search"
+          }
+        ]
+      },
+      "attempt": 1
+    },
+    "alsoMatched": []
+  },
+  {
+    "seq": 71,
+    "runId": "run-94d6ebda-00fd-49b8-bb1d-f0666ccdbe88",
+    "at": "2026-08-28T01:09:56.249Z",
+    "type": "budget.charged",
+    "ledger": "remediations",
+    "used": 1,
+    "limit": 6
+  },
+  {
+    "seq": 72,
+    "runId": "run-94d6ebda-00fd-49b8-bb1d-f0666ccdbe88",
+    "at": "2026-08-28T01:09:56.249Z",
+    "type": "recovery.applied",
+    "stepId": "open-member-record",
+    "name": "APP_ERROR_PAGE",
+    "attempt": 1,
+    "remedy": "actions"
+  },
+  {
+    "seq": 73,
+    "runId": "run-94d6ebda-00fd-49b8-bb1d-f0666ccdbe88",
+    "at": "2026-08-28T01:09:56.249Z",
+    "type": "policy.decided",
+    "decision": {
+      "allow": true,
+      "effect": "READ",
+      "ruleId": "route:corebank/search"
+    },
+    "actionKind": "navigate",
+    "effect": "READ"
+  },
+  {
+    "seq": 74,
+    "runId": "run-94d6ebda-00fd-49b8-bb1d-f0666ccdbe88",
+    "at": "2026-08-28T01:09:56.249Z",
+    "type": "budget.charged",
+    "ledger": "actions",
+    "used": 5,
+    "limit": 40
+  },
+  {
+    "seq": 75,
+    "runId": "run-94d6ebda-00fd-49b8-bb1d-f0666ccdbe88",
+    "at": "2026-08-28T01:09:56.254Z",
+    "type": "acted",
+    "stepId": "open-member-record",
+    "actionKind": "navigate",
+    "targetTitle": "remedy on Open the matching member's record",
+    "valueRef": null,
+    "valueLength": null,
+    "result": "dispatched"
+  },
+  {
+    "seq": 76,
+    "runId": "run-94d6ebda-00fd-49b8-bb1d-f0666ccdbe88",
+    "at": "2026-08-28T01:09:56.254Z",
+    "type": "budget.charged",
+    "ledger": "programAttempts",
+    "used": 1,
+    "limit": 1
+  },
+  {
+    "seq": 77,
+    "runId": "run-94d6ebda-00fd-49b8-bb1d-f0666ccdbe88",
+    "at": "2026-08-28T01:09:56.254Z",
+    "type": "restart.requested",
+    "fromPc": 4,
+    "gate": "passed",
+    "restartSafeUpToPc": 9
+  },
+  {
+    "seq": 78,
+    "runId": "run-94d6ebda-00fd-49b8-bb1d-f0666ccdbe88",
+    "at": "2026-08-28T01:09:56.255Z",
+    "type": "lease.released",
+    "holder": "automation",
+    "reason": "program restart"
+  },
+  {
+    "seq": 79,
+    "runId": "run-94d6ebda-00fd-49b8-bb1d-f0666ccdbe88",
+    "at": "2026-08-28T01:09:56.255Z",
+    "type": "lease.acquired",
+    "holder": "automation",
+    "actorId": "run:run-94d6ebda-00fd-49b8-bb1d-f0666ccdbe88",
+    "epoch": 1
+  },
+  {
+    "seq": 80,
+    "runId": "run-94d6ebda-00fd-49b8-bb1d-f0666ccdbe88",
+    "at": "2026-08-28T01:09:56.255Z",
+    "type": "step.entered",
+    "stepId": "open-search",
+    "index": 0,
+    "attempt": 1,
+    "effect": "READ"
+  },
+  {
+    "seq": 81,
+    "runId": "run-94d6ebda-00fd-49b8-bb1d-f0666ccdbe88",
+    "at": "2026-08-28T01:09:56.255Z",
+    "type": "budget.charged",
+    "ledger": "observations",
+    "used": 16,
+    "limit": 400
+  },
+  {
+    "seq": 82,
+    "runId": "run-94d6ebda-00fd-49b8-bb1d-f0666ccdbe88",
+    "at": "2026-08-28T01:09:56.264Z",
+    "type": "observed",
+    "stepId": "open-search",
+    "obsSeq": 15,
+    "skeletonDigest": "sha256:3ece383379d324a6b5bdff0a737d1bcc46e2ce4cd242fc56032c283c904771e7",
+    "settled": true,
+    "nodeCount": 99,
+    "observationRef": null
+  },
+  {
+    "seq": 83,
+    "runId": "run-94d6ebda-00fd-49b8-bb1d-f0666ccdbe88",
+    "at": "2026-08-28T01:09:56.264Z",
+    "type": "classified",
+    "stepId": "open-search",
+    "phase": "pre",
+    "verdict": {
+      "kind": "advance",
+      "outputs": []
+    },
+    "alsoMatched": []
+  },
+  {
+    "seq": 84,
+    "runId": "run-94d6ebda-00fd-49b8-bb1d-f0666ccdbe88",
+    "at": "2026-08-28T01:09:56.264Z",
+    "type": "policy.decided",
+    "decision": {
+      "allow": true,
+      "effect": "READ",
+      "ruleId": "route:corebank/search"
+    },
+    "actionKind": "navigate",
+    "effect": "READ"
+  },
+  {
+    "seq": 85,
+    "runId": "run-94d6ebda-00fd-49b8-bb1d-f0666ccdbe88",
+    "at": "2026-08-28T01:09:56.264Z",
+    "type": "budget.charged",
+    "ledger": "actions",
+    "used": 6,
+    "limit": 40
+  },
+  {
+    "seq": 86,
+    "runId": "run-94d6ebda-00fd-49b8-bb1d-f0666ccdbe88",
+    "at": "2026-08-28T01:09:56.269Z",
+    "type": "acted",
+    "stepId": "open-search",
+    "actionKind": "navigate",
+    "targetTitle": "Open the member search screen",
+    "valueRef": null,
+    "valueLength": null,
+    "result": "dispatched"
+  },
+  {
+    "seq": 87,
+    "runId": "run-94d6ebda-00fd-49b8-bb1d-f0666ccdbe88",
+    "at": "2026-08-28T01:09:56.269Z",
+    "type": "budget.charged",
+    "ledger": "observations",
+    "used": 17,
+    "limit": 400
+  },
+  {
+    "seq": 88,
+    "runId": "run-94d6ebda-00fd-49b8-bb1d-f0666ccdbe88",
+    "at": "2026-08-28T01:09:56.398Z",
+    "type": "budget.charged",
+    "ledger": "observations",
+    "used": 18,
+    "limit": 400
+  },
+  {
+    "seq": 89,
+    "runId": "run-94d6ebda-00fd-49b8-bb1d-f0666ccdbe88",
+    "at": "2026-08-28T01:09:56.409Z",
+    "type": "settled",
+    "stepId": "open-search",
+    "polls": 2,
+    "elapsedMs": 141,
+    "settled": true
+  },
+  {
+    "seq": 90,
+    "runId": "run-94d6ebda-00fd-49b8-bb1d-f0666ccdbe88",
+    "at": "2026-08-28T01:09:56.409Z",
+    "type": "observed",
+    "stepId": "open-search",
+    "obsSeq": 17,
+    "skeletonDigest": "sha256:3ece383379d324a6b5bdff0a737d1bcc46e2ce4cd242fc56032c283c904771e7",
+    "settled": true,
+    "nodeCount": 99,
+    "observationRef": null
+  },
+  {
+    "seq": 91,
+    "runId": "run-94d6ebda-00fd-49b8-bb1d-f0666ccdbe88",
+    "at": "2026-08-28T01:09:56.410Z",
+    "type": "classified",
+    "stepId": "open-search",
+    "phase": "post",
+    "verdict": {
+      "kind": "advance",
+      "outputs": []
+    },
+    "alsoMatched": []
+  },
+  {
+    "seq": 92,
+    "runId": "run-94d6ebda-00fd-49b8-bb1d-f0666ccdbe88",
+    "at": "2026-08-28T01:09:56.410Z",
+    "type": "checkpoint",
+    "stepId": "open-search",
+    "passed": true,
+    "trace": {
+      "rendered": "the surface has settled and the surface is on route member-search and a textbox inside frame exactly \"content\", inside the form occurs at least 2 time(s)",
+      "clauses": [
+        {
+          "rendered": "the surface has settled",
+          "verdict": true
+        },
+        {
+          "rendered": "the surface is on route member-search",
+          "verdict": true
+        },
+        {
+          "rendered": "a textbox inside frame exactly \"content\", inside the form occurs at least 2 time(s)",
+          "verdict": true,
+          "nodeSummary": "2 nodes matched"
+        }
+      ]
+    }
+  },
+  {
+    "seq": 93,
+    "runId": "run-94d6ebda-00fd-49b8-bb1d-f0666ccdbe88",
+    "at": "2026-08-28T01:09:56.410Z",
+    "type": "step.entered",
+    "stepId": "enter-member-id",
+    "index": 1,
+    "attempt": 1,
+    "effect": "READ"
+  },
+  {
+    "seq": 94,
+    "runId": "run-94d6ebda-00fd-49b8-bb1d-f0666ccdbe88",
+    "at": "2026-08-28T01:09:56.410Z",
+    "type": "budget.charged",
+    "ledger": "observations",
+    "used": 19,
+    "limit": 400
+  },
+  {
+    "seq": 95,
+    "runId": "run-94d6ebda-00fd-49b8-bb1d-f0666ccdbe88",
+    "at": "2026-08-28T01:09:56.419Z",
+    "type": "observed",
+    "stepId": "enter-member-id",
+    "obsSeq": 18,
+    "skeletonDigest": "sha256:3ece383379d324a6b5bdff0a737d1bcc46e2ce4cd242fc56032c283c904771e7",
+    "settled": true,
+    "nodeCount": 99,
+    "observationRef": null
+  },
+  {
+    "seq": 96,
+    "runId": "run-94d6ebda-00fd-49b8-bb1d-f0666ccdbe88",
+    "at": "2026-08-28T01:09:56.420Z",
+    "type": "classified",
+    "stepId": "enter-member-id",
+    "phase": "pre",
+    "verdict": {
+      "kind": "advance",
+      "outputs": []
+    },
+    "alsoMatched": []
+  },
+  {
+    "seq": 97,
+    "runId": "run-94d6ebda-00fd-49b8-bb1d-f0666ccdbe88",
+    "at": "2026-08-28T01:09:56.420Z",
+    "type": "resolved",
+    "stepId": "enter-member-id",
+    "descriptors": [
+      {
+        "id": "member-id-right-of-label",
+        "kind": "label-anchored",
+        "evidenceSource": "labelText",
+        "verdict": "resolved",
+        "nodeId": "textbox:f3-395"
+      },
+      {
+        "id": "member-id-first-in-form",
+        "kind": "ordinal-in-container",
+        "evidenceSource": "ordinal",
+        "verdict": "resolved",
+        "nodeId": "textbox:f3-395"
+      }
+    ],
+    "agreed": true,
+    "distinctSources": 2
+  },
+  {
+    "seq": 98,
+    "runId": "run-94d6ebda-00fd-49b8-bb1d-f0666ccdbe88",
+    "at": "2026-08-28T01:09:56.420Z",
+    "type": "policy.decided",
+    "decision": {
+      "allow": true,
+      "effect": "READ",
+      "ruleId": "route:corebank/search"
+    },
+    "actionKind": "type",
+    "effect": "READ"
+  },
+  {
+    "seq": 99,
+    "runId": "run-94d6ebda-00fd-49b8-bb1d-f0666ccdbe88",
+    "at": "2026-08-28T01:09:56.420Z",
+    "type": "budget.charged",
+    "ledger": "actions",
+    "used": 7,
+    "limit": 40
+  },
+  {
+    "seq": 100,
+    "runId": "run-94d6ebda-00fd-49b8-bb1d-f0666ccdbe88",
+    "at": "2026-08-28T01:09:56.424Z",
+    "type": "acted",
+    "stepId": "enter-member-id",
+    "actionKind": "type",
+    "targetTitle": "the textbox to the right of the label <member-id-label>, within 60px, inside frame exactly \"content\", inside the form",
+    "valueRef": "taint:memberId-1",
+    "valueLength": 5,
+    "result": "dispatched"
+  },
+  {
+    "seq": 101,
+    "runId": "run-94d6ebda-00fd-49b8-bb1d-f0666ccdbe88",
+    "at": "2026-08-28T01:09:56.424Z",
+    "type": "budget.charged",
+    "ledger": "observations",
+    "used": 20,
+    "limit": 400
+  },
+  {
+    "seq": 102,
+    "runId": "run-94d6ebda-00fd-49b8-bb1d-f0666ccdbe88",
+    "at": "2026-08-28T01:09:56.555Z",
+    "type": "budget.charged",
+    "ledger": "observations",
+    "used": 21,
+    "limit": 400
+  },
+  {
+    "seq": 103,
+    "runId": "run-94d6ebda-00fd-49b8-bb1d-f0666ccdbe88",
+    "at": "2026-08-28T01:09:56.568Z",
+    "type": "settled",
+    "stepId": "enter-member-id",
+    "polls": 2,
+    "elapsedMs": 145,
+    "settled": true
+  },
+  {
+    "seq": 104,
+    "runId": "run-94d6ebda-00fd-49b8-bb1d-f0666ccdbe88",
+    "at": "2026-08-28T01:09:56.568Z",
+    "type": "observed",
+    "stepId": "enter-member-id",
+    "obsSeq": 20,
+    "skeletonDigest": "sha256:014aa733ad56a65ca562941a1edf215144446165bd3145f7af8bce711be1ce89",
+    "settled": true,
+    "nodeCount": 100,
+    "observationRef": null
+  },
+  {
+    "seq": 105,
+    "runId": "run-94d6ebda-00fd-49b8-bb1d-f0666ccdbe88",
+    "at": "2026-08-28T01:09:56.569Z",
+    "type": "classified",
+    "stepId": "enter-member-id",
+    "phase": "post",
+    "verdict": {
+      "kind": "advance",
+      "outputs": []
+    },
+    "alsoMatched": []
+  },
+  {
+    "seq": 106,
+    "runId": "run-94d6ebda-00fd-49b8-bb1d-f0666ccdbe88",
+    "at": "2026-08-28T01:09:56.569Z",
+    "type": "checkpoint",
+    "stepId": "enter-member-id",
+    "passed": true,
+    "trace": {
+      "rendered": "the surface has settled and a textbox inside frame exactly \"content\", inside the form occurs at least 2 time(s) - NOTE: the field is masked because its value is bound to a sensitive parameter, so the written value could not be read back; a truncating maxlength or input mask on this field would not be detected",
+      "clauses": [
+        {
+          "rendered": "the surface has settled",
+          "verdict": true
+        },
+        {
+          "rendered": "a textbox inside frame exactly \"content\", inside the form occurs at least 2 time(s)",
+          "verdict": true,
+          "nodeSummary": "2 nodes matched"
+        }
+      ]
+    }
+  },
+  {
+    "seq": 107,
+    "runId": "run-94d6ebda-00fd-49b8-bb1d-f0666ccdbe88",
+    "at": "2026-08-28T01:09:56.570Z",
+    "type": "step.entered",
+    "stepId": "submit-search",
+    "index": 2,
+    "attempt": 1,
+    "effect": "READ"
+  },
+  {
+    "seq": 108,
+    "runId": "run-94d6ebda-00fd-49b8-bb1d-f0666ccdbe88",
+    "at": "2026-08-28T01:09:56.570Z",
+    "type": "budget.charged",
+    "ledger": "observations",
+    "used": 22,
+    "limit": 400
+  },
+  {
+    "seq": 109,
+    "runId": "run-94d6ebda-00fd-49b8-bb1d-f0666ccdbe88",
+    "at": "2026-08-28T01:09:56.579Z",
+    "type": "observed",
+    "stepId": "submit-search",
+    "obsSeq": 21,
+    "skeletonDigest": "sha256:014aa733ad56a65ca562941a1edf215144446165bd3145f7af8bce711be1ce89",
+    "settled": true,
+    "nodeCount": 100,
+    "observationRef": null
+  },
+  {
+    "seq": 110,
+    "runId": "run-94d6ebda-00fd-49b8-bb1d-f0666ccdbe88",
+    "at": "2026-08-28T01:09:56.579Z",
+    "type": "classified",
+    "stepId": "submit-search",
+    "phase": "pre",
+    "verdict": {
+      "kind": "advance",
+      "outputs": []
+    },
+    "alsoMatched": []
+  },
+  {
+    "seq": 111,
+    "runId": "run-94d6ebda-00fd-49b8-bb1d-f0666ccdbe88",
+    "at": "2026-08-28T01:09:56.580Z",
+    "type": "resolved",
+    "stepId": "submit-search",
+    "descriptors": [
+      {
+        "id": "search-by-name",
+        "kind": "role-name",
+        "evidenceSource": "accessibleName",
+        "verdict": "resolved",
+        "nodeId": "button:f3-405"
+      },
+      {
+        "id": "search-right-of-member-id",
+        "kind": "geometric",
+        "evidenceSource": "geometry",
+        "verdict": "resolved",
+        "nodeId": "button:f3-405"
+      }
+    ],
+    "agreed": true,
+    "distinctSources": 2
+  },
+  {
+    "seq": 112,
+    "runId": "run-94d6ebda-00fd-49b8-bb1d-f0666ccdbe88",
+    "at": "2026-08-28T01:09:56.580Z",
+    "type": "policy.decided",
+    "decision": {
+      "allow": true,
+      "effect": "READ",
+      "ruleId": "route:corebank/search"
+    },
+    "actionKind": "click",
+    "effect": "READ"
+  },
+  {
+    "seq": 113,
+    "runId": "run-94d6ebda-00fd-49b8-bb1d-f0666ccdbe88",
+    "at": "2026-08-28T01:09:56.580Z",
+    "type": "budget.charged",
+    "ledger": "actions",
+    "used": 8,
+    "limit": 40
+  },
+  {
+    "seq": 114,
+    "runId": "run-94d6ebda-00fd-49b8-bb1d-f0666ccdbe88",
+    "at": "2026-08-28T01:09:56.581Z",
+    "type": "acted",
+    "stepId": "submit-search",
+    "actionKind": "click",
+    "targetTitle": "the button named <search-button>, inside frame exactly \"content\", inside the form",
+    "valueRef": null,
+    "valueLength": null,
+    "result": "dispatched"
+  },
+  {
+    "seq": 115,
+    "runId": "run-94d6ebda-00fd-49b8-bb1d-f0666ccdbe88",
+    "at": "2026-08-28T01:09:56.581Z",
+    "type": "budget.charged",
+    "ledger": "observations",
+    "used": 23,
+    "limit": 400
+  },
+  {
+    "seq": 116,
+    "runId": "run-94d6ebda-00fd-49b8-bb1d-f0666ccdbe88",
+    "at": "2026-08-28T01:09:56.718Z",
+    "type": "budget.charged",
+    "ledger": "observations",
+    "used": 24,
+    "limit": 400
+  },
+  {
+    "seq": 117,
+    "runId": "run-94d6ebda-00fd-49b8-bb1d-f0666ccdbe88",
+    "at": "2026-08-28T01:09:56.732Z",
+    "type": "settled",
+    "stepId": "submit-search",
+    "polls": 2,
+    "elapsedMs": 151,
+    "settled": true
+  },
+  {
+    "seq": 118,
+    "runId": "run-94d6ebda-00fd-49b8-bb1d-f0666ccdbe88",
+    "at": "2026-08-28T01:09:56.732Z",
+    "type": "observed",
+    "stepId": "submit-search",
+    "obsSeq": 23,
+    "skeletonDigest": "sha256:8be7e5b0e9750e40cd59049e6b76df8a9fdd68cacd9ea33dad97cd28d9f46800",
+    "settled": true,
+    "nodeCount": 130,
+    "observationRef": null
+  },
+  {
+    "seq": 119,
+    "runId": "run-94d6ebda-00fd-49b8-bb1d-f0666ccdbe88",
+    "at": "2026-08-28T01:09:56.734Z",
+    "type": "classified",
+    "stepId": "submit-search",
+    "phase": "post",
+    "verdict": {
+      "kind": "advance",
+      "outputs": []
+    },
+    "alsoMatched": []
+  },
+  {
+    "seq": 120,
+    "runId": "run-94d6ebda-00fd-49b8-bb1d-f0666ccdbe88",
+    "at": "2026-08-28T01:09:56.734Z",
+    "type": "checkpoint",
+    "stepId": "submit-search",
+    "passed": true,
+    "trace": {
+      "rendered": "the surface has settled and the surface is on route member-results and a row inside frame exactly \"content\", inside the table with columns [<member-column>, <name-column>, <status-column>] occurs at least 2 time(s) and the run is still on the record bound to `subjectMember` inside frame exactly \"content\", inside the table with columns [<member-column>, <name-column>, <status-column>]",
+      "clauses": [
+        {
+          "rendered": "the surface has settled",
+          "verdict": true
+        },
+        {
+          "rendered": "the surface is on route member-results",
+          "verdict": true
+        },
+        {
+          "rendered": "a row inside frame exactly \"content\", inside the table with columns [<member-column>, <name-column>, <status-column>] occurs at least 2 time(s)",
+          "verdict": true,
+          "nodeSummary": "2 nodes matched"
+        },
+        {
+          "rendered": "the run is still on the record bound to `subjectMember` inside frame exactly \"content\", inside the table with columns [<member-column>, <name-column>, <status-column>]",
+          "verdict": true
+        }
+      ]
+    }
+  },
+  {
+    "seq": 121,
+    "runId": "run-94d6ebda-00fd-49b8-bb1d-f0666ccdbe88",
+    "at": "2026-08-28T01:09:56.734Z",
+    "type": "step.entered",
+    "stepId": "read-member-summary",
+    "index": 3,
+    "attempt": 1,
+    "effect": "READ"
+  },
+  {
+    "seq": 122,
+    "runId": "run-94d6ebda-00fd-49b8-bb1d-f0666ccdbe88",
+    "at": "2026-08-28T01:09:56.734Z",
+    "type": "budget.charged",
+    "ledger": "observations",
+    "used": 25,
+    "limit": 400
+  },
+  {
+    "seq": 123,
+    "runId": "run-94d6ebda-00fd-49b8-bb1d-f0666ccdbe88",
+    "at": "2026-08-28T01:09:56.745Z",
+    "type": "observed",
+    "stepId": "read-member-summary",
+    "obsSeq": 24,
+    "skeletonDigest": "sha256:8be7e5b0e9750e40cd59049e6b76df8a9fdd68cacd9ea33dad97cd28d9f46800",
+    "settled": true,
+    "nodeCount": 130,
+    "observationRef": null
+  },
+  {
+    "seq": 124,
+    "runId": "run-94d6ebda-00fd-49b8-bb1d-f0666ccdbe88",
+    "at": "2026-08-28T01:09:56.746Z",
+    "type": "classified",
+    "stepId": "read-member-summary",
+    "phase": "pre",
+    "verdict": {
+      "kind": "advance",
+      "outputs": []
+    },
+    "alsoMatched": []
+  },
+  {
+    "seq": 125,
+    "runId": "run-94d6ebda-00fd-49b8-bb1d-f0666ccdbe88",
+    "at": "2026-08-28T01:09:56.746Z",
+    "type": "budget.charged",
+    "ledger": "observations",
+    "used": 26,
+    "limit": 400
+  },
+  {
+    "seq": 126,
+    "runId": "run-94d6ebda-00fd-49b8-bb1d-f0666ccdbe88",
+    "at": "2026-08-28T01:09:56.878Z",
+    "type": "budget.charged",
+    "ledger": "observations",
+    "used": 27,
+    "limit": 400
+  },
+  {
+    "seq": 127,
+    "runId": "run-94d6ebda-00fd-49b8-bb1d-f0666ccdbe88",
+    "at": "2026-08-28T01:09:56.893Z",
+    "type": "settled",
+    "stepId": "read-member-summary",
+    "polls": 2,
+    "elapsedMs": 147,
+    "settled": true
+  },
+  {
+    "seq": 128,
+    "runId": "run-94d6ebda-00fd-49b8-bb1d-f0666ccdbe88",
+    "at": "2026-08-28T01:09:56.893Z",
+    "type": "observed",
+    "stepId": "read-member-summary",
+    "obsSeq": 26,
+    "skeletonDigest": "sha256:8be7e5b0e9750e40cd59049e6b76df8a9fdd68cacd9ea33dad97cd28d9f46800",
+    "settled": true,
+    "nodeCount": 130,
+    "observationRef": null
+  },
+  {
+    "seq": 129,
+    "runId": "run-94d6ebda-00fd-49b8-bb1d-f0666ccdbe88",
+    "at": "2026-08-28T01:09:56.895Z",
+    "type": "classified",
+    "stepId": "read-member-summary",
+    "phase": "post",
+    "verdict": {
+      "kind": "advance",
+      "outputs": [
+        {
+          "output": "memberName",
+          "value": "ALVAREZ, DANA (SYNTHETIC)",
+          "sensitivity": "sensitive"
+        },
+        {
+          "output": "shareBalance",
+          "value": {
+            "amount": "1204.55",
+            "currency": "USD"
+          },
+          "sensitivity": "internal"
+        },
+        {
+          "output": "accountStatus",
+          "value": "ACTIVE",
+          "sensitivity": "internal"
+        }
+      ]
+    },
+    "alsoMatched": []
+  },
+  {
+    "seq": 130,
+    "runId": "run-94d6ebda-00fd-49b8-bb1d-f0666ccdbe88",
+    "at": "2026-08-28T01:09:56.895Z",
+    "type": "extracted",
+    "stepId": "read-member-summary",
+    "output": "memberName",
+    "sensitivity": "sensitive",
+    "present": true
+  },
+  {
+    "seq": 131,
+    "runId": "run-94d6ebda-00fd-49b8-bb1d-f0666ccdbe88",
+    "at": "2026-08-28T01:09:56.895Z",
+    "type": "extracted",
+    "stepId": "read-member-summary",
+    "output": "shareBalance",
+    "sensitivity": "internal",
+    "present": true
+  },
+  {
+    "seq": 132,
+    "runId": "run-94d6ebda-00fd-49b8-bb1d-f0666ccdbe88",
+    "at": "2026-08-28T01:09:56.895Z",
+    "type": "extracted",
+    "stepId": "read-member-summary",
+    "output": "accountStatus",
+    "sensitivity": "internal",
+    "present": true
+  },
+  {
+    "seq": 133,
+    "runId": "run-94d6ebda-00fd-49b8-bb1d-f0666ccdbe88",
+    "at": "2026-08-28T01:09:56.895Z",
+    "type": "checkpoint",
+    "stepId": "read-member-summary",
+    "passed": true,
+    "trace": {
+      "rendered": "the surface has settled and the run is still on the record bound to `subjectMember` inside frame exactly \"content\", inside the table with columns [<member-column>, <name-column>, <status-column>]",
+      "clauses": [
+        {
+          "rendered": "the surface has settled",
+          "verdict": true
+        },
+        {
+          "rendered": "the run is still on the record bound to `subjectMember` inside frame exactly \"content\", inside the table with columns [<member-column>, <name-column>, <status-column>]",
+          "verdict": true
+        }
+      ]
+    }
+  },
+  {
+    "seq": 134,
+    "runId": "run-94d6ebda-00fd-49b8-bb1d-f0666ccdbe88",
+    "at": "2026-08-28T01:09:56.895Z",
+    "type": "step.entered",
+    "stepId": "open-member-record",
+    "index": 4,
+    "attempt": 1,
+    "effect": "READ"
+  },
+  {
+    "seq": 135,
+    "runId": "run-94d6ebda-00fd-49b8-bb1d-f0666ccdbe88",
+    "at": "2026-08-28T01:09:56.895Z",
+    "type": "budget.charged",
+    "ledger": "observations",
+    "used": 28,
+    "limit": 400
+  },
+  {
+    "seq": 136,
+    "runId": "run-94d6ebda-00fd-49b8-bb1d-f0666ccdbe88",
+    "at": "2026-08-28T01:09:56.907Z",
+    "type": "observed",
+    "stepId": "open-member-record",
+    "obsSeq": 27,
+    "skeletonDigest": "sha256:8be7e5b0e9750e40cd59049e6b76df8a9fdd68cacd9ea33dad97cd28d9f46800",
+    "settled": true,
+    "nodeCount": 130,
+    "observationRef": null
+  },
+  {
+    "seq": 137,
+    "runId": "run-94d6ebda-00fd-49b8-bb1d-f0666ccdbe88",
+    "at": "2026-08-28T01:09:56.908Z",
+    "type": "classified",
+    "stepId": "open-member-record",
+    "phase": "pre",
+    "verdict": {
+      "kind": "advance",
+      "outputs": []
+    },
+    "alsoMatched": []
+  },
+  {
+    "seq": 138,
+    "runId": "run-94d6ebda-00fd-49b8-bb1d-f0666ccdbe88",
+    "at": "2026-08-28T01:09:56.908Z",
+    "type": "resolved",
+    "stepId": "open-member-record",
+    "descriptors": [
+      {
+        "id": "open-by-row-key",
+        "kind": "table-cell",
+        "evidenceSource": "columnHeader",
+        "verdict": "resolved",
+        "nodeId": "link:f3-489"
+      },
+      {
+        "id": "open-by-link-text",
+        "kind": "role-name",
+        "evidenceSource": "accessibleName",
+        "verdict": "resolved",
+        "nodeId": "link:f3-489"
+      }
+    ],
+    "agreed": true,
+    "distinctSources": 2
+  },
+  {
+    "seq": 139,
+    "runId": "run-94d6ebda-00fd-49b8-bb1d-f0666ccdbe88",
+    "at": "2026-08-28T01:09:56.908Z",
+    "type": "policy.decided",
+    "decision": {
+      "allow": true,
+      "effect": "READ",
+      "ruleId": "route:corebank/search/results"
+    },
+    "actionKind": "click",
+    "effect": "READ"
+  },
+  {
+    "seq": 140,
+    "runId": "run-94d6ebda-00fd-49b8-bb1d-f0666ccdbe88",
+    "at": "2026-08-28T01:09:56.908Z",
+    "type": "budget.charged",
+    "ledger": "actions",
+    "used": 9,
+    "limit": 40
+  },
+  {
+    "seq": 141,
+    "runId": "run-94d6ebda-00fd-49b8-bb1d-f0666ccdbe88",
+    "at": "2026-08-28T01:09:56.911Z",
+    "type": "acted",
+    "stepId": "open-member-record",
+    "actionKind": "click",
+    "targetTitle": "the link named <open-row-link>, inside frame exactly \"content\", inside the table with columns [<member-column>, <name-column>, <status-column>]",
+    "valueRef": null,
+    "valueLength": null,
+    "result": "dispatched"
+  },
+  {
+    "seq": 142,
+    "runId": "run-94d6ebda-00fd-49b8-bb1d-f0666ccdbe88",
+    "at": "2026-08-28T01:09:56.911Z",
+    "type": "budget.charged",
+    "ledger": "observations",
+    "used": 29,
+    "limit": 400
+  },
+  {
+    "seq": 143,
+    "runId": "run-94d6ebda-00fd-49b8-bb1d-f0666ccdbe88",
+    "at": "2026-08-28T01:09:57.043Z",
+    "type": "budget.charged",
+    "ledger": "observations",
+    "used": 30,
+    "limit": 400
+  },
+  {
+    "seq": 144,
+    "runId": "run-94d6ebda-00fd-49b8-bb1d-f0666ccdbe88",
+    "at": "2026-08-28T01:09:57.055Z",
+    "type": "settled",
+    "stepId": "open-member-record",
+    "polls": 2,
+    "elapsedMs": 143,
+    "settled": true
+  },
+  {
+    "seq": 145,
+    "runId": "run-94d6ebda-00fd-49b8-bb1d-f0666ccdbe88",
+    "at": "2026-08-28T01:09:57.055Z",
+    "type": "observed",
+    "stepId": "open-member-record",
+    "obsSeq": 29,
+    "skeletonDigest": "sha256:89ae112647051c26f14edd9813f0426095c77120b1e56154fadd16266b8326f0",
+    "settled": true,
+    "nodeCount": 86,
+    "observationRef": null
+  },
+  {
+    "seq": 146,
+    "runId": "run-94d6ebda-00fd-49b8-bb1d-f0666ccdbe88",
+    "at": "2026-08-28T01:09:57.056Z",
+    "type": "classified",
+    "stepId": "open-member-record",
+    "phase": "post",
+    "verdict": {
+      "kind": "fail",
+      "failure": "app-error",
+      "detail": {
+        "sideEffects": "possible",
+        "expected": {
+          "rendered": "the application is serving its own pages rather than an error page",
+          "clauses": []
+        },
+        "observed": {
+          "route": {
+            "originAlias": "corebank",
+            "path": "/member/:memberId",
+            "query": {},
+            "frame": "content"
+          },
+          "settled": true,
+          "pendingReason": null,
+          "skeletonDigest": "sha256:89ae112647051c26f14edd9813f0426095c77120b1e56154fadd16266b8326f0",
+          "nodeCount": 86,
+          "nativeDialog": null,
+          "inputIntercepted": false,
+          "salient": [
+            {
+              "role": "link",
+              "name": "Member Search",
+              "disabled": false,
+              "visible": true
+            },
+            {
+              "role": "link",
+              "name": "Account Maintenance",
+              "disabled": false,
+              "visible": true
+            },
+            {
+              "role": "link",
+              "name": "Card Services",
+              "disabled": false,
+              "visible": true
+            },
+            {
+              "role": "link",
+              "name": "Teller Journal",
+              "disabled": false,
+              "visible": true
+            },
+            {
+              "role": "heading",
+              "name": "Server Error in '/' Application.",
+              "disabled": false,
+              "visible": true
+            },
+            {
+              "role": "heading",
+              "name": "Object reference not set to an instance of an object.",
+              "disabled": false,
+              "visible": true
+            }
+          ],
+          "redactionsApplied": 0
+        },
+        "attempts": [],
+        "retriable": "same-inputs",
+        "operatorAction": "The application returned its own error page; capture and report to the vendor."
+      }
+    },
+    "alsoMatched": []
+  },
+  {
+    "seq": 147,
+    "runId": "run-94d6ebda-00fd-49b8-bb1d-f0666ccdbe88",
+    "at": "2026-08-28T01:09:57.059Z",
+    "type": "evidence.captured",
+    "ref": "obs:a50b2fbc343314a2a07f3922a050c0663c4c8829032b8e464337d648325f538a",
+    "kind": "observation",
+    "maskedRegions": 0
+  },
+  {
+    "seq": 148,
+    "runId": "run-94d6ebda-00fd-49b8-bb1d-f0666ccdbe88",
+    "at": "2026-08-28T01:09:57.059Z",
+    "type": "run.finished",
+    "status": "failed",
+    "failureClass": "app-error"
+  }
+]

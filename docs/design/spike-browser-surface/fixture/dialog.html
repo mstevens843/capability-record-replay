@@ -1,0 +1,7 @@
+<html><body>
+<button id="d1" onclick="if(confirm('Post this transaction?')) document.getElementById('out').textContent='POSTED';">Post</button>
+<div id="out">idle</div>
+<div id="modal" style="display:none;border:2px solid #900;padding:8px" role="dialog" aria-modal="true" aria-label="Confirm posting">
+  <p>Confirm posting?</p><button id="ok">OK</button><button id="cancel">Cancel</button></div>
+<button id="d2" onclick="document.getElementById('modal').style.display='block'">In-page modal</button>
+</body></html>

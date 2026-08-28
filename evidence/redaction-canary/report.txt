@@ -1,0 +1,12 @@
+REDACTION CANARY  CLEAN
+  bundle        /Users/devlegacy/Desktop/projects/ai-gap-coverage-projects/capability-record-replay/evidence
+  scanned       44 files, 920593 bytes
+  searched for  3 value(s) x 14 encodings = 26 distinct needles
+  self-test     PASSED - 26/26 planted needles were found
+  not searched  scenarios 01/03/04/05 + cli-replay / args.memberId / base64 - no needle of at least 6 characters
+  not searched  scenarios 01/03/04/05 + cli-replay / args.memberId / base64url - no needle of at least 6 characters
+  not searched  scenario 02 / args.memberId (absent member) / base64 - no needle of at least 6 characters
+  not searched  scenario 02 / args.memberId (absent member) / base64url - no needle of at least 6 characters
+  hits          0
+  suppressed    0 (inside a digest-shaped hex run)
+  credentials   0

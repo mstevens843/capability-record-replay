@@ -1,0 +1,40 @@
+{
+  "$schema": "https://biomejs.dev/schemas/1.9.4/schema.json",
+  "organizeImports": { "enabled": true },
+  "files": {
+    "ignore": [
+      "dist",
+      "node_modules",
+      ".turbo",
+      "evidence",
+      ".private",
+      ".scratch",
+      "spike-browser-surface",
+      "spike-terminal-surface",
+      "**/*.transcript.json",
+      "**/*.observations.json",
+      "**/*.capability.json"
+    ]
+  },
+  "linter": {
+    "enabled": true,
+    "rules": {
+      "recommended": true,
+      "style": { "noNonNullAssertion": "off", "useNodejsImportProtocol": "error" },
+      "suspicious": { "noExplicitAny": "warn" },
+      "complexity": { "noExcessiveCognitiveComplexity": "off" }
+    }
+  },
+  "formatter": { "enabled": true, "indentStyle": "space", "indentWidth": 2, "lineWidth": 100 },
+  "overrides": [
+    {
+      "include": ["**/tsconfig*.json"],
+      "json": { "parser": { "allowComments": true } }
+    },
+    {
+      "include": ["fixtures/**/*.html", "fixtures/**/templates/**"],
+      "formatter": { "enabled": false },
+      "linter": { "enabled": false }
+    }
+  ]
+}

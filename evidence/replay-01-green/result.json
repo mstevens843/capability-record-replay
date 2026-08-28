@@ -1,0 +1,280 @@
+{
+  "status": "ok",
+  "outputs": {
+    "memberName": "ALVAREZ, DANA (SYNTHETIC)",
+    "shareBalance": {
+      "amount": "1204.55",
+      "currency": "USD"
+    },
+    "accountStatus": "ACTIVE",
+    "shareAccounts": [
+      {
+        "Acct": "0001",
+        "Share Account": "Share Account - Regular",
+        "Share Balance": "1,204.55",
+        "Opened": "2019-03-11"
+      }
+    ]
+  },
+  "run": {
+    "runId": "run-cab73490-4d6f-409f-8d7e-d45d8ce61437",
+    "capability": {
+      "name": "corebank.member.read_share_position",
+      "version": "1.0.0"
+    },
+    "artifact": {
+      "artifactId": "corebank-member-share-position-web",
+      "version": 1,
+      "digest": "sha256:ba09bc6061370dbf99ecb3c541ab41d22b7808a668591a9730356d952cc726f3",
+      "overlayDigest": null,
+      "effectiveDigest": "sha256:b98064075b3bbe086ce5130f1cf997fe0ac4d67449b7c826314bbba459cb3b8f"
+    },
+    "tenant": {
+      "tenantId": "riverbend",
+      "appInstanceId": "riverbend-corebank-fixture"
+    },
+    "surface": "web-legacy",
+    "engineVersion": "crr-runtime/0.1.0",
+    "startedAt": "2026-08-28T01:09:50.484Z",
+    "endedAt": "2026-08-28T01:09:52.307Z",
+    "durationMs": 1823,
+    "stepsExecuted": 9,
+    "stepsTotal": 9,
+    "budgets": {
+      "actions": {
+        "used": 5,
+        "limit": 40
+      },
+      "observations": {
+        "used": 29,
+        "limit": 400
+      },
+      "remediations": {
+        "used": 0,
+        "limit": 6
+      },
+      "programAttempts": {
+        "used": 0,
+        "limit": 1
+      },
+      "wallClockMs": {
+        "used": 1826,
+        "limit": 180000
+      }
+    },
+    "recoveriesApplied": [],
+    "attribution": {
+      "by": "automation",
+      "transfers": []
+    },
+    "steps": [
+      {
+        "stepId": "open-search",
+        "attempt": 1,
+        "verdict": {
+          "kind": "advance",
+          "outputs": []
+        },
+        "skeletonDigest": "sha256:77133a7a47cabfb23d8a04fdd48bd97dff3e5670d891b221c3db0bf8275c79c4",
+        "observationRef": null,
+        "elapsedMs": 162
+      },
+      {
+        "stepId": "enter-member-id",
+        "attempt": 1,
+        "verdict": {
+          "kind": "advance",
+          "outputs": []
+        },
+        "skeletonDigest": "sha256:014aa733ad56a65ca562941a1edf215144446165bd3145f7af8bce711be1ce89",
+        "observationRef": null,
+        "elapsedMs": 167,
+        "resolution": [
+          {
+            "descriptorId": "member-id-right-of-label",
+            "kind": "label-anchored",
+            "evidenceSource": "labelText",
+            "verdict": "resolved",
+            "resolvedNodeId": "textbox:f3-158"
+          },
+          {
+            "descriptorId": "member-id-first-in-form",
+            "kind": "ordinal-in-container",
+            "evidenceSource": "ordinal",
+            "verdict": "resolved",
+            "resolvedNodeId": "textbox:f3-158"
+          }
+        ]
+      },
+      {
+        "stepId": "submit-search",
+        "attempt": 1,
+        "verdict": {
+          "kind": "advance",
+          "outputs": []
+        },
+        "skeletonDigest": "sha256:8be7e5b0e9750e40cd59049e6b76df8a9fdd68cacd9ea33dad97cd28d9f46800",
+        "observationRef": null,
+        "elapsedMs": 182,
+        "resolution": [
+          {
+            "descriptorId": "search-by-name",
+            "kind": "role-name",
+            "evidenceSource": "accessibleName",
+            "verdict": "resolved",
+            "resolvedNodeId": "button:f3-168"
+          },
+          {
+            "descriptorId": "search-right-of-member-id",
+            "kind": "geometric",
+            "evidenceSource": "geometry",
+            "verdict": "resolved",
+            "resolvedNodeId": "button:f3-168"
+          }
+        ]
+      },
+      {
+        "stepId": "read-member-summary",
+        "attempt": 1,
+        "verdict": {
+          "kind": "advance",
+          "outputs": [
+            {
+              "output": "memberName",
+              "value": "ALVAREZ, DANA (SYNTHETIC)",
+              "sensitivity": "sensitive"
+            },
+            {
+              "output": "shareBalance",
+              "value": {
+                "amount": "1204.55",
+                "currency": "USD"
+              },
+              "sensitivity": "internal"
+            },
+            {
+              "output": "accountStatus",
+              "value": "ACTIVE",
+              "sensitivity": "internal"
+            }
+          ]
+        },
+        "skeletonDigest": "sha256:8be7e5b0e9750e40cd59049e6b76df8a9fdd68cacd9ea33dad97cd28d9f46800",
+        "observationRef": null,
+        "elapsedMs": 165
+      },
+      {
+        "stepId": "open-member-record",
+        "attempt": 1,
+        "verdict": {
+          "kind": "advance",
+          "outputs": []
+        },
+        "skeletonDigest": "sha256:6725713cbb0da874b78434cfa7dd767fdb0e08707461775eb490ce717e14bf1c",
+        "observationRef": null,
+        "elapsedMs": 321,
+        "resolution": [
+          {
+            "descriptorId": "open-by-row-key",
+            "kind": "table-cell",
+            "evidenceSource": "columnHeader",
+            "verdict": "resolved",
+            "resolvedNodeId": "link:f3-252"
+          },
+          {
+            "descriptorId": "open-by-link-text",
+            "kind": "role-name",
+            "evidenceSource": "accessibleName",
+            "verdict": "resolved",
+            "resolvedNodeId": "link:f3-252"
+          }
+        ]
+      },
+      {
+        "stepId": "verify-member-record",
+        "attempt": 1,
+        "verdict": {
+          "kind": "advance",
+          "outputs": []
+        },
+        "skeletonDigest": "sha256:6725713cbb0da874b78434cfa7dd767fdb0e08707461775eb490ce717e14bf1c",
+        "observationRef": null,
+        "elapsedMs": 169
+      },
+      {
+        "stepId": "read-share-accounts",
+        "attempt": 1,
+        "verdict": {
+          "kind": "advance",
+          "outputs": [
+            {
+              "output": "shareAccounts",
+              "value": [
+                {
+                  "Acct": "0001",
+                  "Share Account": "Share Account - Regular",
+                  "Share Balance": "1,204.55",
+                  "Opened": "2019-03-11"
+                }
+              ],
+              "sensitivity": "internal"
+            }
+          ]
+        },
+        "skeletonDigest": "sha256:6725713cbb0da874b78434cfa7dd767fdb0e08707461775eb490ce717e14bf1c",
+        "observationRef": null,
+        "elapsedMs": 168
+      },
+      {
+        "stepId": "open-subaccount-form",
+        "attempt": 1,
+        "verdict": {
+          "kind": "advance",
+          "outputs": []
+        },
+        "skeletonDigest": "sha256:6b04886f6fde3e01b6d3612c04ff73504e429f1f8cd0f02682394209af62822a",
+        "observationRef": null,
+        "elapsedMs": 300,
+        "resolution": [
+          {
+            "descriptorId": "open-subaccount-by-name",
+            "kind": "role-name",
+            "evidenceSource": "accessibleName",
+            "verdict": "resolved",
+            "resolvedNodeId": "button:f3-349"
+          },
+          {
+            "descriptorId": "open-subaccount-only-control",
+            "kind": "ordinal-in-container",
+            "evidenceSource": "ordinal",
+            "verdict": "resolved",
+            "resolvedNodeId": "button:f3-349"
+          }
+        ]
+      },
+      {
+        "stepId": "confirm-form-ready",
+        "attempt": 1,
+        "verdict": {
+          "kind": "advance",
+          "outputs": []
+        },
+        "skeletonDigest": "sha256:6b04886f6fde3e01b6d3612c04ff73504e429f1f8cd0f02682394209af62822a",
+        "observationRef": null,
+        "elapsedMs": 165
+      }
+    ],
+    "drift": {
+      "fingerprint": "sha256:1697d326e78c72a6f02569d4af7e64a9a0204ff8d4f2f97f3e5f22b55425f00b",
+      "expected": "sha256:a51c2e7c52b067496e1abdcf46cfaa35cfc59450b6c2b5949cb205881fc2c46d",
+      "divergence": 0,
+      "changed": [],
+      "needsSpecialization": false
+    },
+    "evidence": [
+      "journal:920db53c79b5612af247a1ea9d09aa18c2e79d8fca00cb3518486c84fc16a4d7"
+    ],
+    "journalRef": "journal:920db53c79b5612af247a1ea9d09aa18c2e79d8fca00cb3518486c84fc16a4d7",
+    "warnings": []
+  }
+}

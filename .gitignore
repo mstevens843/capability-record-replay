@@ -1,0 +1,18 @@
+node_modules/
+dist/
+.turbo/
+*.log
+# ...except in the evidence bundle, where a run log IS the deliverable. `*.log` above is about
+# build noise; `/evidence/` is the one directory whose logs are committed on purpose.
+!/evidence/*.log
+!/evidence/**/*.log
+.env
+.env.*
+!.env.example
+.private/
+.DS_Store
+playwright-report/
+test-results/
+# Per-package working directories. Nothing under one is shipped, linted or scanned by the
+# architecture contract tests, which read `packages/*/src` only.
+.scratch/

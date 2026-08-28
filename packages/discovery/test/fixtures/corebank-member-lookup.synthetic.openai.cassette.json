@@ -1,0 +1,198 @@
+{
+  "version": 1,
+  "synthetic": true,
+  "provenance": {
+    "adapter": "openai",
+    "api": "chat.completions",
+    "modelId": "synthetic-openai-script",
+    "note": "SYNTHETIC. Translated by hand from the assistant turns in packages/discovery/test/fixtures/build-transcript.ts into the Chat Completions response shape. No model produced it and no provider was called, which is why every token count is zero. It exists so the discovery loop can be driven through the openai adapter with no credentials. It is NOT evidence of a discovery run."
+  },
+  "exchanges": [
+    {
+      "turn": 1,
+      "response": {
+        "choices": [
+          {
+            "message": {
+              "content": "Let me look at the search screen first.",
+              "tool_calls": [
+                {
+                  "id": "call_scripted_1_1",
+                  "type": "function",
+                  "function": {
+                    "name": "observe",
+                    "arguments": "{}"
+                  }
+                }
+              ],
+              "refusal": null
+            },
+            "finish_reason": "tool_calls"
+          }
+        ],
+        "usage": {
+          "prompt_tokens": 0,
+          "completion_tokens": 0,
+          "prompt_tokens_details": {
+            "cached_tokens": 0
+          }
+        }
+      }
+    },
+    {
+      "turn": 2,
+      "response": {
+        "choices": [
+          {
+            "message": {
+              "content": null,
+              "tool_calls": [
+                {
+                  "id": "call_scripted_2_1",
+                  "type": "function",
+                  "function": {
+                    "name": "act",
+                    "arguments": "{\"nodeRef\":\"n1\",\"action\":\"fill\",\"value\":\"50001\",\"key\":null,\"why\":\"The task names member 50001 and this is the Member ID field on the search form.\"}"
+                  }
+                }
+              ],
+              "refusal": null
+            },
+            "finish_reason": "tool_calls"
+          }
+        ],
+        "usage": {
+          "prompt_tokens": 0,
+          "completion_tokens": 0,
+          "prompt_tokens_details": {
+            "cached_tokens": 0
+          }
+        }
+      }
+    },
+    {
+      "turn": 3,
+      "response": {
+        "choices": [
+          {
+            "message": {
+              "content": null,
+              "tool_calls": [
+                {
+                  "id": "call_scripted_3_1",
+                  "type": "function",
+                  "function": {
+                    "name": "act",
+                    "arguments": "{\"nodeRef\":\"n2\",\"action\":\"activate\",\"value\":null,\"key\":null,\"why\":\"Submit the search now that the member number is entered.\"}"
+                  }
+                }
+              ],
+              "refusal": null
+            },
+            "finish_reason": "tool_calls"
+          }
+        ],
+        "usage": {
+          "prompt_tokens": 0,
+          "completion_tokens": 0,
+          "prompt_tokens_details": {
+            "cached_tokens": 0
+          }
+        }
+      }
+    },
+    {
+      "turn": 4,
+      "response": {
+        "choices": [
+          {
+            "message": {
+              "content": null,
+              "tool_calls": [
+                {
+                  "id": "call_scripted_4_1",
+                  "type": "function",
+                  "function": {
+                    "name": "act",
+                    "arguments": "{\"nodeRef\":\"n7\",\"action\":\"activate\",\"value\":null,\"key\":null,\"why\":\"Open the member whose Member ID column reads 50001.\"}"
+                  }
+                }
+              ],
+              "refusal": null
+            },
+            "finish_reason": "tool_calls"
+          }
+        ],
+        "usage": {
+          "prompt_tokens": 0,
+          "completion_tokens": 0,
+          "prompt_tokens_details": {
+            "cached_tokens": 0
+          }
+        }
+      }
+    },
+    {
+      "turn": 5,
+      "response": {
+        "choices": [
+          {
+            "message": {
+              "content": null,
+              "tool_calls": [
+                {
+                  "id": "call_scripted_5_1",
+                  "type": "function",
+                  "function": {
+                    "name": "note_output",
+                    "arguments": "{\"nodeRef\":\"n2\",\"outputName\":\"shareBalance\",\"meaning\":\"The member's current share account balance, which is what the task asked for.\"}"
+                  }
+                }
+              ],
+              "refusal": null
+            },
+            "finish_reason": "tool_calls"
+          }
+        ],
+        "usage": {
+          "prompt_tokens": 0,
+          "completion_tokens": 0,
+          "prompt_tokens_details": {
+            "cached_tokens": 0
+          }
+        }
+      }
+    },
+    {
+      "turn": 6,
+      "response": {
+        "choices": [
+          {
+            "message": {
+              "content": null,
+              "tool_calls": [
+                {
+                  "id": "call_scripted_6_1",
+                  "type": "function",
+                  "function": {
+                    "name": "finish",
+                    "arguments": "{\"status\":\"reached-goal\",\"summary\":\"Searched for member 50001, opened the matching row, and read the share balance from the member detail screen.\",\"outcomeCandidates\":null}"
+                  }
+                }
+              ],
+              "refusal": null
+            },
+            "finish_reason": "tool_calls"
+          }
+        ],
+        "usage": {
+          "prompt_tokens": 0,
+          "completion_tokens": 0,
+          "prompt_tokens_details": {
+            "cached_tokens": 0
+          }
+        }
+      }
+    }
+  ]
+}

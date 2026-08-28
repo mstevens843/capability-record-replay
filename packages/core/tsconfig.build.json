@@ -1,0 +1,34 @@
+{
+  // Declarations are emitted by `tsc`, not by tsup's `--dts` (which is rollup-dts under the hood).
+  //
+  // WHY: rollup-dts re-prints the entire type graph into one file, took 9.4s here, and is the step
+  // that leaves `dist/` half-written when a build is interrupted. `tsup --clean` deletes `dist/`
+  // first and writes `index.js` in ~25ms, so for the whole DTS phase `dist/index.d.ts` does not
+  // exist. Anything reading it in that window - a dependent's `tsc --noEmit`, an editor's tsserver,
+  // a second turbo run in the same tree - reports `TS7016: Could not find a declaration file for
+  // module '@crr/core'` against a package that is perfectly fine, and a CANCELLATION in that window
+  // leaves it absent until somebody rebuilds. That last one is what unit 11 hit, and the root
+  // `--continue=dependencies-successful` is the other half of its fix.
+  //
+  // MEASURED, not assumed: the window in which `dist/index.d.ts` does not exist went from ~9.4s to
+  // 1.09s (polled at 5ms during a real build). `--clean` is kept deliberately - `dist` being
+  // exactly what `src` produces is worth more than the last second of that window, and closing it
+  // completely means either tolerating stale output or a non-atomic directory swap.
+  //
+  // It is NOT a size fix: rollup-dts and per-file emit measured within 0.02% of each other
+  // (15,144,529 vs 15,146,902 bytes). The size came from zod v4's structural schema types, and
+  // `src/schema-identity.ts` is what was done about that (15,144,529 -> 283,141 bytes).
+  //
+  // Separate from `tsconfig.json` because that one includes `test/**` and roots at `.`, which would
+  // emit `dist/src/**` and `dist/test/**`. `files: ["dist"]` in package.json ships this output.
+  "extends": "../../tsconfig.base.json",
+  "compilerOptions": {
+    "rootDir": "src",
+    "outDir": "dist",
+    "emitDeclarationOnly": true,
+    "declaration": true,
+    "declarationMap": false,
+    "sourceMap": false
+  },
+  "include": ["src/**/*.ts"]
+}

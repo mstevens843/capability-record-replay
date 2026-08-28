@@ -1,0 +1,133 @@
+{
+  "schemaVersion": "capability.contract/v1",
+  "name": "corebank.member.read_share_position",
+  "version": "1.0.0",
+  "title": "Read a member's share position",
+  "summary": "Looks a member up by member number, reports their name, total share balance and account status, lists their existing share accounts, and leaves the servicing session on the open-sub-account form for that member.",
+  "whenToUse": [
+    "The member is asking what their share or savings balance is, or which share accounts they hold.",
+    "A teller is about to open a sub-account and needs the member's current position first."
+  ],
+  "whenNotToUse": [
+    "You do not have a member number. Identify the member first; this capability will not search by name.",
+    "The member is asking about a loan, certificate or card balance - this reads share accounts only.",
+    "You want to OPEN a sub-account. This capability stops at the form; opening one is a separate, approved, irreversible capability."
+  ],
+  "inputs": [
+    {
+      "name": "memberId",
+      "type": {
+        "kind": "string",
+        "charset": "digits",
+        "minLength": 5,
+        "maxLength": 5
+      },
+      "required": true,
+      "description": "The member's member number, five digits, as printed on their card or statement.",
+      "sensitivity": "sensitive",
+      "constraints": {
+        "charset": "digits",
+        "minLength": 5,
+        "maxLength": 5
+      },
+      "discoveredFrom": {
+        "goalSpan": "member {memberId}"
+      }
+    }
+  ],
+  "outputs": [
+    {
+      "name": "memberName",
+      "type": {
+        "kind": "string"
+      },
+      "required": true,
+      "description": "The member's name as the core system holds it.",
+      "sensitivity": "sensitive",
+      "agentDisclosure": "mask"
+    },
+    {
+      "name": "shareBalance",
+      "type": {
+        "kind": "money",
+        "currency": "USD"
+      },
+      "required": true,
+      "description": "The member's total share balance.",
+      "sensitivity": "internal",
+      "agentDisclosure": "deliver"
+    },
+    {
+      "name": "accountStatus",
+      "type": {
+        "kind": "enum",
+        "values": [
+          "ACTIVE",
+          "DORMANT",
+          "FROZEN",
+          "RESTRICTED",
+          "CLOSED"
+        ]
+      },
+      "required": true,
+      "description": "The membership's status on the core system.",
+      "sensitivity": "internal",
+      "example": "ACTIVE",
+      "agentDisclosure": "deliver"
+    },
+    {
+      "name": "shareAccounts",
+      "type": {
+        "kind": "table",
+        "columns": [
+          {
+            "name": "Acct",
+            "type": {
+              "kind": "string"
+            }
+          },
+          {
+            "name": "Share Account",
+            "type": {
+              "kind": "string"
+            }
+          },
+          {
+            "name": "Share Balance",
+            "type": {
+              "kind": "string"
+            }
+          },
+          {
+            "name": "Opened",
+            "type": {
+              "kind": "string"
+            }
+          }
+        ]
+      },
+      "required": true,
+      "description": "The member's existing share accounts, one row each.",
+      "sensitivity": "internal",
+      "agentDisclosure": "deliver"
+    }
+  ],
+  "outcomes": [
+    {
+      "code": "MEMBER_NOT_FOUND",
+      "kind": "business_outcome",
+      "title": "No member with that number",
+      "summary": "The core system holds no member with the number supplied.",
+      "terminal": true,
+      "payload": [],
+      "stableUnderRetry": true,
+      "callerAction": "retry-different-input",
+      "retryable": "with_different_inputs",
+      "agentGuidance": "Tell the member that number is not on file and ask them to read it again from their card or statement. Do not guess a different number on their behalf."
+    }
+  ],
+  "effect": "READ",
+  "requiresApproval": false,
+  "idempotent": true,
+  "digest": "sha256:7558ab653209bf677b9917252396f9e055af4634eba206a5983a3e33c175aac2"
+}

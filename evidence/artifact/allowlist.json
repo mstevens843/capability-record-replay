@@ -1,0 +1,37 @@
+{
+  "originAliases": [
+    "corebank"
+  ],
+  "routes": [
+    {
+      "originAlias": "corebank",
+      "pathPattern": "/search",
+      "maxEffect": "READ"
+    },
+    {
+      "originAlias": "corebank",
+      "pathPattern": "/search/results",
+      "maxEffect": "READ"
+    },
+    {
+      "originAlias": "corebank",
+      "pathPattern": "/member/:memberId",
+      "maxEffect": "READ"
+    },
+    {
+      "originAlias": "corebank",
+      "pathPattern": "/member/:memberId/subaccount/new",
+      "maxEffect": "READ"
+    }
+  ],
+  "actionKinds": [
+    "click",
+    "type",
+    "navigate",
+    "pressKey",
+    "acceptDialog",
+    "dismissDialog"
+  ],
+  "maxEffect": "READ",
+  "discoveryMaxEffect": "READ"
+}

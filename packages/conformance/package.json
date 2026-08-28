@@ -1,0 +1,31 @@
+{
+  "name": "@crr/conformance",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": { ".": { "types": "./dist/index.d.ts", "import": "./dist/index.js" } },
+  "scripts": {
+    "build": "tsup src/index.ts --format esm --dts --clean",
+    "test": "vitest run",
+    "typecheck": "tsc --noEmit",
+    "stability": "tsx src/stability-cli.ts",
+    "clean": "rm -rf dist .turbo"
+  },
+  "dependencies": {
+    "@crr/core": "workspace:*",
+    "@crr/runtime": "workspace:*",
+    "@crr/fixture-corebank-web": "workspace:*"
+  },
+  "devDependencies": {
+    "typescript": "^5.6.3",
+    "vitest": "^2.1.4",
+    "tsup": "^8.3.0",
+    "tsx": "^4.19.2",
+    "playwright": "^1.55.0",
+    "@crr/surface-browser": "workspace:*",
+    "@crr/surface-terminal": "workspace:*",
+    "@crr/fixture-corebank-tui": "workspace:*"
+  }
+}
