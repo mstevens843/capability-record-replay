@@ -625,7 +625,7 @@ describe("hand-back re-verifies where the run is (SPEC 7.4)", () => {
 });
 
 // ---------------------------------------------------------------------------------------------
-// 6. The console: the same five routes, over HTTP, with no browser and no build step
+// 6. The console: the same six routes, over HTTP, with no browser and no build step
 // ---------------------------------------------------------------------------------------------
 
 describe("the operator console", () => {
@@ -637,7 +637,7 @@ describe("the operator console", () => {
     return { status: res.status, body: (await res.json()) as never };
   }
 
-  it("drives suspend -> claim -> act -> hand-back -> resume over its four routes", async () => {
+  it("drives suspend -> claim -> act -> hand-back -> resume over its six routes", async () => {
     const { control, interventionId } = await stuck();
     openConsole = await startOperatorConsole({ control });
     const base = openConsole.url;

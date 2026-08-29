@@ -5,9 +5,9 @@
    broker    can-reauthenticate
    armed     {"ok":true,"session":"s000001","armed":{"id":"interstitial","screen":"results","mode":"once","delayMs":1200}}
    arm       OK   outputs: memberName, shareBalance, accountStatus, shareAccounts
-   run       11/9 steps, 2253ms, 12 step attempts
+   run       11/9 steps, 2183ms, 12 step attempts
    budgets   actions 9, observations 38, remediations 1, program attempts 0
    recovery  DISMISS_SYSTEM_NOTICE at submit-search: cleared after 1
-   evidence  1 frozen observation(s), journal journal:7973786164cee0846f7d1164a1e33dfdf3601f3324c8af82c7e9f6e35e6938fe
+   evidence  1 frozen observation(s), journal journal:353e5a9fd74e7a8ea8b34bca138ddb3d15fefb09cdc68875028cd8d29791f99b
    checked   every declared expectation held
 

@@ -87,7 +87,7 @@ export function chromiumAvailable(): boolean {
     warned = true;
     process.stderr.write(
       "[@crr/runtime] SKIPPING every browser replay test: no Chromium build was found. " +
-        "Run `pnpm exec playwright install chromium`. The hermetic tests still ran.\n",
+        "Run `pnpm -F @crr/surface-browser exec playwright install chromium`. The hermetic tests still ran.\n",
     );
   }
   return present;

@@ -121,7 +121,7 @@ spec's stated acceptance criterion are two different claims:
 - **15** — `verify.test.ts` "DOES NOT PERFORM THE WRITE TWICE: one run wrote, the verification that
   follows does not"; `approval.test.ts` for the edited-artifact digest check.
 - **16** — `escalation.test.ts` "REFUSES when the human navigated away — the acceptance case", and
-  "drives suspend -> claim -> act -> hand-back -> resume over its four routes".
+  "drives suspend -> claim -> act -> hand-back -> resume over its six routes".
 
 ---
 

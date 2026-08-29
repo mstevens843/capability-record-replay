@@ -17,7 +17,7 @@
     ]
   },
   "run": {
-    "runId": "run-36f77b14-f484-4b6a-b5af-05fe5600c294",
+    "runId": "run-d3ea7da5-51a9-4e7b-bd3e-38b01988a6e0",
     "capability": {
       "name": "corebank.member.read_share_position",
       "version": "1.0.0"
@@ -35,9 +35,9 @@
     },
     "surface": "web-legacy",
     "engineVersion": "crr-runtime/0.1.0",
-    "startedAt": "2026-08-28T03:12:20.745Z",
-    "endedAt": "2026-08-28T03:12:22.998Z",
-    "durationMs": 2253,
+    "startedAt": "2026-08-28T17:16:11.276Z",
+    "endedAt": "2026-08-28T17:16:13.459Z",
+    "durationMs": 2183,
     "stepsExecuted": 11,
     "stepsTotal": 9,
     "budgets": {
@@ -58,7 +58,7 @@
         "limit": 1
       },
       "wallClockMs": {
-        "used": 2255,
+        "used": 2184,
         "limit": 180000
       }
     },
@@ -84,7 +84,7 @@
         },
         "skeletonDigest": "sha256:77133a7a47cabfb23d8a04fdd48bd97dff3e5670d891b221c3db0bf8275c79c4",
         "observationRef": null,
-        "elapsedMs": 148
+        "elapsedMs": 149
       },
       {
         "stepId": "enter-member-id",
@@ -95,7 +95,7 @@
         },
         "skeletonDigest": "sha256:014aa733ad56a65ca562941a1edf215144446165bd3145f7af8bce711be1ce89",
         "observationRef": null,
-        "elapsedMs": 162,
+        "elapsedMs": 158,
         "resolution": [
           {
             "descriptorId": "member-id-right-of-label",
@@ -229,7 +229,7 @@
         },
         "skeletonDigest": "sha256:d8918436559b24e0878ae7f6cba1543655b46fe356deb42199f5a9f2ab29b0d7",
         "observationRef": null,
-        "elapsedMs": 173,
+        "elapsedMs": 174,
         "resolution": [
           {
             "descriptorId": "search-by-name",
@@ -267,7 +267,7 @@
         },
         "skeletonDigest": "sha256:014aa733ad56a65ca562941a1edf215144446165bd3145f7af8bce711be1ce89",
         "observationRef": null,
-        "elapsedMs": 154,
+        "elapsedMs": 152,
         "resolution": [
           {
             "descriptorId": "member-id-right-of-label",
@@ -294,7 +294,7 @@
         },
         "skeletonDigest": "sha256:8be7e5b0e9750e40cd59049e6b76df8a9fdd68cacd9ea33dad97cd28d9f46800",
         "observationRef": null,
-        "elapsedMs": 167,
+        "elapsedMs": 160,
         "resolution": [
           {
             "descriptorId": "search-by-name",
@@ -340,7 +340,7 @@
         },
         "skeletonDigest": "sha256:8be7e5b0e9750e40cd59049e6b76df8a9fdd68cacd9ea33dad97cd28d9f46800",
         "observationRef": null,
-        "elapsedMs": 164
+        "elapsedMs": 160
       },
       {
         "stepId": "open-member-record",
@@ -351,7 +351,7 @@
         },
         "skeletonDigest": "sha256:6725713cbb0da874b78434cfa7dd767fdb0e08707461775eb490ce717e14bf1c",
         "observationRef": null,
-        "elapsedMs": 320,
+        "elapsedMs": 302,
         "resolution": [
           {
             "descriptorId": "open-by-row-key",
@@ -378,7 +378,7 @@
         },
         "skeletonDigest": "sha256:6725713cbb0da874b78434cfa7dd767fdb0e08707461775eb490ce717e14bf1c",
         "observationRef": null,
-        "elapsedMs": 169
+        "elapsedMs": 164
       },
       {
         "stepId": "read-share-accounts",
@@ -402,7 +402,7 @@
         },
         "skeletonDigest": "sha256:6725713cbb0da874b78434cfa7dd767fdb0e08707461775eb490ce717e14bf1c",
         "observationRef": null,
-        "elapsedMs": 166
+        "elapsedMs": 157
       },
       {
         "stepId": "open-subaccount-form",
@@ -413,7 +413,7 @@
         },
         "skeletonDigest": "sha256:6b04886f6fde3e01b6d3612c04ff73504e429f1f8cd0f02682394209af62822a",
         "observationRef": null,
-        "elapsedMs": 302,
+        "elapsedMs": 288,
         "resolution": [
           {
             "descriptorId": "open-subaccount-by-name",
@@ -440,7 +440,7 @@
         },
         "skeletonDigest": "sha256:6b04886f6fde3e01b6d3612c04ff73504e429f1f8cd0f02682394209af62822a",
         "observationRef": null,
-        "elapsedMs": 160
+        "elapsedMs": 152
       }
     ],
     "drift": {
@@ -451,9 +451,9 @@
       "needsSpecialization": false
     },
     "evidence": [
-      "journal:7973786164cee0846f7d1164a1e33dfdf3601f3324c8af82c7e9f6e35e6938fe"
+      "journal:353e5a9fd74e7a8ea8b34bca138ddb3d15fefb09cdc68875028cd8d29791f99b"
     ],
-    "journalRef": "journal:7973786164cee0846f7d1164a1e33dfdf3601f3324c8af82c7e9f6e35e6938fe",
+    "journalRef": "journal:353e5a9fd74e7a8ea8b34bca138ddb3d15fefb09cdc68875028cd8d29791f99b",
     "warnings": []
   }
 }

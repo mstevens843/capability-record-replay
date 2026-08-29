@@ -30,7 +30,7 @@ will.
 ```
 $ TURBO_FORCE=1 pnpm build          →  Tasks: 8 successful, 8 total     5.488s   exit 0
 $ TURBO_FORCE=1 pnpm typecheck      →  Tasks: 14 successful, 14 total   5.77s    exit 0
-$ pnpm lint                         →  Checked 316 files in 84ms. No fixes applied.  exit 0
+$ pnpm lint                         →  Checked 313 files in 110ms. No fixes applied. exit 0
 
 $ env -u ANTHROPIC_API_KEY -u ANTHROPIC_AUTH_TOKEN -u OPENAI_API_KEY \
       -u CLAUDE_CODE_OAUTH_TOKEN TURBO_FORCE=1 pnpm test
@@ -38,20 +38,16 @@ $ env -u ANTHROPIC_API_KEY -u ANTHROPIC_AUTH_TOKEN -u OPENAI_API_KEY \
 
 $ env -u ANTHROPIC_API_KEY -u ANTHROPIC_AUTH_TOKEN -u OPENAI_API_KEY \
       -u CLAUDE_CODE_OAUTH_TOKEN pnpm demo
-                                    →  7/7 exhibits PASS, 67 files, 10s,
+                                    →  seven PASS lines, 65 files, 14s, DEMO OK,
                                        whole-bundle canary CLEAN, 0 hits          exit 0
 ```
 
 **1,843 tests across 103 files in 8 workspace members. All pass with every credential variable
 unset.** `pnpm demo` needs no credential of any kind — one local Chromium and one free TCP port.
 
-> **One caveat on `pnpm lint`, and it is this pass's own fault.** The 316 above was measured before
-> this pass wrote two throwaway drivers — `packages/conformance/.corpora.mts` (to re-run the
-> terminal and combined kill matrices, §5.2) and `packages/runtime/.ovcount.mts`. `rm` is denied to
-> every agent in this tree, so neither could be removed; both had their bodies replaced with
-> `export {}` and a delete instruction, and lint is green at **`Checked 318 files`**. Deleting them
-> returns the count to 316. **One of the two was swept into commit `0cd98f9` by a concurrent agent
-> before it could be reported.** See §9 — this is the first thing to fix before pushing.
+> **`pnpm lint` moved 318 → 313, and that is the fix landing.** Five scratch files whose first line
+> was `// DELETE THIS FILE.` were tracked and lint-clean and would have shipped. They are gone (§9),
+> and each one they removed took a file off biome's count.
 
 ### The live discovery run — it happened
 
@@ -170,7 +166,7 @@ $ env -u ANTHROPIC_API_KEY … PLAYWRIGHT_BROWSERS_PATH=<empty dir> TURBO_FORCE=
     (the other five members unchanged)      Tasks: 14 successful, 14 total     exit 0
 ```
 
-**A reviewer who runs `pnpm install && pnpm test` without `pnpm exec playwright install chromium`
+**A reviewer who runs `pnpm install && pnpm test` without `pnpm -F @crr/surface-browser exec playwright install chromium`
 gets 1,797 passing tests and a green board**, and every test that has ever touched a real browser is
 among the 46 skipped — including the four that execute a synthesized artifact (§7.3) and the four
 that open a real sub-account (§7.4). The guards print to stderr and the seam test prints a second,
@@ -564,8 +560,9 @@ Forcing all nine would have meant a fixture that lies.
 - **`noProvenance`** needs the same validation banner over a caller's argument *and* over an artifact
   literal; this flow fills exactly one field and it is the caller's.
 
-**The union of the two corpora kills all nine, and this pass ran the union rather than asserting
-it:**
+**The browser corpus alone kills all nine (§5.1); the union does too, and this pass ran the union
+rather than asserting it. What the terminal corpus adds is not coverage of the nine — it is a second
+independent surface on which five of them still die:**
 
 ```
 $ cd packages/conformance && pnpm exec tsx <buildKillMatrix over [...ALL_SCENARIOS, ...TERMINAL_SCENARIOS]>
@@ -650,7 +647,7 @@ verification replay spent `stableSamples: 3` on every step.
 ```
 $ env -u ANTHROPIC_API_KEY … pnpm demo
 
-7/7 exhibits PASS
+seven PASS lines (the demo prints no ratio)
   replay-01-green                    ok        green
   replay-02-outcome-member-not-found outcome   expected business outcome
   replay-03-recovered-interstitial   ok        recoverable condition
@@ -660,17 +657,17 @@ $ env -u ANTHROPIC_API_KEY … pnpm demo
   cli-replay                         exit 0
 
 REDACTION CANARY  CLEAN
-  scanned       63 files, 1,205,897 bytes
+  scanned       61 files, 1,155,682 bytes
   searched for  3 value(s) x 14 encodings = 26 distinct needles
   self-test     PASSED - 26/26 planted needles were found
   hits          0     suppressed  0     credentials  0
 
-   67 files in the bundle, produced in 10s
+   65 files in the bundle, produced in 9.8s
    discovery-live/  a LIVE model run is present - see its own README.md and provenance.json
-   whole-bundle canary pass: CLEAN - 67 files, 0 hits                        exit 0
+   whole-bundle canary pass: CLEAN - 65 files, 0 hits                        exit 0
 ```
 
-**67 files, 1,219,442 bytes on disk** (`find evidence -type f | wc -l`, plus a `os.path.getsize`
+**65 files, 1,169,252 bytes on disk** (`find evidence -type f | wc -l`, plus an `os.path.getsize`
 sum). All three arms of the taxonomy are exhibited, which is the assignment's specific ask ("at
 least one replay that hits an exceptional state and shows how it was classified") answered four
 times over.
@@ -1113,7 +1110,7 @@ protected directory. Don't aim a dry run at `evidence/`.
   own header. It belongs in `devDependencies` — a one-line change plus a `pnpm install`, which no
   pass has been permitted to run.
 - **`evidence/MANIFEST.json` excludes three things and names two.** Its note says it excludes itself
-  and `redaction-canary/`; it also excludes `README.md`. 62 rows against 67 files on disk. Harmless,
+  and `redaction-canary/`; it also excludes `README.md`. 60 rows against 65 files on disk. Harmless,
   and exactly the kind of imprecision a document about accuracy should not carry.
 
 ---
@@ -1175,40 +1172,29 @@ That commit **did** capture the live run (`evidence/discovery-live/`, all 20 fil
 `packages/discovery/src/synthesis/prose.ts`, `test/synthesis-prose.test.ts`, `/REPORT.md`, and every
 source change of §3. Two things it got wrong, and both are still true of the tree right now:
 
-- **`/README.md` is not committed.** `git ls-files README.md` returns nothing; it is untracked. It
-  is the first of the three deliverable paths BRIEF §7 names, and it was written one minute *after*
-  the commit. **`git add README.md` before pushing.**
-- **`packages/conformance/.corpora.mts` was committed.** That is this pass's throwaway kill-matrix
-  driver (§1). `git ls-files` now lists it. **`git rm packages/conformance/.corpora.mts`.**
+- **Closed.** `/README.md` and `/REPORT.md` were committed by `9048027`; `git ls-files README.md
+  REPORT.md` lists both.
+- **Closed.** `packages/conformance/.corpora.mts` and the four other scratch files were `git rm`'d;
+  see the next subsection.
 
-This document itself and `/REPORT.md` are modified on top of that commit.
+This document, `/README.md` and `/REPORT.md` are modified on top of that commit.
 
-### Files that must be deleted, and could not be
+### Files that had to be deleted — **done**
 
-`rm` and `mv` are denied to every agent that has worked in this tree, re-confirmed this pass:
-
-```
-$ rm -f packages/conformance/.corpora.mts .scratch/corpora.mts
-  Permission to use Bash with command `rm -f …` has been denied.
-```
-
-None of these affects any test, the build, `pnpm typecheck` or `pnpm lint`. All four are **tracked
-and would ship**; `git ls-files | grep -E 'corpora|probe|cost-check'` names all four.
+All five scratch files whose first line was `// DELETE THIS FILE.` were tracked and would have
+shipped. They are now removed from the index and from disk:
 
 ```
 git rm packages/conformance/probe.ts             #  474 B. `export {}` + a "DELETE THIS FILE" header.
-git rm packages/conformance/src/__probe.ts       #  511 B. Same. On the conformance barrel test's
-                                                 #  NOT_ON_THE_BARREL ledger as a DEFECT, boxed in by
-                                                 #  two assertions (zero exports, under 800 B) so it
-                                                 #  cannot quietly grow back into a module. Delete the
-                                                 #  ledger entry with it; the test tolerates absence.
-git rm packages/discovery/.cost-check.scratch.ts # 1,565 B, the §7.5 spend arithmetic check. Outside
-                                                 #  tsconfig's include; lint-clean; not a deliverable.
-git rm packages/conformance/.corpora.mts         #  430 B. THIS PASS created it and the concurrent
-                                                 #  commit tracked it. Runnable copy in `.scratch/`.
-rm     packages/runtime/.ovcount.mts             #  Also this pass's. UNTRACKED — do not `git add -A`
-                                                 #  before deleting it.
+git rm packages/conformance/src/__probe.ts       #  511 B. Its NOT_ON_THE_BARREL ledger entry in
+                                                 #  `test/barrel.test.ts` went with it; the guard test
+                                                 #  that boxed it in stays and now passes vacuously.
+git rm packages/discovery/.cost-check.scratch.ts # 1,565 B, the §7.5 spend arithmetic check.
+git rm packages/conformance/.corpora.mts         #    430 B, a throwaway kill-matrix driver.
+git rm packages/runtime/.ovcount.mts             #    398 B, a throwaway overlay-count driver.
 ```
+
+`pnpm lint` reads **313** files as a result — 318 minus the five.
 
 Gitignored, so they will not ship, but they are on disk:
 
@@ -1239,13 +1225,13 @@ journals in a directory that should hold one. A single clean run reports **67**,
 `find evidence -type f | wc -l` agrees. **Run the demo once, alone, immediately before committing**,
 and check that number.
 
-Two files in the live bundle are from the same class of accident and should go:
+Two files in the live bundle were from the same class of accident and are now **removed**:
 `evidence/discovery-live/verification-evidence/journal-a3351e3f….json` and `journal-f43258ec….json`
-are left over from earlier attempts of the run — `verification.json` references only
-`journal-e95e0286….json`. They are clean (canary pass 2 scanned all five files, 0 hits) and they are
-enumerated in `MANIFEST.json`, so they are inert. They are also two observation dumps that nothing
-in the bundle points at, in the one directory a reviewer will read most carefully. They are now
-committed, so removing them means `git rm` and a re-run of `pnpm demo` to rewrite `MANIFEST.json`.
+were left over from earlier attempts of the run — `verification.json` references only
+`journal-e95e0286….json`. They were clean (canary pass 2 scanned all five files, 0 hits) and inert,
+but they were two observation dumps nothing in the bundle pointed at, in the directory a reviewer
+reads most carefully. `git rm` plus a re-run of `pnpm demo` rewrote `MANIFEST.json`; the bundle is
+**65 files**, not 67.
 
 ---
 
@@ -1255,13 +1241,13 @@ BRIEF §7 names three paths. **All three now exist on disk. Only two of them are
 
 - **`/README.md` — PRESENT, and UNTRACKED (§9).** Must cover setup, config/keys, how to run without
   live services, and a demo path. Non-negotiable content from this pass:
-  `pnpm install` → `pnpm exec playwright install chromium` (**once, and not optional — §1: 46 tests
+  `pnpm install` → `pnpm -F @crr/surface-browser exec playwright install chromium` (**once, and not optional — §1: 46 tests
   silently skip without it**) → `pnpm demo`, which produces all of `/evidence/` with no live service
   and exits non-zero if any scenario misses its declared arm or the canary finds a parameter value.
   Plus the `agent-sdk`-is-dev-only warning, and the two commands that bracket the one that costs
   money: `pnpm preflight`, then `pnpm discover --dry-run`, and only then `pnpm discover --yes`.
 - **`/REPORT.md` — PRESENT** and committed. Seven headings, exactly.
-- **`/evidence/` — PRESENT** and committed, 67 files, 1,219,442 bytes, **including the live
+- **`/evidence/` — PRESENT** and committed, 65 files, 1,169,252 bytes, **including the live
   discovery run**.
 
 ---
@@ -1295,10 +1281,10 @@ found instead.
 7. **Per-package counts moved**: `@crr/discovery` 282 → **305** tests and 7,468 → **7,953** `src`
    lines, 14 → **15** test files; total 1,820 → **1,843** across 102 → **103** files.
    `discovery` ESM 137.99 → **145.44 KB**, DTS 85.70 → **92.35 KB**.
-8. **`pnpm lint` reads 316 files, not 314.** `prose.ts` and `synthesis-prose.test.ts` are the
-   difference. It reads **318** in this working tree because of this pass's own two stray drivers (§1, §9); deleting them returns it to 316.
-9. **`pnpm demo` produces 67 files, not 48**, because the live bundle's 20 files are now inside it.
-   `934,441` → **1,219,442** bytes. The whole-bundle canary covers all 67.
+8. **`pnpm lint` reads 313 files.** It read 314 two revisions ago and 318 in the working tree that
+   carried five tracked scratch files; deleting all five (§9) settles it at **313**.
+9. **`pnpm demo` produces 65 files**, because the live bundle is now inside it and two orphan
+   verification journals were removed from it (§9). The whole-bundle canary covers all 65.
 10. **The "46 tests skip without Chromium" figure holds**, re-measured with
     `PLAYWRIGHT_BROWSERS_PATH` at an empty directory: 29 + 16 + 1. The green-without-a-browser total
     moved 1,774 → **1,797**.
@@ -1318,7 +1304,7 @@ found instead.
 14. **The tree was committed underneath this pass**, at 20:06:55, by a concurrent agent —
     `0cd98f9`, 71 files. It captured the live run and every source change of §3; it also captured
     one of this pass's throwaway drivers and missed `/README.md`. Both are §9's first two items. A
-    consequence for anyone reading the numbers here: `pnpm lint` reports 318 rather than 316, and
+    consequence for anyone reading the numbers here: `pnpm lint` reported 318 rather than 313, and
     the demo bundle briefly reported 73 and 75 files before a clean single run settled it at 67.
     Every number in this document was taken from a command run in this tree; where a concurrent
     process moved one, the discrepancy is named at the site rather than averaged away.

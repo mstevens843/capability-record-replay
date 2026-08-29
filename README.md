@@ -26,8 +26,8 @@ file is how to run it.
 > - **One live discovery run, one goal, one application, one model.** Nine turns and $0.14. It is
 >   real and its full recording is committed — it is not a sample size.
 > - **Four of the nine mutant replay engines survive the green-screen corpus**, each for a reason
->   that is a property of that surface and is written down in the test. The two corpora together
->   kill all nine; neither does alone.
+>   that is a property of that surface and is written down in the test. The 25-scenario browser
+>   corpus kills all nine on its own; the 14-scenario green-screen corpus kills five.
 > - **The green board is not the same as done.** [REPORT.md §7](./REPORT.md) is the cut list and
 >   `docs/design/FINAL-STATUS.md` is the long-form internal version, including limits named at their
 >   own call sites.
@@ -43,14 +43,15 @@ CLAUDE_CODE_OAUTH_TOKEN` prefixed, to prove it structurally rather than by inspe
 
 | Claim | Verdict | Command / receipt |
 | --- | --- | --- |
-| **A model really drove a real UI to a goal.** `claude-opus-5`, adapter `anthropic`, 9 turns, `reached-goal`, **55.4% cache hit rate**, **42,368 billed tokens**, **$0.140904** | **measured, once** | `cat evidence/discovery-live/provenance.json` · full transcript in `evidence/discovery-live/transcript.json` |
+| **A model really drove a real UI to a goal.** `claude-opus-5`, adapter `anthropic`, 9 turns, `reached-goal`, **42,368 billed tokens**, **$0.140904** | **measured, once** | `cat evidence/discovery-live/provenance.json` · full transcript in `evidence/discovery-live/transcript.json` |
+| **The 55.4% cache hit rate on that run is a warm-start figure, not a cold-start one.** All nine turns report `cacheCreationInputTokens: 0` and read a 2,512-token prefix, so the prefix was already warm from the attempt before it. A first run would show a lower rate and a cache-write charge | **measured, and flattered — read it as an upper bound** | `python3 -c "import json;[print(t['response']['usage']) for t in json.load(open('evidence/discovery-live/transcript.json'))['turns']]"` |
 | **The artifact synthesized from that run replayed with the model out of the decision loop**, graded `full`, and only then became a `draft` | **measured** | `cat evidence/discovery-live/verification.json` → `"modelInTheLoop": false`, `"status": "verified"`, `"grade": "full"` |
 | **Replay separates `ok` / business outcome / recoverable / hard failure with zero false successes**, and **9 of 9 deliberately weakened engines are killed** — 17 kills, **13 of them false successes** | **measured** | `pnpm -F @crr/conformance stability` → `25 scenarios: 25 passed, 0 failed, 0 FALSE SUCCESSES`, `every mutant was killed by at least one scenario`, exit 0 |
 | **The fallback-chain mutant (`nearestMatch`) is killed by 6 scenarios and every one is a false success** — the mutant told a caller a business outcome for a broken run | **measured** | same command, kill-matrix row `nearestMatch  04,06,08,09,15,21` |
 | **Replay is deterministic over the corpus**: 25 scenarios × 20 runs, flake rate 0.0%, 0 result documents that were not byte-identical | **measured, on a fixture I wrote** | same command |
 | **4 of 9 mutants survive the terminal corpus** (`noAssert`, `noSettleGate`, `noContinuity`, `noProvenance`), each with a written reason asserted by the test | **limitation, reported not hidden** | `pnpm -F @crr/conformance exec vitest run test/terminal-conformance.test.ts` → 10 passed |
 | **The whole repository builds and tests with zero credentials.** 1,843 tests, 8 workspace members | **measured** | `env -u … pnpm test` → `Tasks: 14 successful, 14 total`, exit 0 |
-| **`pnpm demo` produces the entire evidence bundle with no live service**, all three arms of the taxonomy exhibited, redaction canary clean on both passes | **measured** | `env -u … pnpm demo` → `7/7 exhibits PASS`, `whole-bundle canary pass: CLEAN`, exit 0 |
+| **`pnpm demo` produces the entire evidence bundle with no live service**, all three arms of the taxonomy exhibited, redaction canary clean on both passes | **measured** | `env -u … pnpm demo` → seven `PASS` lines, `whole-bundle canary pass: CLEAN - 65 files, 0 hits`, `DEMO OK`, exit 0 |
 | **The engine cannot read a clock, do I/O, or import a driver, and no package above the drivers contains CSS vocabulary** — read off disk, not asserted | **measured, verified by injection** | `pnpm -F @crr/core exec vitest run test/purity.test.ts test/no-locator-vocabulary.test.ts test/policy-chokepoint.test.ts` → 44 passed |
 | **The spend cap stops a run before it starts. It has never bound *mid-run*.** The between-turns guard fires on the projection, demonstrated free at the turn-0 boundary; it has no unit test and no run has ever crossed it at turn *n* | **partially proven** | `pnpm discover --dry-run --force --max-usd 0.02` → `status budget-exhausted`, `$0.0000 has been billed and turn 1 projects to at most $0.06 … which would cross the $0.02 ceiling`, exit 1 |
 | **`evidence/discovery-live/provenance.json` is covered by no gating *value* canary pass.** Passes 1 and 2 scope to the synthesized documents and to what the verification replay wrote; pass 3 covers the whole bundle for credential shapes only | **known gap** | `evidence/discovery-live/canary/report.txt`, pass headers |
@@ -68,6 +69,11 @@ pnpm -F @crr/surface-browser exec playwright install chromium   # once — see t
 pnpm demo
 ```
 
+On a cold clone `pnpm install` prints four `WARN Failed to create bin … ENOENT …
+packages/runtime/dist/cli.js` lines. They are expected and harmless: `@crr/runtime` declares two
+bins (`crr`, `crr-codegen`) that point at build output which does not exist until `pnpm build` runs,
+and `pnpm demo` builds it. Nothing in this README invokes them by name.
+
 **`pnpm demo` needs no API key, no `.env`, and no network beyond loopback.** It builds
 `@crr/runtime`, starts `fixtures/corebank-web` on an ephemeral loopback port, drives it with a local
 Chromium, and rewrites the whole of [`evidence/`](./evidence) (except the live discovery run, which
@@ -83,10 +89,18 @@ canary finds a parameter value anywhere in the bundle. About ten seconds after t
    PASS  masked-capture                     3 region(s) blanked
    PASS  cli-replay                         exit 0
 
-REDACTION CANARY  CLEAN   …  hits 0   suppressed 0   credentials 0
-   whole-bundle canary pass: CLEAN
+REDACTION CANARY  CLEAN
+  hits          0
+  suppressed    0 (inside a digest-shaped hex run)
+  credentials   0
+
+   65 files in the bundle, produced in 9.8s
+   whole-bundle canary pass: CLEAN - 65 files, 0 hits
 DEMO OK
 ```
+
+(The canary block's `scanned` / `searched for` / `self-test` / `not searched` lines are elided; every
+line above is verbatim except the wall-clock duration, which varies.)
 
 ### About Chromium
 
@@ -160,8 +174,31 @@ the calling agent is expected to act on, and it is reported as one — the run s
 nothing else was attempted, and the caller got prose it can say out loud. `0` is `ok`, `2` is a
 declared business outcome, `1` is anything else; a shell script has to be able to tell those apart.
 
-Every member in `fixtures/corebank-web/src/data.js` works (`10041`–`10047`). All of it is
-synthetic and marked `(SYNTHETIC)` on the screens themselves.
+`10041` through `10046` all return `ok` with that member's own outputs. **`10047` does not, and it
+is worth thirty seconds.** It is the CLOSED account the fixture holds so the classifier has a
+closed-account screen to look at, and the shipped `contract.json` declares exactly one outcome,
+`MEMBER_NOT_FOUND`. There is no declared detector for "closed", so replay refuses to invent one and
+stops:
+
+```text
+FAILED  run run-fd5f7989-…  6/9 steps  1254ms
+  failure      output-extraction-failed at read-share-accounts
+  side effects possible
+  expected     every declared output can be read and typed from the screen the checkpoint verified (shareAccounts: missing-column - Share Account in row 1)
+  do this      A required output could not be read or parsed; there is no partial success.
+exit 1
+```
+
+That is fail-closed working, not a bug: a capability that guessed `MEMBER_NOT_FOUND` from a screen it
+had never been taught would be the single worst failure mode in this system (REPORT §3). `10046` is
+RESTRICTED and still returns `ok`, because the record-scoped denial the fixture can produce is
+likewise not in this artifact's declared outcome set. Both are the same rule as the verdict-table row
+about the live artifact's empty `contract.outcomes`: an outcome exists only where a person declared a
+detector for it, and the shipped hand-authored contract declares exactly one. `side effects possible`
+on a READ capability is the `effect`-is-declared-never-proven limit in REPORT §6, surfacing exactly
+where it should.
+
+All fixture data is synthetic and marked `(SYNTHETIC)` on the screens themselves.
 
 `--surface` takes a **module path**, not a fixed set of values: `@crr/runtime` imports no driver
 anywhere in `src/`, and a contract test in `@crr/core` fails if it ever does, so a green-screen
@@ -242,24 +279,32 @@ repeat it, it costs about fifteen cents.
 | adapter / model | `anthropic` · `claude-opus-5` · effort `high` · `max_tokens` 2000 per turn |
 | goal | *"Look up member 10043 in the riverbend core banking back office, report their name, share balance and membership status, and open their member record."* |
 | turns | 9, status `reached-goal` |
-| usage | 18,220 input · 1,540 output · 22,608 cache-read · **55.4% cache hit rate** |
+| usage | 18,220 input · 1,540 output · 22,608 cache-read · **0 cache-write** |
 | spend | **$0.140904**, 42,368 billed tokens, against a `--max-usd` cap of $2.00 |
-| outcome | synthesized artifact **replayed with the model out of the loop**, graded `full`, saved as `draft`; canary passes 1–3 clean |
+| cache | 55.4% hit rate — **warm-start.** Every turn reports `cacheCreationInputTokens: 0`, so the prefix was populated by the failed attempt before this one. A cold run pays the write and reads a lower rate. |
+| outcome | synthesized artifact **replayed with the model out of the loop**, graded `full`, saved as `draft`; canary passes 1–3 clean, pass 4 reported and not gated |
 
 `measuredUsd` is this repository's arithmetic over the token counts the provider returned, at the
 rates in `packages/discovery/tools/live-run.ts`. It is not an invoice; the provider's console is the
 authority.
 
-**It took three attempts, and the first two cost $0.00** — both failed on the request before the
-model ever answered, and both wrote their transcript and spend ledger and exited non-zero, because
-the durability path was built before the run:
+**It took three attempts, and only one of the two failures was free:**
 
-1. The provider rejected the tool schema under `strict: true` —
+1. **$0.00.** The provider rejected the tool schema under `strict: true` —
    `Enum value 'Enter' does not match declared type '["string","null"]'`. Valid JSON Schema; a union
-   `type` array combined with an `enum` is refused. Fixed with `anyOf`.
-2. `ZodError: unrecognized_keys: ["caller"]` — we were strict-validating the provider's *response*
-   schema, which we do not own, and a field had been added upstream. Validate what you emit; parse
-   what you receive.
+   `type` array combined with an `enum` is refused. The request never reached the model. Fixed with
+   `anyOf`.
+2. **Billed, and this repository cannot say how much.** `ZodError: unrecognized_keys: ["caller"]` —
+   we were strict-validating the provider's *response* schema, which we do not own, and a field had
+   been added upstream. A parse error on a response means the response existed and was paid for, but
+   the ledger only records turns it managed to parse, so **that run's `spend.json` says $0.00 while
+   at least one turn had in fact been billed.** The provider's console is the authority on what was
+   charged; this repository's arithmetic is not. (It also left the prompt cache warm, which is why
+   the successful run's 55.4% hit rate is a warm-start figure.) Validate what you emit; parse what
+   you receive.
+
+Both attempts wrote their transcript and spend ledger and exited non-zero, because the durability
+path was built before the run.
 
 Neither failed attempt survives in `evidence/`: the successful run wrote over the same destination.
 What survives is the property that made them cheap — a run that dies mid-flight still writes its
@@ -280,7 +325,8 @@ request the runner will send without sending it, prices it on two models, prints
 allowlist, exercises the chokepoint against an off-allowlist route, and says where the recording
 would land. It never constructs `createAnthropicModel`, reads `ANTHROPIC_API_KEY` only to check its
 *shape*, and counts tokens locally rather than calling `messages.countTokens`, which would itself be
-a request to the provider.
+a request to the provider. **It has no automated test** — it is exercised by hand, and the output
+below is a transcript of that, not a fixture.
 
 ```text
 $ pnpm preflight                                  # with no key in the shell
@@ -415,7 +461,10 @@ sites.
 - **The fixture is my own construction.** This is the single biggest threat to the validity of every
   robustness number here, and no amount of scenario count fixes it. A real vendor app fails in ways
   I did not think to script.
-- **One live run.** Nine turns, one goal, one tenant, one model.
+- **One live run.** Nine turns, one goal, one tenant, one model. **No live model has ever been
+  refused by the policy gate, got stuck, or raised an intervention** — the escalation path, the
+  refusal path and the `stuck` path are covered by hermetic tests and the conformance corpus, and by
+  nothing a model has actually done.
 - **The spend cap has never bound mid-run.** `stopBeforeTurn` is called between every pair of turns
   and refuses on the *projection*, which is demonstrable for free at the turn-0 boundary
   (`pnpm discover --dry-run --force --max-usd 0.02` → `budget-exhausted`, exit 1). It cannot be
@@ -425,6 +474,21 @@ sites.
 - **`provenance.json` is covered by no gating *value* canary pass.** The writer was fixed to scrub
   observed outputs; a fifth scoped pass was deliberately not added, because it could not be tested
   without spending another live run to produce input for it.
+- **The canary that gates the build has a longer needle floor than the synthesis it is checking.**
+  `MIN_NEEDLE_LENGTH = 8` in `tools/discover.ts`; `MIN_OBSERVED_NEEDLE_LENGTH = 4` in
+  `synthesis/prose.ts`. On the live run this was live: `membershipStatus` was `ACTIVE`, six
+  characters, and `evidence/discovery-live/canary/report.txt` says so under `NOT SEARCHED, and why`.
+  Nothing leaked, because synthesis's own 4-character rule withheld the prose that carried it — but
+  the belt is 4 and the braces are 8, so a short observed value in a document synthesis failed to
+  scrub would ship CLEAN. Both numbers are judgement calls; they should be one number.
+- **The live bundle names two content addresses for one artifact, and nothing in the bundle used to
+  explain it.** `verification` is not on `ARTIFACT_DIGEST_EXCLUDED_FIELDS`, so writing the
+  verification stamp moves the digest: `discovery.log` and `verification.json` say
+  `sha256:923ab02f…`, while the shipped `synthesized/artifact.json` says `sha256:32e56a6f…`. The file
+  on disk is self-consistent — it re-digests to `32e56a6f…` and an approval would sign that — but
+  `verification.runId` and `verification.at` are non-deterministic, so the shipped artifact's content
+  address is **not reproducible from the recording**. `verification` belongs on the excluded list
+  beside `lifecycle`; that one-line change moves every committed artifact's digest and was not made.
 - **`contract.outcomes` on the live artifact is `[]`.** Synthesis will not write a detector for a
   screen the run never observed — that is exactly how a false `MEMBER_NOT_FOUND` gets emitted — so
   the model's proposed outcome is carried in `synthesized/report.json` as a review item for a person.
@@ -449,6 +513,13 @@ sites.
   streams frames over CDP screencast; that is a documented seam.
 - **Desktop (AX/UIA) is designed, not built.** The `Surface` port is two operations, and the terminal
   driver is the evidence that they are not browser-shaped.
+- **"One artifact, two tenants" is proved; "one contract, two surfaces" is not.** The green screen
+  prints a member's name as unlabelled prose, and `detect()` emits nodes for headings, labelled
+  fields, legend controls, status bands and tables — not for prose — so there is nothing for the
+  browser contract's required `memberName` output to name. Rather than publish a contract the
+  terminal program cannot satisfy, the terminal declares its own, and `heterogeneity.test.ts`
+  compares the two `activate` steps field by field instead. That is a real weakening of the
+  cross-surface claim and it is the second item on the "next" list in REPORT §7.
 - **The OpenAI adapter is not reachable from the CLI.** Provider-independence is tested at the port,
   not demonstrated by a second live run.
 

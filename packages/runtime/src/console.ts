@@ -1,4 +1,4 @@
-// The operator console - SPEC section 7.3's five routes, and nothing else.
+// The operator console - SPEC section 7.3's six routes, and nothing else.
 //
 // DELIBERATELY BARE. The anti-goals forbid a React admin app and the assignment puts a full
 // co-browsing console out of scope, so what is here is the thinnest thing that is still REAL: a
@@ -9,7 +9,7 @@
 // WHAT MAKES IT WORTH HAVING is not the UI. It is that this file contains no browser vocabulary at
 // all. It renders `LiveView` - a route, a settled flag, a capture's content address, and a list of
 // nodes with roles and accessible names - and it posts back typed `Action`s. Point it at the
-// character-grid driver and the same five routes work on a green screen with no terminal-specific
+// character-grid driver and the same six routes work on a green screen with no terminal-specific
 // code, which is the strongest available evidence that the Observation/Action seam is real rather
 // than a browser API with a coat of paint.
 //

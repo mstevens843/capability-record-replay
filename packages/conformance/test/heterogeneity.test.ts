@@ -197,7 +197,7 @@ const chromiumAvailable = (): boolean => {
   }
   process.stderr.write(
     "[@crr/conformance] SKIPPING the browser half of the heterogeneity test: no Chromium build " +
-      "was found. Run `pnpm exec playwright install chromium`. The green-screen half still ran.\n",
+      "was found. Run `pnpm -F @crr/surface-browser exec playwright install chromium`. The green-screen half still ran.\n",
   );
   return false;
 };

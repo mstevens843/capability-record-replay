@@ -130,10 +130,6 @@ const NOT_ON_THE_BARREL: readonly { readonly file: string; readonly why: string 
     file: "stability-cli.ts",
     why: "an entry point - `main()` behind an `import.meta.url` guard, run by `pnpm -F @crr/conformance stability`. Re-exporting it would put `process.argv` and `process.stdout` in the import graph of every consumer that only wanted `runConformance`, which is the reason `@crr/runtime` keeps `cli.ts` and `codegen-cli.ts` off its barrel too",
   },
-  {
-    file: "__probe.ts",
-    why: "NOT A MODULE AND NOT A DECISION: a scratch file left behind by the unit that built the stability report, reduced to `export {}` because `rm` is denied to the agents working in this repo. It is a defect, recorded in FINAL-STATUS section 9 with the command that removes it, and the assertions below box it in so it cannot quietly grow back into a unit while it waits",
-  },
 ];
 
 const MODULES: readonly Module[] = sourceFiles(SRC)
@@ -224,8 +220,9 @@ describe("the public surface of @crr/conformance", () => {
   });
 
   it("keeps the scratch file boxed in until somebody deletes it", () => {
-    // `__probe.ts` is on the ledger above as a DEFECT, not a decision. This is what stops it being
-    // quietly re-inhabited: zero exports, and small enough that no unit could be hiding in it.
+    // `__probe.ts` was a scratch file left behind by the unit that built the stability report. It is
+    // deleted, so this now passes vacuously - and stays here as the guard that catches it coming
+    // back: zero exports, and small enough that no unit could be hiding in it.
     const probe = MODULES.find((m) => m.file === "__probe.ts");
     if (probe === undefined) return; // deleted - which is the outcome this test wants
     expect(probe.names).toEqual([]);

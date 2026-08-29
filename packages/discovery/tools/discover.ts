@@ -1096,7 +1096,7 @@ try {
   } else {
     if (!existsSync(playwright.chromium.executablePath())) {
       throw new Error(
-        "no Chromium build was found. Run `pnpm exec playwright install chromium`; this runner " +
+        "no Chromium build was found. Run `pnpm -F @crr/surface-browser exec playwright install chromium`; this runner " +
           "drives the fixture through a real browser and there is no useful fallback.",
       );
     }

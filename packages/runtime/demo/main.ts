@@ -786,7 +786,7 @@ async function main(): Promise<number> {
   const chromium = chromiumPath();
   if (chromium === null || !existsSync(chromium)) {
     log("REFUSING TO PRODUCE A BUNDLE: no Chromium build was found.");
-    log("  Run `pnpm exec playwright install chromium` and try again.");
+    log("  Run `pnpm -F @crr/surface-browser exec playwright install chromium` and try again.");
     log();
     log("This is deliberately fatal rather than a skip. A demo that quietly produced a smaller");
     log("bundle would be a demo whose output nobody could interpret.");
@@ -1026,7 +1026,7 @@ function bundleReadme(
     "",
     "```",
     "pnpm install",
-    "pnpm exec playwright install chromium   # once",
+    "pnpm -F @crr/surface-browser exec playwright install chromium   # once",
     "pnpm demo",
     "```",
     "",

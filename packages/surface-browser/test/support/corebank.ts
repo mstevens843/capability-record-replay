@@ -66,7 +66,7 @@ export function chromiumAvailable(): boolean {
       [
         "[@crr/surface-browser] SKIPPING every browser test: no Chromium build was found",
         `(looked under ${where}).`,
-        "Run `pnpm exec playwright install chromium`. The hermetic tests still ran.\n",
+        "Run `pnpm -F @crr/surface-browser exec playwright install chromium`. The hermetic tests still ran.\n",
       ].join(" "),
     );
   }

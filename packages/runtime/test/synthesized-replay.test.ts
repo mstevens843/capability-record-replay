@@ -222,7 +222,7 @@ if (!CHROMIUM) {
   process.stderr.write(
     "[@crr/runtime] SKIPPING the discovery -> replay seam (synthesized-replay.test.ts): no " +
       "Chromium build. The synthesized artifact was parsed and linked but never executed. " +
-      "Run `pnpm exec playwright install chromium`.\n",
+      "Run `pnpm -F @crr/surface-browser exec playwright install chromium`.\n",
   );
 }
 const describeBrowser = CHROMIUM ? describe : describe.skip;

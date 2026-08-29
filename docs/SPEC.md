@@ -96,7 +96,7 @@ examples are written `sha256:<synthetic>` so they can never be mistaken for real
 
 ### 1.2 Packages
 
-Six packages and three workspace apps. The line is drawn on **purity**, not subject matter: one
+Six packages and two fixture apps. The line is drawn on **purity**, not subject matter: one
 package that cannot do I/O and one that owns all of it, because that is the boundary this design's
 central claim depends on and the only one a contract test can enforce.
 
@@ -110,7 +110,6 @@ central claim depends on and the only one a contract test can enforce.
 | `@crr/conformance` | Fault scenarios × replay engines asserting three-way classification and **zero false successes**, plus deliberately weakened engines and a meta-test that fails when the suite stops discriminating. Separate so the broken engines can never ship inside `@crr/core`. |
 | `fixtures/corebank-web` | The hostile surface: frameset, nested layout tables, generated ids, `<font>` tags, no test IDs, a modal confirm, per-session fault injection, two tenant variants of one vendor product. |
 | `fixtures/corebank-tui` | The 80×24 green-screen variant, so `surface-terminal` has something to drive. |
-| `examples` | Runnable end-to-end threads that import `@crr/*` by name, the way a consumer writes it. |
 
 **Not created, deliberately.** `@crr/schema` (the schema and the classifier change together — every
 field exists for the classifier; splitting them buys a version skew between a validator and its only
@@ -2740,7 +2739,7 @@ clicking, and offering them a session would waste an operator's time.
 ### 7.3 What the operator console needs
 
 Deliberately bare — the anti-goals forbid a React admin app — but real. A local HTTP surface in
-`@crr/runtime` with four routes and no build step:
+`@crr/runtime` with six routes and no build step:
 
 | Route | What it does |
 |---|---|
@@ -2748,7 +2747,8 @@ Deliberately bare — the anti-goals forbid a React admin app — but real. A lo
 | `GET /interventions/:id` | the full `Intervention.brief` — goal template (parameterized, never a member number), step title, the **generated** `whatWasExpected`, the redacted `whatWasObserved`, the masked evidence capture, `whyStopped` from the FailureClass table, and `suggestedAction` |
 | `POST /interventions/:id/claim` | acquires the lease at epoch+1, returns a live view |
 | `POST /interventions/:id/act` | injects one `Action` **into the same live session**, policy-checked exactly like an automation action, journaled as `human.acted` with the operator's id |
-| `POST /interventions/:id/handback` \| `/abort` | §7.4, or terminate |
+| `POST /interventions/:id/handback` | §7.4: release the lease and let automation resume |
+| `POST /interventions/:id/abort` | terminate the run rather than resume it |
 
 The live view is **surface-agnostic because it speaks the same ports**: it renders
 `Surface.capture()` output — a masked PNG for the browser, a masked character-grid dump for the
@@ -3111,7 +3111,7 @@ number first, and never cut a whole capability, only its depth.
 | 13 | **Discovery loop + VCR.** Five tools, the filtered projection, the manual Anthropic loop, transcript record/replay, prompt caching. | `discovery` | 3, 8 | The loop completes the fixture goal **from a VCR fixture with no API key**; a tool-schema regression test. | **CP** | — |
 | 14 | **Synthesis.** `deriveDescriptors`, parameterization, route canonicalization, `analyzeEffects`, artifact emission. | `discovery` | 5, 7, 13 | Frozen-Observation derivation tests; a parameterization test asserting the recorded value appears **nowhere** in the emitted artifact. | **CP** | — |
 | 15 | **Verification replay + lifecycle.** `replay-full` / `replay-dry` / `replay-reset`, grade, signing over the digest, `approve`. | `runtime` | 11, 14 | A write flow reaches `partial-up-to-irreversible` and **does not** perform the write twice; an edited approved artifact fails the digest check. | **CP** | — |
-| 16 | **Lease + escalation + operator console.** States, transitions, intervention brief, the four routes, action injection, the seven-step resume re-check. | `runtime` | 11 | A suspend → claim → human action → hand-back → resume run, with the precondition re-check failing correctly when the human navigates away. | **CP** | — |
+| 16 | **Lease + escalation + operator console.** States, transitions, intervention brief, the six routes, action injection, the seven-step resume re-check. | `runtime` | 11 | A suspend → claim → human action → hand-back → resume run, with the precondition re-check failing correctly when the human navigates away. | **CP** | — |
 | 17 | **Conformance suite + mutants.** Fault scenarios × engines, the nine weakened engines of §4.8, the meta-test. | `conformance` | 4–6, 11 | Every mutant fails at least one scenario; the meta-test fails if they all pass. | **CP** | — |
 | 18 | **Evidence bundle.** Discovery log, replay log, an error-state replay, the example artifact, the redaction canary. | `runtime` | 11, 13, 15 | `pnpm demo` produces the bundle with no live services; the canary grep finds nothing. | **CP** | — |
 | 19 | **Overlay + second tenant.** The second fixture variant end to end with a vocabulary overlay, plus the drift/fingerprint report. | `core`, fixture | 7, 11 | One artifact replays green on both tenants; divergence is reported and `needsSpecialization` is not set. | — | CUT-5 |

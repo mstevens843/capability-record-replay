@@ -52,3 +52,35 @@ second passes, and both gate the exit code.
 Member names and balances appear in the transcript (the model was shown the screen) and in the
 replay result (the caller asked for them). What they must never do is appear in `synthesized/`,
 and the first pass searches for them there too.
+
+## Two digests for one artifact — read this before you diff them
+
+> Added by hand after the run, because the run itself does not explain it and a reviewer who checks
+> the content addressing deserves the answer rather than a puzzle.
+
+```
+discovery.log:71                    artifact digest sha256:923ab02f…   (as synthesized, `proposed`)
+verification.json:42  result.run.artifact.digest sha256:923ab02f…
+synthesized/artifact.json:10                     sha256:32e56a6f…      (as written, `draft`)
+```
+
+`ARTIFACT_DIGEST_EXCLUDED_FIELDS` (`packages/core/src/documents.ts`) is
+`["digest", "signatures", "lifecycle"]`. **`verification` is not on it**, and `verifyAndDraft` writes
+`{ mode, status, coveredThroughStep, grade, runId, at }` into the artifact after the replay that
+promoted it. So the digest recorded *during* the run is the digest of the document *before* that
+stamp, and the file on disk is the document *after* it.
+
+Nothing is broken: `artifact.json` re-digests to `32e56a6f…`, so it is self-consistent, and an
+approval would sign that value, which is stable from then on. But `verification.runId` and
+`verification.at` are non-deterministic, which means **the shipped artifact's content address is not
+reproducible from the recording** even though synthesis itself is. By the same argument that excludes
+`lifecycle`, `verification` is mutable state *about* the program rather than the program, and belongs
+on the excluded list. That is a one-line change plus a re-emit; it moves every committed artifact's
+digest, so it was not made for this submission. It is named in `REPORT.md` §7 and in the README's
+limitations list.
+
+## One file in `verification-evidence/`
+
+`verification.json` references exactly one frozen observation,
+`journal-e95e0286….json`. Two others from earlier attempts of the run were sitting in this directory
+and have been removed; they were canary-clean and referenced by nothing.

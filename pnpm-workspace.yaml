@@ -5,11 +5,6 @@ packages:
   # session timeouts, permission denials and not-found results can be injected on demand -
   # which a public demo site cannot do, and which half of assignment section 3.3 requires.
   - "fixtures/*"
-  # examples is a workspace member so it can import "@crr/..." by name - the line a consumer
-  # actually writes. Without it pnpm never links the scope in, and the only way to make an
-  # example run is a relative import into src/, which demonstrates the wrong thing and
-  # bypasses the built entry point the package.json `exports` map defines.
-  - "examples"
 
 # Refuse to install any package version published less than 7 days ago (10080 minutes).
 # This neutralizes near-real-time worm propagation, which has spread end-to-end in under
