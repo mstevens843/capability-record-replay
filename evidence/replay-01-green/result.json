@@ -17,7 +17,7 @@
     ]
   },
   "run": {
-    "runId": "run-c66ec25b-948b-4e13-adfa-87b09f7855ff",
+    "runId": "run-9561eb60-7398-4c11-a007-0cf42a6ef81b",
     "capability": {
       "name": "corebank.member.read_share_position",
       "version": "1.0.0"
@@ -35,9 +35,9 @@
     },
     "surface": "web-legacy",
     "engineVersion": "crr-runtime/0.1.0",
-    "startedAt": "2026-08-28T17:16:08.742Z",
-    "endedAt": "2026-08-28T17:16:10.524Z",
-    "durationMs": 1782,
+    "startedAt": "2026-08-29T02:36:59.950Z",
+    "endedAt": "2026-08-29T02:37:01.690Z",
+    "durationMs": 1740,
     "stepsExecuted": 9,
     "stepsTotal": 9,
     "budgets": {
@@ -58,7 +58,7 @@
         "limit": 1
       },
       "wallClockMs": {
-        "used": 1785,
+        "used": 1742,
         "limit": 180000
       }
     },
@@ -77,7 +77,7 @@
         },
         "skeletonDigest": "sha256:77133a7a47cabfb23d8a04fdd48bd97dff3e5670d891b221c3db0bf8275c79c4",
         "observationRef": null,
-        "elapsedMs": 163
+        "elapsedMs": 161
       },
       {
         "stepId": "enter-member-id",
@@ -88,21 +88,21 @@
         },
         "skeletonDigest": "sha256:014aa733ad56a65ca562941a1edf215144446165bd3145f7af8bce711be1ce89",
         "observationRef": null,
-        "elapsedMs": 170,
+        "elapsedMs": 163,
         "resolution": [
           {
             "descriptorId": "member-id-right-of-label",
             "kind": "label-anchored",
             "evidenceSource": "labelText",
             "verdict": "resolved",
-            "resolvedNodeId": "textbox:f3-158"
+            "resolvedNodeId": "textbox:f3-159"
           },
           {
             "descriptorId": "member-id-first-in-form",
             "kind": "ordinal-in-container",
             "evidenceSource": "ordinal",
             "verdict": "resolved",
-            "resolvedNodeId": "textbox:f3-158"
+            "resolvedNodeId": "textbox:f3-159"
           }
         ]
       },
@@ -115,21 +115,21 @@
         },
         "skeletonDigest": "sha256:8be7e5b0e9750e40cd59049e6b76df8a9fdd68cacd9ea33dad97cd28d9f46800",
         "observationRef": null,
-        "elapsedMs": 186,
+        "elapsedMs": 176,
         "resolution": [
           {
             "descriptorId": "search-by-name",
             "kind": "role-name",
             "evidenceSource": "accessibleName",
             "verdict": "resolved",
-            "resolvedNodeId": "button:f3-168"
+            "resolvedNodeId": "button:f3-169"
           },
           {
             "descriptorId": "search-right-of-member-id",
             "kind": "geometric",
             "evidenceSource": "geometry",
             "verdict": "resolved",
-            "resolvedNodeId": "button:f3-168"
+            "resolvedNodeId": "button:f3-169"
           }
         ]
       },
@@ -161,7 +161,7 @@
         },
         "skeletonDigest": "sha256:8be7e5b0e9750e40cd59049e6b76df8a9fdd68cacd9ea33dad97cd28d9f46800",
         "observationRef": null,
-        "elapsedMs": 161
+        "elapsedMs": 158
       },
       {
         "stepId": "open-member-record",
@@ -172,21 +172,21 @@
         },
         "skeletonDigest": "sha256:6725713cbb0da874b78434cfa7dd767fdb0e08707461775eb490ce717e14bf1c",
         "observationRef": null,
-        "elapsedMs": 311,
+        "elapsedMs": 307,
         "resolution": [
           {
             "descriptorId": "open-by-row-key",
             "kind": "table-cell",
             "evidenceSource": "columnHeader",
             "verdict": "resolved",
-            "resolvedNodeId": "link:f3-252"
+            "resolvedNodeId": "link:f3-253"
           },
           {
             "descriptorId": "open-by-link-text",
             "kind": "role-name",
             "evidenceSource": "accessibleName",
             "verdict": "resolved",
-            "resolvedNodeId": "link:f3-252"
+            "resolvedNodeId": "link:f3-253"
           }
         ]
       },
@@ -199,7 +199,7 @@
         },
         "skeletonDigest": "sha256:6725713cbb0da874b78434cfa7dd767fdb0e08707461775eb490ce717e14bf1c",
         "observationRef": null,
-        "elapsedMs": 168
+        "elapsedMs": 161
       },
       {
         "stepId": "read-share-accounts",
@@ -223,7 +223,7 @@
         },
         "skeletonDigest": "sha256:6725713cbb0da874b78434cfa7dd767fdb0e08707461775eb490ce717e14bf1c",
         "observationRef": null,
-        "elapsedMs": 166
+        "elapsedMs": 158
       },
       {
         "stepId": "open-subaccount-form",
@@ -234,21 +234,21 @@
         },
         "skeletonDigest": "sha256:6b04886f6fde3e01b6d3612c04ff73504e429f1f8cd0f02682394209af62822a",
         "observationRef": null,
-        "elapsedMs": 286,
+        "elapsedMs": 287,
         "resolution": [
           {
             "descriptorId": "open-subaccount-by-name",
             "kind": "role-name",
             "evidenceSource": "accessibleName",
             "verdict": "resolved",
-            "resolvedNodeId": "button:f3-349"
+            "resolvedNodeId": "button:f3-350"
           },
           {
             "descriptorId": "open-subaccount-only-control",
             "kind": "ordinal-in-container",
             "evidenceSource": "ordinal",
             "verdict": "resolved",
-            "resolvedNodeId": "button:f3-349"
+            "resolvedNodeId": "button:f3-350"
           }
         ]
       },
@@ -261,7 +261,7 @@
         },
         "skeletonDigest": "sha256:6b04886f6fde3e01b6d3612c04ff73504e429f1f8cd0f02682394209af62822a",
         "observationRef": null,
-        "elapsedMs": 149
+        "elapsedMs": 152
       }
     ],
     "drift": {
@@ -272,9 +272,9 @@
       "needsSpecialization": false
     },
     "evidence": [
-      "journal:ff1ded7564dd970a4f638a53603a58afa59bb33065158a9dce2459b76dbfa653"
+      "journal:02949829cf31fd0ad100b3de84a44e56a49edef097a7b56edf80abde53df08b7"
     ],
-    "journalRef": "journal:ff1ded7564dd970a4f638a53603a58afa59bb33065158a9dce2459b76dbfa653",
+    "journalRef": "journal:02949829cf31fd0ad100b3de84a44e56a49edef097a7b56edf80abde53df08b7",
     "warnings": []
   }
 }

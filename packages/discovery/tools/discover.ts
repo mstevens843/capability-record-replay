@@ -31,8 +31,11 @@
 //   5. A SYNTHETIC TRANSCRIPT NEVER REACHES `evidence/`. `assertRealRecording` is called before the
 //      first byte is written there, so a `--dry-run` rehearsal cannot be mistaken for evidence even
 //      by a person who copies the directory by hand. The rehearsal writes to `.scratch/`.
-//   6. THE BUNDLE IS GREPPED BEFORE IT IS PUBLISHED - four scoped passes, three of which gate the
-//      exit code. See `runCanaries()` for what each pass searches for and why the scopes differ.
+//   6. THE BUNDLE IS GREPPED BEFORE IT IS PUBLISHED - five scoped passes, four of which gate the
+//      exit code. See `tools/canaries.ts` for what each pass searches for and why the scopes
+//      differ. The scopes are DATA in that module rather than closures in this script, so a test
+//      can ask which gating pass covers a given file - which is what FINAL-STATUS section 7.2
+//      turned out to need.
 //
 // THE MEMBER NUMBER IS A LITERAL IN THE GOAL, NOT A BOUND SECRET, and `tools/live-run.ts` argues
 // that choice at length at `LIVE_GOAL`. The short version is that the sensitive binding was built
@@ -44,6 +47,8 @@
 // every occurrence with its line number rather than pretending otherwise, and passes 1 and 2 gate
 // on the places it genuinely must not be - the synthesized documents, and everything the
 // verification replay wrote, where the same number IS a bound value and the taint model holds.
+// That exemption is about the CALLER'S ARGUMENT and nothing else: a member's NAME AND BALANCE were
+// never arguments, and pass 5 gates on them everywhere this run writes ABOUT itself.
 //
 // FOUR IMPORTS BY PATH, AND THEY ARE DELIBERATE. `@crr/discovery` declares neither `playwright`,
 // nor `@crr/surface-browser`, nor the fixture, nor `@crr/runtime`, and it must not: the package that
@@ -109,6 +114,12 @@ import {
   writeJson,
   writeText,
 } from "./bundle.js";
+import {
+  type CanaryOutcome,
+  type CanaryReportView,
+  canaryNeedlesOf,
+  runCanaryPasses,
+} from "./canaries.js";
 import {
   ALLOWLIST,
   CONTROL,
@@ -176,17 +187,6 @@ const INITIAL_TOOL_RESULT_TOKENS = 2000;
 
 /** A live browser is slower than a mock, and an unbounded perceive is a hang rather than an error. */
 const PERCEIVE_DEADLINE_MS = 15_000;
-
-/**
- * The shortest recorded screen value that makes a usable canary needle.
- *
- * Pass 2 greps the synthesized documents for member data the run read off the screen. A six-letter
- * status like `ACTIVE` is a word, not a fingerprint: it appears in ordinary schema vocabulary and a
- * canary with false positives is a canary somebody switches off. Values below this length are NOT
- * searched, and the runner prints which ones it skipped rather than quietly narrowing its own
- * coverage claim.
- */
-const MIN_NEEDLE_LENGTH = 8;
 
 // ---------------------------------------------------------------------------------------------
 // `.env`, loaded here and nowhere else
@@ -287,25 +287,7 @@ interface VerificationReport {
   readonly verification: unknown;
 }
 
-interface CanaryHitView {
-  readonly file: string;
-  readonly view: string;
-  readonly secret: string;
-  readonly encoding: string;
-  readonly line: number | null;
-}
-
-interface CanaryReportView {
-  readonly clean: boolean;
-  readonly filesScanned: number;
-  readonly bytesScanned: number;
-  readonly needles: number;
-  readonly skippedEncodings: readonly string[];
-  readonly hits: readonly CanaryHitView[];
-  readonly suppressed: readonly CanaryHitView[];
-  readonly forbidden: readonly { readonly file: string; readonly name: string }[];
-  readonly selfTest: { readonly ok: boolean; readonly planted: number; readonly found: number };
-}
+// `CanaryHitView` and `CanaryReportView` live in `./canaries.ts` with the scopes that consume them.
 
 interface RuntimeModule {
   verifyAndDraft(options: {
@@ -857,129 +839,20 @@ async function rehearse(
 // The canaries
 // ---------------------------------------------------------------------------------------------
 
-interface CanaryPass {
-  readonly id: string;
-  readonly title: string;
-  readonly why: string;
-  readonly gates: boolean;
-  readonly report: CanaryReportView;
-}
-
-interface CanaryOutcome {
-  readonly clean: boolean;
-  readonly passes: readonly CanaryPass[];
-  readonly notSearched: readonly string[];
-}
-
-/** The recording of the discovery conversation, as opposed to everything the system derived from
- *  it. The distinction is the whole basis of pass 4's scope. */
-const RECORDING_FILES = new Set(["transcript.json", "discovery.log", "journal.jsonl"]);
-
 /**
- * Four passes over what was just written, three of them gating, and the scopes are the argument.
+ * The five passes, pointed at the bundle that was just written.
  *
- * A single whole-bundle grep for the member number is the check everybody reaches for first, and on
- * this deliverable it is unanswerable: the model had to be TOLD which member to look up, it typed
- * the number, and the application printed it back in the results grid and in its own query string.
- * A discovery recording that did not contain the member number would be a recording of a different
- * conversation. So the question is not "does this value appear" but "does it appear anywhere it was
- * promised not to", and the four scopes below are that question asked four ways.
- *
- * PASS 1 - THE SYNTHESIZED DOCUMENTS. `synthesized/` only. Needles: the caller's value AND every
- * member datum the run read off the screen. GATES. This is BRIEF section 3.6 - "the artifact stores
- * shapes, never values" - and it is the pass that catches the class of defect FINAL-STATUS section
- * 7.2 records: `deriveOutputs` folding a cell's accessible name into the query it derived, which put
- * "ALVAREZ, DANA (SYNTHETIC)" and "1,204.55" into `flow.vocabulary`, in the one document that is
- * committed, diffed and SIGNED. Parameterization could not have caught that - the member's name was
- * never in the goal, so it was never bound to anything - which is exactly why this pass searches for
- * values the taint model has no opinion about.
- *
- * PASS 2 - THE REPLAY. Everything the verification replay wrote. Needles: the caller's value. GATES.
- * At REPLAY time that number is an argument the interpreter binds as a `TaintedValue`, so SPEC
- * section 8.3's table applies in full: it reaches the driver and the caller's typed outputs, and it
- * reaches the journal, the evidence captures and the result document never. Unlike the discovery
- * half, this claim is total, and this pass is what makes it checkable.
- *
- * PASS 3 - CREDENTIAL SHAPES, over the whole bundle, with no value needles at all. GATES. A key in
- * an evidence file is a finding regardless of what any parameter was bound to, and this is the one
- * pass that covers `transcript.json` - the file most likely to hold a stray header - completely.
- *
- * PASS 4 - THE DISCOVERY RECORDING. `transcript.json`, `discovery.log`, `journal.jsonl`. Needles:
- * the caller's value. REPORTED WITH EVERY LINE, AND DELIBERATELY NOT GATED. Every hit here is the
- * model being told, or typing, or being shown, the member number it was asked about. Listing them
- * with their line numbers is what makes that claim checkable by a reader rather than asserted by
- * this comment; gating on them would make the check unpassable and therefore meaningless.
+ * The scopes, the needle classes and the argument for each are in `./canaries.ts`, which exists so
+ * that they are DATA a test can read rather than closures buried in a script that cannot be
+ * imported. This function is the wiring: it hands the module the run's needles and `@crr/runtime`'s
+ * scanner, resolved by path at startup for the reason the file header gives.
  */
 function runCanaries(outDir: string, run: DiscoveryRun): CanaryOutcome {
-  const callerValue = [
-    { label: "the goal's member number (the caller's argument)", value: LIVE_MEMBER_ID },
-  ];
-
-  const notSearched: string[] = [];
-  const memberData: { label: string; value: string }[] = [];
-  for (const output of run.outputs) {
-    const node = output.observation.nodes.find((candidate) => candidate.id === output.nodeId);
-    const value = node === undefined ? "" : (node.value ?? node.name ?? node.text ?? "");
-    if (value.length < MIN_NEEDLE_LENGTH) {
-      notSearched.push(
-        `${output.outputName}: ${value.length} characters, under the ${MIN_NEEDLE_LENGTH}-character floor for a distinctive needle`,
-      );
-      continue;
-    }
-    memberData.push({
-      label: `recorded member datum / ${output.outputName} (read off the screen)`,
-      value,
-    });
-  }
-
-  const passes: CanaryPass[] = [
-    {
-      id: "1 documents",
-      title: "the synthesized documents",
-      why: "BRIEF 3.6: an artifact stores shapes, never values - neither the caller's nor the member's",
-      gates: true,
-      report: runtime.runRedactionCanary({
-        bundleDir: outDir,
-        secrets: [...callerValue, ...memberData],
-        skip: (path) => !path.startsWith("synthesized/"),
-      }),
-    },
-    {
-      id: "2 replay",
-      title: "everything the verification replay wrote",
-      why: "SPEC 8.3: at replay time the caller's argument is a bound value, and this claim is total",
-      gates: true,
-      report: runtime.runRedactionCanary({
-        bundleDir: outDir,
-        secrets: callerValue,
-        skip: (path) => !path.startsWith("verification"),
-      }),
-    },
-    {
-      id: "3 credentials",
-      title: "the whole bundle, credential shapes only",
-      why: "a key in an evidence file is a finding whatever any parameter was bound to",
-      gates: true,
-      report: runtime.runRedactionCanary({ bundleDir: outDir, secrets: [] }),
-    },
-    {
-      id: "4 recording",
-      title: "the discovery recording (reported, not gated)",
-      why: "the model was told the number, typed it, and was shown it; every hit below is one of those",
-      gates: false,
-      report: runtime.runRedactionCanary({
-        bundleDir: outDir,
-        secrets: callerValue,
-        skip: (path) => !RECORDING_FILES.has(path),
-      }),
-    },
-  ];
-
-  return {
-    clean: passes.every((pass) => !pass.gates || pass.report.clean),
-    passes,
-    notSearched,
-  };
+  return runCanaryPasses({
+    scan: runtime.runRedactionCanary,
+    bundleDir: outDir,
+    needles: canaryNeedlesOf({ run, memberId: LIVE_MEMBER_ID }),
+  });
 }
 
 // ---------------------------------------------------------------------------------------------
@@ -1546,7 +1419,7 @@ try {
         ...canary.passes.flatMap((pass) => [
           `PASS ${pass.id.toUpperCase()} - ${pass.title}`,
           `  ${pass.why}`,
-          `  ${pass.gates ? "GATES the exit code." : "REPORTED ONLY - see runCanaries() in tools/discover.ts for why."}`,
+          `  ${pass.gates ? "GATES the exit code." : "REPORTED ONLY - see tools/canaries.ts for why."}`,
           "",
           runtime.renderCanaryReport(pass.report),
           "",

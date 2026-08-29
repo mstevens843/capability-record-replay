@@ -115,11 +115,29 @@ function pendingSlotIsGuarded(source: string): readonly string[] {
   return out;
 }
 
+/**
+ * Every string literal that names a path inside the bundle by the repo-relative name `evidence/…`.
+ *
+ * The bundle directory is a parameter (`CRR_DEMO_EVIDENCE_DIR`), so a hard-coded `evidence/…` is a
+ * writer that ignores it - which is how a run pointed at a scratch directory came to write into the
+ * committed bundle. Bundle-RELATIVE literals (`artifact/`, `replay-01-green/`) are correct wherever
+ * the bundle lives and are not matched.
+ */
+function literalBundlePaths(source: string): readonly string[] {
+  return [...source.matchAll(/["'`](evidence\/[^"'`]*)["'`]/g)].map((match) => match[1] as string);
+}
+
 describe("the demo", () => {
   it("has files to scan, and they really do import things", () => {
     // A scan that reads nothing passes as loudly as one that reads everything.
     const names = demoFiles().map((path) => path.slice(DEMO.length + 1));
-    expect(names).toEqual(["main.ts", "scenarios.ts", "surface-entry.mjs", "surface.ts"]);
+    expect(names).toEqual([
+      "integrity.ts",
+      "main.ts",
+      "scenarios.ts",
+      "surface-entry.mjs",
+      "surface.ts",
+    ]);
     for (const path of demoFiles()) {
       expect(importsOf(path).length, path).toBeGreaterThan(0);
     }
@@ -207,6 +225,41 @@ describe("the demo", () => {
         "  if (liveRunPresent()) {\n    log();\n  } else {\n    discoverySlot();\n  }\n",
       ),
     ).toEqual([]);
+  });
+
+  it("takes the bundle lock BEFORE it deletes anything", () => {
+    // Order is the whole property. `clearOwned()` is the destructive step, so a lock taken after
+    // it has already let a second process delete the first one's bundle. Two concurrent runs were
+    // measured leaving 2 journal blobs in all five scenario directories, both printing `DEMO OK`.
+    const source = code(join(DEMO, "main.ts"));
+    const lock = source.indexOf("acquireBundleLock(");
+    const clear = source.indexOf("clearOwned(suite");
+    expect(lock, "main.ts no longer takes a bundle lock").toBeGreaterThan(-1);
+    expect(clear).toBeGreaterThan(-1);
+    expect(lock).toBeLessThan(clear);
+    // And it is released, or the next run refuses to start.
+    expect(source).toContain("releaseBundleLock(");
+  });
+
+  it("writes every path through the bundle directory, so a run pointed elsewhere writes nowhere here", () => {
+    // THE DEFECT: `cliReplay()` passed the subprocess repo-relative `evidence/...` paths while
+    // every other writer honoured `CRR_DEMO_EVIDENCE_DIR`, so a demo run against a scratch bundle
+    // dropped its journal blob into the COMMITTED one. Measured: two scratch runs took
+    // `evidence/cli-replay/observations/` to three journal blobs and the tracked bundle to 67
+    // files. A string literal caused it, so a string literal is what this looks for.
+    expect(literalBundlePaths(code(join(DEMO, "main.ts")))).toEqual([]);
+  });
+
+  it("that scanner can fail, on the exact shape that shipped", () => {
+    expect(
+      literalBundlePaths('const argv = ["replay", "evidence/artifact/contract.json"];'),
+    ).toEqual(["evidence/artifact/contract.json"]);
+    expect(literalBundlePaths('"--evidence", "evidence/cli-replay/observations",')).toEqual([
+      "evidence/cli-replay/observations",
+    ]);
+    // A bundle-relative path in generated prose is not the defect: the bundle's own README links
+    // `artifact/` and `replay-01-green/`, and those are correct wherever the bundle lives.
+    expect(literalBundlePaths('"[`artifact/`](artifact/) holds the documents"')).toEqual([]);
   });
 
   it("keeps the evidence bundle's run logs out of `.gitignore`'s `*.log`", () => {

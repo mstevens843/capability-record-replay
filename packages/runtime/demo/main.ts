@@ -7,11 +7,13 @@
 // is - which matters because BRIEF section 11 makes "no agent may spend the author's money" a hard
 // rule and a script that could reach a model is a script that eventually does.
 //
-// WHAT IS DELIBERATELY MISSING. `evidence/discovery-live/` is empty. A discovery run is a live
-// model run by definition, it costs money, and it is the author's decision to make - so this
-// script creates the slot, says what will land in it, and never fabricates a transcript. A VCR
-// fixture replayed through the discovery loop is NOT a discovery run and is not presented as one
-// anywhere in this bundle.
+// WHAT THIS SCRIPT DOES NOT PRODUCE. The live discovery run. A discovery run is a live model run
+// by definition, it costs money, and it is the author's decision to make - so this script creates
+// the slot, says what will land in it, and never fabricates a transcript. A VCR fixture replayed
+// through the discovery loop is NOT a discovery run and is not presented as one anywhere in this
+// bundle. The author has since performed one and `evidence/discovery-live/` holds it; every claim
+// below that used to read "the slot is empty" is now a `liveRunPresent()` branch rather than a
+// literal, for the reason that function's own comment gives.
 //
 // THE BUNDLE IS SELF-CHECKING, in two independent ways, and the script exits non-zero if either
 // fails:
@@ -64,6 +66,12 @@ import {
   sharePositionArtifact,
   sharePositionContract,
 } from "../test/fixtures/corebank.js";
+import {
+  type BlobDirClaim,
+  acquireBundleLock,
+  auditBundleBlobs,
+  releaseBundleLock,
+} from "./integrity.js";
 import { type Scenario, scenarios } from "./scenarios.js";
 import { chromiumPath, openDemoSurface } from "./surface.js";
 
@@ -89,6 +97,9 @@ const CAPTURE_DEPOSIT = "1337.42";
 // ---------------------------------------------------------------------------------------------
 // A log that is both printed and kept, because the printed one is the deliverable
 // ---------------------------------------------------------------------------------------------
+
+/** The bundle lock this process holds, released once at the very end. Null until it is taken. */
+let heldLock: string | null = null;
 
 const lines: string[] = [];
 const log = (line = ""): void => {
@@ -181,7 +192,9 @@ function writeArtifactExhibit(): readonly string[] {
       "**Hand-authored.** `provenance.model.adapter` reads `replay` and the model id is",
       '`none:hand-authored-for-unit-11`, because that enum has no value meaning "a person wrote this".',
       "Every matcher in it was derived from a real `perceive()` over the fixture through",
-      "`@crr/surface-browser`, but no model produced it. See `../discovery-live/PENDING.md`.",
+      liveRunPresent()
+        ? "`@crr/surface-browser`, but no model produced it. For one a model DID produce, see `../discovery-live/`."
+        : "`@crr/surface-browser`, but no model produced it. See `../discovery-live/PENDING.md`.",
       "",
       "## The approval",
       "",
@@ -494,26 +507,38 @@ function cliReplay(): { readonly ok: boolean; readonly summary: string } {
   // carries the SHAPE and points at where a reviewer gets a value, exactly as the artifact does.
   const args = `{"memberId":"${FIXTURE_MEMBER_ID}"}`;
   const argsShape = '{"memberId":"<A FIVE-DIGIT MEMBER NUMBER>"}';
+  // EVERY PATH HERE IS DERIVED FROM `EVIDENCE`, and that is a fix rather than a flourish. These
+  // were seven repo-relative `evidence/...` literals, so this one writer ignored
+  // `CRR_DEMO_EVIDENCE_DIR` while every other writer in this file honoured it: a demo run pointed
+  // at a scratch directory - the documented way to exercise the `discovery-live` guard - dropped
+  // its journal blob into the COMMITTED bundle and left it there. Measured: two such runs took
+  // `evidence/cli-replay/observations/` to three journal blobs and the tracked bundle to 67 files.
+  // `relative(REPO, …)` reproduces the old strings exactly when the bundle is `<repo>/evidence`, so
+  // the command a reviewer copies out of the transcript is unchanged.
+  const inBundle = (...parts: string[]): string =>
+    relative(REPO, join(EVIDENCE, ...parts))
+      .split(sep)
+      .join("/");
   const argv = [
     "replay",
-    "evidence/artifact/contract.json",
-    "evidence/artifact/artifact.json",
+    inBundle("artifact", "contract.json"),
+    inBundle("artifact", "artifact.json"),
     "--surface",
     "packages/runtime/demo/surface-entry.mjs",
     "--args",
     args,
     "--allowlist",
-    "evidence/artifact/allowlist.json",
+    inBundle("artifact", "allowlist.json"),
     "--trusted-key",
-    `${APPROVER_KEY_ID}:evidence/artifact/approver.spki.pem`,
+    `${APPROVER_KEY_ID}:${inBundle("artifact", "approver.spki.pem")}`,
     "--tenant",
     "riverbend",
     "--app",
     "riverbend-corebank-fixture",
     "--journal",
-    "evidence/cli-replay/journal.jsonl",
+    inBundle("cli-replay", "journal.jsonl"),
     "--evidence",
-    "evidence/cli-replay/observations",
+    inBundle("cli-replay", "observations"),
   ];
   // `argv` in full, verb included: the printed command is one a reviewer copy-pastes, and a
   // transcript that drops `replay` prints something that exits non-zero. Only the argument VALUE is
@@ -648,6 +673,48 @@ function discoverySlot(): void {
  */
 function liveRunPresent(): boolean {
   return existsSync(join(EVIDENCE, "discovery-live", "transcript.json"));
+}
+
+/**
+ * What every blob directory in this bundle is supposed to hold, and who says so.
+ *
+ * A scenario's authority is its own `result.json`: `run.evidence` lists every ref the run's
+ * evidence sink minted, journal included, so the audit compares the directory against the document
+ * a reviewer reads rather than against a number in this file. Two directories have no such
+ * document in the bundle and get the weaker journal-count rule instead - `cli-replay/`, whose run
+ * is a subprocess this script deliberately treats as a black box, and the live discovery run's
+ * `verification-evidence/`, which the demo does not own and must never delete.
+ *
+ * `verification-evidence/` is audited anyway, and not for symmetry: two stale journal blobs were
+ * found in it by hand and removed, from the directory a reviewer reads most carefully. Its
+ * `verification.json` names exactly the refs its replay wrote, so from now on that is checked.
+ */
+function blobClaims(outcomes: readonly ScenarioOutcome[]): readonly BlobDirClaim[] {
+  const claims: BlobDirClaim[] = outcomes.map((outcome) => ({
+    label: `${outcome.scenario.id}/observations`,
+    dir: join(EVIDENCE, outcome.scenario.id, "observations"),
+    // A run that threw wrote no result document, so there is nothing to compare against and the
+    // journal rule stands alone. It still catches the case this audit exists for.
+    declared: outcome.result === null ? null : outcome.result.run.evidence,
+  }));
+  claims.push({
+    label: "cli-replay/observations",
+    dir: join(EVIDENCE, "cli-replay", "observations"),
+    declared: null,
+  });
+  const verificationDir = join(EVIDENCE, "discovery-live", "verification-evidence");
+  const verification = join(EVIDENCE, "discovery-live", "verification.json");
+  if (existsSync(verificationDir) && existsSync(verification)) {
+    const parsed = JSON.parse(readFileSync(verification, "utf8")) as {
+      result?: { run?: { evidence?: readonly string[] } };
+    };
+    claims.push({
+      label: "discovery-live/verification-evidence",
+      dir: verificationDir,
+      declared: parsed.result?.run?.evidence ?? null,
+    });
+  }
+  return claims;
 }
 
 function walkEvidence(): readonly string[] {
@@ -796,6 +863,31 @@ async function main(): Promise<number> {
   log(`bundle     ${EVIDENCE}`);
   log();
 
+  // ONE WRITER AT A TIME, and the reason is measured rather than theoretical. `clearOwned()` runs
+  // once, at the start, and every blob is named by the digest of its own contents - so a second
+  // demo starting while this one runs deletes nothing of ours and adds a second journal blob to
+  // every scenario directory. Two concurrent runs against one bundle were made to do exactly that
+  // in this tree: 8 stray files, both processes printing an inflated count and `DEMO OK`, both
+  // exiting 0. The mitigation until now was a sentence in a design document asking the author to
+  // run the demo alone; this is the same argument the control lease makes about human handoff,
+  // applied to the script that produces the deliverable.
+  const lock = acquireBundleLock(EVIDENCE);
+  if (lock.ok) heldLock = lock.path;
+  if (!lock.ok) {
+    log("REFUSING TO PRODUCE A BUNDLE: another `pnpm demo` is writing this one.");
+    log(`  bundle    ${EVIDENCE}`);
+    log(`  held by   pid ${lock.holder.pid}, since ${lock.holder.at}`);
+    log(`  lock      ${lock.path}`);
+    log();
+    log("Two demos writing one bundle interleave: each clears the directory at the start and then");
+    log("adds its own content-addressed blobs, so the bundle ends up describing neither run. Wait");
+    log("for the other one, or delete the lock file above if you are certain nothing is running.");
+    return 1;
+  }
+  if (lock.tookOver !== null) {
+    log(`lock       took over a stale lock from pid ${lock.tookOver.pid} (${lock.tookOver.at})`);
+  }
+
   const suite = scenarios(FIXTURE_MEMBER_ID, ABSENT_MEMBER_ID);
   clearOwned(suite.map((s) => s.id));
 
@@ -830,6 +922,18 @@ async function main(): Promise<number> {
     discoverySlot();
   }
 
+  const claims = blobClaims(outcomes);
+  const strays = auditBundleBlobs(claims);
+  log("── integrity ─ every content-addressed blob directory against the run that owns it");
+  if (strays.length === 0) {
+    log(`   ${claims.length} blob directories checked, every file accounted for`);
+  } else {
+    for (const stray of strays) log(`   STRAY     ${stray}`);
+    log("   A blob this run did not write is a blob from another run. Delete the bundle and run");
+    log("   `pnpm demo` once, alone.");
+  }
+  log();
+
   // The log has to be on disk BEFORE the canary runs, or the one file most likely to hold a stray
   // value is the one file that is never scanned.
   writeText(join(EVIDENCE, "demo.log"), `${lines.join("\n")}\n`);
@@ -852,8 +956,15 @@ async function main(): Promise<number> {
   summary.push("");
   summary.push(renderCanaryReport(report).trimEnd());
   summary.push("");
+  // THE PRINTED COUNT IS THE ONE A REVIEWER CHECKS, so it is derived twice and the two are
+  // compared. `writeManifest()` counts the files it listed; the five it excludes are itself,
+  // `README.md` and the three under `redaction-canary/`, all written after it. The whole-bundle
+  // canary pass below walks the finished directory independently, and `countMismatch` is non-empty
+  // if those two ever disagree - which is how an off-by-five in this line would announce itself
+  // instead of being quoted into three documents.
+  const claimedFiles = fileCount + 5;
   summary.push(
-    `   ${fileCount + 5} files in the bundle, produced in ${Math.round((Date.now() - startedAt) / 100) / 10}s`,
+    `   ${claimedFiles} files in the bundle, produced in ${Math.round((Date.now() - startedAt) / 100) / 10}s`,
   );
   summary.push(
     liveRunPresent()
@@ -872,10 +983,28 @@ async function main(): Promise<number> {
   writeText(join(EVIDENCE, "demo.log"), `${lines.join("\n")}\n`);
   writeText(join(EVIDENCE, "README.md"), bundleReadme(outcomes, report, capture.ok, cli.ok));
   const final = finalCanaryPass();
-  const ok = failures.length === 0 && report.clean && final.clean && capture.ok && cli.ok;
+  const onDisk = walkEvidence().length;
+  const countAgrees = claimedFiles === onDisk && onDisk === final.filesScanned;
+  const ok =
+    failures.length === 0 &&
+    report.clean &&
+    final.clean &&
+    capture.ok &&
+    cli.ok &&
+    strays.length === 0 &&
+    countAgrees;
   process.stdout.write(
     `\n   whole-bundle canary pass: ${final.clean ? "CLEAN" : "FAILED"} - ${final.filesScanned} files, ${final.hits.length} hits\n`,
   );
+  if (strays.length > 0) {
+    process.stdout.write(`   BUNDLE INTEGRITY FAILED - ${strays.length} stray blob(s)\n`);
+    for (const stray of strays) process.stdout.write(`     STRAY ${stray}\n`);
+  }
+  if (!countAgrees) {
+    process.stdout.write(
+      `   FILE COUNT DISAGREES - printed ${claimedFiles}, on disk ${onDisk}, scanned ${final.filesScanned}\n`,
+    );
+  }
   for (const hit of final.hits) {
     process.stdout.write(
       `     LEAK ${hit.file}${hit.line === null ? "" : `:${hit.line}`}  ${hit.secret} as ${hit.encoding}\n`,
@@ -898,8 +1027,17 @@ function bundleReadme(
   return [
     "# `/evidence` — what was actually run, and what was not",
     "",
-    "**Every file in this directory was produced by `pnpm demo`, on a laptop, with no live service**",
-    "**of any kind.** The only two things `pnpm demo` needs are a Chromium build and a free TCP port.",
+    ...(liveRunPresent()
+      ? [
+          "**Every file in this directory except `discovery-live/` was produced by `pnpm demo`, on a**",
+          "**laptop, with no live service of any kind.** The only two things `pnpm demo` needs are a",
+          "Chromium build and a free TCP port. `discovery-live/` is the one exception and the next",
+          "section is about it.",
+        ]
+      : [
+          "**Every file in this directory was produced by `pnpm demo`, on a laptop, with no live service**",
+          "**of any kind.** The only two things `pnpm demo` needs are a Chromium build and a free TCP port.",
+        ]),
     "",
     "**All data is synthetic.** `fixtures/corebank-web` is a purpose-built hostile back office; the",
     "members, balances and account numbers in it exist nowhere else and are marked `(SYNTHETIC)` on",
@@ -951,8 +1089,28 @@ function bundleReadme(
     'because that enum has no honest value for "a person wrote this". Every matcher in it was derived',
     "from a real `perceive()` over the fixture through `@crr/surface-browser` — none of it was written",
     "by reading the fixture's HTML — but a model did not produce it and this bundle does not pretend",
-    "one did. When the live discovery run happens, the artifact that synthesis emits replaces it and",
-    "this paragraph goes away.",
+    "one did.",
+    "",
+    ...(liveRunPresent()
+      ? [
+          "This paragraph used to end by predicting its own deletion — *when the live discovery run",
+          "happens, the artifact synthesis emits replaces this one*. The run has happened and it did",
+          "not replace it, on purpose. A synthesized artifact is the **output** of a run and moves",
+          "whenever the run is repeated; the suite that polices this bundle needs an input it can pin.",
+          "So there are two synthesized artifacts and neither is presented as this one. The live run's",
+          "is committed beside its recording at",
+          "[`discovery-live/synthesized/artifact.json`](discovery-live/synthesized/artifact.json) and",
+          "was replayed by that run itself, with the model out of the loop, at",
+          "[`discovery-live/verification.json`](discovery-live/verification.json). A second, frozen one",
+          "lives at `packages/discovery/test/fixtures/corebank-web.capability.json`, and",
+          "`packages/runtime/test/synthesized-replay.test.ts` reads it off disk as data and replays it",
+          "against this same fixture on every `pnpm test` — which is the claim a reviewer can rerun.",
+        ]
+      : [
+          "When the live discovery run happens, the artifact that synthesis emits will be committed",
+          "beside its recording under `discovery-live/synthesized/`; this hand-authored one stays,",
+          "because the acceptance suite needs an input it can pin.",
+        ]),
     "",
     "The ed25519 approval key pair is generated per process, so `approver.spki.pem` and the signature",
     "inside `artifact.json` differ on every demo run. The **digest** they sign does not: it is over",
@@ -1044,4 +1202,11 @@ main()
       `demo: ${error instanceof Error ? (error.stack ?? error.message) : String(error)}\n`,
     );
     process.exitCode = 1;
+  })
+  // Released here rather than in a `finally` inside `main()` so that it covers the throw as well as
+  // every return, including the early one that never took it - `releaseBundleLock` reads the file
+  // first and refuses to remove a lock this process does not hold. A run killed outright leaves the
+  // file behind on purpose: the next run finds the pid gone and takes it over.
+  .finally(() => {
+    if (heldLock !== null) releaseBundleLock(heldLock);
   });

@@ -5,9 +5,9 @@
    broker    cannot-reauthenticate
    armed     {"ok":true,"session":"s000001","armed":{"id":"session-timeout","screen":"detail","mode":"sticky","delayMs":1200}}
    arm       FAILED   session-expired-unrecoverable at open-member-record
-   run       4/9 steps, 816ms, 5 step attempts
+   run       4/9 steps, 800ms, 5 step attempts
    budgets   actions 4, observations 15, remediations 1, program attempts 0
    recovery  SESSION_EXPIRED at open-member-record: exhausted after 1
-   evidence  2 frozen observation(s), journal journal:ba87bd77cfaadabb6321cf99bfaeef36d1f74d38e7a05f9c9861d9f03ef7a601
+   evidence  2 frozen observation(s), journal journal:27a8b769957a3b34806a517cfeb73b234650eca771bdd6498aa0432e3df37252
    checked   every declared expectation held
 

@@ -50,11 +50,12 @@ CLAUDE_CODE_OAUTH_TOKEN` prefixed, to prove it structurally rather than by inspe
 | **The fallback-chain mutant (`nearestMatch`) is killed by 6 scenarios and every one is a false success** — the mutant told a caller a business outcome for a broken run | **measured** | same command, kill-matrix row `nearestMatch  04,06,08,09,15,21` |
 | **Replay is deterministic over the corpus**: 25 scenarios × 20 runs, flake rate 0.0%, 0 result documents that were not byte-identical | **measured, on a fixture I wrote** | same command |
 | **4 of 9 mutants survive the terminal corpus** (`noAssert`, `noSettleGate`, `noContinuity`, `noProvenance`), each with a written reason asserted by the test | **limitation, reported not hidden** | `pnpm -F @crr/conformance exec vitest run test/terminal-conformance.test.ts` → 10 passed |
-| **The whole repository builds and tests with zero credentials.** 1,843 tests, 8 workspace members | **measured** | `env -u … pnpm test` → `Tasks: 14 successful, 14 total`, exit 0 |
+| **The whole repository builds and tests with zero credentials.** 1,921 tests, 8 workspace members | **measured** | `env -u … pnpm test` → `Tasks: 14 successful, 14 total`, exit 0 |
 | **`pnpm demo` produces the entire evidence bundle with no live service**, all three arms of the taxonomy exhibited, redaction canary clean on both passes | **measured** | `env -u … pnpm demo` → seven `PASS` lines, `whole-bundle canary pass: CLEAN - 65 files, 0 hits`, `DEMO OK`, exit 0 |
+| **The bundle `pnpm demo` produces is the same bundle every time**: three consecutive runs, 65 files each, the same paths once content-address digests are normalized. The count is no longer narrated — the run compares it against an independent walk of the finished directory, and fails on any blob no run in the bundle claims | **measured, verified by injection** | `env -u … pnpm demo` ×3 → `65 files`, `7 blob directories checked, every file accounted for`, `DEMO OK`, exit 0; planting one stray blob gives `BUNDLE INTEGRITY FAILED - 2 stray blob(s)`, `DEMO FAILED`, exit 1 |
 | **The engine cannot read a clock, do I/O, or import a driver, and no package above the drivers contains CSS vocabulary** — read off disk, not asserted | **measured, verified by injection** | `pnpm -F @crr/core exec vitest run test/purity.test.ts test/no-locator-vocabulary.test.ts test/policy-chokepoint.test.ts` → 44 passed |
 | **The spend cap stops a run before it starts. It has never bound *mid-run*.** The between-turns guard fires on the projection, demonstrated free at the turn-0 boundary; it has no unit test and no run has ever crossed it at turn *n* | **partially proven** | `pnpm discover --dry-run --force --max-usd 0.02` → `status budget-exhausted`, `$0.0000 has been billed and turn 1 projects to at most $0.06 … which would cross the $0.02 ceiling`, exit 1 |
-| **`evidence/discovery-live/provenance.json` is covered by no gating *value* canary pass.** Passes 1 and 2 scope to the synthesized documents and to what the verification replay wrote; pass 3 covers the whole bundle for credential shapes only | **known gap** | `evidence/discovery-live/canary/report.txt`, pass headers |
+| **Every file in the live bundle is covered by a gating canary pass, and the files that describe the run rather than record it are grepped for member data.** A fifth gating pass (`5 metadata`) takes its scope as the complement of the other four, so `provenance.json`, `spend.json` and the bundle README are covered and a file added later is covered by default | **measured, verified by injection** | `pnpm -F @crr/discovery exec vitest run test/canary-scopes.test.ts` → 56 passed; injecting the pre-fix `finish.summary` into a copy of `provenance.json` fails the pass naming the file and both needles, and restoring the bytes passes it |
 | **`contract.outcomes` on the live artifact is `[]`.** Synthesis will not invent a detector for a screen the run never observed, so the model's proposed outcome rides in the report as a review item instead | **deliberate, and a real gap in the shipped capability** | `python3 -c "import json;print(json.load(open('evidence/discovery-live/synthesized/contract.json'))['outcomes'])"` |
 
 ---
@@ -77,8 +78,13 @@ and `pnpm demo` builds it. Nothing in this README invokes them by name.
 **`pnpm demo` needs no API key, no `.env`, and no network beyond loopback.** It builds
 `@crr/runtime`, starts `fixtures/corebank-web` on an ephemeral loopback port, drives it with a local
 Chromium, and rewrites the whole of [`evidence/`](./evidence) (except the live discovery run, which
-it never touches). It exits non-zero if any scenario misses its declared arm or if the redaction
-canary finds a parameter value anywhere in the bundle. About ten seconds after the build.
+it never touches). It exits non-zero if any scenario misses its declared arm, if the redaction canary
+finds a parameter value anywhere in the bundle, or if the finished bundle holds a content-addressed
+blob that no run in it claims to have written. About ten seconds after the build.
+
+**Run it once at a time.** Two concurrent runs used to interleave and leave both runs' blobs behind,
+in a bundle that then described neither; the second one now refuses to start and says which pid holds
+the lock.
 
 ```text
    PASS  replay-01-green                    ok        green
@@ -94,13 +100,15 @@ REDACTION CANARY  CLEAN
   suppressed    0 (inside a digest-shaped hex run)
   credentials   0
 
-   65 files in the bundle, produced in 9.8s
+   65 files in the bundle, produced in 10s
+   discovery-live/  a LIVE model run is present - see its own README.md and provenance.json
    whole-bundle canary pass: CLEAN - 65 files, 0 hits
 DEMO OK
 ```
 
-(The canary block's `scanned` / `searched for` / `self-test` / `not searched` lines are elided; every
-line above is verbatim except the wall-clock duration, which varies.)
+(The canary block's `scanned` / `searched for` / `self-test` / `not searched` lines are elided, as
+are two lines about where the second canary pass runs; every line above is verbatim except the
+wall-clock duration, which varies.)
 
 ### About Chromium
 
@@ -115,18 +123,18 @@ From the repo root, `pnpm exec playwright …` fails with `Command "playwright" 
 `npx playwright …` fails with `sh: playwright: command not found`. Use the scoped form above.
 
 **Without a Chromium build the test suite is still green, and that is a trap worth naming.** 46 of
-the 1,843 tests skip — including every test that has ever touched a real browser — and each guard
+the 1,921 tests skip — including every test that has ever touched a real browser — and each guard
 prints a warning to stderr, but the board reads green:
 
 ```text
 $ env -u … PLAYWRIGHT_BROWSERS_PATH=<an empty dir> pnpm test
     @crr/surface-browser   Tests   78 passed |  29 skipped (107)
-    @crr/runtime           Tests  298 passed |  16 skipped (314)
+    @crr/runtime           Tests  320 passed |  16 skipped (336)
     @crr/conformance       Tests  101 passed |   1 skipped (102)
     Tasks: 14 successful, 14 total                                exit 0
 ```
 
-1,797 passing, green, and the browser replays never ran. Install Chromium.
+1,875 passing, green, and the browser replays never ran. Install Chromium.
 
 ---
 
@@ -211,8 +219,8 @@ pnpm discover --dry-run
 ```
 
 This is the entire runner: the observe → decide → act loop, the policy chokepoint on every tool
-call, deterministic synthesis, the verification replay with the model out of the loop, and all four
-redaction canary passes. The only substitution is the provider — turns come from a recorded
+call, deterministic synthesis, the verification replay with the model out of the loop, and all five
+redaction canary passes (the committed live run predates the fifth — see the verdict table). The only substitution is the provider — turns come from a recorded
 transcript instead of the Messages API. **`createAnthropicModel` is never constructed on this path,
 so no key is used and `$0.0000` is spent.** (`pnpm discover` loads `.env` in either mode and prints
 the variable *names* it set; in `--dry-run` nothing consumes them.) Output lands in
@@ -282,7 +290,7 @@ repeat it, it costs about fifteen cents.
 | usage | 18,220 input · 1,540 output · 22,608 cache-read · **0 cache-write** |
 | spend | **$0.140904**, 42,368 billed tokens, against a `--max-usd` cap of $2.00 |
 | cache | 55.4% hit rate — **warm-start.** Every turn reports `cacheCreationInputTokens: 0`, so the prefix was populated by the failed attempt before this one. A cold run pays the write and reads a lower rate. |
-| outcome | synthesized artifact **replayed with the model out of the loop**, graded `full`, saved as `draft`; canary passes 1–3 clean, pass 4 reported and not gated |
+| outcome | synthesized artifact **replayed with the model out of the loop**, graded `full`, saved as `draft`; canary passes 1–3 clean, pass 4 reported and not gated. The run predates the fifth pass, which was added afterwards and re-run over this bundle: **CLEAN**, 3 files, 27 needles, 0 hits |
 
 `measuredUsd` is this repository's arithmetic over the token counts the provider returned, at the
 rates in `packages/discovery/tools/live-run.ts`. It is not an invoice; the provider's console is the
@@ -326,15 +334,23 @@ allowlist, exercises the chokepoint against an off-allowlist route, and says whe
 would land. It never constructs `createAnthropicModel`, reads `ANTHROPIC_API_KEY` only to check its
 *shape*, and counts tokens locally rather than calling `messages.countTokens`, which would itself be
 a request to the provider. **It has no automated test** — it is exercised by hand, and the output
-below is a transcript of that, not a fixture.
+below is a transcript of that, not a fixture. Both halves were re-run after the live discovery run
+landed, which is why both now carry the `transcript.json already exists` warning: the recorder will
+not silently overwrite a committed run, and it says so before you spend anything.
 
 ```text
 $ pnpm preflight                                  # with no key in the shell
       NOT READY - 1 blocker(s):
         BLOCK  [credential] ANTHROPIC_API_KEY is not set in this shell.
+      1 warning(s) - readable, not fatal:
+        warn   [recorder] evidence/discovery-live/transcript.json already exists
+               - a run would overwrite it.
       13 check(s) passed.                                                   exit 1
 
 $ ANTHROPIC_API_KEY=<well-formed> pnpm preflight
+      1 warning(s) - readable, not fatal:
+        warn   [recorder] evidence/discovery-live/transcript.json already exists
+               - a run would overwrite it.
       14 check(s) passed.
       [ ok ] the worst a full-budget run on claude-opus-5 can cost is $4.18,
              and --max-usd caps it at $2.00.
@@ -386,7 +402,7 @@ the bundle, and it names which adapter produced every directory.
 
 | Directory | What it is | Model in the loop? |
 | --- | --- | --- |
-| [`discovery-live/`](./evidence/discovery-live) | The real discovery run: transcript, journal, spend ledger, provenance, the synthesized documents, the self-verification replay, and all four canary passes | **yes** — the only thing in the bundle a model produced |
+| [`discovery-live/`](./evidence/discovery-live) | The real discovery run: transcript, journal, spend ledger, provenance, the synthesized documents, the self-verification replay, and the four canary passes the run itself performed | **yes** — the only thing in the bundle a model produced |
 | [`artifact/`](./evidence/artifact) | The capability under replay: `contract.json`, `artifact.json`, the allowlist, the approver's public key | no — hand-authored, and it says so |
 | `replay-01-green/` | The nine-step flow, no fault armed → `ok` with typed outputs | no |
 | `replay-02-outcome-member-not-found/` | The core holds no such member → `outcome MEMBER_NOT_FOUND` | no |
@@ -413,6 +429,14 @@ numbers, every place the member number legitimately appears in the recording —
 the number, typed it, and was shown it echoed back. A recording that did not contain it would be a
 recording of a different conversation.
 
+That report has **four** passes because the run that wrote it predates the fifth. `5 metadata` —
+`provenance.json`, `spend.json` and the bundle README grepped for member data, gated, with its scope
+taken as the complement of the other four — was added afterwards and re-run over this bundle:
+**CLEAN**, 3 files, 10,131 bytes, 27 needles, 0 hits, self-test 27/27. The scopes live in
+`packages/discovery/tools/canaries.ts` as data rather than as closures inside the runner, which is
+what lets `packages/discovery/test/canary-scopes.test.ts` ask, of every path in this bundle, which
+gating pass reads it.
+
 **Three real leaks were caught by tooling rather than by review**, and they are the reason the canary
 gates the build: two in synthesis (a table cell's accessible name folded into `flow.vocabulary` — on
 a legacy grid the cell's name *is* the value — and `std.text@1` lowercasing delivered values), and
@@ -433,14 +457,14 @@ drawn on **purity**, not subject matter, because that is the boundary a contract
 | Member | One line | Tests |
 | --- | --- | ---: |
 | `packages/core` | The schema and validators, canonical JSON + SHA-256 digest, the 28-check linker, the classifier, the target resolver, the extractor, the overlay merge, the policy predicate and the prose renderers. **Zero I/O, zero clock, zero randomness, zero driver imports — checked by a source-scanning test, verified by injecting a real violation.** | 788 |
-| `packages/runtime` | The impure half, all in one place: interpreter, settle loop, budget ledgers, control lease, journal writer, evidence sink, file-backed store, the catalog and `invoke` host, ed25519 approval verification, the operator console, the redaction canary, the `crr` CLI and `pnpm demo`. | 314 |
-| `packages/discovery` | The model provider port, the hand-written Anthropic tool-use loop, the OpenAI adapter, the VCR transcript recorder/replayer, deterministic synthesis, and the `preflight` / `discover` entry points. The only package that may import a model SDK. | 305 |
+| `packages/runtime` | The impure half, all in one place: interpreter, settle loop, budget ledgers, control lease, journal writer, evidence sink, file-backed store, the catalog and `invoke` host, ed25519 approval verification, the operator console, the redaction canary, the `crr` CLI and `pnpm demo`. | 336 |
+| `packages/discovery` | The model provider port, the hand-written Anthropic tool-use loop, the OpenAI adapter, the VCR transcript recorder/replayer, deterministic synthesis, and the `preflight` / `discover` entry points. The only package that may import a model SDK. | 361 |
 | `packages/surface-browser` | Playwright + per-frame CDP `Accessibility.getFullAXTree` stitched into an `Observation`. Not `querySelector`. Owns dialogs, the `perceive` deadline and PNG region masking. | 107 |
 | `packages/surface-terminal` | `@xterm/headless` over a `TerminalTransport` port → an `Observation` built from an 80×24 character grid. **Exists to falsify the port**: if the abstraction only fits a browser, this is where that stops being aspirational. | 125 |
 | `packages/conformance` | 25 browser + 14 terminal fault scenarios × 10 engines (1 reference, 9 mutants), the meta-test that fails when the suite stops discriminating, and multi-run stability. Separate so the broken engines can never ship inside `@crr/core`. | 102 |
 | `fixtures/corebank-web` | The hostile proxy surface: frameset, nested layout tables, generated ids, `<font>` tags, no test ids, two confirmation channels (an in-page modal and a native `confirm()`), a real non-idempotent commit, **10 injectable faults**, 2 tenant variants of one vendor product. | 66 |
 | `fixtures/corebank-tui` | The 80×24 green screen: 4 fault modes in 2 families, 2 tenant variants, so `surface-terminal` has something hostile to drive. | 36 |
-| | **Total, all credentials unset** | **1,843** |
+| | **Total, all credentials unset** | **1,921** |
 
 All fixture data is obviously synthetic and marked so on the screens. No real PII and no real
 credential appears anywhere in this repository.
@@ -471,16 +495,28 @@ sites.
   demonstrated at turn *n* by a rehearsal, because a VCR transcript reports zero usage so the
   accumulated total never grows — and the live run finished at $0.14 under a $2.00 cap. The hook
   also has no unit test of its own; it is only reachable through `pnpm discover`.
-- **`provenance.json` is covered by no gating *value* canary pass.** The writer was fixed to scrub
-  observed outputs; a fifth scoped pass was deliberately not added, because it could not be tested
-  without spending another live run to produce input for it.
+- **The canary's own published report republishes what it quoted.** `canary.ts`'s second design
+  rule is that every context excerpt has all *known* values blanked before it is stored — and "known"
+  means known to that pass. The recording pass searches for the caller's argument alone, so a hit
+  whose excerpt straddles the results row prints the member's name and balance into
+  `evidence/discovery-live/canary/report.txt` and `canary/recording.json`. Every byte is a quotation
+  of `transcript.json:417`, where the row legitimately lives, so nothing new reaches the bundle and
+  no control was bypassed; what is violated is the rule that file states about itself. It is why
+  `canary/` is the one ledgered exclusion from the fifth pass's otherwise-total scope. The fix is a
+  blank-list separate from the needle-list, which means re-emitting the committed reports, which
+  means another live run.
 - **The canary that gates the build has a longer needle floor than the synthesis it is checking.**
-  `MIN_NEEDLE_LENGTH = 8` in `tools/discover.ts`; `MIN_OBSERVED_NEEDLE_LENGTH = 4` in
-  `synthesis/prose.ts`. On the live run this was live: `membershipStatus` was `ACTIVE`, six
+  `MIN_NEEDLE_LENGTH = 8` in `packages/discovery/tools/canaries.ts`;
+  `MIN_OBSERVED_NEEDLE_LENGTH = 4` in `packages/discovery/src/synthesis/prose.ts`. On the live run this was live: `membershipStatus` was `ACTIVE`, six
   characters, and `evidence/discovery-live/canary/report.txt` says so under `NOT SEARCHED, and why`.
   Nothing leaked, because synthesis's own 4-character rule withheld the prose that carried it — but
   the belt is 4 and the braces are 8, so a short observed value in a document synthesis failed to
-  scrub would ship CLEAN. Both numbers are judgement calls; they should be one number.
+  scrub would ship CLEAN. **Making them one number is not the fix, and that is now measured:**
+  re-running the passes over the live bundle at a floor of 4 fails the gating document pass with 4
+  hits, every one of them the string `MEMBER_FOUND_ACTIVE` — the symbolic outcome code the report
+  deliberately keeps and flags at `review` severity, because an observed value cannot be substituted
+  into a code and leave a legal code. The real fix is teaching that pass to exempt a
+  `SCREAMING_SNAKE` token the report already flagged.
 - **The live bundle names two content addresses for one artifact, and nothing in the bundle used to
   explain it.** `verification` is not on `ARTIFACT_DIGEST_EXCLUDED_FIELDS`, so writing the
   verification stamp moves the digest: `discovery.log` and `verification.json` say

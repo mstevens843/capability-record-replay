@@ -1,11 +1,19 @@
 // The three documents for the acceptance flow, written against the REAL `fixtures/corebank-web`.
 //
 // PROVENANCE, SAID FIRST BECAUSE IT MATTERS. **This artifact was hand-authored for build unit 11's
-// acceptance test. No model produced it.** Discovery and synthesis are units 13 and 14; when they
-// land, the artifact they emit replaces this file and this paragraph goes away. `provenance.model`
-// therefore says `adapter: "replay"` with a `modelId` that names no model and `transcriptRef: null`,
-// because the honest options in that enum are "a provider produced this" and this one did not. The
-// evidence bundle must never present a run of this artifact as a discovery run.
+// acceptance test. No model produced it.** `provenance.model` therefore says `adapter: "replay"`
+// with a `modelId` that names no model and `transcriptRef: null`, because the honest options in
+// that enum are "a provider produced this" and this one did not. The evidence bundle must never
+// present a run of this artifact as a discovery run.
+//
+// THIS COMMENT USED TO PREDICT ITS OWN DELETION - "when discovery and synthesis land, the artifact
+// they emit replaces this file". They landed, and it did not, and the prediction was wrong for a
+// reason worth writing down. A synthesized artifact is the OUTPUT of a run and changes whenever the
+// run is repeated; the acceptance suite needs an input it can pin, and `evidence/artifact/` needs
+// to be the document those tests actually replay so the bundle cannot drift away from them. The
+// artifact synthesis emitted from the live run is committed at `evidence/discovery-live/
+// synthesized/artifact.json` and is replayed by `test/synthesized-replay.test.ts`. Two artifacts,
+// two jobs, and neither pretends to be the other.
 //
 // ALL DATA IS SYNTHETIC. Nothing here carries a member number: the caller's argument is a typed
 // parameter and the artifact stores its SHAPE. That is not tidiness - `test/redaction.test.ts`

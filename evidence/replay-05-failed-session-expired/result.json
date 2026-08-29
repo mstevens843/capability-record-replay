@@ -62,7 +62,7 @@
     "observationRef": "obs:fdbdca2a5299692a7942a46669ea842936d036cd118df74eedbe1f8bca59deb8"
   },
   "run": {
-    "runId": "run-f221fb05-a8f4-433b-83fb-a108b5fd981e",
+    "runId": "run-26631f8b-de88-4e90-9ff7-9ed3c34ca2e3",
     "capability": {
       "name": "corebank.member.read_share_position",
       "version": "1.0.0"
@@ -80,9 +80,9 @@
     },
     "surface": "web-legacy",
     "engineVersion": "crr-runtime/0.1.0",
-    "startedAt": "2026-08-28T17:16:15.297Z",
-    "endedAt": "2026-08-28T17:16:16.113Z",
-    "durationMs": 816,
+    "startedAt": "2026-08-29T02:37:06.454Z",
+    "endedAt": "2026-08-29T02:37:07.254Z",
+    "durationMs": 800,
     "stepsExecuted": 4,
     "stepsTotal": 9,
     "budgets": {
@@ -103,7 +103,7 @@
         "limit": 1
       },
       "wallClockMs": {
-        "used": 817,
+        "used": 800,
         "limit": 180000
       }
     },
@@ -129,7 +129,7 @@
         },
         "skeletonDigest": "sha256:77133a7a47cabfb23d8a04fdd48bd97dff3e5670d891b221c3db0bf8275c79c4",
         "observationRef": null,
-        "elapsedMs": 148
+        "elapsedMs": 147
       },
       {
         "stepId": "enter-member-id",
@@ -140,7 +140,7 @@
         },
         "skeletonDigest": "sha256:014aa733ad56a65ca562941a1edf215144446165bd3145f7af8bce711be1ce89",
         "observationRef": null,
-        "elapsedMs": 162,
+        "elapsedMs": 157,
         "resolution": [
           {
             "descriptorId": "member-id-right-of-label",
@@ -167,7 +167,7 @@
         },
         "skeletonDigest": "sha256:8be7e5b0e9750e40cd59049e6b76df8a9fdd68cacd9ea33dad97cd28d9f46800",
         "observationRef": null,
-        "elapsedMs": 173,
+        "elapsedMs": 171,
         "resolution": [
           {
             "descriptorId": "search-by-name",
@@ -213,7 +213,7 @@
         },
         "skeletonDigest": "sha256:8be7e5b0e9750e40cd59049e6b76df8a9fdd68cacd9ea33dad97cd28d9f46800",
         "observationRef": null,
-        "elapsedMs": 159
+        "elapsedMs": 158
       },
       {
         "stepId": "open-member-record",
@@ -228,7 +228,7 @@
         },
         "skeletonDigest": "sha256:659180a60bf9b19e64be202a63135c2ed945f5a16c27d8275049ab25431e1bd9",
         "observationRef": null,
-        "elapsedMs": 166,
+        "elapsedMs": 159,
         "resolution": [
           {
             "descriptorId": "open-by-row-key",
@@ -256,9 +256,9 @@
     },
     "evidence": [
       "obs:fdbdca2a5299692a7942a46669ea842936d036cd118df74eedbe1f8bca59deb8",
-      "journal:ba87bd77cfaadabb6321cf99bfaeef36d1f74d38e7a05f9c9861d9f03ef7a601"
+      "journal:27a8b769957a3b34806a517cfeb73b234650eca771bdd6498aa0432e3df37252"
     ],
-    "journalRef": "journal:ba87bd77cfaadabb6321cf99bfaeef36d1f74d38e7a05f9c9861d9f03ef7a601",
+    "journalRef": "journal:27a8b769957a3b34806a517cfeb73b234650eca771bdd6498aa0432e3df37252",
     "warnings": []
   }
 }

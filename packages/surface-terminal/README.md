@@ -11,7 +11,7 @@ A port that has only ever had a Playwright implementation behind it is a claim. 
 implementation, and everything below was measured against it rather than reasoned about.
 
 ```bash
-pnpm -F @crr/surface-terminal test        # 119 tests, no browser, no credential
+pnpm -F @crr/surface-terminal test        # 125 tests, no browser, no credential
 pnpm -F @crr/fixture-corebank-tui test    # 36 tests, the green screen it drives
 ```
 

@@ -31,7 +31,7 @@ reusability story, the PII control and the route-canonicalization story.
 **Hand-authored.** `provenance.model.adapter` reads `replay` and the model id is
 `none:hand-authored-for-unit-11`, because that enum has no value meaning "a person wrote this".
 Every matcher in it was derived from a real `perceive()` over the fixture through
-`@crr/surface-browser`, but no model produced it. See `../discovery-live/PENDING.md`.
+`@crr/surface-browser`, but no model produced it. For one a model DID produce, see `../discovery-live/`.
 
 ## The approval
 

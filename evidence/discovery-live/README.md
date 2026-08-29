@@ -28,7 +28,7 @@
 | `verification-evidence/` | the observations that replay froze, with every bound value redacted. |
 | `provenance.json` | adapter, model id, prompt version, measured usage, measured cache hit rate, measured spend. |
 | `spend.json` | the per-turn cost ledger the budget guard decided on. |
-| `canary/` | all four redaction passes, and what each searched for. |
+| `canary/` | the four redaction passes this run performed, and what each searched for. A fifth was added afterwards — see below. |
 
 ## Where the member number is, and where it is not
 
@@ -52,6 +52,29 @@ second passes, and both gate the exit code.
 Member names and balances appear in the transcript (the model was shown the screen) and in the
 replay result (the caller asked for them). What they must never do is appear in `synthesized/`,
 and the first pass searches for them there too.
+
+## A fifth canary pass, added after this run
+
+> Added by hand after the run, by the same convention as the section below it: the run cannot
+> describe a pass that did not exist when it executed, and a reviewer reading `canary/` should not
+> have to conclude from four reports that this directory's own metadata is ungated.
+
+`canary/` holds four reports because this run was made with the four-pass runner. A **fifth gating
+pass** was added afterwards, in `packages/discovery/tools/canaries.ts`, and re-run over this bundle:
+**CLEAN**, 3 files, 27 needles, 0 hits, self-test 27/27.
+
+It covers `provenance.json`, `spend.json` and this `README.md` — everything the run writes *about*
+itself rather than as a record of it — and it searches for **recorded member data**: the values the
+run read off the screen. Those are legitimate in the recording (the model was shown the screen) and
+in the replay result (they are the outputs the caller asked for), and in nothing else. It does
+**not** search for the member number, which the three files above state on purpose; gating on that
+would make the pass unpassable for the same reason the fourth pass is not gated.
+
+Its scope is the **complement** of the other four, so a file added here later is scanned by default.
+`packages/discovery/test/canary-scopes.test.ts` (56 tests) reads this directory off disk and asserts
+that every path in it is covered, and that planting a member's name in `provenance.json` fails the
+pass by file and by needle. The four reports in `canary/` were not re-emitted, because re-emitting
+them means another live run.
 
 ## Two digests for one artifact — read this before you diff them
 

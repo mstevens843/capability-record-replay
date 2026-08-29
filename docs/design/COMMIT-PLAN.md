@@ -1,5 +1,26 @@
 # COMMIT-PLAN
 
+> **SUPERSEDED — HISTORICAL. Read this banner before any number below it.**
+>
+> This was a plan for commits that have since been made: `9048027` (*docs: README, REPORT and
+> evidence bundle for submission*) and `60367a9` (*computer-use capability record/replay for legacy
+> back-office apps*). Its opening sentence — *"Nothing here has been committed"* — was true when it
+> was written and is false now.
+>
+> **Three numbers in it are stale and are not corrected in place, because the draft commit messages
+> below are a record of what was actually written at the time and editing them would be a
+> fabrication.** As measured in the tree today (`docs/design/SUBMISSION-READY.md` carries the
+> commands): `pnpm lint` reads **317** files, not 313; `pnpm test` is **1,921** tests, not 1,843;
+> and the bundle is 65 files / **~1,169,000** bytes, a figure that moves by a few hundred bytes per
+> run because the run's own log is inside it.
+>
+> What is still true and still worth reading: the deletion list, the ordering rule (generated
+> content before the documents that quote it), and the closing rule — **do not run `pnpm discover`
+> in any form** while preparing the push.
+>
+> §6 below says *"nothing references it"* and offers `rm docs/design/COMMIT-PLAN.md`. That is still
+> the cleanest option if the internal design notes are not part of what ships.
+
 A suggested sequence for committing the submission-readiness pass by hand. Nothing here has been
 committed — the working tree carries every change and `git status` matches the groups below.
 

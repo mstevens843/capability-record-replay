@@ -1,7 +1,7 @@
 {
   "bundleDir": "/Users/devlegacy/Desktop/projects/ai-gap-coverage-projects/capability-record-replay/evidence",
   "filesScanned": 61,
-  "bytesScanned": 1155302,
+  "bytesScanned": 1157121,
   "secrets": [
     "scenarios 01/03/04/05 + cli-replay / args.memberId",
     "scenario 02 / args.memberId (absent member)",

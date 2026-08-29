@@ -27,7 +27,7 @@
     "approval": {
       "approvedBy": "ops-approver-4",
       "approvedAt": "2026-02-11T15:20:04.000Z",
-      "signature": "R8zL5yGbLBl1Uhn3PNrnkxvxeqLCaks-TVcMeIZ_kxqxbkVgjo6J7DbdZnRnQqKCWJ38cJsAzqVaPvXsL7Z7Ag",
+      "signature": "-3XeiZsyImPeP8ao-ARIxL6iDoVolF56qk4sor5HU_KFTn7GQAJCQ_uMKFtesas8AloVlrw_Y3ESF_vNf5zqCw",
       "keyId": "ops-approval-key-1",
       "alg": "ed25519",
       "over": "sha256:ba09bc6061370dbf99ecb3c541ab41d22b7808a668591a9730356d952cc726f3",

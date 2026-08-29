@@ -1,7 +1,9 @@
 # `/evidence` — what was actually run, and what was not
 
-**Every file in this directory was produced by `pnpm demo`, on a laptop, with no live service**
-**of any kind.** The only two things `pnpm demo` needs are a Chromium build and a free TCP port.
+**Every file in this directory except `discovery-live/` was produced by `pnpm demo`, on a**
+**laptop, with no live service of any kind.** The only two things `pnpm demo` needs are a
+Chromium build and a free TCP port. `discovery-live/` is the one exception and the next
+section is about it.
 
 **All data is synthetic.** `fixtures/corebank-web` is a purpose-built hostile back office; the
 members, balances and account numbers in it exist nowhere else and are marked `(SYNTHETIC)` on
@@ -33,8 +35,20 @@ with no model in the decision path.
 because that enum has no honest value for "a person wrote this". Every matcher in it was derived
 from a real `perceive()` over the fixture through `@crr/surface-browser` — none of it was written
 by reading the fixture's HTML — but a model did not produce it and this bundle does not pretend
-one did. When the live discovery run happens, the artifact that synthesis emits replaces it and
-this paragraph goes away.
+one did.
+
+This paragraph used to end by predicting its own deletion — *when the live discovery run
+happens, the artifact synthesis emits replaces this one*. The run has happened and it did
+not replace it, on purpose. A synthesized artifact is the **output** of a run and moves
+whenever the run is repeated; the suite that polices this bundle needs an input it can pin.
+So there are two synthesized artifacts and neither is presented as this one. The live run's
+is committed beside its recording at
+[`discovery-live/synthesized/artifact.json`](discovery-live/synthesized/artifact.json) and
+was replayed by that run itself, with the model out of the loop, at
+[`discovery-live/verification.json`](discovery-live/verification.json). A second, frozen one
+lives at `packages/discovery/test/fixtures/corebank-web.capability.json`, and
+`packages/runtime/test/synthesized-replay.test.ts` reads it off disk as data and replays it
+against this same fixture on every `pnpm test` — which is the claim a reviewer can rerun.
 
 The ed25519 approval key pair is generated per process, so `approver.spki.pem` and the signature
 inside `artifact.json` differ on every demo run. The **digest** they sign does not: it is over
@@ -96,7 +110,7 @@ alignment, which is too few to tell from noise. Those pairs are listed under `no
 [`redaction-canary/report.txt`](redaction-canary/report.txt). An encoding that was never searched
 for is not coverage, and a report that quietly dropped it would be claiming more than it checked.
 
-Result of the run that produced this bundle: **CLEAN** — 61 files, 1155302 bytes, 26 distinct needles, 0 hits, 0 credential-shaped strings, self-test passed (26/26).
+Result of the run that produced this bundle: **CLEAN** — 61 files, 1157121 bytes, 26 distinct needles, 0 hits, 0 credential-shaped strings, self-test passed (26/26).
 
 That report covers every file that existed when it ran. This `README.md`, the report itself and
 the finished `demo.log` are written afterwards, so a **second whole-bundle pass** runs once every

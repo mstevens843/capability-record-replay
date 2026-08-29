@@ -1,5 +1,18 @@
 # LIVE-RUN-READINESS — what `pnpm discover --yes` will do, and what it will cost
 
+> **THE RUN HAS SINCE HAPPENED. This is the dated document that authorised it, kept as written.**
+>
+> `pnpm discover --yes` was run by the author on 2026-08-28T02:24:10.144Z: `claude-opus-5`, 9 turns,
+> `reached-goal`, **$0.140904**, verified and drafted. What it actually did is in
+> `evidence/discovery-live/` and is analysed in `docs/design/FINAL-STATUS.md` §3. Everything below
+> is future-tense on purpose and is left that way.
+>
+> Two consequences for the board in §0, both of which are the guards working rather than drift.
+> `pnpm preflight` now reports **14 checks passed and 1 warning** rather than 15 and READY, because
+> `evidence/discovery-live/transcript.json` exists and the recorder will not silently overwrite a
+> committed run. And the counts have moved with the tree: **1,921** tests, not 1,820, and a bundle
+> of **65** files, not 48. `docs/design/SUBMISSION-READY.md` is the current board.
+
 **Written for the person whose card is on the account.** Every command below was run in this working
 tree on 2026-08-27 except the one this document exists to authorise, which was not run and must not
 be run by any agent (`.private/BRIEF.md` §11). Where a number is measured, the command that produced
@@ -390,8 +403,19 @@ finds one, rather than silently tidying up a file the runner deliberately left i
 and fails if the call is ever unguarded, and one that runs the same scanner against three sources
 that *do* break the rule — no guard, a guard in another function, and a guard with the sense
 inverted — so it is a scanner that can fail rather than one that passes because it looked at
-nothing. **`evidence/` was not touched by any of this**; the real bundle is still the author's to
-regenerate after the live run.
+nothing.
+
+> **CORRECTION, and it was measured rather than reasoned about.** This paragraph used to end
+> *"`evidence/` was not touched by any of this"*. **It was.** `cliReplay()` passed the shipped binary
+> seven repo-relative `evidence/…` paths while every other writer honoured `CRR_DEMO_EVIDENCE_DIR`,
+> so every one of the three runs above wrote `evidence/cli-replay/journal.jsonl` and a journal blob
+> into the **real** bundle while its transcript went to the scratch directory. Re-running two such
+> scratch demos in a later pass took `evidence/cli-replay/observations/` to three journal blobs and
+> the tracked bundle to 67 files, which is how it was found. Every one of those paths is now derived
+> from the bundle directory, `demo-contract.test.ts` fails on a repo-relative `evidence/…` literal in
+> `main.ts`, and the run was repeated with the fix in place: the committed bundle came back
+> byte-identical, checked file by file with `shasum -a 256`. The real bundle is still the author's to
+> regenerate after the live run.
 
 **Re-verified in the regeneration pass, from the direction that matters most.** That pass ran
 `pnpm demo` for real, against the real `evidence/` — the situation this section is about — and

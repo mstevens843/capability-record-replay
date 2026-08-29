@@ -6,6 +6,16 @@
 // point of this module and it is why the ref is content-addressed: two runs that failed on the same
 // screen write one file, and a conformance corpus assembled from real failures deduplicates itself.
 //
+// MEASURE THAT CLAIM BEFORE RELYING ON IT, because it holds less widely than it reads. A `UINode`
+// id from the browser driver is `<role>:f<frame>-<AX nodeId>`, and a CDP accessibility node id is a
+// per-document counter the browser owns - `surface-browser/src/normalize.ts` says so at the site,
+// "emphatically NOT an identity". Across five `pnpm demo` runs the same application-error screen
+// produced four different digests, every difference a single node id (`structure:f2-3` against
+// `structure:f2-4`). So: WITHIN one browser session two identical screens do deduplicate; ACROSS
+// sessions they do not, and a corpus assembled from failures in different processes will hold
+// near-duplicates. Normalizing the ids is not the fix - the journal names nodes by exactly these
+// ids, and a blob whose ids disagree with the journal that points at it is worse than a duplicate.
+//
 // REDACTION APPLIES HERE, and it is not optional. An observation off a member screen holds the
 // member's name, their balance and - because a legacy app prints back what you typed - the member
 // number the caller supplied. `redactObservation` substitutes every non-literal binding's value for
