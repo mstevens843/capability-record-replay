@@ -95,6 +95,44 @@ export const LabelTokenSchema = z
   .brand<"LabelToken">();
 export type LabelToken = z.infer<typeof LabelTokenSchema>;
 
+/**
+ * Who authored a business outcome - the declaration on the contract and the detector on the step.
+ *
+ * REQUIRED EVERYWHERE, WITH NO PARSE-TIME DEFAULT, and both halves of an outcome carry it. A
+ * default would be an origin that can be silently absent, which is a provenance field nobody can
+ * rely on; and because the field is inside both documents' digests, editing it after approval
+ * breaks the signature rather than rewriting history.
+ *
+ * `synthesized` is UNREACHABLE TODAY - `packages/discovery/src/synthesis/emit.ts` emits
+ * `outcomes: []` and a contract test pins that. It is in the enum anyway, because the day synthesis
+ * learns to derive a detector from an outcome screen the discovery run itself observed, the
+ * distinction has to already exist in every stored document. Adding the member later means every
+ * artifact written before that day is `origin: undefined`, and backfilling provenance across signed
+ * documents is not a thing that can be done honestly.
+ *
+ * `hand-authored` IS THE ONE THE DESIGN DID NOT HAVE, AND IT IS HERE BECAUSE THE REPOSITORY DOES.
+ * `docs/design/OUTCOME-PROMOTION.md` specifies a two-member enum, on the assumption that an outcome
+ * either came out of synthesis or came through the promotion path. Every detector in this
+ * repository predates the promotion path: `evidence/artifact/contract.json` "declares
+ * MEMBER_NOT_FOUND only because a human typed the whole document by hand, outside the lifecycle,
+ * with nothing checking the detector at all" - the design's own words, in its section 0. Calling
+ * those `reviewer-authored` would make linker check 29 demand a discrimination receipt for them,
+ * and the only ways to supply one are to fabricate a proof that never ran or to run a probe against
+ * a live browser and a green path this repository has never frozen (the design's own section 5.3.1
+ * says that screen is exactly what nobody has). Calling them `synthesized` would be a lie about a
+ * model. So the third member names the state they are actually in, which is the alternative to
+ * backfilling provenance with either of those.
+ *
+ * IT IS NOT A SIDE DOOR, AND IT IS NOT AS GOOD. A `hand-authored` detector is UNPROVEN: nothing has
+ * shown it fires on the outcome screen, and nothing has shown it is silent on the successful one.
+ * `crr promote` never writes it - it only ever writes `reviewer-authored`, and only behind a proof
+ * that returned `discriminates` - and `crr show` and `crr link` print it as UNPROVEN so it cannot
+ * be mistaken for the other. It is the state a capability migrates OUT of, and the honest reading
+ * of a document carrying one is "somebody's judgement, never checked".
+ */
+export const OutcomeOriginSchema = z.enum(["synthesized", "hand-authored", "reviewer-authored"]);
+export type OutcomeOrigin = z.infer<typeof OutcomeOriginSchema>;
+
 export const RouteIdSchema = slug(64).brand<"RouteId">();
 export type RouteId = z.infer<typeof RouteIdSchema>;
 

@@ -239,6 +239,20 @@ describe("the contract a calling agent sees", () => {
     );
   });
 
+  it('never emits `origin: "synthesized"`, so the dead enum member stays dead', async () => {
+    // `OutcomeOrigin` carries `synthesized` for a day that has not come: the day synthesis learns to
+    // derive a detector from an outcome screen the discovery run ITSELF observed, which is reachable
+    // - `DiscoveryRun.observations` holds every screen the model saw. The member is in the enum now
+    // so that provenance never has to be backfilled across signed documents, and this test is what
+    // keeps it from being revived by accident rather than on purpose. Reviving it deliberately means
+    // deleting this test, in a commit that says why.
+    const { contract, artifact } = await synthesized();
+    expect(JSON.stringify(contract)).not.toContain("synthesized");
+    expect(JSON.stringify(artifact)).not.toContain("synthesized");
+    expect(artifact.flow.steps.flatMap((step) => step.outcomes)).toEqual([]);
+    expect(artifact.promotions).toEqual([]);
+  });
+
   it("rolls the effect up from the artifact rather than claiming its own", async () => {
     const { contract, artifact } = await synthesized();
     expect(contract.effect).toBe(artifact.effects.maxEffect);
@@ -270,7 +284,7 @@ describe("the emitted documents link", () => {
     mode,
   });
 
-  it("passes all 28 checks in discovery and verification mode", async () => {
+  it("passes all 29 checks in discovery and verification mode", async () => {
     const { artifact, contract } = await synthesized();
     for (const mode of ["discovery", "verification"] as const) {
       const result = link(request(artifact, contract, mode));

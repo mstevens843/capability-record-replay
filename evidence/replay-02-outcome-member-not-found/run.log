@@ -5,8 +5,8 @@
    broker    can-reauthenticate
    armed     {"ok":true,"session":"s000001","armed":{"id":"not-found","screen":"results","mode":"sticky","delayMs":1200}}
    arm       OUTCOME   MEMBER_NOT_FOUND (terminal=true, callerAction=retry-different-input)
-   run       2/9 steps, 491ms, 3 step attempts
+   run       2/9 steps, 500ms, 3 step attempts
    budgets   actions 3, observations 9, remediations 0, program attempts 0
-   evidence  2 frozen observation(s), journal journal:7a455a8ec52e89ae81f6fd138b47882550f4b391efec3bb3342907f30c6c06b3
+   evidence  2 frozen observation(s), journal journal:12675c56214612adc7a2770d4e5f72f2ea29101a58ad575c82f62f245db280ae
    checked   every declared expectation held
 

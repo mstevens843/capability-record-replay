@@ -1,0 +1,646 @@
+[
+  {
+    "seq": 0,
+    "runId": "run-e211c484-5158-40bc-8d8b-33a61f7af6ff",
+    "at": "2026-08-30T01:29:01.493Z",
+    "type": "run.started",
+    "mode": "replay",
+    "capability": "corebank.member.read_share_position",
+    "artifactDigest": "sha256:7cde611ddc91bacab30c69a0731676d275b6f4cfe1a771a2480fc8765a6444cf",
+    "effectiveDigest": "sha256:7cde611ddc91bacab30c69a0731676d275b6f4cfe1a771a2480fc8765a6444cf",
+    "tenantId": "riverbend",
+    "argsShape": {
+      "memberId": "digits(5)"
+    }
+  },
+  {
+    "seq": 1,
+    "runId": "run-e211c484-5158-40bc-8d8b-33a61f7af6ff",
+    "at": "2026-08-30T01:29:01.513Z",
+    "type": "link.completed",
+    "checksRun": 29,
+    "errors": []
+  },
+  {
+    "seq": 2,
+    "runId": "run-e211c484-5158-40bc-8d8b-33a61f7af6ff",
+    "at": "2026-08-30T01:29:01.513Z",
+    "type": "session.opened",
+    "sessionId": "static-session",
+    "sessionProfile": "corebank-teller"
+  },
+  {
+    "seq": 3,
+    "runId": "run-e211c484-5158-40bc-8d8b-33a61f7af6ff",
+    "at": "2026-08-30T01:29:01.514Z",
+    "type": "lease.acquired",
+    "holder": "automation",
+    "actorId": "run:run-e211c484-5158-40bc-8d8b-33a61f7af6ff",
+    "epoch": 1
+  },
+  {
+    "seq": 4,
+    "runId": "run-e211c484-5158-40bc-8d8b-33a61f7af6ff",
+    "at": "2026-08-30T01:29:01.514Z",
+    "type": "step.entered",
+    "stepId": "fill-fill",
+    "index": 0,
+    "attempt": 1,
+    "effect": "WRITE_REVERSIBLE"
+  },
+  {
+    "seq": 5,
+    "runId": "run-e211c484-5158-40bc-8d8b-33a61f7af6ff",
+    "at": "2026-08-30T01:29:01.514Z",
+    "type": "budget.charged",
+    "ledger": "observations",
+    "used": 1,
+    "limit": 48
+  },
+  {
+    "seq": 6,
+    "runId": "run-e211c484-5158-40bc-8d8b-33a61f7af6ff",
+    "at": "2026-08-30T01:29:01.525Z",
+    "type": "observed",
+    "stepId": "fill-fill",
+    "obsSeq": 0,
+    "skeletonDigest": "sha256:77133a7a47cabfb23d8a04fdd48bd97dff3e5670d891b221c3db0bf8275c79c4",
+    "settled": true,
+    "nodeCount": 99,
+    "observationRef": null
+  },
+  {
+    "seq": 7,
+    "runId": "run-e211c484-5158-40bc-8d8b-33a61f7af6ff",
+    "at": "2026-08-30T01:29:01.526Z",
+    "type": "classified",
+    "stepId": "fill-fill",
+    "phase": "pre",
+    "verdict": {
+      "kind": "advance",
+      "outputs": []
+    },
+    "alsoMatched": []
+  },
+  {
+    "seq": 8,
+    "runId": "run-e211c484-5158-40bc-8d8b-33a61f7af6ff",
+    "at": "2026-08-30T01:29:01.527Z",
+    "type": "resolved",
+    "stepId": "fill-fill",
+    "descriptors": [
+      {
+        "id": "label-anchored",
+        "kind": "label-anchored",
+        "evidenceSource": "labelText",
+        "verdict": "resolved",
+        "nodeId": "textbox:f3-112"
+      },
+      {
+        "id": "ordinal-in-container",
+        "kind": "ordinal-in-container",
+        "evidenceSource": "ordinal",
+        "verdict": "resolved",
+        "nodeId": "textbox:f3-112"
+      }
+    ],
+    "agreed": true,
+    "distinctSources": 2
+  },
+  {
+    "seq": 9,
+    "runId": "run-e211c484-5158-40bc-8d8b-33a61f7af6ff",
+    "at": "2026-08-30T01:29:01.528Z",
+    "type": "policy.decided",
+    "decision": {
+      "allow": true,
+      "effect": "WRITE_REVERSIBLE",
+      "ruleId": "route:corebank/search"
+    },
+    "actionKind": "type",
+    "effect": "WRITE_REVERSIBLE"
+  },
+  {
+    "seq": 10,
+    "runId": "run-e211c484-5158-40bc-8d8b-33a61f7af6ff",
+    "at": "2026-08-30T01:29:01.528Z",
+    "type": "budget.charged",
+    "ledger": "actions",
+    "used": 1,
+    "limit": 13
+  },
+  {
+    "seq": 11,
+    "runId": "run-e211c484-5158-40bc-8d8b-33a61f7af6ff",
+    "at": "2026-08-30T01:29:01.541Z",
+    "type": "acted",
+    "stepId": "fill-fill",
+    "actionKind": "type",
+    "targetTitle": "the textbox to the right of the label <member-id>, within 32px, inside frame exactly \"top\", inside frame exactly \"content\", inside the form",
+    "valueRef": "taint:memberId-1",
+    "valueLength": 5,
+    "result": "dispatched"
+  },
+  {
+    "seq": 12,
+    "runId": "run-e211c484-5158-40bc-8d8b-33a61f7af6ff",
+    "at": "2026-08-30T01:29:01.542Z",
+    "type": "budget.charged",
+    "ledger": "observations",
+    "used": 2,
+    "limit": 48
+  },
+  {
+    "seq": 13,
+    "runId": "run-e211c484-5158-40bc-8d8b-33a61f7af6ff",
+    "at": "2026-08-30T01:29:01.700Z",
+    "type": "budget.charged",
+    "ledger": "observations",
+    "used": 3,
+    "limit": 48
+  },
+  {
+    "seq": 14,
+    "runId": "run-e211c484-5158-40bc-8d8b-33a61f7af6ff",
+    "at": "2026-08-30T01:29:01.862Z",
+    "type": "budget.charged",
+    "ledger": "observations",
+    "used": 4,
+    "limit": 48
+  },
+  {
+    "seq": 15,
+    "runId": "run-e211c484-5158-40bc-8d8b-33a61f7af6ff",
+    "at": "2026-08-30T01:29:01.879Z",
+    "type": "settled",
+    "stepId": "fill-fill",
+    "polls": 3,
+    "elapsedMs": 337,
+    "settled": true
+  },
+  {
+    "seq": 16,
+    "runId": "run-e211c484-5158-40bc-8d8b-33a61f7af6ff",
+    "at": "2026-08-30T01:29:01.880Z",
+    "type": "observed",
+    "stepId": "fill-fill",
+    "obsSeq": 3,
+    "skeletonDigest": "sha256:e41392131c3b50ffe57e8b5f4a29f7591995ee82fe439f3d3f4ec1ae74ad9af5",
+    "settled": true,
+    "nodeCount": 100,
+    "observationRef": null
+  },
+  {
+    "seq": 17,
+    "runId": "run-e211c484-5158-40bc-8d8b-33a61f7af6ff",
+    "at": "2026-08-30T01:29:01.880Z",
+    "type": "classified",
+    "stepId": "fill-fill",
+    "phase": "post",
+    "verdict": {
+      "kind": "advance",
+      "outputs": []
+    },
+    "alsoMatched": []
+  },
+  {
+    "seq": 18,
+    "runId": "run-e211c484-5158-40bc-8d8b-33a61f7af6ff",
+    "at": "2026-08-30T01:29:01.881Z",
+    "type": "checkpoint",
+    "stepId": "fill-fill",
+    "passed": true,
+    "trace": {
+      "rendered": "the surface is on route search and a textbox inside frame exactly \"top\", inside frame exactly \"content\", inside the form is present and the surface has settled - NOTE: the field is masked because its value is bound to a sensitive parameter, so the written value could not be read back; a truncating maxlength or input mask on this field would not be detected",
+      "clauses": [
+        {
+          "rendered": "the surface is on route search",
+          "verdict": true
+        },
+        {
+          "rendered": "a textbox inside frame exactly \"top\", inside frame exactly \"content\", inside the form is present",
+          "verdict": true,
+          "nodeSummary": "2 nodes matched"
+        },
+        {
+          "rendered": "the surface has settled",
+          "verdict": true
+        }
+      ]
+    }
+  },
+  {
+    "seq": 19,
+    "runId": "run-e211c484-5158-40bc-8d8b-33a61f7af6ff",
+    "at": "2026-08-30T01:29:01.882Z",
+    "type": "step.entered",
+    "stepId": "activate-search",
+    "index": 1,
+    "attempt": 1,
+    "effect": "WRITE_REVERSIBLE"
+  },
+  {
+    "seq": 20,
+    "runId": "run-e211c484-5158-40bc-8d8b-33a61f7af6ff",
+    "at": "2026-08-30T01:29:01.882Z",
+    "type": "budget.charged",
+    "ledger": "observations",
+    "used": 5,
+    "limit": 48
+  },
+  {
+    "seq": 21,
+    "runId": "run-e211c484-5158-40bc-8d8b-33a61f7af6ff",
+    "at": "2026-08-30T01:29:01.892Z",
+    "type": "observed",
+    "stepId": "activate-search",
+    "obsSeq": 4,
+    "skeletonDigest": "sha256:e41392131c3b50ffe57e8b5f4a29f7591995ee82fe439f3d3f4ec1ae74ad9af5",
+    "settled": true,
+    "nodeCount": 100,
+    "observationRef": null
+  },
+  {
+    "seq": 22,
+    "runId": "run-e211c484-5158-40bc-8d8b-33a61f7af6ff",
+    "at": "2026-08-30T01:29:01.892Z",
+    "type": "classified",
+    "stepId": "activate-search",
+    "phase": "pre",
+    "verdict": {
+      "kind": "advance",
+      "outputs": []
+    },
+    "alsoMatched": []
+  },
+  {
+    "seq": 23,
+    "runId": "run-e211c484-5158-40bc-8d8b-33a61f7af6ff",
+    "at": "2026-08-30T01:29:01.893Z",
+    "type": "resolved",
+    "stepId": "activate-search",
+    "descriptors": [
+      {
+        "id": "role-name",
+        "kind": "role-name",
+        "evidenceSource": "accessibleName",
+        "verdict": "resolved",
+        "nodeId": "button:f3-122"
+      },
+      {
+        "id": "label-anchored",
+        "kind": "label-anchored",
+        "evidenceSource": "labelText",
+        "verdict": "resolved",
+        "nodeId": "button:f3-122"
+      },
+      {
+        "id": "ordinal-in-container",
+        "kind": "ordinal-in-container",
+        "evidenceSource": "ordinal",
+        "verdict": "resolved",
+        "nodeId": "button:f3-122"
+      }
+    ],
+    "agreed": true,
+    "distinctSources": 3
+  },
+  {
+    "seq": 24,
+    "runId": "run-e211c484-5158-40bc-8d8b-33a61f7af6ff",
+    "at": "2026-08-30T01:29:01.893Z",
+    "type": "policy.decided",
+    "decision": {
+      "allow": true,
+      "effect": "WRITE_REVERSIBLE",
+      "ruleId": "route:corebank/search"
+    },
+    "actionKind": "click",
+    "effect": "WRITE_REVERSIBLE"
+  },
+  {
+    "seq": 25,
+    "runId": "run-e211c484-5158-40bc-8d8b-33a61f7af6ff",
+    "at": "2026-08-30T01:29:01.893Z",
+    "type": "budget.charged",
+    "ledger": "actions",
+    "used": 2,
+    "limit": 13
+  },
+  {
+    "seq": 26,
+    "runId": "run-e211c484-5158-40bc-8d8b-33a61f7af6ff",
+    "at": "2026-08-30T01:29:01.895Z",
+    "type": "acted",
+    "stepId": "activate-search",
+    "actionKind": "click",
+    "targetTitle": "the button named <search>, inside frame exactly \"top\", inside frame exactly \"content\", inside the form",
+    "valueRef": null,
+    "valueLength": null,
+    "result": "dispatched"
+  },
+  {
+    "seq": 27,
+    "runId": "run-e211c484-5158-40bc-8d8b-33a61f7af6ff",
+    "at": "2026-08-30T01:29:01.895Z",
+    "type": "budget.charged",
+    "ledger": "observations",
+    "used": 6,
+    "limit": 48
+  },
+  {
+    "seq": 28,
+    "runId": "run-e211c484-5158-40bc-8d8b-33a61f7af6ff",
+    "at": "2026-08-30T01:29:02.060Z",
+    "type": "budget.charged",
+    "ledger": "observations",
+    "used": 7,
+    "limit": 48
+  },
+  {
+    "seq": 29,
+    "runId": "run-e211c484-5158-40bc-8d8b-33a61f7af6ff",
+    "at": "2026-08-30T01:29:02.228Z",
+    "type": "budget.charged",
+    "ledger": "observations",
+    "used": 8,
+    "limit": 48
+  },
+  {
+    "seq": 30,
+    "runId": "run-e211c484-5158-40bc-8d8b-33a61f7af6ff",
+    "at": "2026-08-30T01:29:02.249Z",
+    "type": "settled",
+    "stepId": "activate-search",
+    "polls": 3,
+    "elapsedMs": 354,
+    "settled": true
+  },
+  {
+    "seq": 31,
+    "runId": "run-e211c484-5158-40bc-8d8b-33a61f7af6ff",
+    "at": "2026-08-30T01:29:02.249Z",
+    "type": "observed",
+    "stepId": "activate-search",
+    "obsSeq": 7,
+    "skeletonDigest": "sha256:ad2ce166f03dd9a941bdc1bf8ac0c5ea08756e24e8a273f0597d428be3111019",
+    "settled": true,
+    "nodeCount": 121,
+    "observationRef": null
+  },
+  {
+    "seq": 32,
+    "runId": "run-e211c484-5158-40bc-8d8b-33a61f7af6ff",
+    "at": "2026-08-30T01:29:02.250Z",
+    "type": "classified",
+    "stepId": "activate-search",
+    "phase": "post",
+    "verdict": {
+      "kind": "advance",
+      "outputs": []
+    },
+    "alsoMatched": []
+  },
+  {
+    "seq": 33,
+    "runId": "run-e211c484-5158-40bc-8d8b-33a61f7af6ff",
+    "at": "2026-08-30T01:29:02.250Z",
+    "type": "checkpoint",
+    "stepId": "activate-search",
+    "passed": true,
+    "trace": {
+      "rendered": "the surface is on route search-results and a cell named <member-id> inside frame exactly \"top\", inside frame exactly \"content\", inside the form, inside the table with columns [<member-id>, <name>, <share-balance>, <status>, <action>] is present and a cell named <name> inside frame exactly \"top\", inside frame exactly \"content\", inside the form, inside the table with columns [<member-id>, <name>, <share-balance>, <status>, <action>] is present and the surface has settled",
+      "clauses": [
+        {
+          "rendered": "the surface is on route search-results",
+          "verdict": true
+        },
+        {
+          "rendered": "a cell named <member-id> inside frame exactly \"top\", inside frame exactly \"content\", inside the form, inside the table with columns [<member-id>, <name>, <share-balance>, <status>, <action>] is present",
+          "verdict": true,
+          "evidenceSource": "accessibleName",
+          "nodeSummary": "matched the cell named \"Member ID\""
+        },
+        {
+          "rendered": "a cell named <name> inside frame exactly \"top\", inside frame exactly \"content\", inside the form, inside the table with columns [<member-id>, <name>, <share-balance>, <status>, <action>] is present",
+          "verdict": true,
+          "evidenceSource": "accessibleName",
+          "nodeSummary": "matched the cell named \"Name\""
+        },
+        {
+          "rendered": "the surface has settled",
+          "verdict": true
+        }
+      ]
+    }
+  },
+  {
+    "seq": 34,
+    "runId": "run-e211c484-5158-40bc-8d8b-33a61f7af6ff",
+    "at": "2026-08-30T01:29:02.250Z",
+    "type": "step.entered",
+    "stepId": "read-membername-sharebalance-membershipstatus",
+    "index": 2,
+    "attempt": 1,
+    "effect": "READ"
+  },
+  {
+    "seq": 35,
+    "runId": "run-e211c484-5158-40bc-8d8b-33a61f7af6ff",
+    "at": "2026-08-30T01:29:02.250Z",
+    "type": "budget.charged",
+    "ledger": "observations",
+    "used": 9,
+    "limit": 48
+  },
+  {
+    "seq": 36,
+    "runId": "run-e211c484-5158-40bc-8d8b-33a61f7af6ff",
+    "at": "2026-08-30T01:29:02.262Z",
+    "type": "observed",
+    "stepId": "read-membername-sharebalance-membershipstatus",
+    "obsSeq": 8,
+    "skeletonDigest": "sha256:ad2ce166f03dd9a941bdc1bf8ac0c5ea08756e24e8a273f0597d428be3111019",
+    "settled": true,
+    "nodeCount": 121,
+    "observationRef": null
+  },
+  {
+    "seq": 37,
+    "runId": "run-e211c484-5158-40bc-8d8b-33a61f7af6ff",
+    "at": "2026-08-30T01:29:02.262Z",
+    "type": "classified",
+    "stepId": "read-membername-sharebalance-membershipstatus",
+    "phase": "pre",
+    "verdict": {
+      "kind": "advance",
+      "outputs": []
+    },
+    "alsoMatched": []
+  },
+  {
+    "seq": 38,
+    "runId": "run-e211c484-5158-40bc-8d8b-33a61f7af6ff",
+    "at": "2026-08-30T01:29:02.262Z",
+    "type": "budget.charged",
+    "ledger": "observations",
+    "used": 10,
+    "limit": 48
+  },
+  {
+    "seq": 39,
+    "runId": "run-e211c484-5158-40bc-8d8b-33a61f7af6ff",
+    "at": "2026-08-30T01:29:02.421Z",
+    "type": "budget.charged",
+    "ledger": "observations",
+    "used": 11,
+    "limit": 48
+  },
+  {
+    "seq": 40,
+    "runId": "run-e211c484-5158-40bc-8d8b-33a61f7af6ff",
+    "at": "2026-08-30T01:29:02.591Z",
+    "type": "budget.charged",
+    "ledger": "observations",
+    "used": 12,
+    "limit": 48
+  },
+  {
+    "seq": 41,
+    "runId": "run-e211c484-5158-40bc-8d8b-33a61f7af6ff",
+    "at": "2026-08-30T01:29:02.611Z",
+    "type": "settled",
+    "stepId": "read-membername-sharebalance-membershipstatus",
+    "polls": 3,
+    "elapsedMs": 350,
+    "settled": true
+  },
+  {
+    "seq": 42,
+    "runId": "run-e211c484-5158-40bc-8d8b-33a61f7af6ff",
+    "at": "2026-08-30T01:29:02.612Z",
+    "type": "observed",
+    "stepId": "read-membername-sharebalance-membershipstatus",
+    "obsSeq": 11,
+    "skeletonDigest": "sha256:ad2ce166f03dd9a941bdc1bf8ac0c5ea08756e24e8a273f0597d428be3111019",
+    "settled": true,
+    "nodeCount": 121,
+    "observationRef": null
+  },
+  {
+    "seq": 43,
+    "runId": "run-e211c484-5158-40bc-8d8b-33a61f7af6ff",
+    "at": "2026-08-30T01:29:02.613Z",
+    "type": "classified",
+    "stepId": "read-membername-sharebalance-membershipstatus",
+    "phase": "post",
+    "verdict": {
+      "kind": "fail",
+      "failure": "checkpoint-failed",
+      "detail": {
+        "sideEffects": "possible",
+        "expected": {
+          "rendered": "the surface is on route search-results and the cell in column <name> of the row whose <member-id> cell equals param.memberId inside frame exactly \"top\", inside frame exactly \"content\", inside the form, inside the table with columns [<member-id>, <name>, <share-balance>, <status>, <action>] is present and the cell in column <share-balance> of the row whose <member-id> cell equals param.memberId inside frame exactly \"top\", inside frame exactly \"content\", inside the form, inside the table with columns [<member-id>, <name>, <share-balance>, <status>, <action>] is present and the cell in column <status> of the row whose <member-id> cell equals param.memberId inside frame exactly \"top\", inside frame exactly \"content\", inside the form, inside the table with columns [<member-id>, <name>, <share-balance>, <status>, <action>] is present",
+          "clauses": [
+            {
+              "rendered": "the surface is on route search-results",
+              "verdict": true
+            },
+            {
+              "rendered": "the cell in column <name> of the row whose <member-id> cell equals param.memberId inside frame exactly \"top\", inside frame exactly \"content\", inside the form, inside the table with columns [<member-id>, <name>, <share-balance>, <status>, <action>] is present",
+              "verdict": false,
+              "evidenceSource": "columnHeader",
+              "nodeSummary": "nothing in scope matched"
+            },
+            {
+              "rendered": "the cell in column <share-balance> of the row whose <member-id> cell equals param.memberId inside frame exactly \"top\", inside frame exactly \"content\", inside the form, inside the table with columns [<member-id>, <name>, <share-balance>, <status>, <action>] is present",
+              "verdict": false,
+              "evidenceSource": "columnHeader",
+              "nodeSummary": "nothing in scope matched"
+            },
+            {
+              "rendered": "the cell in column <status> of the row whose <member-id> cell equals param.memberId inside frame exactly \"top\", inside frame exactly \"content\", inside the form, inside the table with columns [<member-id>, <name>, <share-balance>, <status>, <action>] is present",
+              "verdict": false,
+              "evidenceSource": "columnHeader",
+              "nodeSummary": "nothing in scope matched"
+            }
+          ]
+        },
+        "observed": {
+          "route": {
+            "originAlias": "corebank",
+            "path": "/search/results",
+            "query": {
+              "ctl00$ctl32$g$9a1$txtMemberId": "<taint:memberId-1>",
+              "ctl00$ctl32$g$9a1$txtLast": "",
+              "ctl00$ctl32$g$9a1$btnGo": "Search"
+            },
+            "frame": "content"
+          },
+          "settled": true,
+          "pendingReason": null,
+          "skeletonDigest": "sha256:ad2ce166f03dd9a941bdc1bf8ac0c5ea08756e24e8a273f0597d428be3111019",
+          "nodeCount": 121,
+          "nativeDialog": null,
+          "inputIntercepted": false,
+          "salient": [
+            {
+              "role": "link",
+              "name": "Member Search",
+              "disabled": false,
+              "visible": true
+            },
+            {
+              "role": "link",
+              "name": "Account Maintenance",
+              "disabled": false,
+              "visible": true
+            },
+            {
+              "role": "link",
+              "name": "Card Services",
+              "disabled": false,
+              "visible": true
+            },
+            {
+              "role": "link",
+              "name": "Teller Journal",
+              "disabled": false,
+              "visible": true
+            },
+            {
+              "role": "button",
+              "name": "Search",
+              "disabled": false,
+              "visible": true
+            }
+          ],
+          "redactionsApplied": 1
+        },
+        "attempts": [],
+        "retriable": "after-human-action",
+        "operatorAction": "The postcondition did not hold; the expectation trace says which clause."
+      }
+    },
+    "alsoMatched": []
+  },
+  {
+    "seq": 44,
+    "runId": "run-e211c484-5158-40bc-8d8b-33a61f7af6ff",
+    "at": "2026-08-30T01:29:02.619Z",
+    "type": "evidence.captured",
+    "ref": "obs:394ed4f0ecb4eff6dfbed88e829141f4587973e26257cb6ea017844b95d8df8a",
+    "kind": "observation",
+    "maskedRegions": 0,
+    "stepId": "read-membername-sharebalance-membershipstatus",
+    "phase": "post"
+  },
+  {
+    "seq": 45,
+    "runId": "run-e211c484-5158-40bc-8d8b-33a61f7af6ff",
+    "at": "2026-08-30T01:29:02.619Z",
+    "type": "run.finished",
+    "status": "failed",
+    "failureClass": "checkpoint-failed"
+  }
+]

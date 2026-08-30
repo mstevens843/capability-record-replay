@@ -50,9 +50,9 @@ CLAUDE_CODE_OAUTH_TOKEN` prefixed, to prove it structurally rather than by inspe
 | **The fallback-chain mutant (`nearestMatch`) is killed by 6 scenarios and every one is a false success** — the mutant told a caller a business outcome for a broken run | **measured** | same command, kill-matrix row `nearestMatch  04,06,08,09,15,21` |
 | **Replay is deterministic over the corpus**: 25 scenarios × 20 runs, flake rate 0.0%, 0 result documents that were not byte-identical | **measured, on a fixture I wrote** | same command |
 | **4 of 9 mutants survive the terminal corpus** (`noAssert`, `noSettleGate`, `noContinuity`, `noProvenance`), each with a written reason asserted by the test | **limitation, reported not hidden** | `pnpm -F @crr/conformance exec vitest run test/terminal-conformance.test.ts` → 10 passed |
-| **The whole repository builds and tests with zero credentials.** 1,921 tests, 8 workspace members | **measured** | `env -u … pnpm test` → `Tasks: 14 successful, 14 total`, exit 0 |
-| **`pnpm demo` produces the entire evidence bundle with no live service**, all three arms of the taxonomy exhibited, redaction canary clean on both passes | **measured** | `env -u … pnpm demo` → seven `PASS` lines, `whole-bundle canary pass: CLEAN - 65 files, 0 hits`, `DEMO OK`, exit 0 |
-| **The bundle `pnpm demo` produces is the same bundle every time**: three consecutive runs, 65 files each, the same paths once content-address digests are normalized. The count is no longer narrated — the run compares it against an independent walk of the finished directory, and fails on any blob no run in the bundle claims | **measured, verified by injection** | `env -u … pnpm demo` ×3 → `65 files`, `7 blob directories checked, every file accounted for`, `DEMO OK`, exit 0; planting one stray blob gives `BUNDLE INTEGRITY FAILED - 2 stray blob(s)`, `DEMO FAILED`, exit 1 |
+| **The whole repository builds and tests with zero credentials.** 1,984 tests, 8 workspace members | **measured** | `env -u … pnpm test` → `Tasks: 14 successful, 14 total`, exit 0 |
+| **`pnpm demo` produces the entire evidence bundle with no live service**, all three arms of the taxonomy exhibited, redaction canary clean on both passes | **measured** | `env -u … pnpm demo` → seven `PASS` lines, `whole-bundle canary pass: CLEAN - 144 files, 0 hits`, `DEMO OK`, exit 0 |
+| **The bundle `pnpm demo` produces is the same bundle every time**: three consecutive runs, 144 files each, the same paths once content-address digests are normalized. The count is no longer narrated — the run compares it against an independent walk of the finished directory, and fails on any blob no run in the bundle claims | **measured, verified by injection** | `env -u … pnpm demo` ×3 → `144 files`, `7 blob directories checked, every file accounted for`, `DEMO OK`, exit 0; planting one stray blob gives `BUNDLE INTEGRITY FAILED - 2 stray blob(s)`, `DEMO FAILED`, exit 1 |
 | **The engine cannot read a clock, do I/O, or import a driver, and no package above the drivers contains CSS vocabulary** — read off disk, not asserted | **measured, verified by injection** | `pnpm -F @crr/core exec vitest run test/purity.test.ts test/no-locator-vocabulary.test.ts test/policy-chokepoint.test.ts` → 44 passed |
 | **The spend cap stops a run before it starts. It has never bound *mid-run*.** The between-turns guard fires on the projection, demonstrated free at the turn-0 boundary; it has no unit test and no run has ever crossed it at turn *n* | **partially proven** | `pnpm discover --dry-run --force --max-usd 0.02` → `status budget-exhausted`, `$0.0000 has been billed and turn 1 projects to at most $0.06 … which would cross the $0.02 ceiling`, exit 1 |
 | **Every file in the live bundle is covered by a gating canary pass, and the files that describe the run rather than record it are grepped for member data.** A fifth gating pass (`5 metadata`) takes its scope as the complement of the other four, so `provenance.json`, `spend.json` and the bundle README are covered and a file added later is covered by default | **measured, verified by injection** | `pnpm -F @crr/discovery exec vitest run test/canary-scopes.test.ts` → 56 passed; injecting the pre-fix `finish.summary` into a copy of `provenance.json` fails the pass naming the file and both needles, and restoring the bytes passes it |
@@ -100,9 +100,9 @@ REDACTION CANARY  CLEAN
   suppressed    0 (inside a digest-shaped hex run)
   credentials   0
 
-   65 files in the bundle, produced in 10s
+   144 files in the bundle, produced in 10s
    discovery-live/  a LIVE model run is present - see its own README.md and provenance.json
-   whole-bundle canary pass: CLEAN - 65 files, 0 hits
+   whole-bundle canary pass: CLEAN - 144 files, 0 hits
 DEMO OK
 ```
 
@@ -123,7 +123,7 @@ From the repo root, `pnpm exec playwright …` fails with `Command "playwright" 
 `npx playwright …` fails with `sh: playwright: command not found`. Use the scoped form above.
 
 **Without a Chromium build the test suite is still green, and that is a trap worth naming.** 46 of
-the 1,921 tests skip — including every test that has ever touched a real browser — and each guard
+the 1,984 tests skip — including every test that has ever touched a real browser — and each guard
 prints a warning to stderr, but the board reads green:
 
 ```text
@@ -256,6 +256,55 @@ run green right now:
 | **Multi-tenant reuse** — *one* artifact replayed green against two tenant variants of the same vendor product through a vocabulary overlay, with a cross-tenant divergence report | `pnpm -F @crr/runtime exec vitest run test/browser-overlay.test.ts` | 4 passed |
 | **Heterogeneity** — the same `activate` step lowered to `F3` on one tenant's green screen and `F12` on the other's, from an artifact that contains no key and no escape byte | `pnpm -F @crr/conformance exec vitest run test/heterogeneity.test.ts` | 14 passed |
 | **The irreversible boundary** — a real sub-account opened against the fixture in a real browser, the modal confirmation as the postcondition, committed exactly once; plus a dry run that stops at the boundary and does not perform it | `pnpm -F @crr/runtime exec vitest run test/browser-write.test.ts` | 6 passed |
+| **Outcome promotion** — the path from a `needs-detector` review note to a business outcome a caller can act on: a human writes a detector, a pure proof over frozen screens refuses it unless it fires on the outcome screen and is silent on every other one, and the revision has to replay its happy path again | `pnpm -F @crr/core exec vitest run test/promotion.test.ts` · `pnpm -F @crr/runtime exec vitest run test/promote.test.ts` | 28 + 28 passed |
+
+#### Promoting an outcome, in the order a person does it
+
+Synthesis emits `contract.outcomes: []` and refuses to invent a detector — a detector for a screen
+the run never observed is exactly how a false `MEMBER_NOT_FOUND` ships. `crr promote` is the other
+half: the reviewer writes the detector, and the machine makes them prove it. **Nothing in this path
+reaches a model**, and no step of it spends a credential.
+
+```bash
+# 1. Freeze the screens. A green run normally freezes NOTHING (`captureOn: ["failure"]`), so the one
+#    observation the proof cannot do without is the one nobody has. --capture-every reverses that
+#    for one run; it is a runtime option and does not move the artifact's content address.
+crr probe contract.json artifact.json --surface ./surface.mjs \
+    --args '{"memberId":"00000"}' --evidence evidence/probe-not-found --journal evidence/probe-not-found/journal.jsonl
+crr probe contract.json artifact.json --surface ./surface.mjs \
+    --args '{"memberId":"10041"}' --evidence evidence/probe-green    --journal evidence/probe-green/journal.jsonl
+#    both print a step / phase / content-address table; the positive is one line of reading
+
+# 2. Iterate against the proof, writing nothing. This is where a detector gets fixed, and it costs
+#    no session and no document.
+crr promote contract.json artifact.json --review promotion.json \
+    --corpus evidence/probe-not-found --corpus evidence/probe-green --tenant riverbend --dry-run
+
+# 3. Promote. Emits contract@2.0.0 (MAJOR: an added outcome breaks an exhaustive switch) and
+#    artifact@v2 (proposed), and archives the review under its own digest. v1 is left untouched.
+crr promote contract.json artifact.json --review promotion.json \
+    --corpus evidence/probe-not-found --corpus evidence/probe-green --tenant riverbend --out-dir v2/
+
+# 4. Verify. The SECOND gate, and not a formality: the classifier evaluates declared outcomes BEFORE
+#    the checkpoint, so a detector that also matches the successful screen turns every green run into
+#    a confident MEMBER_NOT_FOUND. If it hijacks the happy path this fails and v2 stays `proposed`.
+crr verify v2/contract.json v2/artifact.json --surface ./surface.mjs --out v2/artifact.json
+
+# 5. Approve. The approver ticks the promoted code by hand, and `approve()` refuses on mismatch in
+#    both directions - exactly as it does for the grade and the effect classes.
+crr approve v2/artifact.json --sign-key ops-key-1:approver.pem --approver ops-approver-4 \
+    --ack-grade full --ack-effects READ --ack-promotions MEMBER_NOT_FOUND
+```
+
+**This has now been done for real, against the live run's own artifact**, and the whole walk is in
+[`evidence/outcome-promotion/`](./evidence/outcome-promotion): six `crr probe --capture-every` runs
+against the browser fixture, a detector a reviewer wrote, a proof that **refused the reviewer's first
+attempt**, `contract@2.0.0` + `artifact@2`, the re-verification replay, and the invocation that comes
+back `OUTCOME MEMBER_NOT_FOUND` (exit 2) where v1 came back `failed / checkpoint-failed`. Its
+`README.md` names a producer for every file — model, reviewer, or deterministic code — and the four
+defects the exercise found in this repository's own code. `evidence/artifact/` is untouched and its
+outcome is still `origin: "hand-authored"`, which `crr show` and `crr link` print as `UNPROVEN`. See
+`REPORT.md` §7 and `docs/design/OUTCOME-PROMOTION.md`.
 
 ### 4. Everything else
 
@@ -412,6 +461,7 @@ the bundle, and it names which adapter produced every directory.
 | [`masked-capture/`](./evidence/masked-capture) | A screenshot with three regions bound to sensitive fields blanked *before the bytes left the driver* | no |
 | [`cli-replay/`](./evidence/cli-replay) | The same replay through the shipped CLI, so one transcript is reproducible verbatim | no |
 | [`redaction-canary/`](./evidence/redaction-canary) | What the canary searched for, in what encodings, and what it could not search for | no |
+| [`outcome-promotion/`](./evidence/outcome-promotion) | A reviewer walking the live run's artifact from `outcomes: []` to a proven `MEMBER_NOT_FOUND`: the probes, the refused first attempt, the proof, `contract@2.0.0`, the re-verification, and the invocation that returns the typed arm | no — it starts from two documents the live run produced and nothing else in it came from a model |
 
 **How to read one run.** `result.json` is what the calling agent receives. `journal.jsonl` is the
 structured journal written as the run happened. `run.log` is that scenario's console output.
@@ -456,15 +506,15 @@ drawn on **purity**, not subject matter, because that is the boundary a contract
 
 | Member | One line | Tests |
 | --- | --- | ---: |
-| `packages/core` | The schema and validators, canonical JSON + SHA-256 digest, the 28-check linker, the classifier, the target resolver, the extractor, the overlay merge, the policy predicate and the prose renderers. **Zero I/O, zero clock, zero randomness, zero driver imports — checked by a source-scanning test, verified by injecting a real violation.** | 788 |
-| `packages/runtime` | The impure half, all in one place: interpreter, settle loop, budget ledgers, control lease, journal writer, evidence sink, file-backed store, the catalog and `invoke` host, ed25519 approval verification, the operator console, the redaction canary, the `crr` CLI and `pnpm demo`. | 336 |
-| `packages/discovery` | The model provider port, the hand-written Anthropic tool-use loop, the OpenAI adapter, the VCR transcript recorder/replayer, deterministic synthesis, and the `preflight` / `discover` entry points. The only package that may import a model SDK. | 361 |
+| `packages/core` | The schema and validators, canonical JSON + SHA-256 digest, the 29-check linker, the classifier, the target resolver, the extractor, the overlay merge, the policy predicate, the **detector discrimination proof**, and the prose renderers. **Zero I/O, zero clock, zero randomness, zero driver imports — checked by a source-scanning test, verified by injecting a real violation.** | 819 |
+| `packages/runtime` | The impure half, all in one place: interpreter, settle loop, budget ledgers, control lease, journal writer, evidence sink, file-backed store, the catalog and `invoke` host, ed25519 approval verification, outcome promotion, the operator console, the redaction canary, the `crr` CLI and `pnpm demo`. | 367 |
+| `packages/discovery` | The model provider port, the hand-written Anthropic tool-use loop, the OpenAI adapter, the VCR transcript recorder/replayer, deterministic synthesis, and the `preflight` / `discover` entry points. The only package that may import a model SDK. | 362 |
 | `packages/surface-browser` | Playwright + per-frame CDP `Accessibility.getFullAXTree` stitched into an `Observation`. Not `querySelector`. Owns dialogs, the `perceive` deadline and PNG region masking. | 107 |
 | `packages/surface-terminal` | `@xterm/headless` over a `TerminalTransport` port → an `Observation` built from an 80×24 character grid. **Exists to falsify the port**: if the abstraction only fits a browser, this is where that stops being aspirational. | 125 |
 | `packages/conformance` | 25 browser + 14 terminal fault scenarios × 10 engines (1 reference, 9 mutants), the meta-test that fails when the suite stops discriminating, and multi-run stability. Separate so the broken engines can never ship inside `@crr/core`. | 102 |
 | `fixtures/corebank-web` | The hostile proxy surface: frameset, nested layout tables, generated ids, `<font>` tags, no test ids, two confirmation channels (an in-page modal and a native `confirm()`), a real non-idempotent commit, **10 injectable faults**, 2 tenant variants of one vendor product. | 66 |
 | `fixtures/corebank-tui` | The 80×24 green screen: 4 fault modes in 2 families, 2 tenant variants, so `surface-terminal` has something hostile to drive. | 36 |
-| | **Total, all credentials unset** | **1,921** |
+| | **Total, all credentials unset** | **1,984** |
 
 All fixture data is obviously synthetic and marked so on the screens. No real PII and no real
 credential appears anywhere in this repository.

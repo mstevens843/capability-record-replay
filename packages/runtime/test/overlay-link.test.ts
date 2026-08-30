@@ -2,7 +2,7 @@
 //
 // `browser-overlay.test.ts` proves the merged program runs at the second tenant. This file proves
 // the things a running program cannot show you: that the overlay changed only what it is allowed to
-// change, that the base artifact's bytes are untouched, that the linker re-runs all 28 checks over
+// change, that the base artifact's bytes are untouched, that the linker re-runs all 29 checks over
 // the merged document, and that four specific abuses are refused. Hermetic - no browser, no socket,
 // no clock, no credential - so it runs on a machine with no Chromium and still holds the design up.
 //
@@ -52,7 +52,7 @@ const explain = (result: ReturnType<typeof link>): string =>
   result.ok ? "linked" : JSON.stringify(result.errors, null, 2);
 
 describe("the summit overlay merges, and the merged program links", () => {
-  it("links under all 28 checks, over the merged document rather than the base", () => {
+  it("links under all 29 checks, over the merged document rather than the base", () => {
     const result = linkWith(summitOverlay(ORIGIN));
     expect(result.ok ? null : explain(result)).toBeNull();
   });

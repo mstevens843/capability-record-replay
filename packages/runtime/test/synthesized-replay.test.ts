@@ -1,7 +1,7 @@
 // THE SEAM. A SYNTHESIZED ARTIFACT, EXECUTED.
 //
 // FINAL-STATUS section 7.2 named the one gap that cost this submission most: a synthesized artifact
-// LINKED (28 checks, verified) and a hand-authored artifact REPLAYED (real interpreter, real browser
+// LINKED (29 checks, verified) and a hand-authored artifact REPLAYED (real interpreter, real browser
 // driver, real hostile fixture), and no test had ever done both to the same document. The headline
 // claim - "the model discovers, the artifact becomes a reusable capability, deterministic replay is
 // how the agent invokes it in production" - was the one thing the repository did not demonstrate.

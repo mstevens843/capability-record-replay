@@ -1,0 +1,554 @@
+[
+  {
+    "seq": 0,
+    "runId": "run-25ef2c1c-9328-4554-badd-44320667cbbf",
+    "at": "2026-08-30T01:29:09.395Z",
+    "type": "run.started",
+    "mode": "replay",
+    "capability": "corebank.member.read_share_position",
+    "artifactDigest": "sha256:21f298ec7a17285c776a32d61b1e01dca378f381e19c4d56da9ef95cec5f44b1",
+    "effectiveDigest": "sha256:21f298ec7a17285c776a32d61b1e01dca378f381e19c4d56da9ef95cec5f44b1",
+    "tenantId": "riverbend",
+    "argsShape": {
+      "memberId": "digits(5)"
+    }
+  },
+  {
+    "seq": 1,
+    "runId": "run-25ef2c1c-9328-4554-badd-44320667cbbf",
+    "at": "2026-08-30T01:29:09.415Z",
+    "type": "link.completed",
+    "checksRun": 29,
+    "errors": []
+  },
+  {
+    "seq": 2,
+    "runId": "run-25ef2c1c-9328-4554-badd-44320667cbbf",
+    "at": "2026-08-30T01:29:09.415Z",
+    "type": "session.opened",
+    "sessionId": "static-session",
+    "sessionProfile": "corebank-teller"
+  },
+  {
+    "seq": 3,
+    "runId": "run-25ef2c1c-9328-4554-badd-44320667cbbf",
+    "at": "2026-08-30T01:29:09.415Z",
+    "type": "lease.acquired",
+    "holder": "automation",
+    "actorId": "run:run-25ef2c1c-9328-4554-badd-44320667cbbf",
+    "epoch": 1
+  },
+  {
+    "seq": 4,
+    "runId": "run-25ef2c1c-9328-4554-badd-44320667cbbf",
+    "at": "2026-08-30T01:29:09.415Z",
+    "type": "step.entered",
+    "stepId": "fill-fill",
+    "index": 0,
+    "attempt": 1,
+    "effect": "WRITE_REVERSIBLE"
+  },
+  {
+    "seq": 5,
+    "runId": "run-25ef2c1c-9328-4554-badd-44320667cbbf",
+    "at": "2026-08-30T01:29:09.416Z",
+    "type": "budget.charged",
+    "ledger": "observations",
+    "used": 1,
+    "limit": 48
+  },
+  {
+    "seq": 6,
+    "runId": "run-25ef2c1c-9328-4554-badd-44320667cbbf",
+    "at": "2026-08-30T01:29:09.427Z",
+    "type": "observed",
+    "stepId": "fill-fill",
+    "obsSeq": 0,
+    "skeletonDigest": "sha256:77133a7a47cabfb23d8a04fdd48bd97dff3e5670d891b221c3db0bf8275c79c4",
+    "settled": true,
+    "nodeCount": 99,
+    "observationRef": null
+  },
+  {
+    "seq": 7,
+    "runId": "run-25ef2c1c-9328-4554-badd-44320667cbbf",
+    "at": "2026-08-30T01:29:09.428Z",
+    "type": "classified",
+    "stepId": "fill-fill",
+    "phase": "pre",
+    "verdict": {
+      "kind": "advance",
+      "outputs": []
+    },
+    "alsoMatched": []
+  },
+  {
+    "seq": 8,
+    "runId": "run-25ef2c1c-9328-4554-badd-44320667cbbf",
+    "at": "2026-08-30T01:29:09.429Z",
+    "type": "resolved",
+    "stepId": "fill-fill",
+    "descriptors": [
+      {
+        "id": "label-anchored",
+        "kind": "label-anchored",
+        "evidenceSource": "labelText",
+        "verdict": "resolved",
+        "nodeId": "textbox:f3-109"
+      },
+      {
+        "id": "ordinal-in-container",
+        "kind": "ordinal-in-container",
+        "evidenceSource": "ordinal",
+        "verdict": "resolved",
+        "nodeId": "textbox:f3-109"
+      }
+    ],
+    "agreed": true,
+    "distinctSources": 2
+  },
+  {
+    "seq": 9,
+    "runId": "run-25ef2c1c-9328-4554-badd-44320667cbbf",
+    "at": "2026-08-30T01:29:09.430Z",
+    "type": "policy.decided",
+    "decision": {
+      "allow": true,
+      "effect": "WRITE_REVERSIBLE",
+      "ruleId": "route:corebank/search"
+    },
+    "actionKind": "type",
+    "effect": "WRITE_REVERSIBLE"
+  },
+  {
+    "seq": 10,
+    "runId": "run-25ef2c1c-9328-4554-badd-44320667cbbf",
+    "at": "2026-08-30T01:29:09.430Z",
+    "type": "budget.charged",
+    "ledger": "actions",
+    "used": 1,
+    "limit": 13
+  },
+  {
+    "seq": 11,
+    "runId": "run-25ef2c1c-9328-4554-badd-44320667cbbf",
+    "at": "2026-08-30T01:29:09.442Z",
+    "type": "acted",
+    "stepId": "fill-fill",
+    "actionKind": "type",
+    "targetTitle": "the textbox to the right of the label <member-id>, within 32px, inside frame exactly \"top\", inside frame exactly \"content\", inside the form",
+    "valueRef": "taint:memberId-1",
+    "valueLength": 5,
+    "result": "dispatched"
+  },
+  {
+    "seq": 12,
+    "runId": "run-25ef2c1c-9328-4554-badd-44320667cbbf",
+    "at": "2026-08-30T01:29:09.443Z",
+    "type": "budget.charged",
+    "ledger": "observations",
+    "used": 2,
+    "limit": 48
+  },
+  {
+    "seq": 13,
+    "runId": "run-25ef2c1c-9328-4554-badd-44320667cbbf",
+    "at": "2026-08-30T01:29:09.600Z",
+    "type": "budget.charged",
+    "ledger": "observations",
+    "used": 3,
+    "limit": 48
+  },
+  {
+    "seq": 14,
+    "runId": "run-25ef2c1c-9328-4554-badd-44320667cbbf",
+    "at": "2026-08-30T01:29:09.763Z",
+    "type": "budget.charged",
+    "ledger": "observations",
+    "used": 4,
+    "limit": 48
+  },
+  {
+    "seq": 15,
+    "runId": "run-25ef2c1c-9328-4554-badd-44320667cbbf",
+    "at": "2026-08-30T01:29:09.780Z",
+    "type": "settled",
+    "stepId": "fill-fill",
+    "polls": 3,
+    "elapsedMs": 337,
+    "settled": true
+  },
+  {
+    "seq": 16,
+    "runId": "run-25ef2c1c-9328-4554-badd-44320667cbbf",
+    "at": "2026-08-30T01:29:09.780Z",
+    "type": "observed",
+    "stepId": "fill-fill",
+    "obsSeq": 3,
+    "skeletonDigest": "sha256:e41392131c3b50ffe57e8b5f4a29f7591995ee82fe439f3d3f4ec1ae74ad9af5",
+    "settled": true,
+    "nodeCount": 100,
+    "observationRef": null
+  },
+  {
+    "seq": 17,
+    "runId": "run-25ef2c1c-9328-4554-badd-44320667cbbf",
+    "at": "2026-08-30T01:29:09.780Z",
+    "type": "classified",
+    "stepId": "fill-fill",
+    "phase": "post",
+    "verdict": {
+      "kind": "advance",
+      "outputs": []
+    },
+    "alsoMatched": []
+  },
+  {
+    "seq": 18,
+    "runId": "run-25ef2c1c-9328-4554-badd-44320667cbbf",
+    "at": "2026-08-30T01:29:09.781Z",
+    "type": "checkpoint",
+    "stepId": "fill-fill",
+    "passed": true,
+    "trace": {
+      "rendered": "the surface is on route search and a textbox inside frame exactly \"top\", inside frame exactly \"content\", inside the form is present and the surface has settled - NOTE: the field is masked because its value is bound to a sensitive parameter, so the written value could not be read back; a truncating maxlength or input mask on this field would not be detected",
+      "clauses": [
+        {
+          "rendered": "the surface is on route search",
+          "verdict": true
+        },
+        {
+          "rendered": "a textbox inside frame exactly \"top\", inside frame exactly \"content\", inside the form is present",
+          "verdict": true,
+          "nodeSummary": "2 nodes matched"
+        },
+        {
+          "rendered": "the surface has settled",
+          "verdict": true
+        }
+      ]
+    }
+  },
+  {
+    "seq": 19,
+    "runId": "run-25ef2c1c-9328-4554-badd-44320667cbbf",
+    "at": "2026-08-30T01:29:09.781Z",
+    "type": "step.entered",
+    "stepId": "activate-search",
+    "index": 1,
+    "attempt": 1,
+    "effect": "WRITE_REVERSIBLE"
+  },
+  {
+    "seq": 20,
+    "runId": "run-25ef2c1c-9328-4554-badd-44320667cbbf",
+    "at": "2026-08-30T01:29:09.781Z",
+    "type": "budget.charged",
+    "ledger": "observations",
+    "used": 5,
+    "limit": 48
+  },
+  {
+    "seq": 21,
+    "runId": "run-25ef2c1c-9328-4554-badd-44320667cbbf",
+    "at": "2026-08-30T01:29:09.791Z",
+    "type": "observed",
+    "stepId": "activate-search",
+    "obsSeq": 4,
+    "skeletonDigest": "sha256:e41392131c3b50ffe57e8b5f4a29f7591995ee82fe439f3d3f4ec1ae74ad9af5",
+    "settled": true,
+    "nodeCount": 100,
+    "observationRef": null
+  },
+  {
+    "seq": 22,
+    "runId": "run-25ef2c1c-9328-4554-badd-44320667cbbf",
+    "at": "2026-08-30T01:29:09.791Z",
+    "type": "classified",
+    "stepId": "activate-search",
+    "phase": "pre",
+    "verdict": {
+      "kind": "advance",
+      "outputs": []
+    },
+    "alsoMatched": []
+  },
+  {
+    "seq": 23,
+    "runId": "run-25ef2c1c-9328-4554-badd-44320667cbbf",
+    "at": "2026-08-30T01:29:09.792Z",
+    "type": "resolved",
+    "stepId": "activate-search",
+    "descriptors": [
+      {
+        "id": "role-name",
+        "kind": "role-name",
+        "evidenceSource": "accessibleName",
+        "verdict": "resolved",
+        "nodeId": "button:f3-119"
+      },
+      {
+        "id": "label-anchored",
+        "kind": "label-anchored",
+        "evidenceSource": "labelText",
+        "verdict": "resolved",
+        "nodeId": "button:f3-119"
+      },
+      {
+        "id": "ordinal-in-container",
+        "kind": "ordinal-in-container",
+        "evidenceSource": "ordinal",
+        "verdict": "resolved",
+        "nodeId": "button:f3-119"
+      }
+    ],
+    "agreed": true,
+    "distinctSources": 3
+  },
+  {
+    "seq": 24,
+    "runId": "run-25ef2c1c-9328-4554-badd-44320667cbbf",
+    "at": "2026-08-30T01:29:09.792Z",
+    "type": "policy.decided",
+    "decision": {
+      "allow": true,
+      "effect": "WRITE_REVERSIBLE",
+      "ruleId": "route:corebank/search"
+    },
+    "actionKind": "click",
+    "effect": "WRITE_REVERSIBLE"
+  },
+  {
+    "seq": 25,
+    "runId": "run-25ef2c1c-9328-4554-badd-44320667cbbf",
+    "at": "2026-08-30T01:29:09.792Z",
+    "type": "budget.charged",
+    "ledger": "actions",
+    "used": 2,
+    "limit": 13
+  },
+  {
+    "seq": 26,
+    "runId": "run-25ef2c1c-9328-4554-badd-44320667cbbf",
+    "at": "2026-08-30T01:29:09.794Z",
+    "type": "acted",
+    "stepId": "activate-search",
+    "actionKind": "click",
+    "targetTitle": "the button named <search>, inside frame exactly \"top\", inside frame exactly \"content\", inside the form",
+    "valueRef": null,
+    "valueLength": null,
+    "result": "dispatched"
+  },
+  {
+    "seq": 27,
+    "runId": "run-25ef2c1c-9328-4554-badd-44320667cbbf",
+    "at": "2026-08-30T01:29:09.794Z",
+    "type": "budget.charged",
+    "ledger": "observations",
+    "used": 6,
+    "limit": 48
+  },
+  {
+    "seq": 28,
+    "runId": "run-25ef2c1c-9328-4554-badd-44320667cbbf",
+    "at": "2026-08-30T01:29:09.960Z",
+    "type": "budget.charged",
+    "ledger": "observations",
+    "used": 7,
+    "limit": 48
+  },
+  {
+    "seq": 29,
+    "runId": "run-25ef2c1c-9328-4554-badd-44320667cbbf",
+    "at": "2026-08-30T01:29:10.129Z",
+    "type": "budget.charged",
+    "ledger": "observations",
+    "used": 8,
+    "limit": 48
+  },
+  {
+    "seq": 30,
+    "runId": "run-25ef2c1c-9328-4554-badd-44320667cbbf",
+    "at": "2026-08-30T01:29:10.150Z",
+    "type": "settled",
+    "stepId": "activate-search",
+    "polls": 3,
+    "elapsedMs": 356,
+    "settled": true
+  },
+  {
+    "seq": 31,
+    "runId": "run-25ef2c1c-9328-4554-badd-44320667cbbf",
+    "at": "2026-08-30T01:29:10.150Z",
+    "type": "observed",
+    "stepId": "activate-search",
+    "obsSeq": 7,
+    "skeletonDigest": "sha256:ad2ce166f03dd9a941bdc1bf8ac0c5ea08756e24e8a273f0597d428be3111019",
+    "settled": true,
+    "nodeCount": 121,
+    "observationRef": null
+  },
+  {
+    "seq": 32,
+    "runId": "run-25ef2c1c-9328-4554-badd-44320667cbbf",
+    "at": "2026-08-30T01:29:10.152Z",
+    "type": "classified",
+    "stepId": "activate-search",
+    "phase": "post",
+    "verdict": {
+      "kind": "advance",
+      "outputs": []
+    },
+    "alsoMatched": []
+  },
+  {
+    "seq": 33,
+    "runId": "run-25ef2c1c-9328-4554-badd-44320667cbbf",
+    "at": "2026-08-30T01:29:10.153Z",
+    "type": "checkpoint",
+    "stepId": "activate-search",
+    "passed": true,
+    "trace": {
+      "rendered": "the surface is on route search-results and a cell named <member-id> inside frame exactly \"top\", inside frame exactly \"content\", inside the form, inside the table with columns [<member-id>, <name>, <share-balance>, <status>, <action>] is present and a cell named <name> inside frame exactly \"top\", inside frame exactly \"content\", inside the form, inside the table with columns [<member-id>, <name>, <share-balance>, <status>, <action>] is present and the surface has settled",
+      "clauses": [
+        {
+          "rendered": "the surface is on route search-results",
+          "verdict": true
+        },
+        {
+          "rendered": "a cell named <member-id> inside frame exactly \"top\", inside frame exactly \"content\", inside the form, inside the table with columns [<member-id>, <name>, <share-balance>, <status>, <action>] is present",
+          "verdict": true,
+          "evidenceSource": "accessibleName",
+          "nodeSummary": "matched the cell named \"Member ID\""
+        },
+        {
+          "rendered": "a cell named <name> inside frame exactly \"top\", inside frame exactly \"content\", inside the form, inside the table with columns [<member-id>, <name>, <share-balance>, <status>, <action>] is present",
+          "verdict": true,
+          "evidenceSource": "accessibleName",
+          "nodeSummary": "matched the cell named \"Name\""
+        },
+        {
+          "rendered": "the surface has settled",
+          "verdict": true
+        }
+      ]
+    }
+  },
+  {
+    "seq": 34,
+    "runId": "run-25ef2c1c-9328-4554-badd-44320667cbbf",
+    "at": "2026-08-30T01:29:10.153Z",
+    "type": "step.entered",
+    "stepId": "read-membername-sharebalance-membershipstatus",
+    "index": 2,
+    "attempt": 1,
+    "effect": "READ"
+  },
+  {
+    "seq": 35,
+    "runId": "run-25ef2c1c-9328-4554-badd-44320667cbbf",
+    "at": "2026-08-30T01:29:10.153Z",
+    "type": "budget.charged",
+    "ledger": "observations",
+    "used": 9,
+    "limit": 48
+  },
+  {
+    "seq": 36,
+    "runId": "run-25ef2c1c-9328-4554-badd-44320667cbbf",
+    "at": "2026-08-30T01:29:10.164Z",
+    "type": "observed",
+    "stepId": "read-membername-sharebalance-membershipstatus",
+    "obsSeq": 8,
+    "skeletonDigest": "sha256:ad2ce166f03dd9a941bdc1bf8ac0c5ea08756e24e8a273f0597d428be3111019",
+    "settled": true,
+    "nodeCount": 121,
+    "observationRef": null
+  },
+  {
+    "seq": 37,
+    "runId": "run-25ef2c1c-9328-4554-badd-44320667cbbf",
+    "at": "2026-08-30T01:29:10.165Z",
+    "type": "classified",
+    "stepId": "read-membername-sharebalance-membershipstatus",
+    "phase": "pre",
+    "verdict": {
+      "kind": "advance",
+      "outputs": []
+    },
+    "alsoMatched": []
+  },
+  {
+    "seq": 38,
+    "runId": "run-25ef2c1c-9328-4554-badd-44320667cbbf",
+    "at": "2026-08-30T01:29:10.165Z",
+    "type": "budget.charged",
+    "ledger": "observations",
+    "used": 10,
+    "limit": 48
+  },
+  {
+    "seq": 39,
+    "runId": "run-25ef2c1c-9328-4554-badd-44320667cbbf",
+    "at": "2026-08-30T01:29:10.325Z",
+    "type": "budget.charged",
+    "ledger": "observations",
+    "used": 11,
+    "limit": 48
+  },
+  {
+    "seq": 40,
+    "runId": "run-25ef2c1c-9328-4554-badd-44320667cbbf",
+    "at": "2026-08-30T01:29:10.496Z",
+    "type": "budget.charged",
+    "ledger": "observations",
+    "used": 12,
+    "limit": 48
+  },
+  {
+    "seq": 41,
+    "runId": "run-25ef2c1c-9328-4554-badd-44320667cbbf",
+    "at": "2026-08-30T01:29:10.517Z",
+    "type": "settled",
+    "stepId": "read-membername-sharebalance-membershipstatus",
+    "polls": 3,
+    "elapsedMs": 353,
+    "settled": true
+  },
+  {
+    "seq": 42,
+    "runId": "run-25ef2c1c-9328-4554-badd-44320667cbbf",
+    "at": "2026-08-30T01:29:10.518Z",
+    "type": "observed",
+    "stepId": "read-membername-sharebalance-membershipstatus",
+    "obsSeq": 11,
+    "skeletonDigest": "sha256:ad2ce166f03dd9a941bdc1bf8ac0c5ea08756e24e8a273f0597d428be3111019",
+    "settled": true,
+    "nodeCount": 121,
+    "observationRef": null
+  },
+  {
+    "seq": 43,
+    "runId": "run-25ef2c1c-9328-4554-badd-44320667cbbf",
+    "at": "2026-08-30T01:29:10.518Z",
+    "type": "classified",
+    "stepId": "read-membername-sharebalance-membershipstatus",
+    "phase": "post",
+    "verdict": {
+      "kind": "outcome",
+      "code": "MEMBER_NOT_FOUND",
+      "data": [],
+      "priority": 10,
+      "alsoMatched": []
+    },
+    "alsoMatched": []
+  },
+  {
+    "seq": 44,
+    "runId": "run-25ef2c1c-9328-4554-badd-44320667cbbf",
+    "at": "2026-08-30T01:29:10.518Z",
+    "type": "run.finished",
+    "status": "outcome",
+    "outcomeCode": "MEMBER_NOT_FOUND"
+  }
+]

@@ -1,0 +1,55 @@
+{
+  "schemaVersion": "capability.promotion/v1",
+  "promotes": {
+    "capability": "corebank.member.read_share_position",
+    "contractVersion": "1.0.0",
+    "artifactDigest": "sha256:7cde611ddc91bacab30c69a0731676d275b6f4cfe1a771a2480fc8765a6444cf"
+  },
+  "reviewedBy": "reviewer:agent-acting-as-reviewer",
+  "reviewedAt": "2026-08-29T18:30:00.000Z",
+  "outcome": {
+    "code": "MEMBER_NOT_FOUND",
+    "kind": "business_outcome",
+    "title": "No member with that number",
+    "summary": "The core system holds no member with the number supplied.",
+    "terminal": true,
+    "payload": [],
+    "stableUnderRetry": true,
+    "stableUnderRetryBecause": "The core holding no member with that number is a fact about the record, not about this attempt: searching the same number a second time returns the same empty grid and the same notice. That is the OPEN-QUESTIONS Q1 rule, and it is what puts this on the outcome side of the line while a session expiry - a fact about this attempt - stays on the failure side. What I am NOT asserting is that the screen can only mean this: an empty grid could in principle mean a search that timed out and rendered nothing, and the reason I believe it does not here is that the application prints this notice only on the path that ran the query and got no rows, which I read in fixtures/corebank-web/src/server.js. That judgement is mine, and no proof in this repository establishes it.",
+    "callerAction": "retry-different-input",
+    "retryable": "with_different_inputs",
+    "agentGuidance": "Tell the member that number is not on file and ask them to read it again from their card or statement. Do not guess a different number on their behalf."
+  },
+  "detector": {
+    "atStep": "__STEP__",
+    "detect": {
+      "kind": "text-present",
+      "scope": {
+        "path": [
+          { "kind": "frame", "name": { "mode": "exact", "value": "top", "normalize": "std.identity@1" } },
+          { "kind": "frame", "name": { "mode": "exact", "value": "content", "normalize": "std.identity@1" } }
+        ]
+      },
+      "text": { "mode": "token", "token": "not-found-banner", "normalize": "std.label@1" }
+    },
+    "priority": 10,
+    "phase": "post",
+    "requiresSettled": true,
+    "capture": []
+  },
+  "vocabulary": {
+    "not-found-banner": ["No members matched the search criteria"]
+  },
+  "evidence": {
+    "positives": [
+      {
+        "observation": "__OBSERVATION__",
+        "fromRun": "__RUN__",
+        "atStep": "__STEP__",
+        "tenantId": "riverbend",
+        "appInstanceId": "riverbend-corebank-live"
+      }
+    ],
+    "corpusRefs": ["__CORPUS__"]
+  }
+}

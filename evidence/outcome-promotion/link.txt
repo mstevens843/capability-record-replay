@@ -1,0 +1,15 @@
+# 00000 is well formed and on file nowhere. `crr link` performs ZERO ACTIONS, so the
+# argument only has to satisfy check 28 - which is the point of running it before anything starts.
+$ crr link  before/contract.json  before/artifact-approved-for-probe.json  --args {"memberId":"00000"}  --tenant riverbend
+link ok - 4 steps, 29 checks, effective digest sha256:9d4eaffb53baf9224b3bdc8475ddcfff643bb21eec8257141d3594b93e2c6a5f
+exit 0
+
+$ crr link  promoted/contract.json  confirm/artifact-approved.json  --tenant riverbend
+link ok - 4 steps, 29 checks, effective digest sha256:6fecd179d38f240acf2767651fa4079927acdd18a19683b547a167fa79857277
+  outcome   MEMBER_NOT_FOUND at read-membername-sharebalance-membershipstatus [reviewer-authored] proven at riverbend, probe confirmed
+exit 0
+
+$ crr link  promoted/contract.json  confirm/artifact-approved.json  --tenant summit
+link REFUSED (link-error)
+  check 29 outcome-unproven: MEMBER_NOT_FOUND at read-membername-sharebalance-membershipstatus was proven at riverbend and this run is at summit; its detector reads a vocabulary token an overlay overrides per tenant, so a proof elsewhere says nothing about here
+exit 1

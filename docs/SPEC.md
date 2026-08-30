@@ -80,7 +80,7 @@ examples are written `sha256:<synthetic>` so they can never be mistaken for real
   │  agent calls catalog.invoke(contract, { args, tenant, onIntervention, approval? })   │
   │        │                                                                            │
   │        ├─ LINK   contract ⊕ artifact ⊕ overlay ⊕ SurfaceCapabilities ⊕ args          │
-  │        │         28 checks, ZERO actions performed. link-error / argument-invalid.   │
+  │        │         29 checks, ZERO actions performed. link-error / argument-invalid.   │
   │        │                                                                            │
   │        ├─ SESSION broker establishes an authenticated session for the profile        │
   │        │         (the program never logs in; see §7.6)                               │
@@ -653,6 +653,13 @@ export interface OutcomeDecl {
   readonly summary: string;                       // verbatim into the generated tool description
   readonly terminal: true;                        // v1: an outcome ends the run
   readonly payload: readonly FieldSpec[];
+  /** WHO WROTE THIS. Required, no default, inside the digest, and matched against the detector's
+   *  own `origin` by check 8. Added by `docs/design/OUTCOME-PROMOTION.md`; `hand-authored` names
+   *  the state every outcome in this repository was already in - typed into the document outside
+   *  any lifecycle and never proven - and `reviewer-authored` is the only value `crr promote`
+   *  writes, behind a discrimination proof (check 29). NOT rendered to a calling agent: a model
+   *  handed a pedigree starts weighing outcomes by it, which is a routing decision nobody reviewed. */
+  readonly origin: "synthesized" | "hand-authored" | "reviewer-authored";
 
   /**
    * What the CALLER should do. This is the field that makes the three-way split actionable rather
@@ -702,6 +709,10 @@ export interface CapabilityArtifact {
   readonly policy: PolicyRequirements;
   readonly effects: EffectSummary;                // DERIVED at save time, re-derived by the linker
   readonly budgets: RunBudgets;
+  /** One receipt per reviewer-authored outcome. INSIDE the digest, so an approver signs this
+   *  program WITH this proof; carries no clock and no run id, so the address stays reproducible
+   *  from the review document plus the observation corpus. §2.4 of OUTCOME-PROMOTION.md. */
+  readonly promotions: readonly PromotionReceipt[];
   readonly signatures: readonly Signature[];
 }
 
@@ -910,6 +921,9 @@ export interface OutcomeRule {
    *  vindicates it: a snapshot taken after 120 ms of silence mid-repaint yielded screenId `null`
    *  and 3 nodes instead of 8. */
   readonly requiresSettled: true;
+  /** The other half of `OutcomeDecl.origin`; check 8 requires the two to agree per code, and
+   *  check 29 demands a `promotions[]` receipt for every `reviewer-authored` one. */
+  readonly origin: "synthesized" | "hand-authored" | "reviewer-authored";
   /** Extraction for the outcome's OWN payload, read from the SAME observation that matched. */
   readonly capture: readonly ExtractSpec[];
 }
@@ -1054,6 +1068,10 @@ export interface Lifecycle {
     /** The human ticked these. "Who approved the irreversible one" is an audit answer. */
     readonly acknowledgedEffects: readonly EffectClass[];
     readonly acknowledgedGrade: Verification["grade"];
+    /** Same move, third instance: the approver ticks each reviewer-authored outcome code by hand
+     *  and `approve()` refuses on mismatch in both directions. A detector a human wrote is the one
+     *  thing in the document that no replay established. */
+    readonly acknowledgedPromotions: readonly string[];
   } | null;
 }
 
@@ -3056,6 +3074,7 @@ caller to infer it.
 | 26 | `flow.entry.route` and every `navigate` route are in `policy.originAliases` and the caller's allowlist |
 | 27 | in replay mode: `lifecycle.status === "approved"`, the signature verifies over the digest, and the signing key is trusted |
 | 28 | **arguments bind**: every supplied argument satisfies `type`, `constraints` and `required` → else `argument-invalid`. A caller's bad member number costs zero actions |
+| 29 | **`outcome-unproven`**: every `OutcomeRule` with `origin: "reviewer-authored"` is named by a `promotions[]` receipt whose `code` and `atStep` match and whose `proof.verdict` is present — and, in `replay` mode only, whose `proof.provenAt` contains the tenant being linked. Added by `docs/design/OUTCOME-PROMOTION.md`; a detector resolves its text through a vocabulary an overlay overrides per tenant, so a proof at one tenant says nothing about another. `discovery` and `verification` skip the tenant clause, as check 27 skips approval in `verification`, or the first promotion could never be verified at all |
 
 ### 10.2 Save-time invariants — the `proposed → draft` gate
 
@@ -3102,7 +3121,7 @@ number first, and never cut a whole capability, only its depth.
 | 4 | **The classifier.** Bands G/B0–B6, `Verdict`, provenance-aware rows 4-vs-5, phase, `requiresSettled`, `ambiguous-classification`, budgets as counters. | `core` | 3 | ~40 frozen-Observation cases, one per row of §4.2, asserting the exact `Verdict`. **No browser.** | **CP** | — |
 | 5 | **Target resolver.** Descriptors, `EvidenceSource`, quorum, `assert`, `NodeFingerprint`, the four resolution outcomes. | `core` | 3 | Frozen-Observation cases for resolve / not-found / ambiguous / underdetermined / assert-failed, including a correlated-descriptor case that must return `underdetermined`. | **CP** | — |
 | 6 | **Extractor + prose renderers.** `ExtractSpec` evaluation, `readTable` bounds, `renderTarget` / `renderPredicate` / `renderVerdict`. | `core` | 4, 5 | Extraction cases incl. truncation → `output-extraction-failed`; a renderer snapshot test asserting **no parameter value** appears in any rendered string. | **CP** | — |
-| 7 | **The linker.** All 28 checks, `analyzeEffects`, `restartSafeUpToPc`, overlay merge + re-link. | `core` | 2, 5 | 28 tests, one per check, each with a fixture that must fail it and one that must pass. | **CP** | — |
+| 7 | **The linker.** All 29 checks, `analyzeEffects`, `restartSafeUpToPc`, overlay merge + re-link. | `core` | 2, 5 | 29 tests, one per check, each with a fixture that must fail it and one that must pass. | **CP** | — |
 | 8 | **Policy engine + taint.** `check`, allowlist, risk classes, `TaintHandle`, mask-region derivation. | `core` | 2 | Refusal case per `PolicyDenialReason`; the chokepoint contract test; the `WithApproval<C>` type test. | **CP** | — |
 | 9 | **`fixtures/corebank-web`.** Frameset, nested layout tables, generated ids, `<font>`, no test IDs, a native `confirm()`, an in-page modal, two tenant variants, and **per-session fault injection for all eight faults**. | fixture | — | Each fault reachable by a documented header/query; two variants serve materially different labels. | **CP** | — |
 | 10 | **`surface-browser`.** CDP per-frame AX stitch, `ariaRole` null for internal roles, frame-name `containerPath`, geometry on actionable nodes, `page.on('dialog')` ownership, `perceive` deadline, masked capture. Driver rules D1–D7. | `surface-browser` | 3, 9 | A `perceive()` over the fixture returns the expected node count and roles; the layout-table case resolves to exactly one row; a held-open `confirm()` returns `perceive-timeout` rather than hanging; the **PNG-decode** mask test. | **CP** | — |

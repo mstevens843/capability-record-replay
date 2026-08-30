@@ -1,6 +1,6 @@
 // The linker's acceptance criterion, from SPEC section 11 build unit 7:
 //
-//     28 tests, one per check, each with a fixture that must fail it and one that must pass.
+//     29 tests, one per check, each with a fixture that must fail it and one that must pass.
 //
 // The pairing is the whole design of this file. A test that only shows a refusal proves the linker
 // says no; a test that only shows an acceptance proves it says yes. Neither alone shows that the
@@ -1027,7 +1027,10 @@ describe("a linked program", () => {
   });
 
   it("addresses the bytes that actually ran, not the base artifact's", () => {
-    const base = link(request({ overlay: null }));
+    // A tenant is supplied explicitly because there is no overlay to read one off, and check 29
+    // fails closed on an unnamed tenant: this artifact carries a promoted outcome proven per
+    // tenant, and "no tenant" cannot be one of the tenants it was proven at.
+    const base = link(request({ overlay: null, tenant: "riverbend" }));
     expect(base.ok).toBe(true);
     if (!base.ok) return;
     expect(program.effectiveDigest).not.toBe(program.artifact.digest);

@@ -7,11 +7,16 @@
 // arithmetic, and it is here because this is the package that is already allowed to import
 // `node:crypto`.
 //
-// The limit, stated where it will be read rather than only in the write-up: **this has no key
-// custody story.** Public keys are handed to `ed25519Trust` by whoever constructs a catalog, from a
-// file or an environment variable. A production deployment needs a KMS or an HSM, an approver
-// identity bound to a person, and a revocation path for a compromised key. Naming that gap is worth
-// more than a half-built key manager, and REPORT section 6 says so in the same words.
+// The limit as it stood before the approval model landed, kept here because half of it is still
+// true: **there is still no key custody.** Public keys are handed to `ed25519Trust` by whoever
+// constructs a catalog, from a file or an environment variable, and nothing here mints, distributes
+// or destroys one. What HAS changed is everything downstream of custody - a key now has an owner, a
+// set of roles, a validity window and a revocation state (`SignerRecord`), an approval can be
+// withdrawn by id (`ApprovalRevocation`), and signing is a PORT whose local ed25519 implementation
+// is one adapter among several (`ApprovalKeySigner`, `externalApprovalSigner`). NO EXTERNAL KMS OR
+// HSM WAS INTEGRATED. `externalApprovalSigner` is the seam an integrator fills in; it has been
+// exercised against an in-process fake and against nothing else, and docs/design/APPROVAL-MODEL.md
+// says so in its "what this does not do" section.
 
 import {
   createPrivateKey,
@@ -20,7 +25,15 @@ import {
   sign as signBytes,
   verify as verifySignatureBytes,
 } from "node:crypto";
-import type { ApprovalToken, ApprovalTrust, Digest } from "@crr/core";
+import {
+  type Approval,
+  type ApprovalToken,
+  type ApprovalTrust,
+  type ApprovalTrustStore,
+  approvalDigestOf,
+  parseApproval,
+} from "@crr/core";
+import type { Digest } from "@crr/core";
 import { approvalTokenOf } from "./ids.js";
 
 export interface TrustedKey {
@@ -93,6 +106,38 @@ export function unverifiedTrust(trustedKeyIds: readonly string[]): ApprovalTrust
   return { trustedKeyIds: [...trustedKeyIds], verifySignature: () => true };
 }
 
+export interface TrustedSigner extends TrustedKey {
+  readonly signerId: string;
+  readonly authority: readonly string[];
+  readonly notBefore: string;
+  readonly notAfter: string;
+  readonly status?: "active" | "revoked";
+  readonly revokedReason?: string | null;
+  readonly supersedes?: string | null;
+}
+
+export function ed25519TrustStore(
+  signers: readonly TrustedSigner[],
+  revocations: ApprovalTrustStore["revocations"] = [],
+): ApprovalTrustStore {
+  const trust = ed25519Trust(signers);
+  return {
+    ...trust,
+    signers: signers.map((signer) => ({
+      keyId: signer.keyId,
+      signerId: signer.signerId,
+      authority: [...signer.authority],
+      alg: "ed25519",
+      notBefore: signer.notBefore as ApprovalTrustStore["signers"][number]["notBefore"],
+      notAfter: signer.notAfter as ApprovalTrustStore["signers"][number]["notAfter"],
+      status: signer.status ?? "active",
+      revokedReason: signer.revokedReason ?? null,
+      supersedes: signer.supersedes ?? null,
+    })),
+    revocations: [...revocations],
+  };
+}
+
 // ---------------------------------------------------------------------------------------------
 // The other half: producing the signature the trust store verifies
 // ---------------------------------------------------------------------------------------------
@@ -116,6 +161,65 @@ export interface ApprovalSigner {
   readonly alg: "ed25519";
   /** The detached signature over the digest STRING, base64url, no prefix. */
   sign(over: Digest): string;
+}
+
+export interface ApprovalKeySigner {
+  readonly keyId: string;
+  readonly alg: string;
+  readonly signerId: string;
+  readonly authority: readonly [string, ...string[]];
+  sign(over: Digest): string;
+}
+
+export function localApprovalKeySigner(args: {
+  readonly signer: ApprovalSigner;
+  readonly signerId: string;
+  readonly authority: readonly [string, ...string[]];
+}): ApprovalKeySigner {
+  return {
+    keyId: args.signer.keyId,
+    alg: args.signer.alg,
+    signerId: args.signerId,
+    authority: [...args.authority],
+    sign: (over) => args.signer.sign(over),
+  };
+}
+
+export function externalApprovalSigner(args: {
+  readonly keyId: string;
+  readonly alg: string;
+  readonly signerId: string;
+  readonly authority: readonly [string, ...string[]];
+  readonly sign: (over: Digest) => string;
+}): ApprovalKeySigner {
+  return {
+    keyId: args.keyId,
+    alg: args.alg,
+    signerId: args.signerId,
+    authority: [...args.authority],
+    sign: args.sign,
+  };
+}
+
+export type UnsignedApproval = Omit<Approval, "signature">;
+
+export function signApprovalDocument(
+  unsigned: UnsignedApproval,
+  signer: ApprovalKeySigner,
+): Approval {
+  const draft = {
+    ...unsigned,
+    signer: {
+      signerId: signer.signerId,
+      authority: signer.authority,
+      keyId: signer.keyId,
+      alg: signer.alg,
+    },
+  };
+  return parseApproval({
+    ...draft,
+    signature: signer.sign(approvalDigestOf(draft as Readonly<Record<string, unknown>>)),
+  });
 }
 
 /**
@@ -185,4 +289,22 @@ export interface ApprovalGrant {
 
 export function approvalGrant(digest: Digest, token: string): ApprovalGrant {
   return { token: approvalTokenOf(token), digest };
+}
+
+export interface InvocationApprovalGrant {
+  readonly approval: Approval;
+  readonly trust: ApprovalTrustStore;
+  readonly requiredAuthority: readonly [string, ...string[]];
+}
+
+export function invocationApprovalGrant(args: {
+  readonly approval: Approval;
+  readonly trust: ApprovalTrustStore;
+  readonly requiredAuthority: readonly [string, ...string[]];
+}): InvocationApprovalGrant {
+  return {
+    approval: args.approval,
+    trust: args.trust,
+    requiredAuthority: [...args.requiredAuthority],
+  };
 }

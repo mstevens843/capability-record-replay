@@ -1,0 +1,9 @@
+FAILED  run run-84644611-088d-4733-adda-259dee41eac1  2/4 steps  1131ms
+  failure      checkpoint-failed at read-membername-sharebalance-membershipstatus
+  side effects possible
+  expected     the surface is on route search-results and the cell in column <name> of the row whose <member-id> cell equals param.memberId inside frame exactly "top", inside frame exactly "content", inside the form, inside the table with columns [<member-id>, <name>, <share-balance>, <status>, <action>] is present and the cell in column <share-balance> of the row whose <member-id> cell equals param.memberId inside frame exactly "top", inside frame exactly "content", inside the form, inside the table with columns [<member-id>, <name>, <share-balance>, <status>, <action>] is present and the cell in column <status> of the row whose <member-id> cell equals param.memberId inside frame exactly "top", inside frame exactly "content", inside the form, inside the table with columns [<member-id>, <name>, <share-balance>, <status>, <action>] is present
+  do this      The postcondition did not hold; the expectation trace says which clause.
+  captured observations (step / phase / content address)
+    fill-fill            post  obs:52daf882b4b2666a7f299b62339e39bb422f2c844a19255d38fdbb1de03c39e3
+    activate-search      post  obs:29648031893c750c814816b0a46d3bd7bc1baa2722a848657f2702ad729e68cd
+    read-membername-sharebalance-membershipstatus post  obs:c33a647ab66a18aecab31653a4ff8af185b23e6f8093a8e554e549a778d3e36c

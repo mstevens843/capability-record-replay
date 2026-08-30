@@ -685,6 +685,7 @@ export const INVALID_MEMBER_ID = {
   priority: 10,
   phase: "post",
   requiresSettled: true,
+  origin: "hand-authored",
   capture: [],
 } as unknown as Step["outcomes"][number];
 
@@ -769,5 +770,6 @@ export const SEARCH_RETURNED_NOTHING = {
   priority: 20,
   phase: "post",
   requiresSettled: true,
+  origin: "hand-authored",
   capture: [],
 } as unknown as Step["outcomes"][number];

@@ -1,0 +1,9 @@
+fixture fault armed  {"ok":true,"session":"s000001","armed":{"id":"app-error","screen":"results","mode":"sticky","delayMs":1200}}
+FAILED  run run-124ea733-41ce-4f4f-bd89-898cf603ac5b  1/4 steps  752ms
+  failure      continuity-broken at activate-search
+  side effects possible
+  expected     the surface is on route search-results and a cell named <member-id> inside frame exactly "top", inside frame exactly "content", inside the form, inside the table with columns [<member-id>, <name>, <share-balance>, <status>, <action>] is present and a cell named <name> inside frame exactly "top", inside frame exactly "content", inside the form, inside the table with columns [<member-id>, <name>, <share-balance>, <status>, <action>] is present and the surface has settled (memberId)
+  do this      The run was no longer on the record it started with; stop and investigate before retrying.
+  captured observations (step / phase / content address)
+    fill-fill            post  obs:61d5848e95de9be85854e51403a8bd45ec7f12017e6d647a84ea09c8a60aa737
+    activate-search      post  obs:5752ad0b57335f2d468220b762a725a3786166cbd106ffca2097cd5416f76b1d

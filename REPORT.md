@@ -16,11 +16,11 @@ in the decision path.
 
 | Claim | Result | Command / receipt |
 |---|---|---|
-| Builds and passes with **zero credentials** | **1,921 tests**, 8 members, exit 0 | `env -u ANTHROPIC_API_KEY -u ANTHROPIC_AUTH_TOKEN -u OPENAI_API_KEY -u CLAUDE_CODE_OAUTH_TOKEN pnpm test` |
+| Builds and passes with **zero credentials** | **1,984 tests**, 8 members, exit 0 | `env -u ANTHROPIC_API_KEY -u ANTHROPIC_AUTH_TOKEN -u OPENAI_API_KEY -u CLAUDE_CODE_OAUTH_TOKEN pnpm test` |
 | A real model reached a real goal | `claude-opus-5`, 9 turns, 42,368 billed tokens, **$0.14** | `evidence/discovery-live/provenance.json` |
 | Its artifact replayed with the model out of the loop | `full`, `proposed → draft`, every gating canary pass CLEAN | `evidence/discovery-live/verification.json` |
 | Replay tells a good engine from a broken one | reference engine **0 false successes**; **9/9 mutants killed**, 13 of the 17 kills false successes | `pnpm -F @crr/conformance stability` |
-| A reviewer can run it with no key | 65 files on every run, whole-bundle canary CLEAN, exit 0 | `pnpm demo` |
+| A reviewer can run it with no key | 144 files on every run, whole-bundle canary CLEAN, exit 0 | `pnpm demo` |
 
 ---
 
@@ -55,7 +55,7 @@ tokens** on all nine turns, so its 55.4% hit rate is a warm-start figure.
 | Document | Reader | Contains |
 |---|---|---|
 | `contract` | the calling agent, the product owner | typed `inputs`/`outputs`, outcome *names*, `whenToUse`/`whenNotToUse`, effect class. **Zero surface detail.** |
-| `artifact` | the interpreter, the security reviewer | the program: routes, vocabulary, steps, descriptors, checkpoints, detectors, budgets, effects. |
+| `artifact` | the interpreter, the security reviewer | the program: routes, vocabulary, steps, descriptors, checkpoints, detectors, budgets, effects, and one **promotion receipt** per human-authored outcome (§7). |
 | `overlay` | the linker, per tenant | additive, non-semantic overrides only. |
 
 **Detectors live on the artifact's steps, never on the contract.** That is what lets one contract be
@@ -170,15 +170,24 @@ the type*, forbids retries and restarts across it, and turns unobserved dispatch
 auto-escalation. **A taint model**: a `sensitive` parameter yields a handle at bind time, and the
 handle — never the value — reaches the policy engine, the journal and every capture.
 
-A safety section listing no failures is not credible. Three real leaks were caught by these controls
-and none by reading the code: `deriveOutputs` folded a table cell's accessible name into the query it
-derived, and on a legacy grid a cell's name *is* the value, so a member's name and balance reached
-`flow.vocabulary` — the document that is committed, diffed and signed; `std.text@1` case-folded every
-delivered string output; and the canary caught the live run's synthesis *report* quoting the results
-row the model had read. `artifact.json` and `contract.json` were CLEAN throughout, so
-parameterization held on the signed documents — but free-form prose about observed data cannot be
-redacted, only withheld, and now it is. Parameterization could not have caught the first: the name
-was never in the goal, so it was never bound.
+A safety section listing no failures is not credible. **Four real leaks were caught by these
+controls and none by reading the code.** `deriveOutputs` folded a table cell's accessible name into
+the query it derived, and on a legacy grid a cell's name *is* the value, so a member's name and
+balance reached `flow.vocabulary` — the document that is committed, diffed and signed. `std.text@1`
+case-folded every delivered string output. The canary caught the live run's synthesis *report*
+quoting the results row the model had read. And `observedSummaryOf` **passed the observed route's
+query straight through**, so a failure verdict carried the caller's member number into the journal,
+into the result document and onto the operator console — while the frozen observation beside it had
+that exact field blanked. The fourth hid behind the fixture for five clean demo runs: it only fires
+when a route pattern declares a query binding, which the *live* artifact does (the search form is a
+GET form) and the hand-authored one does not, so nothing short of walking the live artifact through
+the promotion path reached the code at all. Fixed in `evaluate.ts`, with a regression test that
+asserts the input really carried the value before asserting the summary does not.
+
+`artifact.json` and `contract.json` were CLEAN throughout, so parameterization held on the signed
+documents — but free-form prose about observed data cannot be redacted, only withheld, and now it
+is. Parameterization could not have caught the first: the name was never in the goal, so it was
+never bound.
 
 **The canary's scopes are the argument, not its existence.** Five passes, four gating, because two
 classes of value differ. The **caller's argument** is in the recording by construction, so that pass
@@ -207,7 +216,22 @@ review that adds rules.
   fix is an `optional-step` marker with a declared skip predicate.
 - **No outcome detectors are synthesized.** Candidates ride in the synthesis report with a
   `needs-detector` note and `contract.outcomes` comes out `[]`. A generated detector for a screen
-  the run never observed is how a false `MEMBER_NOT_FOUND` ships.
+  the run never observed is how a false `MEMBER_NOT_FOUND` ships. **`[]` is now the beginning of a
+  story rather than the end of one**: a human can promote one, and `crr promote` makes them prove
+  it. A reviewer writes a `promotion.json` in the artifact's own predicate language; a **pure
+  function in `@crr/core` calls the same `evaluatePredicate` the classifier's band B3 calls** and
+  admits the detector only if it fires on a captured observation of the outcome screen and is
+  silent on every other frozen screen — refusing `over-fires / fires-on-happy-path` when it would
+  turn a successful run into a confident `MEMBER_NOT_FOUND`, `does-not-fire` when it is scoped to a
+  step the condition cannot reach, and `corpus-too-thin` when nobody froze a green capture at that
+  step. There is one enforced minimum and no invented threshold: at least one positive, and at
+  least one happy-path negative at the same step at the tenant being proven. Everything else is
+  reported on the receipt. The promotion is a **revision** — `contract@2.0.0` (MAJOR: an added
+  outcome breaks an exhaustive `switch`) plus `artifact@v2 (proposed)`, with v1 left untouched —
+  and it must still pass the live verification replay, because `classify` evaluates declared
+  outcomes **before** the checkpoint, so adding a detector changes the meaning of every *successful*
+  run through that step. `pnpm -F @crr/core exec vitest run test/promotion.test.ts` and
+  `pnpm -F @crr/runtime exec vitest run test/promote.test.ts`.
 - **No routing prose is generated.** `whenToUse`/`whenNotToUse` are hand-authored or stamped
   `NEEDS AN AUTHOR`. Models mis-route far more often than they mis-fill arguments.
 - **No queue, database, auth service, admin SPA, or desktop driver.**
@@ -228,6 +252,34 @@ review that adds rules.
   reaches the bundle — what is violated is the rule that file states about itself, in the document a
   reviewer reads to decide whether to trust the others. The fix is a blank-list separate from the
   needle-list, which means another live run.
+- **A promoted detector is only as good as the corpus it was proven against**, and the corpus is
+  mine. The proof's claim is exactly "fires on these captures, silent on those": a screen nobody
+  froze is a screen it did not consider, and it cannot tell you the screen *means* "no such member"
+  rather than "the search timed out and we rendered an empty grid" — that judgement is the
+  reviewer's, recorded in `stableUnderRetryBecause` and signed for. Two further limits are
+  structural rather than incidental. The proof does **not** catch a mis-scoped detector on its own
+  — relabel the positive to follow it and the proof passes, measured in `promotion.test.ts`; what
+  catches it is the run journal's `evidence.captured.stepId`, which the promotion tool reads instead
+  of believing the review. And nothing here defends against the reviewer or the approver: a person
+  who can write the review, fabricate a consistent capture *and* sign the result is inside the trust
+  boundary, and the controls raise the cost of an accident rather than of an attack.
+- **A promotion has now been performed end to end**, against the live run's own artifact rather than
+  a fixture: `evidence/outcome-promotion/` — six `crr probe --capture-every` runs, `contract@2.0.0`
+  + `artifact@2`, a re-verification at grade `full`, and an invocation returning
+  `OUTCOME MEMBER_NOT_FOUND` (exit 2) where v1 returned `failed / checkpoint-failed`. Three things
+  it exposed, none of them flattering. **The proof refused the reviewer's first attempt**, and the
+  reason is a limit of the tool rather than of the detector: a `--capture-every` probe of the run
+  that produced the outcome screen freezes that screen *again* at every later step the flow reaches,
+  and the copy the reviewer may not designate as a positive is then a negative the detector must be
+  silent on and cannot be. The prover was left exactly as it is; the reviewer moved the detector to
+  the step the run stops at, and the corpus that passes therefore **excludes that probe**,
+  deliberately and visibly. `otherAbnormalAtStep` is `0`: no competing abnormal screen exists at the
+  proven step, because all four abnormal probes are caught by the previous step's checkpoint first,
+  and the two screens that would test it — a torn repaint, an interstitial the grid shows through —
+  were not probed. And `crr link` had never once linked a promoted artifact: it parsed `--tenant`
+  and did not pass it, so linker check 29's tenant clause refused every promotion at every tenant.
+  One line, and only the first real promotion could have found it. `evidence/artifact/` is untouched
+  and its outcome is still `origin: "hand-authored"` — **UNPROVEN**.
 - **The live bundle names two content addresses for one artifact.** `verification` is not on
   `ARTIFACT_DIGEST_EXCLUDED_FIELDS`, so writing the stamp moves the digest: the run log says
   `sha256:923ab02f…`, the shipped `synthesized/artifact.json` says `sha256:32e56a6f…`. The file is

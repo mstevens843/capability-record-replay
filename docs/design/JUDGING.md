@@ -109,7 +109,7 @@ it landed.
 | `TARGET_UNDERDETERMINED` as its own class | §2.6, §5.3 | "This tenant needs specialization" is a different human action from "the control is gone". |
 | `AMBIGUOUS_CLASSIFICATION` as a hard stop | §4.6 | Replaces the spine's runtime first-declared-wins, which resolved a taxonomy tie by array index and shipped the answer. |
 | Generated `ExpectationTrace` via `renderTarget`/`renderPredicate`/`renderVerdict` | §4.7 | Authored prose drifts from the predicate it claims to describe; a fold cannot. Also the design *criterion*: a construct earns its place partly because the interpreter can explain it at 2am. |
-| The linker as a numbered list of checks run before any action, incl. the budget check | §10.1 | Extended to 28 checks. |
+| The linker as a numbered list of checks run before any action, incl. the budget check | §10.1 | Extended to 28 checks. *(28 is what this judging round produced; the linker has run **29** since `docs/design/OUTCOME-PROMOTION.md` added `outcome-unproven` on 2026-08-29.)* |
 | `afterRemedy: "reverify"` as a field with exactly one legal value | §2.4 | Makes "a remedy can never set the pc" visible in the document a human reviews. |
 | `readTable` with `minRows`/`maxRows`/`onTruncate: "fail"` | §2.4, §3 | The spine had no bounded-read construct; silent truncation of a share list is the quiet wrongness the design exists to prevent. |
 | Keeping `NodeQuery` (existential) a different type from `TargetRef` (quorum) | §2.4 | Stops a detector's looseness leaking into an action. |

@@ -309,6 +309,7 @@ export const terminalContract: CapabilityContract = sealContract({
       terminal: true,
       payload: [],
       stableUnderRetry: true,
+      origin: "hand-authored",
       callerAction: "retry-different-input",
       retryable: "with_different_inputs",
       agentGuidance:
@@ -322,6 +323,7 @@ export const terminalContract: CapabilityContract = sealContract({
       terminal: true,
       payload: [],
       stableUnderRetry: true,
+      origin: "hand-authored",
       callerAction: "refer-to-specialist",
       retryable: "never",
       agentGuidance: "Tell the member a specialist has to help with this account, and transfer.",
@@ -558,6 +560,7 @@ export function terminalArtifact(options: TerminalFlowOptions = {}): CapabilityA
               priority: 10,
               phase: "post",
               requiresSettled: true,
+              origin: "hand-authored",
               capture: [],
             },
             {
@@ -566,6 +569,7 @@ export function terminalArtifact(options: TerminalFlowOptions = {}): CapabilityA
               priority: 20,
               phase: "post",
               requiresSettled: true,
+              origin: "hand-authored",
               capture: [],
             },
           ],
@@ -756,6 +760,7 @@ export function terminalArtifact(options: TerminalFlowOptions = {}): CapabilityA
       maxProgramAttempts: options.maxProgramAttempts ?? 2,
       deadlineMs: options.deadlineMs ?? 60_000,
     },
+    promotions: [],
     signatures: [],
   });
 
@@ -767,6 +772,7 @@ export function terminalArtifact(options: TerminalFlowOptions = {}): CapabilityA
     alg: "ed25519",
     acknowledgedEffects: ["READ"],
     acknowledgedGrade: "full",
+    acknowledgedPromotions: [],
   });
 }
 

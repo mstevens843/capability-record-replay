@@ -505,6 +505,40 @@ describe("the redaction canary - no parameter value reaches any rendered string"
     expect(text).toContain("<taint:memberId>");
   });
 
+  it("scrubs a value that reached the observed route's QUERY, which is where a GET form puts it", () => {
+    // MEASURED, not hypothetical. `evidence/outcome-promotion/` walked the live artifact through
+    // the promotion path and the first thing it produced was this leak: the live route table
+    // declares `search-results` with a query key bound to `param.memberId`, because the fixture's
+    // search form is a GET form and that is what synthesis derived. The driver reports the OBSERVED
+    // query beside the canonicalized path, `observedSummaryOf` passed `observation.route` straight
+    // through, and the member number went into the journal's `classified` line, into the result
+    // document's failure trace and onto the operator console - while the frozen observation sitting
+    // next to it had the same field blanked to `<taint:memberId-1>`.
+    //
+    // Five clean `pnpm demo` canary runs said nothing about it: the hand-authored artifact declares
+    // no query on any route, so the field was always empty over the path the demo exercises.
+    const withQuery: Observation = {
+      ...results,
+      route: {
+        originAlias: "corebank",
+        path: "/members/search",
+        query: { memberId: TAINTED, sort: "name" },
+        frame: "content",
+      },
+    };
+    // The discrimination half: the observation really does carry it, so the assertion below is
+    // about the summary builder and not about an input that never held the value.
+    expect(JSON.stringify(withQuery.route)).toContain(TAINTED);
+
+    const summary = observedSummaryOf(withQuery, bindings);
+    expect(JSON.stringify(summary)).not.toContain(TAINTED);
+    expect(summary.route?.query.memberId).toBe("<taint:memberId>");
+    // Untainted keys are untouched: this is a substitution of bound values, not a blanket blanking
+    // of the url, and a query key that carries no argument still tells an operator where they were.
+    expect(summary.route?.query.sort).toBe("name");
+    expect(summary.redactionsApplied).toBeGreaterThan(0);
+  });
+
   it("keeps an artifact LITERAL, because that one is the artifact's own text and the bug's name", () => {
     // The asymmetry is the point of SPEC section 4.2 rows 4-vs-5: when the rejected value came
     // from the artifact rather than the caller, the value IS the finding, and blanking it would

@@ -1,0 +1,8 @@
+  review    MEMBER_NOT_FOUND at activate-search, by reviewer:agent-acting-as-reviewer, sha256:1b743ac62915647bd04fd529aa9e8f463d5446b75bdb02808195c2df8df80445
+  corpus    14 observations from 6 bundle(s), 0 problem(s)
+  positive  sha256:29648031893c750c814816b0a46d3bd7bc1baa2722a848657f2702ad729e68cd - the journal says step activate-search
+  proof     riverbend: OVER-FIRES - the detector fires on sha256:c33a647ab66a18aecab31653a4ff8af185b23e6f8093a8e554e549a778d3e36c, captured at step read-membername-sharebalance-membershipstatus on a run that ended failed at tenant riverbend; it does not tell the outcome screen apart from that one
+  REFUSED   riverbend: over-fires - the detector fires on sha256:c33a647ab66a18aecab31653a4ff8af185b23e6f8093a8e554e549a778d3e36c, captured at step read-membername-sharebalance-membershipstatus on a run that ended failed at tenant riverbend; it does not tell the outcome screen apart from that one
+PROMOTION REFUSED  MEMBER_NOT_FOUND at activate-search
+  riverbend    over-fires       green@step 1, other-abnormal@step 4, other steps 8, other tenants 0
+  ! riverbend: over-fires - the detector fires on sha256:c33a647ab66a18aecab31653a4ff8af185b23e6f8093a8e554e549a778d3e36c, captured at step read-membername-sharebalance-membershipstatus on a run that ended failed at tenant riverbend; it does not tell the outcome screen apart from that one

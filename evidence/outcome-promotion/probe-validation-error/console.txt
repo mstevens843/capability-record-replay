@@ -1,0 +1,8 @@
+FAILED  run run-ca062c5d-9dbc-4fc9-86ae-da47384af1da  1/4 steps  750ms
+  failure      checkpoint-failed at activate-search
+  side effects possible
+  expected     the surface is on route search-results and a cell named <member-id> inside frame exactly "top", inside frame exactly "content", inside the form, inside the table with columns [<member-id>, <name>, <share-balance>, <status>, <action>] is present and a cell named <name> inside frame exactly "top", inside frame exactly "content", inside the form, inside the table with columns [<member-id>, <name>, <share-balance>, <status>, <action>] is present and the surface has settled
+  do this      The postcondition did not hold; the expectation trace says which clause.
+  captured observations (step / phase / content address)
+    fill-fill            post  obs:713d1a442f7bde6c9b7fa60ce3b69194aac0062d84c51c48e35de66c98ecacae
+    activate-search      post  obs:803bb002eeb7d1a3c9d1a983a6e7b975c3933cff7e69843a71b9a0263ddd61ef

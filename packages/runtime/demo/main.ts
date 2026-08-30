@@ -738,6 +738,14 @@ const PRODUCERS: readonly { readonly prefix: string; readonly producer: string }
   },
   { prefix: "redaction-canary/", producer: "`@crr/runtime` `runRedactionCanary()`" },
   {
+    // NOT produced by `pnpm demo`, and `clearOwned()` therefore does not list it either. A human
+    // reviewer walked the live artifact through `crr probe` / `crr promote` / `crr verify`; the
+    // directory's own README names a producer for every file it holds.
+    prefix: "outcome-promotion/",
+    producer:
+      "a reviewer plus `crr` verbs, no model — that directory's README names a producer per file",
+  },
+  {
     prefix: "replay-",
     producer: "`@crr/runtime` `replay()` over `@crr/surface-browser`, no model",
   },
@@ -1078,6 +1086,11 @@ function bundleReadme(
     "| [`cli-replay/`](cli-replay/) | the shipped `crr` binary | **none** |",
     "| [`masked-capture/`](masked-capture/) | `@crr/surface-browser` `capture()` | **none** |",
     "| [`redaction-canary/`](redaction-canary/) | `@crr/runtime` `runRedactionCanary()` | **none** |",
+    ...(existsSync(join(EVIDENCE, "outcome-promotion"))
+      ? [
+          "| [`outcome-promotion/`](outcome-promotion/) | a reviewer walking the live artifact through `crr probe` / `crr promote` / `crr verify` | **none — the two documents it starts from came from the live run; nothing else here did** |",
+        ]
+      : []),
     liveRunPresent()
       ? "| [`discovery-live/`](discovery-live/) | `pnpm discover` — the `anthropic` adapter against the Messages API | see `discovery-live/provenance.json` |"
       : "| [`discovery-live/`](discovery-live/) | *pending* — will be `pnpm discover` over the `anthropic` adapter | *pending* |",

@@ -190,13 +190,22 @@ const leafPredicateSchemaImpl = z.discriminatedUnion("kind", [
     where: NodeQuerySchema,
     matcher: SafeTextMatcherSchema,
   }),
-  z.strictObject({
-    kind: z.literal("count"),
-    where: NodeQuerySchema,
-    op: z.enum(["eq", "gte", "lte"]),
-    /** The only arithmetic in the language, and it is a comparison against a small integer. */
-    n: z.int().nonnegative().max(10_000),
-  }),
+  z
+    .strictObject({
+      kind: z.literal("count"),
+      where: NodeQuerySchema,
+      op: z.enum(["eq", "gte", "lte"]),
+      /** The only arithmetic in the language, and it is a comparison against a small integer. */
+      n: z.int().nonnegative().max(10_000),
+    })
+    .refine((p) => !(p.op === "gte" && p.n === 0), {
+      // `n` is `nonnegative()`, so `count >= 0` is true of every observation ever taken - including
+      // one where the query selected nothing at all. It reads like a bound and is a tautology, and
+      // a detector that is trivially true is a machine for emitting a business outcome that was
+      // never observed. `gte 1` is what an author who wrote this actually meant.
+      error:
+        "a count of at least zero is true on every screen, including an empty one; a detector that cannot be false has detected nothing - use `gte` with 1, or `eq` with 0 to assert absence",
+    }),
   z.strictObject({ kind: z.literal("route-matches"), route: RouteIdSchema }),
   z.strictObject({ kind: z.literal("settled") }),
   z.strictObject({

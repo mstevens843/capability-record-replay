@@ -1,0 +1,45 @@
+{
+  "bundleDir": "/Users/devlegacy/Desktop/projects/ai-gap-coverage-projects/capability-record-replay/evidence/outcome-promotion",
+  "filesScanned": 73,
+  "bytesScanned": 2693317,
+  "secrets": [
+    "green probe + re-verification + green invocation / args.memberId",
+    "absent-member probe + before/after invocation / args.memberId",
+    "malformed-number probe / args.memberId"
+  ],
+  "encodings": [
+    "utf8",
+    "utf8-lower",
+    "utf8-upper",
+    "utf16le",
+    "json-escape",
+    "json-unicode",
+    "uri-component",
+    "percent-bytes",
+    "html-entity-decimal",
+    "html-entity-hex",
+    "hex-lower",
+    "hex-upper",
+    "base64",
+    "base64url"
+  ],
+  "needles": 21,
+  "skippedEncodings": [
+    "green probe + re-verification + green invocation / args.memberId / base64 - no needle of at least 6 characters",
+    "green probe + re-verification + green invocation / args.memberId / base64url - no needle of at least 6 characters",
+    "absent-member probe + before/after invocation / args.memberId / base64 - no needle of at least 6 characters",
+    "absent-member probe + before/after invocation / args.memberId / base64url - no needle of at least 6 characters",
+    "malformed-number probe / args.memberId / base64 - no needle of at least 6 characters",
+    "malformed-number probe / args.memberId / base64url - no needle of at least 6 characters"
+  ],
+  "hits": [],
+  "suppressed": [],
+  "forbidden": [],
+  "selfTest": {
+    "planted": 21,
+    "found": 21,
+    "missed": [],
+    "ok": true
+  },
+  "clean": true
+}

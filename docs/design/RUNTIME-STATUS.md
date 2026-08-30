@@ -484,7 +484,10 @@ Carried forward from `CORE-STATUS.md` §7 and still true:
   both. Do not invent a number.
 - Classifier rows 8, 13 and 16 infer a failure class **from the remedy** because `RecoveryRuleSchema`
   has no field naming one. One optional `classifyAs` field fixes it.
-- **The linker still has 28 checks.** The check unit 4 asked for — "an artifact declaring ambient
+- **The linker still has 28 checks.** *(Count superseded on 2026-08-29: it has **29**, because
+  `docs/design/OUTCOME-PROMOTION.md` added check 29 `outcome-unproven`. The bullet's point survives
+  intact — check 29 is not the check unit 4 asked for, and that one is still missing.)* The check
+  unit 4 asked for — "an artifact declaring ambient
   recoveries has at least one step that can spend one" — was not added, and
   `maxRemediationCycles: 0` still makes ambient rules inert. Unit 14 works around this from the
   recorder side by deriving non-zero step budgets when it lifts a dialog into an ambient rule, which

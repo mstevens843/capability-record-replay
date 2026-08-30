@@ -1,0 +1,8 @@
+  review    MEMBER_NOT_FOUND at read-membername-sharebalance-membershipstatus, by reviewer:agent-acting-as-reviewer, sha256:47ebed5ea3648929e03c742a36eeb85a814c7d63549d9c12d2045a66e3addf5d
+  corpus    12 observations from 6 bundle(s), 0 problem(s)
+  positive  sha256:394ed4f0ecb4eff6dfbed88e829141f4587973e26257cb6ea017844b95d8df8a - the journal says step read-membername-sharebalance-membershipstatus
+  proof     riverbend: DISCRIMINATES - fires on 1 designated positive(s) at step read-membername-sharebalance-membershipstatus and is silent on all 11 negative(s), of which 1 were captured at that step on a successful run and 0 were other screens at that step
+  emitted   contract@2.0.0, artifact@2 sha256:8df36d2853f774cecfa18c7d41ee033acba98b7ebfd92597f5e3cc59274faad6
+PROMOTED  MEMBER_NOT_FOUND at read-membername-sharebalance-membershipstatus
+  riverbend    discriminates    green@step 1, other-abnormal@step 0, other steps 10, other tenants 0
+  DRY RUN - nothing was written

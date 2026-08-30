@@ -41,7 +41,7 @@ import type {
   Verification,
 } from "@crr/core";
 import { VerificationSchema } from "@crr/core";
-import type { ApprovalGrant } from "./approval.js";
+import type { ApprovalGrant, InvocationApprovalGrant } from "./approval.js";
 import type { Clock } from "./clock.js";
 import type { EvidenceSink } from "./evidence.js";
 import type { IdSource } from "./ids.js";
@@ -103,6 +103,9 @@ export interface VerifyOptions {
   /** Required only when a `replay-reset` run will really dispatch an irreversible action: policy
    *  rule 8 is uniform across modes and a token is a human's explicit act. */
   readonly approval?: ApprovalGrant | null;
+  readonly invocationApproval?: InvocationApprovalGrant | null;
+  readonly approvalPolicyVersion?: string;
+  readonly idempotencyKey?: string | null;
   readonly clock?: Clock;
   readonly ids?: IdSource;
   readonly journal?: ReplayOptions["journal"];
@@ -229,6 +232,11 @@ export async function verifyArtifact(options: VerifyOptions): Promise<Verificati
     trust: { trustedKeyIds: [], verifySignature: () => false },
     mode: "verification",
     approval: options.approval ?? null,
+    invocationApproval: options.invocationApproval ?? null,
+    ...(options.approvalPolicyVersion === undefined
+      ? {}
+      : { approvalPolicyVersion: options.approvalPolicyVersion }),
+    ...(options.idempotencyKey === undefined ? {} : { idempotencyKey: options.idempotencyKey }),
     dryRun,
     // A verification replay has nobody to escalate to. It runs unattended, immediately after
     // discovery, and a suspension would park a live session waiting for an operator who was never

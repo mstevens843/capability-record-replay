@@ -65,10 +65,10 @@
     "attempts": [],
     "retriable": "same-inputs",
     "operatorAction": "The application returned its own error page; capture and report to the vendor.",
-    "observationRef": "obs:a50b2fbc343314a2a07f3922a050c0663c4c8829032b8e464337d648325f538a"
+    "observationRef": "obs:09adb420116943f708f54f8f9693d60c5045f76a5d1518f6b21d7cef52930932"
   },
   "run": {
-    "runId": "run-08a42fb1-d9d7-4943-b5d3-8017ffaf863d",
+    "runId": "run-ea74fc76-22a8-4455-85ab-666a8b8bb685",
     "capability": {
       "name": "corebank.member.read_share_position",
       "version": "1.0.0"
@@ -76,9 +76,9 @@
     "artifact": {
       "artifactId": "corebank-member-share-position-web",
       "version": 1,
-      "digest": "sha256:ba09bc6061370dbf99ecb3c541ab41d22b7808a668591a9730356d952cc726f3",
+      "digest": "sha256:2e45d5f8b847027d8a5fda4d2e54943f70e9abba07fde8106775ac7cc34dab63",
       "overlayDigest": null,
-      "effectiveDigest": "sha256:b98064075b3bbe086ce5130f1cf997fe0ac4d67449b7c826314bbba459cb3b8f"
+      "effectiveDigest": "sha256:133b2dee7f8716f604ee7e1a9cdc6f6661a3f3722527873161606a6b6403068a"
     },
     "tenant": {
       "tenantId": "riverbend",
@@ -86,9 +86,9 @@
     },
     "surface": "web-legacy",
     "engineVersion": "crr-runtime/0.1.0",
-    "startedAt": "2026-08-29T02:37:04.737Z",
-    "endedAt": "2026-08-29T02:37:06.327Z",
-    "durationMs": 1590,
+    "startedAt": "2026-08-30T01:41:38.535Z",
+    "endedAt": "2026-08-30T01:41:40.137Z",
+    "durationMs": 1602,
     "stepsExecuted": 4,
     "stepsTotal": 9,
     "budgets": {
@@ -109,7 +109,7 @@
         "limit": 1
       },
       "wallClockMs": {
-        "used": 1592,
+        "used": 1603,
         "limit": 180000
       }
     },
@@ -135,7 +135,7 @@
         },
         "skeletonDigest": "sha256:77133a7a47cabfb23d8a04fdd48bd97dff3e5670d891b221c3db0bf8275c79c4",
         "observationRef": null,
-        "elapsedMs": 146
+        "elapsedMs": 148
       },
       {
         "stepId": "enter-member-id",
@@ -146,7 +146,7 @@
         },
         "skeletonDigest": "sha256:014aa733ad56a65ca562941a1edf215144446165bd3145f7af8bce711be1ce89",
         "observationRef": null,
-        "elapsedMs": 159,
+        "elapsedMs": 160,
         "resolution": [
           {
             "descriptorId": "member-id-right-of-label",
@@ -173,7 +173,7 @@
         },
         "skeletonDigest": "sha256:8be7e5b0e9750e40cd59049e6b76df8a9fdd68cacd9ea33dad97cd28d9f46800",
         "observationRef": null,
-        "elapsedMs": 173,
+        "elapsedMs": 163,
         "resolution": [
           {
             "descriptorId": "search-by-name",
@@ -219,7 +219,7 @@
         },
         "skeletonDigest": "sha256:8be7e5b0e9750e40cd59049e6b76df8a9fdd68cacd9ea33dad97cd28d9f46800",
         "observationRef": null,
-        "elapsedMs": 161
+        "elapsedMs": 158
       },
       {
         "stepId": "open-member-record",
@@ -240,7 +240,7 @@
         },
         "skeletonDigest": "sha256:89ae112647051c26f14edd9813f0426095c77120b1e56154fadd16266b8326f0",
         "observationRef": null,
-        "elapsedMs": 162,
+        "elapsedMs": 160,
         "resolution": [
           {
             "descriptorId": "open-by-row-key",
@@ -267,7 +267,7 @@
         },
         "skeletonDigest": "sha256:3ece383379d324a6b5bdff0a737d1bcc46e2ce4cd242fc56032c283c904771e7",
         "observationRef": null,
-        "elapsedMs": 151
+        "elapsedMs": 154
       },
       {
         "stepId": "enter-member-id",
@@ -278,7 +278,7 @@
         },
         "skeletonDigest": "sha256:014aa733ad56a65ca562941a1edf215144446165bd3145f7af8bce711be1ce89",
         "observationRef": null,
-        "elapsedMs": 150,
+        "elapsedMs": 155,
         "resolution": [
           {
             "descriptorId": "member-id-right-of-label",
@@ -305,7 +305,7 @@
         },
         "skeletonDigest": "sha256:8be7e5b0e9750e40cd59049e6b76df8a9fdd68cacd9ea33dad97cd28d9f46800",
         "observationRef": null,
-        "elapsedMs": 158,
+        "elapsedMs": 167,
         "resolution": [
           {
             "descriptorId": "search-by-name",
@@ -351,7 +351,7 @@
         },
         "skeletonDigest": "sha256:8be7e5b0e9750e40cd59049e6b76df8a9fdd68cacd9ea33dad97cd28d9f46800",
         "observationRef": null,
-        "elapsedMs": 159
+        "elapsedMs": 164
       },
       {
         "stepId": "open-member-record",
@@ -424,8 +424,8 @@
           }
         },
         "skeletonDigest": "sha256:89ae112647051c26f14edd9813f0426095c77120b1e56154fadd16266b8326f0",
-        "observationRef": "obs:a50b2fbc343314a2a07f3922a050c0663c4c8829032b8e464337d648325f538a",
-        "elapsedMs": 158,
+        "observationRef": "obs:09adb420116943f708f54f8f9693d60c5045f76a5d1518f6b21d7cef52930932",
+        "elapsedMs": 161,
         "resolution": [
           {
             "descriptorId": "open-by-row-key",
@@ -452,10 +452,10 @@
       "needsSpecialization": false
     },
     "evidence": [
-      "obs:a50b2fbc343314a2a07f3922a050c0663c4c8829032b8e464337d648325f538a",
-      "journal:5d1fa39cb2d8b74f6e41a53e6e9964faa54f6de3adbfcb662ebcc7a5aa5c8c0e"
+      "obs:09adb420116943f708f54f8f9693d60c5045f76a5d1518f6b21d7cef52930932",
+      "journal:94c79aac9ff6965bef5bea622e0ca9f9f91000a9017e9865ed321be821edd30e"
     ],
-    "journalRef": "journal:5d1fa39cb2d8b74f6e41a53e6e9964faa54f6de3adbfcb662ebcc7a5aa5c8c0e",
+    "journalRef": "journal:94c79aac9ff6965bef5bea622e0ca9f9f91000a9017e9865ed321be821edd30e",
     "warnings": []
   }
 }

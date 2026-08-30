@@ -19,12 +19,14 @@ import {
   type Descriptor,
   type LabelToken,
   type NormalizerId,
+  PROVER_VERSION,
   type Predicate,
   type RouteId,
   type StepId,
   type TargetRef,
   type TextMatcher,
   approveArtifact,
+  digestOf,
   sealArtifact,
   sealContract,
   sealOverlay,
@@ -147,6 +149,7 @@ export const memberLookupContract: CapabilityContract = sealContract({
       // Stable under retry: the same number will produce the same answer tomorrow. It is an
       // answer, not the absence of one.
       stableUnderRetry: true,
+      origin: "hand-authored",
       callerAction: "retry-different-input",
       retryable: "with_different_inputs",
       agentGuidance:
@@ -170,6 +173,10 @@ export const memberLookupContract: CapabilityContract = sealContract({
       // Stable under retry: a restriction is a fact about the RECORD. Contrast a session timeout,
       // which is a fact about this attempt and is therefore a failure, not an outcome.
       stableUnderRetry: true,
+      // Both halves of an outcome carry the origin and linker check 8 requires them to be equal.
+      // A contract that claimed synthesis derived this while the artifact said a human wrote it
+      // would be a lie about provenance in the one place a reviewer would go looking for it.
+      origin: "reviewer-authored",
       callerAction: "refer-to-specialist",
       retryable: "never",
       agentGuidance:
@@ -576,6 +583,7 @@ const unsealedArtifact = {
             priority: 10,
             phase: "post",
             requiresSettled: true,
+            origin: "hand-authored",
             capture: [],
           },
         ],
@@ -651,6 +659,13 @@ const unsealedArtifact = {
             priority: 10,
             phase: "post",
             requiresSettled: true,
+            // PROMOTED, not typed in. This is the fixture's one worked example of the whole
+            // promotion path: the detector below was admitted by a discrimination proof, and the
+            // receipt in `promotions` below records which observations it fired on, which it was
+            // silent on, and at which tenants. Its sibling MEMBER_NOT_FOUND is deliberately left
+            // `hand-authored` - unproven, legal, and printed as such - so that one document holds
+            // both states and every check that tells them apart has something to tell apart.
+            origin: "reviewer-authored",
             capture: [
               {
                 output: "restrictionCode",
@@ -856,6 +871,54 @@ const unsealedArtifact = {
     deadlineMs: 120_000,
   },
 
+  /**
+   * ONE RECEIPT, FOR THE ONE PROMOTED OUTCOME.
+   *
+   * SYNTHETIC, LIKE EVERY OTHER FIELD IN THIS FILE. The digests below are `digestOf` over a label,
+   * not over a screen anybody perceived, exactly as the approval above is a synthetic signature
+   * rather than a real ed25519 one. What this fixture is FOR is the checks: linker check 29 needs
+   * a document that satisfies it and a mutation of that document that does not, the artifact
+   * schema needs a receipt whose code and step agree with a rule, and `crr approve` needs
+   * something to make an approver tick. The genuine end-to-end proof is exercised by
+   * `test/promotion.test.ts`, which runs `proveDiscrimination` over the real frozen screens in
+   * `classifier-screens.ts` rather than asserting a literal.
+   *
+   * `provenAt` names both tenants because this artifact is linked at riverbend (bare) and at
+   * summit (through `summitOverlay`) throughout the suite, and check 29 refuses in `replay` mode
+   * at a tenant the proof does not name - which is the point of the field.
+   */
+  promotions: [
+    {
+      code: "MEMBER_RESTRICTED",
+      atStep: "open-member-row",
+      reviewDigest: digestOf("member-lookup fixture: the MEMBER_RESTRICTED review document"),
+      reviewedBy: "ops-approver-4",
+      supersedesArtifactVersion: 1,
+      proof: {
+        verdict: "discriminates",
+        proverVersion: PROVER_VERSION,
+        positives: [
+          {
+            observation: digestOf("member-lookup fixture: the restricted member detail screen"),
+            atStep: "open-member-row",
+          },
+        ],
+        negatives: {
+          corpusDigest: digestOf("member-lookup fixture: the negative corpus"),
+          total: 9,
+          happyPathAtStep: 2,
+          // Zero, and REPORTED rather than smoothed over. Nobody has shown this detector can tell
+          // a restriction banner from any other banner that lands on the detail screen; an
+          // approver reads that fact instead of a threshold's opinion of it.
+          otherAbnormalAtStep: 0,
+          otherSteps: 6,
+          otherTenants: 1,
+        },
+        provenAt: ["riverbend", "summit"],
+      },
+      probeConfirmed: false,
+    },
+  ],
   signatures: [],
 };
 
@@ -872,6 +935,9 @@ export const memberLookupArtifact: CapabilityArtifact = approveArtifact(memberLo
   alg: "ed25519",
   acknowledgedEffects: ["READ"],
   acknowledgedGrade: "full",
+  // The approver ticked the promoted code by hand. Refused on mismatch in both directions, exactly
+  // as the grade and the effect classes are.
+  acknowledgedPromotions: ["MEMBER_RESTRICTED"],
 });
 
 // ---------------------------------------------------------------------------------------------

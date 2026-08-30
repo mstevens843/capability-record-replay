@@ -4,10 +4,10 @@
   "implements": {
     "name": "corebank.member.read_share_position",
     "version": "1.0.0",
-    "contractDigest": "sha256:7558ab653209bf677b9917252396f9e055af4634eba206a5983a3e33c175aac2"
+    "contractDigest": "sha256:521516b992bd8e9c755b83c80a4c805caeb98509a9182b10cf7c2f8a5a759b44"
   },
   "version": 1,
-  "digest": "sha256:ba09bc6061370dbf99ecb3c541ab41d22b7808a668591a9730356d952cc726f3",
+  "digest": "sha256:2e45d5f8b847027d8a5fda4d2e54943f70e9abba07fde8106775ac7cc34dab63",
   "target": {
     "product": "CoreBank Servicing",
     "productVersionRange": ">=8.0 <9.0",
@@ -27,14 +27,15 @@
     "approval": {
       "approvedBy": "ops-approver-4",
       "approvedAt": "2026-02-11T15:20:04.000Z",
-      "signature": "-3XeiZsyImPeP8ao-ARIxL6iDoVolF56qk4sor5HU_KFTn7GQAJCQ_uMKFtesas8AloVlrw_Y3ESF_vNf5zqCw",
+      "signature": "RS8uHM1KXnxGZHjVD91AYjU9GIVzYTyahyBwbyv3gnMiqtH3hk3yioOkpKaxt50z0UDRUr5w_PPLtk4WVyIzDQ",
       "keyId": "ops-approval-key-1",
       "alg": "ed25519",
-      "over": "sha256:ba09bc6061370dbf99ecb3c541ab41d22b7808a668591a9730356d952cc726f3",
+      "over": "sha256:2e45d5f8b847027d8a5fda4d2e54943f70e9abba07fde8106775ac7cc34dab63",
       "acknowledgedEffects": [
         "READ"
       ],
-      "acknowledgedGrade": "full"
+      "acknowledgedGrade": "full",
+      "acknowledgedPromotions": []
     }
   },
   "flow": {
@@ -657,7 +658,8 @@
             "priority": 10,
             "phase": "post",
             "requiresSettled": true,
-            "capture": []
+            "capture": [],
+            "origin": "hand-authored"
           }
         ],
         "recoveries": [],
@@ -2076,5 +2078,6 @@
     "maxProgramAttempts": 1,
     "deadlineMs": 180000
   },
+  "promotions": [],
   "signatures": []
 }

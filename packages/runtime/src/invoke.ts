@@ -42,7 +42,7 @@ import {
   type WithApproval,
   digestOf,
 } from "@crr/core";
-import type { ApprovalGrant } from "./approval.js";
+import { type ApprovalGrant, approvalGrant, type InvocationApprovalGrant } from "./approval.js";
 import { type Clock, systemClock } from "./clock.js";
 import { type EvidenceSink, MemoryEvidenceSink } from "./evidence.js";
 import { type IdSource, evidenceRefOf, randomIds } from "./ids.js";
@@ -63,6 +63,8 @@ export interface InvokeHost {
   /** Required by the TYPE when the capability is irreversible - see `WithApproval` - and this is
    *  where the token the caller supplied is turned into a grant over the artifact's digest. */
   readonly approval?: ApprovalGrant | null;
+  readonly invocationApproval?: InvocationApprovalGrant | null;
+  readonly approvalPolicyVersion?: string;
   readonly clock?: Clock;
   readonly ids?: IdSource;
   readonly journal?: ReplayOptions["journal"];
@@ -206,7 +208,15 @@ async function runOnce<C extends CapabilityContract>(
       allowlist: host.allowlist,
       broker: host.broker,
       trust: host.trust,
-      approval: host.approval ?? null,
+      approval:
+        "approval" in inv && inv.approval !== undefined
+          ? approvalGrant(host.artifact.digest, inv.approval)
+          : (host.approval ?? null),
+      invocationApproval: host.invocationApproval ?? null,
+      ...(host.approvalPolicyVersion === undefined
+        ? {}
+        : { approvalPolicyVersion: host.approvalPolicyVersion }),
+      ...(inv.idempotencyKey === undefined ? {} : { idempotencyKey: inv.idempotencyKey }),
       clock,
       ids,
       evidence,

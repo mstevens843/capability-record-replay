@@ -30,6 +30,9 @@ import {
   type Action,
   type ActionKind,
   type Allowlist,
+  APPROVAL_POLICY_VERSION,
+  type ApprovalDemand,
+  type ApprovalVerdict,
   type ClassifierInput,
   type ControlTransfer,
   type EffectClass,
@@ -61,18 +64,21 @@ import {
   type TargetResolutionResult,
   type UINode,
   type Verdict,
+  approvalArgsHash,
   bindingFor,
   check,
   classify,
   effectExceeds,
+  authorizeIrreversibleWrite,
   instructionActs,
+  irreversibleApprovalOf,
   observedSummaryOf,
   outputBindingName,
   renderTarget,
   renderVerdict,
   resolveTarget,
 } from "@crr/core";
-import type { ApprovalGrant } from "./approval.js";
+import { type ApprovalGrant, approvalGrant, type InvocationApprovalGrant } from "./approval.js";
 import { type RunLedger, StepLedger } from "./budgets.js";
 import type { Clock } from "./clock.js";
 import { escalatesRegardlessOfCaller } from "./escalation.js";
@@ -159,7 +165,12 @@ export interface InterpreterOptions {
   readonly allowlist: Allowlist;
   /** `replay` demands an approved artifact at the chokepoint; `discovery` does not. */
   readonly mode: PolicyContext["mode"];
+  readonly args: Readonly<Record<string, unknown>>;
+  readonly tenant: { readonly tenantId: string; readonly appInstanceId: string };
+  readonly idempotencyKey?: string | null;
   readonly approval: ApprovalGrant | null;
+  readonly invocationApproval?: InvocationApprovalGrant | null;
+  readonly approvalPolicyVersion?: string;
   /** Goes in the lease and in the journal, so a run's actions are attributable. */
   readonly actorId: string;
   /** Ceiling on ONE `perceive`, distinct from any settle budget. */
@@ -184,6 +195,16 @@ export interface InterpreterOptions {
   readonly resumeFrom?: InterpreterResumeState | null;
   /** Defaults to `REFERENCE_DECISIONS`. See `DecisionFunctions` for why this is here at all. */
   readonly decisions?: DecisionFunctions | null;
+  /**
+   * Freeze an observation at EVERY step regardless of what the step's `evidence.captureOn`
+   * declares. A RUNTIME OPTION, never an artifact edit - see `#captureIf` for why that distinction
+   * is the whole point of the field.
+   *
+   * This is what `crr probe --capture-every` sets. It changes no decision, reaches no model and
+   * spends no budget; what it changes is how much member data lands on disk, which is why a probe
+   * runs against an obviously synthetic member into a directory the redaction canary covers.
+   */
+  readonly captureEvery?: boolean;
 }
 
 /** What survives a handoff: where to restart, what has already been read, and the fact that a
@@ -566,7 +587,14 @@ export class Interpreter {
       // rather than leave it as a claim in a design document.
       const moment: PolicyMoment = { now: this.#o.clock.now(), epoch: this.#o.lease.epoch };
       const gateAt = { startedAt, attempt, resolution };
-      const policy = this.#policyContext(step, location, observation);
+      const authorization = this.#authorizeStep(step);
+      if (!authorization.ok) {
+        const decision = this.#approvalRefusalDecision(authorization.verdict);
+        this.#journalDecision(step, decision, lowered.action.kind);
+        const refused = this.#refuse(step, decision, preInput, gateAt);
+        if (refused !== null) return { irreversibleDispatched, disposition: refused };
+      }
+      const policy = this.#policyContext(step, location, observation, authorization.policyGrant);
       const decision = check(lowered.action, policy, moment);
       this.#journalDecision(step, decision, lowered.action.kind);
       // Consulted INLINE and not inside the helper: `check(a, ctx, at); await s.act(a, lease)`
@@ -747,7 +775,7 @@ export class Interpreter {
             passed: false,
             trace: { rendered: opcode.note, clauses: [] },
           });
-          trace(this.#captureIf(step, observation, "failure"));
+          trace(this.#captureIf(step, observation, "failure", input.phase));
           return {
             kind: "stop",
             result: this.#failedResult(step, observation, "checkpoint-failed", [opcode.note]),
@@ -788,7 +816,7 @@ export class Interpreter {
               ? passedTrace
               : { ...passedTrace, rendered: `${passedTrace.rendered} - NOTE: ${opcode.warning}` },
         });
-        trace(this.#captureIf(step, observation, "always"));
+        trace(this.#captureIf(step, observation, "always", input.phase));
         return { kind: "advance" };
       }
 
@@ -803,7 +831,7 @@ export class Interpreter {
         );
 
       case "outcome": {
-        const ref = this.#captureIf(step, observation, "outcome");
+        const ref = this.#captureIf(step, observation, "outcome", input.phase);
         trace(ref);
         return {
           kind: "stop",
@@ -820,11 +848,11 @@ export class Interpreter {
       }
 
       case "recover":
-        trace(this.#captureIf(step, observation, "never"));
-        return { kind: "recover", verdict, observation };
+        trace(this.#captureIf(step, observation, "never", input.phase));
+        return { kind: "recover", verdict, observation, phase: input.phase };
 
       case "fail": {
-        const ref = this.#captureIf(step, observation, "failure");
+        const ref = this.#captureIf(step, observation, "failure", input.phase);
         trace(ref);
         if (escalatesRegardlessOfCaller(verdict.failure)) {
           // Row 33, and SPEC section 7.2's one unconditional row. An intervention is raised even
@@ -899,7 +927,7 @@ export class Interpreter {
 
     switch (verdict.remedy.kind) {
       case "escalate": {
-        const ref = this.#captureIf(step, disposition.observation, "failure");
+        const ref = this.#captureIf(step, disposition.observation, "failure", disposition.phase);
         if (this.#o.onIntervention === "fail") {
           return {
             kind: "stop",
@@ -1150,7 +1178,7 @@ export class Interpreter {
       attempt,
       verdict,
       skeletonDigest: observation.skeletonDigest,
-      observationRef: this.#captureIf(step, observation, "always"),
+      observationRef: this.#captureIf(step, observation, "always", "pre"),
       elapsedMs: this.#o.clock.elapsedMs() - startedAt,
       ...(resolution === null ? {} : { resolution: resolutionRows(resolution) }),
     } as StepTrace);
@@ -1175,6 +1203,106 @@ export class Interpreter {
       actionKind,
       effect: step.effect,
     });
+  }
+
+  #authorizeStep(
+    step: ResolvedStep,
+  ):
+    | { readonly ok: true; readonly policyGrant: ApprovalGrant | null }
+    | { readonly ok: false; readonly verdict: Extract<ApprovalVerdict, { readonly ok: false }> } {
+    if (step.effect !== "WRITE_IRREVERSIBLE") {
+      return { ok: true, policyGrant: this.#o.approval };
+    }
+
+    const grant = this.#o.invocationApproval ?? null;
+    if (grant === null) {
+      const verdict: Extract<ApprovalVerdict, { readonly ok: false }> = {
+        ok: false,
+        reason: "request-binding-missing",
+        detail:
+          "an irreversible action needs an invocation approval document bound to this tenant, artifact, contract, arguments and idempotency key",
+        approvalId: this.#o.approval?.token ?? "missing",
+        keyId: null,
+      };
+      this.#journalApprovalRefused(step, verdict);
+      return { ok: false, verdict };
+    }
+
+    const narrowed = irreversibleApprovalOf(grant.approval);
+    if (!narrowed.ok) {
+      this.#journalApprovalRefused(step, narrowed.verdict);
+      return { ok: false, verdict: narrowed.verdict };
+    }
+
+    const demand: ApprovalDemand & { readonly requiredAuthority: readonly [string, ...string[]] } =
+      {
+        subject: "invocation",
+        capability: {
+          name: this.#o.program.contract.name,
+          version: this.#o.program.contract.version,
+        },
+        artifactDigest: this.#o.program.artifact.digest,
+        contractDigest: this.#o.program.contract.digest,
+        effect: step.effect,
+        artifactMaxEffect: this.#o.program.effects.maxEffect,
+        tenantId: this.#o.tenant.tenantId,
+        appInstanceId: this.#o.tenant.appInstanceId,
+        policyVersion: this.#o.approvalPolicyVersion ?? APPROVAL_POLICY_VERSION,
+        requiredAuthority: grant.requiredAuthority,
+        argsHash: approvalArgsHash(grant.approval.approvalId, this.#o.args),
+        idempotencyKey: this.#o.idempotencyKey ?? null,
+      };
+    const verdict = authorizeIrreversibleWrite({
+      approval: narrowed.approval,
+      demand,
+      trust: grant.trust,
+      now: this.#o.clock.now(),
+    });
+
+    if (!verdict.ok) {
+      this.#journalApprovalRefused(step, verdict);
+      return { ok: false, verdict };
+    }
+
+    this.#o.journal.append({
+      type: "approval.accepted",
+      approvalId: verdict.approvalId,
+      subject: verdict.subject,
+      ceiling: verdict.ceiling,
+      signerId: verdict.signerId,
+      keyId: verdict.keyId,
+      over: verdict.over,
+      expiresAt: verdict.expiresAt,
+      stepId: step.id,
+      effect: step.effect,
+    });
+    return { ok: true, policyGrant: approvalGrant(this.#o.program.artifact.digest, verdict.approvalId) };
+  }
+
+  #journalApprovalRefused(
+    step: ResolvedStep,
+    verdict: Extract<ApprovalVerdict, { readonly ok: false }>,
+  ): void {
+    this.#o.journal.append({
+      type: "approval.refused",
+      approvalId: verdict.approvalId,
+      reason: verdict.reason,
+      detail: verdict.detail,
+      keyId: verdict.keyId,
+      stepId: step.id,
+      effect: step.effect,
+    });
+  }
+
+  #approvalRefusalDecision(
+    verdict: Extract<ApprovalVerdict, { readonly ok: false }>,
+  ): PolicyDecision {
+    return {
+      allow: false,
+      reason: "irreversible-requires-approval",
+      ruleId: `approval:${verdict.reason}`,
+      detail: verdict.detail,
+    };
   }
 
   #chargeAction(): void {
@@ -1265,6 +1393,7 @@ export class Interpreter {
     step: ResolvedStep,
     location: RouteLocation | null,
     observation: Observation,
+    approval: ApprovalGrant | null = this.#o.approval,
   ): PolicyContext {
     // Where the action LANDS, not where we are: a navigate goes somewhere else, and checking the
     // page you are on while the action goes elsewhere is a check of the wrong thing - the shape an
@@ -1282,7 +1411,7 @@ export class Interpreter {
       route,
       effect: step.effect,
       lease: this.#o.lease.snapshot(),
-      approval: this.#o.approval?.token ?? null,
+      approval: approval?.token ?? null,
       artifact: {
         lifecycle: this.#o.program.artifact.lifecycle.status,
         // The digest is re-derived from the document by `parseArtifact` on the way in, and `link`
@@ -1290,7 +1419,7 @@ export class Interpreter {
         digestVerified: true,
       },
       taint: this.#bindings.flatMap((b) => (b.handle === null ? [] : [b.handle])),
-      approvedDigest: this.#o.approval?.digest ?? null,
+      approvedDigest: approval?.digest ?? null,
     };
   }
 
@@ -1332,22 +1461,50 @@ export class Interpreter {
     } as RouteLocation;
   }
 
+  /**
+   * Freeze this screen if the step's recording policy asks for it - or if the RUN was told to
+   * capture everything.
+   *
+   * `captureEvery` is a RUNTIME OPTION and never an artifact edit, and the distinction is the whole
+   * reason it is expressed here. `evidence.captureOn` is a recording policy that lives inside the
+   * digest an approval signs; overriding it from a command line must not move the program's content
+   * address, and it does not, because it never touches the document.
+   *
+   * WHY IT EXISTS AT ALL. Every step of every shipped artifact declares `captureOn: ["failure"]`,
+   * which is the right default in production - freezing every screen of every run writes regulated
+   * data to disk at a rate nobody wants - and the consequence is that A GREEN RUN FREEZES NOTHING.
+   * So the one observation an outcome promotion cannot do without, a happy-path capture at the step
+   * the detector is declared for, is the one observation the system never keeps. `crr probe
+   * --capture-every` is where that trade is deliberately reversed, for one run, against an
+   * obviously synthetic member, into a directory the redaction canary covers.
+   *
+   * `never` still means never: it is how a `recover` disposition says "this screen is on its way to
+   * being fixed, do not file it as evidence", and a blanket capture flag must not turn a transient
+   * interstitial into a corpus member that a later proof then has to be silent on.
+   */
   #captureIf(
     step: ResolvedStep,
     observation: Observation,
     when: "failure" | "outcome" | "always" | "never",
+    phase: "pre" | "post",
   ): EvidenceRef | null {
-    const wanted =
-      when !== "never" &&
-      (step.evidence.captureOn.includes("always") ||
-        (when !== "always" && step.evidence.captureOn.includes(when)));
-    if (!wanted) return null;
+    if (when === "never") return null;
+    const declared =
+      step.evidence.captureOn.includes("always") ||
+      (when !== "always" && step.evidence.captureOn.includes(when));
+    if (!declared && this.#o.captureEvery !== true) return null;
     const ref = this.#o.evidence.putObservation(observation, this.#bindings);
     this.#o.journal.append({
       type: "evidence.captured",
       ref,
       kind: "observation",
       maskedRegions: observation.nodes.filter((n) => n.masked).length,
+      // The binding from a frozen screen to the step and phase it was taken at. It used to be
+      // positional - read off whichever `observed` line came before - and a discrimination proof
+      // that trusted line ordering for a security-relevant fact would be exactly the quiet
+      // wrongness this repository refuses everywhere else.
+      stepId: step.id,
+      phase,
     });
     return ref;
   }
@@ -1540,6 +1697,9 @@ type TurnDisposition =
       readonly kind: "recover";
       readonly verdict: Extract<Verdict, { kind: "recover" }>;
       readonly observation: Observation;
+      /** Carried so the remedy's own capture can say which phase the screen was taken in, rather
+       *  than a reader inferring it from where the line landed. */
+      readonly phase: "pre" | "post";
     };
 
 function gateWith(gate: GateFacts | undefined, patch: Partial<GateFacts>): GateFacts {

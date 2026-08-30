@@ -1,0 +1,85 @@
+{
+  "schemaVersion": "capability.contract/v1",
+  "name": "corebank.member.read_share_position",
+  "version": "2.0.0",
+  "title": "Read a member's share position",
+  "summary": "Looks a member up by member number and reports their name, share balance and membership status, leaving the servicing session on that member's record.",
+  "whenToUse": [
+    "The member is asking what their share or savings balance is.",
+    "A teller needs the member's current position before servicing the account."
+  ],
+  "whenNotToUse": [
+    "You do not have a member number. Identify the member first; this capability will not search by name.",
+    "The member is asking about a loan, certificate or card balance - this reads share accounts only."
+  ],
+  "inputs": [
+    {
+      "name": "memberId",
+      "type": {
+        "kind": "string",
+        "charset": "digits"
+      },
+      "required": true,
+      "description": "The value to use for \"Member ID\". It was named in the goal the capability was discovered from.",
+      "sensitivity": "sensitive",
+      "constraints": {
+        "charset": "digits"
+      },
+      "discoveredFrom": {
+        "goalSpan": "Look up member {memberId} in the riverbend core banking b"
+      }
+    }
+  ],
+  "outputs": [
+    {
+      "name": "memberName",
+      "type": {
+        "kind": "string"
+      },
+      "required": true,
+      "description": "The name of member {memberId} as shown in the search results.",
+      "sensitivity": "internal",
+      "agentDisclosure": "deliver"
+    },
+    {
+      "name": "shareBalance",
+      "type": {
+        "kind": "money",
+        "currency": "USD"
+      },
+      "required": true,
+      "description": "The share balance of member {memberId}.",
+      "sensitivity": "internal",
+      "agentDisclosure": "deliver"
+    },
+    {
+      "name": "membershipStatus",
+      "type": {
+        "kind": "string"
+      },
+      "required": true,
+      "description": "The membership status of member {memberId}.",
+      "sensitivity": "internal",
+      "agentDisclosure": "deliver"
+    }
+  ],
+  "outcomes": [
+    {
+      "code": "MEMBER_NOT_FOUND",
+      "kind": "business_outcome",
+      "title": "No member with that number",
+      "summary": "The core system holds no member with the number supplied.",
+      "terminal": true,
+      "payload": [],
+      "origin": "reviewer-authored",
+      "stableUnderRetry": true,
+      "callerAction": "retry-different-input",
+      "retryable": "with_different_inputs",
+      "agentGuidance": "Tell the member that number is not on file and ask them to read it again from their card or statement. Do not guess a different number on their behalf."
+    }
+  ],
+  "effect": "WRITE_REVERSIBLE",
+  "requiresApproval": false,
+  "idempotent": false,
+  "digest": "sha256:e92f2fafa48e84697900d4ec80d86937e74cf9bf1e33c1903b006e376765b8ab"
+}

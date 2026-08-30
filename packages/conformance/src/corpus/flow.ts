@@ -358,6 +358,7 @@ export const contract: CapabilityContract = sealContract({
       terminal: true,
       payload: [],
       stableUnderRetry: true,
+      origin: "hand-authored",
       callerAction: "retry-different-input",
       retryable: "with_different_inputs",
       agentGuidance:
@@ -371,6 +372,7 @@ export const contract: CapabilityContract = sealContract({
       terminal: true,
       payload: [],
       stableUnderRetry: true,
+      origin: "hand-authored",
       callerAction: "retry-different-input",
       retryable: "with_different_inputs",
       agentGuidance: "Ask the member for their five-digit member number and call this again.",
@@ -383,6 +385,7 @@ export const contract: CapabilityContract = sealContract({
       terminal: true,
       payload: [],
       stableUnderRetry: true,
+      origin: "hand-authored",
       callerAction: "refer-to-specialist",
       retryable: "never",
       agentGuidance: "Nothing the caller can supply changes this; raise it with the branch admin.",
@@ -395,6 +398,7 @@ export const contract: CapabilityContract = sealContract({
       terminal: true,
       payload: [],
       stableUnderRetry: true,
+      origin: "hand-authored",
       callerAction: "refer-to-specialist",
       retryable: "never",
       agentGuidance: "Tell the member a specialist has to help with this account, and transfer.",
@@ -567,6 +571,7 @@ export function artifact(options: FlowOptions = {}): CapabilityArtifact {
               priority: 10,
               phase: "post",
               requiresSettled: true,
+              origin: "hand-authored",
               capture: [],
             },
           ],
@@ -604,6 +609,7 @@ export function artifact(options: FlowOptions = {}): CapabilityArtifact {
               priority: 10,
               phase: "post",
               requiresSettled: true,
+              origin: "hand-authored",
               capture: [],
             },
           ],
@@ -642,6 +648,7 @@ export function artifact(options: FlowOptions = {}): CapabilityArtifact {
               priority: 10,
               phase: "post",
               requiresSettled: true,
+              origin: "hand-authored",
               capture: [],
             },
           ],
@@ -675,6 +682,7 @@ export function artifact(options: FlowOptions = {}): CapabilityArtifact {
               priority: 10,
               phase: "post",
               requiresSettled: true,
+              origin: "hand-authored",
               capture: [],
             },
           ],
@@ -876,6 +884,7 @@ export function artifact(options: FlowOptions = {}): CapabilityArtifact {
       maxProgramAttempts: options.maxProgramAttempts ?? 2,
       deadlineMs: options.deadlineMs ?? 60_000,
     },
+    promotions: [],
     signatures: [],
   });
 
@@ -887,6 +896,7 @@ export function artifact(options: FlowOptions = {}): CapabilityArtifact {
     alg: "ed25519",
     acknowledgedEffects: ["READ"],
     acknowledgedGrade: "full",
+    acknowledgedPromotions: [],
   });
 }
 

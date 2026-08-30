@@ -1,7 +1,7 @@
 // One failing fixture per numbered check in SPEC section 10.
 //
 // The list lives in `test/fixtures/` rather than inside a test file because unit 7 needs it: the
-// linker's acceptance criterion is "28 tests, one per check, each with a fixture that must fail it
+// linker's acceptance criterion is "29 tests, one per check, each with a fixture that must fail it
 // and one that must pass", and the passing fixture is `member-lookup.ts` while these are the
 // failing ones. Writing them twice would guarantee they drift.
 //
@@ -350,6 +350,23 @@ export const SPEC_10_REJECTIONS: readonly RejectionCase[] = [
     mutate: (d) => {
       (d.lifecycle as JsonRecord).status = "draft";
       (d.lifecycle as JsonRecord).approval = null;
+    },
+  },
+  {
+    check: 29,
+    what: "a reviewer-authored detector is replayed at a tenant its proof does not name",
+    refusedBy: "linker",
+    document: "artifact",
+    needs: "the run mode and the tenant this program is being linked for",
+    mutate: (d) => {
+      // The document stays perfectly VALID. A detector resolves its text through the flow's
+      // vocabulary, an overlay overrides that per tenant, so the same token is different words at
+      // summit than at riverbend - and a proof at one says nothing whatever about the other. Only
+      // the linker knows which tenant this run is at, which is why this is a numbered check rather
+      // than a save-time invariant: the interesting failure is a stored, signed, entirely
+      // well-formed artifact being linked somewhere nobody proved it.
+      const receipt = (d.promotions as JsonRecord[])[0] as JsonRecord;
+      (receipt.proof as JsonRecord).provenAt = ["riverbend"];
     },
   },
   {

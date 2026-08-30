@@ -6,7 +6,7 @@
 //
 //   · the classifier is a total function from a frozen `Observation` to a `Verdict`, so the whole
 //     error taxonomy is unit-testable with no browser, no fixture and no session (SPEC section 0.1);
-//   · the linker's 28 checks depend on three documents and nothing else, so two hosts linking the
+//   · the linker's 29 checks depend on three documents and nothing else, so two hosts linking the
 //     same artifact cannot reach different conclusions;
 //   · `@crr/conformance` can grade a replay engine by feeding it recorded screens, because there is
 //     nothing else for the engine to read.

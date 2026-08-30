@@ -1,0 +1,32 @@
+redaction canary - evidence/outcome-promotion/
+
+run by  node evidence/outcome-promotion/canary/run-canary.mjs
+
+pass documents  GATING
+  files      73
+  bytes      2693317
+  needles    21 over 3 value(s) x 14 encoding(s)
+  self-test  PASSED (21/21 planted needles found)
+  hits       0
+  suppressed 0 (inside an opaque 40+ character hex run)
+  forbidden  0
+  verdict    CLEAN
+
+pass reproduction  reporting only
+  files      2
+  bytes      35459
+  needles    21 over 3 value(s) x 14 encoding(s)
+  self-test  PASSED (21/21 planted needles found)
+  hits       6
+  suppressed 0 (inside an opaque 40+ character hex run)
+  forbidden  0
+  verdict    NOT CLEAN
+    README.md:76  green probe + re-verification + green invocation / args.memberId  [utf8]
+    README.md:77  absent-member probe + before/after invocation / args.memberId  [utf8]
+    README.md:81  malformed-number probe / args.memberId  [utf8]
+    reproduce.sh:37  green probe + re-verification + green invocation / args.memberId  [utf8]
+    reproduce.sh:38  absent-member probe + before/after invocation / args.memberId  [utf8]
+    reproduce.sh:39  malformed-number probe / args.memberId  [utf8]
+
+GATE: the documents and records this exercise wrote hold no caller argument, in any of the encodings above.
+

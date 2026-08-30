@@ -1,13 +1,13 @@
 [
   {
     "seq": 0,
-    "runId": "run-9561eb60-7398-4c11-a007-0cf42a6ef81b",
-    "at": "2026-08-29T02:36:59.950Z",
+    "runId": "run-004bfa4e-a65f-49fe-8028-c26a8e4c1897",
+    "at": "2026-08-30T01:41:33.646Z",
     "type": "run.started",
     "mode": "replay",
     "capability": "corebank.member.read_share_position",
-    "artifactDigest": "sha256:ba09bc6061370dbf99ecb3c541ab41d22b7808a668591a9730356d952cc726f3",
-    "effectiveDigest": "sha256:ba09bc6061370dbf99ecb3c541ab41d22b7808a668591a9730356d952cc726f3",
+    "artifactDigest": "sha256:2e45d5f8b847027d8a5fda4d2e54943f70e9abba07fde8106775ac7cc34dab63",
+    "effectiveDigest": "sha256:2e45d5f8b847027d8a5fda4d2e54943f70e9abba07fde8106775ac7cc34dab63",
     "tenantId": "riverbend",
     "argsShape": {
       "memberId": "digits(5)"
@@ -15,33 +15,33 @@
   },
   {
     "seq": 1,
-    "runId": "run-9561eb60-7398-4c11-a007-0cf42a6ef81b",
-    "at": "2026-08-29T02:36:59.964Z",
+    "runId": "run-004bfa4e-a65f-49fe-8028-c26a8e4c1897",
+    "at": "2026-08-30T01:41:33.660Z",
     "type": "link.completed",
-    "checksRun": 28,
+    "checksRun": 29,
     "errors": []
   },
   {
     "seq": 2,
-    "runId": "run-9561eb60-7398-4c11-a007-0cf42a6ef81b",
-    "at": "2026-08-29T02:36:59.964Z",
+    "runId": "run-004bfa4e-a65f-49fe-8028-c26a8e4c1897",
+    "at": "2026-08-30T01:41:33.660Z",
     "type": "session.opened",
     "sessionId": "corebank-demo",
     "sessionProfile": "corebank-teller"
   },
   {
     "seq": 3,
-    "runId": "run-9561eb60-7398-4c11-a007-0cf42a6ef81b",
-    "at": "2026-08-29T02:36:59.965Z",
+    "runId": "run-004bfa4e-a65f-49fe-8028-c26a8e4c1897",
+    "at": "2026-08-30T01:41:33.660Z",
     "type": "lease.acquired",
     "holder": "automation",
-    "actorId": "run:run-9561eb60-7398-4c11-a007-0cf42a6ef81b",
+    "actorId": "run:run-004bfa4e-a65f-49fe-8028-c26a8e4c1897",
     "epoch": 1
   },
   {
     "seq": 4,
-    "runId": "run-9561eb60-7398-4c11-a007-0cf42a6ef81b",
-    "at": "2026-08-29T02:36:59.965Z",
+    "runId": "run-004bfa4e-a65f-49fe-8028-c26a8e4c1897",
+    "at": "2026-08-30T01:41:33.661Z",
     "type": "step.entered",
     "stepId": "open-search",
     "index": 0,
@@ -50,8 +50,8 @@
   },
   {
     "seq": 5,
-    "runId": "run-9561eb60-7398-4c11-a007-0cf42a6ef81b",
-    "at": "2026-08-29T02:36:59.965Z",
+    "runId": "run-004bfa4e-a65f-49fe-8028-c26a8e4c1897",
+    "at": "2026-08-30T01:41:33.661Z",
     "type": "budget.charged",
     "ledger": "observations",
     "used": 1,
@@ -59,8 +59,8 @@
   },
   {
     "seq": 6,
-    "runId": "run-9561eb60-7398-4c11-a007-0cf42a6ef81b",
-    "at": "2026-08-29T02:36:59.978Z",
+    "runId": "run-004bfa4e-a65f-49fe-8028-c26a8e4c1897",
+    "at": "2026-08-30T01:41:33.675Z",
     "type": "observed",
     "stepId": "open-search",
     "obsSeq": 0,
@@ -71,8 +71,8 @@
   },
   {
     "seq": 7,
-    "runId": "run-9561eb60-7398-4c11-a007-0cf42a6ef81b",
-    "at": "2026-08-29T02:36:59.980Z",
+    "runId": "run-004bfa4e-a65f-49fe-8028-c26a8e4c1897",
+    "at": "2026-08-30T01:41:33.677Z",
     "type": "classified",
     "stepId": "open-search",
     "phase": "pre",
@@ -84,8 +84,8 @@
   },
   {
     "seq": 8,
-    "runId": "run-9561eb60-7398-4c11-a007-0cf42a6ef81b",
-    "at": "2026-08-29T02:36:59.981Z",
+    "runId": "run-004bfa4e-a65f-49fe-8028-c26a8e4c1897",
+    "at": "2026-08-30T01:41:33.677Z",
     "type": "policy.decided",
     "decision": {
       "allow": true,
@@ -97,8 +97,8 @@
   },
   {
     "seq": 9,
-    "runId": "run-9561eb60-7398-4c11-a007-0cf42a6ef81b",
-    "at": "2026-08-29T02:36:59.981Z",
+    "runId": "run-004bfa4e-a65f-49fe-8028-c26a8e4c1897",
+    "at": "2026-08-30T01:41:33.678Z",
     "type": "budget.charged",
     "ledger": "actions",
     "used": 1,
@@ -106,8 +106,8 @@
   },
   {
     "seq": 10,
-    "runId": "run-9561eb60-7398-4c11-a007-0cf42a6ef81b",
-    "at": "2026-08-29T02:36:59.985Z",
+    "runId": "run-004bfa4e-a65f-49fe-8028-c26a8e4c1897",
+    "at": "2026-08-30T01:41:33.681Z",
     "type": "acted",
     "stepId": "open-search",
     "actionKind": "navigate",
@@ -118,8 +118,8 @@
   },
   {
     "seq": 11,
-    "runId": "run-9561eb60-7398-4c11-a007-0cf42a6ef81b",
-    "at": "2026-08-29T02:36:59.985Z",
+    "runId": "run-004bfa4e-a65f-49fe-8028-c26a8e4c1897",
+    "at": "2026-08-30T01:41:33.682Z",
     "type": "budget.charged",
     "ledger": "observations",
     "used": 2,
@@ -127,8 +127,8 @@
   },
   {
     "seq": 12,
-    "runId": "run-9561eb60-7398-4c11-a007-0cf42a6ef81b",
-    "at": "2026-08-29T02:37:00.115Z",
+    "runId": "run-004bfa4e-a65f-49fe-8028-c26a8e4c1897",
+    "at": "2026-08-30T01:41:33.811Z",
     "type": "budget.charged",
     "ledger": "observations",
     "used": 3,
@@ -136,18 +136,18 @@
   },
   {
     "seq": 13,
-    "runId": "run-9561eb60-7398-4c11-a007-0cf42a6ef81b",
-    "at": "2026-08-29T02:37:00.124Z",
+    "runId": "run-004bfa4e-a65f-49fe-8028-c26a8e4c1897",
+    "at": "2026-08-30T01:41:33.821Z",
     "type": "settled",
     "stepId": "open-search",
     "polls": 2,
-    "elapsedMs": 139,
+    "elapsedMs": 140,
     "settled": true
   },
   {
     "seq": 14,
-    "runId": "run-9561eb60-7398-4c11-a007-0cf42a6ef81b",
-    "at": "2026-08-29T02:37:00.124Z",
+    "runId": "run-004bfa4e-a65f-49fe-8028-c26a8e4c1897",
+    "at": "2026-08-30T01:41:33.822Z",
     "type": "observed",
     "stepId": "open-search",
     "obsSeq": 2,
@@ -158,8 +158,8 @@
   },
   {
     "seq": 15,
-    "runId": "run-9561eb60-7398-4c11-a007-0cf42a6ef81b",
-    "at": "2026-08-29T02:37:00.125Z",
+    "runId": "run-004bfa4e-a65f-49fe-8028-c26a8e4c1897",
+    "at": "2026-08-30T01:41:33.823Z",
     "type": "classified",
     "stepId": "open-search",
     "phase": "post",
@@ -171,8 +171,8 @@
   },
   {
     "seq": 16,
-    "runId": "run-9561eb60-7398-4c11-a007-0cf42a6ef81b",
-    "at": "2026-08-29T02:37:00.126Z",
+    "runId": "run-004bfa4e-a65f-49fe-8028-c26a8e4c1897",
+    "at": "2026-08-30T01:41:33.823Z",
     "type": "checkpoint",
     "stepId": "open-search",
     "passed": true,
@@ -197,8 +197,8 @@
   },
   {
     "seq": 17,
-    "runId": "run-9561eb60-7398-4c11-a007-0cf42a6ef81b",
-    "at": "2026-08-29T02:37:00.126Z",
+    "runId": "run-004bfa4e-a65f-49fe-8028-c26a8e4c1897",
+    "at": "2026-08-30T01:41:33.823Z",
     "type": "step.entered",
     "stepId": "enter-member-id",
     "index": 1,
@@ -207,8 +207,8 @@
   },
   {
     "seq": 18,
-    "runId": "run-9561eb60-7398-4c11-a007-0cf42a6ef81b",
-    "at": "2026-08-29T02:37:00.126Z",
+    "runId": "run-004bfa4e-a65f-49fe-8028-c26a8e4c1897",
+    "at": "2026-08-30T01:41:33.824Z",
     "type": "budget.charged",
     "ledger": "observations",
     "used": 4,
@@ -216,8 +216,8 @@
   },
   {
     "seq": 19,
-    "runId": "run-9561eb60-7398-4c11-a007-0cf42a6ef81b",
-    "at": "2026-08-29T02:37:00.134Z",
+    "runId": "run-004bfa4e-a65f-49fe-8028-c26a8e4c1897",
+    "at": "2026-08-30T01:41:33.831Z",
     "type": "observed",
     "stepId": "enter-member-id",
     "obsSeq": 3,
@@ -228,8 +228,8 @@
   },
   {
     "seq": 20,
-    "runId": "run-9561eb60-7398-4c11-a007-0cf42a6ef81b",
-    "at": "2026-08-29T02:37:00.135Z",
+    "runId": "run-004bfa4e-a65f-49fe-8028-c26a8e4c1897",
+    "at": "2026-08-30T01:41:33.832Z",
     "type": "classified",
     "stepId": "enter-member-id",
     "phase": "pre",
@@ -241,8 +241,8 @@
   },
   {
     "seq": 21,
-    "runId": "run-9561eb60-7398-4c11-a007-0cf42a6ef81b",
-    "at": "2026-08-29T02:37:00.136Z",
+    "runId": "run-004bfa4e-a65f-49fe-8028-c26a8e4c1897",
+    "at": "2026-08-30T01:41:33.833Z",
     "type": "resolved",
     "stepId": "enter-member-id",
     "descriptors": [
@@ -251,14 +251,14 @@
         "kind": "label-anchored",
         "evidenceSource": "labelText",
         "verdict": "resolved",
-        "nodeId": "textbox:f3-159"
+        "nodeId": "textbox:f3-158"
       },
       {
         "id": "member-id-first-in-form",
         "kind": "ordinal-in-container",
         "evidenceSource": "ordinal",
         "verdict": "resolved",
-        "nodeId": "textbox:f3-159"
+        "nodeId": "textbox:f3-158"
       }
     ],
     "agreed": true,
@@ -266,8 +266,8 @@
   },
   {
     "seq": 22,
-    "runId": "run-9561eb60-7398-4c11-a007-0cf42a6ef81b",
-    "at": "2026-08-29T02:37:00.136Z",
+    "runId": "run-004bfa4e-a65f-49fe-8028-c26a8e4c1897",
+    "at": "2026-08-30T01:41:33.833Z",
     "type": "policy.decided",
     "decision": {
       "allow": true,
@@ -279,8 +279,8 @@
   },
   {
     "seq": 23,
-    "runId": "run-9561eb60-7398-4c11-a007-0cf42a6ef81b",
-    "at": "2026-08-29T02:37:00.136Z",
+    "runId": "run-004bfa4e-a65f-49fe-8028-c26a8e4c1897",
+    "at": "2026-08-30T01:41:33.833Z",
     "type": "budget.charged",
     "ledger": "actions",
     "used": 2,
@@ -288,8 +288,8 @@
   },
   {
     "seq": 24,
-    "runId": "run-9561eb60-7398-4c11-a007-0cf42a6ef81b",
-    "at": "2026-08-29T02:37:00.150Z",
+    "runId": "run-004bfa4e-a65f-49fe-8028-c26a8e4c1897",
+    "at": "2026-08-30T01:41:33.847Z",
     "type": "acted",
     "stepId": "enter-member-id",
     "actionKind": "type",
@@ -300,8 +300,8 @@
   },
   {
     "seq": 25,
-    "runId": "run-9561eb60-7398-4c11-a007-0cf42a6ef81b",
-    "at": "2026-08-29T02:37:00.150Z",
+    "runId": "run-004bfa4e-a65f-49fe-8028-c26a8e4c1897",
+    "at": "2026-08-30T01:41:33.847Z",
     "type": "budget.charged",
     "ledger": "observations",
     "used": 5,
@@ -309,8 +309,8 @@
   },
   {
     "seq": 26,
-    "runId": "run-9561eb60-7398-4c11-a007-0cf42a6ef81b",
-    "at": "2026-08-29T02:37:00.278Z",
+    "runId": "run-004bfa4e-a65f-49fe-8028-c26a8e4c1897",
+    "at": "2026-08-30T01:41:33.977Z",
     "type": "budget.charged",
     "ledger": "observations",
     "used": 6,
@@ -318,18 +318,18 @@
   },
   {
     "seq": 27,
-    "runId": "run-9561eb60-7398-4c11-a007-0cf42a6ef81b",
-    "at": "2026-08-29T02:37:00.288Z",
+    "runId": "run-004bfa4e-a65f-49fe-8028-c26a8e4c1897",
+    "at": "2026-08-30T01:41:33.987Z",
     "type": "settled",
     "stepId": "enter-member-id",
     "polls": 2,
-    "elapsedMs": 137,
+    "elapsedMs": 140,
     "settled": true
   },
   {
     "seq": 28,
-    "runId": "run-9561eb60-7398-4c11-a007-0cf42a6ef81b",
-    "at": "2026-08-29T02:37:00.288Z",
+    "runId": "run-004bfa4e-a65f-49fe-8028-c26a8e4c1897",
+    "at": "2026-08-30T01:41:33.988Z",
     "type": "observed",
     "stepId": "enter-member-id",
     "obsSeq": 5,
@@ -340,8 +340,8 @@
   },
   {
     "seq": 29,
-    "runId": "run-9561eb60-7398-4c11-a007-0cf42a6ef81b",
-    "at": "2026-08-29T02:37:00.288Z",
+    "runId": "run-004bfa4e-a65f-49fe-8028-c26a8e4c1897",
+    "at": "2026-08-30T01:41:33.988Z",
     "type": "classified",
     "stepId": "enter-member-id",
     "phase": "post",
@@ -353,8 +353,8 @@
   },
   {
     "seq": 30,
-    "runId": "run-9561eb60-7398-4c11-a007-0cf42a6ef81b",
-    "at": "2026-08-29T02:37:00.289Z",
+    "runId": "run-004bfa4e-a65f-49fe-8028-c26a8e4c1897",
+    "at": "2026-08-30T01:41:33.989Z",
     "type": "checkpoint",
     "stepId": "enter-member-id",
     "passed": true,
@@ -375,8 +375,8 @@
   },
   {
     "seq": 31,
-    "runId": "run-9561eb60-7398-4c11-a007-0cf42a6ef81b",
-    "at": "2026-08-29T02:37:00.289Z",
+    "runId": "run-004bfa4e-a65f-49fe-8028-c26a8e4c1897",
+    "at": "2026-08-30T01:41:33.989Z",
     "type": "step.entered",
     "stepId": "submit-search",
     "index": 2,
@@ -385,8 +385,8 @@
   },
   {
     "seq": 32,
-    "runId": "run-9561eb60-7398-4c11-a007-0cf42a6ef81b",
-    "at": "2026-08-29T02:37:00.289Z",
+    "runId": "run-004bfa4e-a65f-49fe-8028-c26a8e4c1897",
+    "at": "2026-08-30T01:41:33.989Z",
     "type": "budget.charged",
     "ledger": "observations",
     "used": 7,
@@ -394,8 +394,8 @@
   },
   {
     "seq": 33,
-    "runId": "run-9561eb60-7398-4c11-a007-0cf42a6ef81b",
-    "at": "2026-08-29T02:37:00.297Z",
+    "runId": "run-004bfa4e-a65f-49fe-8028-c26a8e4c1897",
+    "at": "2026-08-30T01:41:33.998Z",
     "type": "observed",
     "stepId": "submit-search",
     "obsSeq": 6,
@@ -406,8 +406,8 @@
   },
   {
     "seq": 34,
-    "runId": "run-9561eb60-7398-4c11-a007-0cf42a6ef81b",
-    "at": "2026-08-29T02:37:00.298Z",
+    "runId": "run-004bfa4e-a65f-49fe-8028-c26a8e4c1897",
+    "at": "2026-08-30T01:41:33.999Z",
     "type": "classified",
     "stepId": "submit-search",
     "phase": "pre",
@@ -419,8 +419,8 @@
   },
   {
     "seq": 35,
-    "runId": "run-9561eb60-7398-4c11-a007-0cf42a6ef81b",
-    "at": "2026-08-29T02:37:00.299Z",
+    "runId": "run-004bfa4e-a65f-49fe-8028-c26a8e4c1897",
+    "at": "2026-08-30T01:41:33.999Z",
     "type": "resolved",
     "stepId": "submit-search",
     "descriptors": [
@@ -429,14 +429,14 @@
         "kind": "role-name",
         "evidenceSource": "accessibleName",
         "verdict": "resolved",
-        "nodeId": "button:f3-169"
+        "nodeId": "button:f3-168"
       },
       {
         "id": "search-right-of-member-id",
         "kind": "geometric",
         "evidenceSource": "geometry",
         "verdict": "resolved",
-        "nodeId": "button:f3-169"
+        "nodeId": "button:f3-168"
       }
     ],
     "agreed": true,
@@ -444,8 +444,8 @@
   },
   {
     "seq": 36,
-    "runId": "run-9561eb60-7398-4c11-a007-0cf42a6ef81b",
-    "at": "2026-08-29T02:37:00.299Z",
+    "runId": "run-004bfa4e-a65f-49fe-8028-c26a8e4c1897",
+    "at": "2026-08-30T01:41:33.999Z",
     "type": "policy.decided",
     "decision": {
       "allow": true,
@@ -457,8 +457,8 @@
   },
   {
     "seq": 37,
-    "runId": "run-9561eb60-7398-4c11-a007-0cf42a6ef81b",
-    "at": "2026-08-29T02:37:00.299Z",
+    "runId": "run-004bfa4e-a65f-49fe-8028-c26a8e4c1897",
+    "at": "2026-08-30T01:41:33.999Z",
     "type": "budget.charged",
     "ledger": "actions",
     "used": 3,
@@ -466,8 +466,8 @@
   },
   {
     "seq": 38,
-    "runId": "run-9561eb60-7398-4c11-a007-0cf42a6ef81b",
-    "at": "2026-08-29T02:37:00.302Z",
+    "runId": "run-004bfa4e-a65f-49fe-8028-c26a8e4c1897",
+    "at": "2026-08-30T01:41:34.001Z",
     "type": "acted",
     "stepId": "submit-search",
     "actionKind": "click",
@@ -478,8 +478,8 @@
   },
   {
     "seq": 39,
-    "runId": "run-9561eb60-7398-4c11-a007-0cf42a6ef81b",
-    "at": "2026-08-29T02:37:00.302Z",
+    "runId": "run-004bfa4e-a65f-49fe-8028-c26a8e4c1897",
+    "at": "2026-08-30T01:41:34.004Z",
     "type": "budget.charged",
     "ledger": "observations",
     "used": 8,
@@ -487,8 +487,8 @@
   },
   {
     "seq": 40,
-    "runId": "run-9561eb60-7398-4c11-a007-0cf42a6ef81b",
-    "at": "2026-08-29T02:37:00.450Z",
+    "runId": "run-004bfa4e-a65f-49fe-8028-c26a8e4c1897",
+    "at": "2026-08-30T01:41:34.138Z",
     "type": "budget.charged",
     "ledger": "observations",
     "used": 9,
@@ -496,18 +496,18 @@
   },
   {
     "seq": 41,
-    "runId": "run-9561eb60-7398-4c11-a007-0cf42a6ef81b",
-    "at": "2026-08-29T02:37:00.462Z",
+    "runId": "run-004bfa4e-a65f-49fe-8028-c26a8e4c1897",
+    "at": "2026-08-30T01:41:34.154Z",
     "type": "settled",
     "stepId": "submit-search",
     "polls": 2,
-    "elapsedMs": 160,
+    "elapsedMs": 150,
     "settled": true
   },
   {
     "seq": 42,
-    "runId": "run-9561eb60-7398-4c11-a007-0cf42a6ef81b",
-    "at": "2026-08-29T02:37:00.463Z",
+    "runId": "run-004bfa4e-a65f-49fe-8028-c26a8e4c1897",
+    "at": "2026-08-30T01:41:34.154Z",
     "type": "observed",
     "stepId": "submit-search",
     "obsSeq": 8,
@@ -518,8 +518,8 @@
   },
   {
     "seq": 43,
-    "runId": "run-9561eb60-7398-4c11-a007-0cf42a6ef81b",
-    "at": "2026-08-29T02:37:00.464Z",
+    "runId": "run-004bfa4e-a65f-49fe-8028-c26a8e4c1897",
+    "at": "2026-08-30T01:41:34.155Z",
     "type": "classified",
     "stepId": "submit-search",
     "phase": "post",
@@ -531,8 +531,8 @@
   },
   {
     "seq": 44,
-    "runId": "run-9561eb60-7398-4c11-a007-0cf42a6ef81b",
-    "at": "2026-08-29T02:37:00.465Z",
+    "runId": "run-004bfa4e-a65f-49fe-8028-c26a8e4c1897",
+    "at": "2026-08-30T01:41:34.156Z",
     "type": "checkpoint",
     "stepId": "submit-search",
     "passed": true,
@@ -561,8 +561,8 @@
   },
   {
     "seq": 45,
-    "runId": "run-9561eb60-7398-4c11-a007-0cf42a6ef81b",
-    "at": "2026-08-29T02:37:00.465Z",
+    "runId": "run-004bfa4e-a65f-49fe-8028-c26a8e4c1897",
+    "at": "2026-08-30T01:41:34.156Z",
     "type": "step.entered",
     "stepId": "read-member-summary",
     "index": 3,
@@ -571,8 +571,8 @@
   },
   {
     "seq": 46,
-    "runId": "run-9561eb60-7398-4c11-a007-0cf42a6ef81b",
-    "at": "2026-08-29T02:37:00.465Z",
+    "runId": "run-004bfa4e-a65f-49fe-8028-c26a8e4c1897",
+    "at": "2026-08-30T01:41:34.156Z",
     "type": "budget.charged",
     "ledger": "observations",
     "used": 10,
@@ -580,8 +580,8 @@
   },
   {
     "seq": 47,
-    "runId": "run-9561eb60-7398-4c11-a007-0cf42a6ef81b",
-    "at": "2026-08-29T02:37:00.476Z",
+    "runId": "run-004bfa4e-a65f-49fe-8028-c26a8e4c1897",
+    "at": "2026-08-30T01:41:34.169Z",
     "type": "observed",
     "stepId": "read-member-summary",
     "obsSeq": 9,
@@ -592,8 +592,8 @@
   },
   {
     "seq": 48,
-    "runId": "run-9561eb60-7398-4c11-a007-0cf42a6ef81b",
-    "at": "2026-08-29T02:37:00.477Z",
+    "runId": "run-004bfa4e-a65f-49fe-8028-c26a8e4c1897",
+    "at": "2026-08-30T01:41:34.170Z",
     "type": "classified",
     "stepId": "read-member-summary",
     "phase": "pre",
@@ -605,8 +605,8 @@
   },
   {
     "seq": 49,
-    "runId": "run-9561eb60-7398-4c11-a007-0cf42a6ef81b",
-    "at": "2026-08-29T02:37:00.477Z",
+    "runId": "run-004bfa4e-a65f-49fe-8028-c26a8e4c1897",
+    "at": "2026-08-30T01:41:34.170Z",
     "type": "budget.charged",
     "ledger": "observations",
     "used": 11,
@@ -614,8 +614,8 @@
   },
   {
     "seq": 50,
-    "runId": "run-9561eb60-7398-4c11-a007-0cf42a6ef81b",
-    "at": "2026-08-29T02:37:00.608Z",
+    "runId": "run-004bfa4e-a65f-49fe-8028-c26a8e4c1897",
+    "at": "2026-08-30T01:41:34.302Z",
     "type": "budget.charged",
     "ledger": "observations",
     "used": 12,
@@ -623,18 +623,18 @@
   },
   {
     "seq": 51,
-    "runId": "run-9561eb60-7398-4c11-a007-0cf42a6ef81b",
-    "at": "2026-08-29T02:37:00.620Z",
+    "runId": "run-004bfa4e-a65f-49fe-8028-c26a8e4c1897",
+    "at": "2026-08-30T01:41:34.319Z",
     "type": "settled",
     "stepId": "read-member-summary",
     "polls": 2,
-    "elapsedMs": 143,
+    "elapsedMs": 149,
     "settled": true
   },
   {
     "seq": 52,
-    "runId": "run-9561eb60-7398-4c11-a007-0cf42a6ef81b",
-    "at": "2026-08-29T02:37:00.620Z",
+    "runId": "run-004bfa4e-a65f-49fe-8028-c26a8e4c1897",
+    "at": "2026-08-30T01:41:34.319Z",
     "type": "observed",
     "stepId": "read-member-summary",
     "obsSeq": 11,
@@ -645,8 +645,8 @@
   },
   {
     "seq": 53,
-    "runId": "run-9561eb60-7398-4c11-a007-0cf42a6ef81b",
-    "at": "2026-08-29T02:37:00.622Z",
+    "runId": "run-004bfa4e-a65f-49fe-8028-c26a8e4c1897",
+    "at": "2026-08-30T01:41:34.321Z",
     "type": "classified",
     "stepId": "read-member-summary",
     "phase": "post",
@@ -677,8 +677,8 @@
   },
   {
     "seq": 54,
-    "runId": "run-9561eb60-7398-4c11-a007-0cf42a6ef81b",
-    "at": "2026-08-29T02:37:00.622Z",
+    "runId": "run-004bfa4e-a65f-49fe-8028-c26a8e4c1897",
+    "at": "2026-08-30T01:41:34.321Z",
     "type": "extracted",
     "stepId": "read-member-summary",
     "output": "memberName",
@@ -687,8 +687,8 @@
   },
   {
     "seq": 55,
-    "runId": "run-9561eb60-7398-4c11-a007-0cf42a6ef81b",
-    "at": "2026-08-29T02:37:00.622Z",
+    "runId": "run-004bfa4e-a65f-49fe-8028-c26a8e4c1897",
+    "at": "2026-08-30T01:41:34.322Z",
     "type": "extracted",
     "stepId": "read-member-summary",
     "output": "shareBalance",
@@ -697,8 +697,8 @@
   },
   {
     "seq": 56,
-    "runId": "run-9561eb60-7398-4c11-a007-0cf42a6ef81b",
-    "at": "2026-08-29T02:37:00.623Z",
+    "runId": "run-004bfa4e-a65f-49fe-8028-c26a8e4c1897",
+    "at": "2026-08-30T01:41:34.322Z",
     "type": "extracted",
     "stepId": "read-member-summary",
     "output": "accountStatus",
@@ -707,8 +707,8 @@
   },
   {
     "seq": 57,
-    "runId": "run-9561eb60-7398-4c11-a007-0cf42a6ef81b",
-    "at": "2026-08-29T02:37:00.623Z",
+    "runId": "run-004bfa4e-a65f-49fe-8028-c26a8e4c1897",
+    "at": "2026-08-30T01:41:34.322Z",
     "type": "checkpoint",
     "stepId": "read-member-summary",
     "passed": true,
@@ -728,8 +728,8 @@
   },
   {
     "seq": 58,
-    "runId": "run-9561eb60-7398-4c11-a007-0cf42a6ef81b",
-    "at": "2026-08-29T02:37:00.623Z",
+    "runId": "run-004bfa4e-a65f-49fe-8028-c26a8e4c1897",
+    "at": "2026-08-30T01:41:34.322Z",
     "type": "step.entered",
     "stepId": "open-member-record",
     "index": 4,
@@ -738,8 +738,8 @@
   },
   {
     "seq": 59,
-    "runId": "run-9561eb60-7398-4c11-a007-0cf42a6ef81b",
-    "at": "2026-08-29T02:37:00.623Z",
+    "runId": "run-004bfa4e-a65f-49fe-8028-c26a8e4c1897",
+    "at": "2026-08-30T01:41:34.322Z",
     "type": "budget.charged",
     "ledger": "observations",
     "used": 13,
@@ -747,8 +747,8 @@
   },
   {
     "seq": 60,
-    "runId": "run-9561eb60-7398-4c11-a007-0cf42a6ef81b",
-    "at": "2026-08-29T02:37:00.634Z",
+    "runId": "run-004bfa4e-a65f-49fe-8028-c26a8e4c1897",
+    "at": "2026-08-30T01:41:34.334Z",
     "type": "observed",
     "stepId": "open-member-record",
     "obsSeq": 12,
@@ -759,8 +759,8 @@
   },
   {
     "seq": 61,
-    "runId": "run-9561eb60-7398-4c11-a007-0cf42a6ef81b",
-    "at": "2026-08-29T02:37:00.634Z",
+    "runId": "run-004bfa4e-a65f-49fe-8028-c26a8e4c1897",
+    "at": "2026-08-30T01:41:34.335Z",
     "type": "classified",
     "stepId": "open-member-record",
     "phase": "pre",
@@ -772,8 +772,8 @@
   },
   {
     "seq": 62,
-    "runId": "run-9561eb60-7398-4c11-a007-0cf42a6ef81b",
-    "at": "2026-08-29T02:37:00.635Z",
+    "runId": "run-004bfa4e-a65f-49fe-8028-c26a8e4c1897",
+    "at": "2026-08-30T01:41:34.335Z",
     "type": "resolved",
     "stepId": "open-member-record",
     "descriptors": [
@@ -782,14 +782,14 @@
         "kind": "table-cell",
         "evidenceSource": "columnHeader",
         "verdict": "resolved",
-        "nodeId": "link:f3-253"
+        "nodeId": "link:f3-252"
       },
       {
         "id": "open-by-link-text",
         "kind": "role-name",
         "evidenceSource": "accessibleName",
         "verdict": "resolved",
-        "nodeId": "link:f3-253"
+        "nodeId": "link:f3-252"
       }
     ],
     "agreed": true,
@@ -797,8 +797,8 @@
   },
   {
     "seq": 63,
-    "runId": "run-9561eb60-7398-4c11-a007-0cf42a6ef81b",
-    "at": "2026-08-29T02:37:00.635Z",
+    "runId": "run-004bfa4e-a65f-49fe-8028-c26a8e4c1897",
+    "at": "2026-08-30T01:41:34.335Z",
     "type": "policy.decided",
     "decision": {
       "allow": true,
@@ -810,8 +810,8 @@
   },
   {
     "seq": 64,
-    "runId": "run-9561eb60-7398-4c11-a007-0cf42a6ef81b",
-    "at": "2026-08-29T02:37:00.635Z",
+    "runId": "run-004bfa4e-a65f-49fe-8028-c26a8e4c1897",
+    "at": "2026-08-30T01:41:34.335Z",
     "type": "budget.charged",
     "ledger": "actions",
     "used": 4,
@@ -819,8 +819,8 @@
   },
   {
     "seq": 65,
-    "runId": "run-9561eb60-7398-4c11-a007-0cf42a6ef81b",
-    "at": "2026-08-29T02:37:00.640Z",
+    "runId": "run-004bfa4e-a65f-49fe-8028-c26a8e4c1897",
+    "at": "2026-08-30T01:41:34.339Z",
     "type": "acted",
     "stepId": "open-member-record",
     "actionKind": "click",
@@ -831,8 +831,8 @@
   },
   {
     "seq": 66,
-    "runId": "run-9561eb60-7398-4c11-a007-0cf42a6ef81b",
-    "at": "2026-08-29T02:37:00.640Z",
+    "runId": "run-004bfa4e-a65f-49fe-8028-c26a8e4c1897",
+    "at": "2026-08-30T01:41:34.339Z",
     "type": "budget.charged",
     "ledger": "observations",
     "used": 14,
@@ -840,8 +840,8 @@
   },
   {
     "seq": 67,
-    "runId": "run-9561eb60-7398-4c11-a007-0cf42a6ef81b",
-    "at": "2026-08-29T02:37:00.775Z",
+    "runId": "run-004bfa4e-a65f-49fe-8028-c26a8e4c1897",
+    "at": "2026-08-30T01:41:34.475Z",
     "type": "budget.charged",
     "ledger": "observations",
     "used": 15,
@@ -849,8 +849,8 @@
   },
   {
     "seq": 68,
-    "runId": "run-9561eb60-7398-4c11-a007-0cf42a6ef81b",
-    "at": "2026-08-29T02:37:00.912Z",
+    "runId": "run-004bfa4e-a65f-49fe-8028-c26a8e4c1897",
+    "at": "2026-08-30T01:41:34.614Z",
     "type": "budget.charged",
     "ledger": "observations",
     "used": 16,
@@ -858,18 +858,18 @@
   },
   {
     "seq": 69,
-    "runId": "run-9561eb60-7398-4c11-a007-0cf42a6ef81b",
-    "at": "2026-08-29T02:37:00.929Z",
+    "runId": "run-004bfa4e-a65f-49fe-8028-c26a8e4c1897",
+    "at": "2026-08-30T01:41:34.639Z",
     "type": "settled",
     "stepId": "open-member-record",
     "polls": 3,
-    "elapsedMs": 289,
+    "elapsedMs": 300,
     "settled": true
   },
   {
     "seq": 70,
-    "runId": "run-9561eb60-7398-4c11-a007-0cf42a6ef81b",
-    "at": "2026-08-29T02:37:00.929Z",
+    "runId": "run-004bfa4e-a65f-49fe-8028-c26a8e4c1897",
+    "at": "2026-08-30T01:41:34.640Z",
     "type": "observed",
     "stepId": "open-member-record",
     "obsSeq": 15,
@@ -880,8 +880,8 @@
   },
   {
     "seq": 71,
-    "runId": "run-9561eb60-7398-4c11-a007-0cf42a6ef81b",
-    "at": "2026-08-29T02:37:00.930Z",
+    "runId": "run-004bfa4e-a65f-49fe-8028-c26a8e4c1897",
+    "at": "2026-08-30T01:41:34.641Z",
     "type": "classified",
     "stepId": "open-member-record",
     "phase": "post",
@@ -893,8 +893,8 @@
   },
   {
     "seq": 72,
-    "runId": "run-9561eb60-7398-4c11-a007-0cf42a6ef81b",
-    "at": "2026-08-29T02:37:00.930Z",
+    "runId": "run-004bfa4e-a65f-49fe-8028-c26a8e4c1897",
+    "at": "2026-08-30T01:41:34.641Z",
     "type": "checkpoint",
     "stepId": "open-member-record",
     "passed": true,
@@ -922,8 +922,8 @@
   },
   {
     "seq": 73,
-    "runId": "run-9561eb60-7398-4c11-a007-0cf42a6ef81b",
-    "at": "2026-08-29T02:37:00.931Z",
+    "runId": "run-004bfa4e-a65f-49fe-8028-c26a8e4c1897",
+    "at": "2026-08-30T01:41:34.641Z",
     "type": "step.entered",
     "stepId": "verify-member-record",
     "index": 5,
@@ -932,8 +932,8 @@
   },
   {
     "seq": 74,
-    "runId": "run-9561eb60-7398-4c11-a007-0cf42a6ef81b",
-    "at": "2026-08-29T02:37:00.931Z",
+    "runId": "run-004bfa4e-a65f-49fe-8028-c26a8e4c1897",
+    "at": "2026-08-30T01:41:34.642Z",
     "type": "budget.charged",
     "ledger": "observations",
     "used": 17,
@@ -941,8 +941,8 @@
   },
   {
     "seq": 75,
-    "runId": "run-9561eb60-7398-4c11-a007-0cf42a6ef81b",
-    "at": "2026-08-29T02:37:00.943Z",
+    "runId": "run-004bfa4e-a65f-49fe-8028-c26a8e4c1897",
+    "at": "2026-08-30T01:41:34.656Z",
     "type": "observed",
     "stepId": "verify-member-record",
     "obsSeq": 16,
@@ -953,8 +953,8 @@
   },
   {
     "seq": 76,
-    "runId": "run-9561eb60-7398-4c11-a007-0cf42a6ef81b",
-    "at": "2026-08-29T02:37:00.944Z",
+    "runId": "run-004bfa4e-a65f-49fe-8028-c26a8e4c1897",
+    "at": "2026-08-30T01:41:34.656Z",
     "type": "classified",
     "stepId": "verify-member-record",
     "phase": "pre",
@@ -966,8 +966,8 @@
   },
   {
     "seq": 77,
-    "runId": "run-9561eb60-7398-4c11-a007-0cf42a6ef81b",
-    "at": "2026-08-29T02:37:00.944Z",
+    "runId": "run-004bfa4e-a65f-49fe-8028-c26a8e4c1897",
+    "at": "2026-08-30T01:41:34.657Z",
     "type": "budget.charged",
     "ledger": "observations",
     "used": 18,
@@ -975,8 +975,8 @@
   },
   {
     "seq": 78,
-    "runId": "run-9561eb60-7398-4c11-a007-0cf42a6ef81b",
-    "at": "2026-08-29T02:37:01.077Z",
+    "runId": "run-004bfa4e-a65f-49fe-8028-c26a8e4c1897",
+    "at": "2026-08-30T01:41:34.790Z",
     "type": "budget.charged",
     "ledger": "observations",
     "used": 19,
@@ -984,18 +984,18 @@
   },
   {
     "seq": 79,
-    "runId": "run-9561eb60-7398-4c11-a007-0cf42a6ef81b",
-    "at": "2026-08-29T02:37:01.090Z",
+    "runId": "run-004bfa4e-a65f-49fe-8028-c26a8e4c1897",
+    "at": "2026-08-30T01:41:34.807Z",
     "type": "settled",
     "stepId": "verify-member-record",
     "polls": 2,
-    "elapsedMs": 146,
+    "elapsedMs": 151,
     "settled": true
   },
   {
     "seq": 80,
-    "runId": "run-9561eb60-7398-4c11-a007-0cf42a6ef81b",
-    "at": "2026-08-29T02:37:01.091Z",
+    "runId": "run-004bfa4e-a65f-49fe-8028-c26a8e4c1897",
+    "at": "2026-08-30T01:41:34.808Z",
     "type": "observed",
     "stepId": "verify-member-record",
     "obsSeq": 18,
@@ -1006,8 +1006,8 @@
   },
   {
     "seq": 81,
-    "runId": "run-9561eb60-7398-4c11-a007-0cf42a6ef81b",
-    "at": "2026-08-29T02:37:01.091Z",
+    "runId": "run-004bfa4e-a65f-49fe-8028-c26a8e4c1897",
+    "at": "2026-08-30T01:41:34.808Z",
     "type": "classified",
     "stepId": "verify-member-record",
     "phase": "post",
@@ -1019,8 +1019,8 @@
   },
   {
     "seq": 82,
-    "runId": "run-9561eb60-7398-4c11-a007-0cf42a6ef81b",
-    "at": "2026-08-29T02:37:01.092Z",
+    "runId": "run-004bfa4e-a65f-49fe-8028-c26a8e4c1897",
+    "at": "2026-08-30T01:41:34.809Z",
     "type": "checkpoint",
     "stepId": "verify-member-record",
     "passed": true,
@@ -1045,8 +1045,8 @@
   },
   {
     "seq": 83,
-    "runId": "run-9561eb60-7398-4c11-a007-0cf42a6ef81b",
-    "at": "2026-08-29T02:37:01.092Z",
+    "runId": "run-004bfa4e-a65f-49fe-8028-c26a8e4c1897",
+    "at": "2026-08-30T01:41:34.809Z",
     "type": "step.entered",
     "stepId": "read-share-accounts",
     "index": 6,
@@ -1055,8 +1055,8 @@
   },
   {
     "seq": 84,
-    "runId": "run-9561eb60-7398-4c11-a007-0cf42a6ef81b",
-    "at": "2026-08-29T02:37:01.092Z",
+    "runId": "run-004bfa4e-a65f-49fe-8028-c26a8e4c1897",
+    "at": "2026-08-30T01:41:34.809Z",
     "type": "budget.charged",
     "ledger": "observations",
     "used": 20,
@@ -1064,8 +1064,8 @@
   },
   {
     "seq": 85,
-    "runId": "run-9561eb60-7398-4c11-a007-0cf42a6ef81b",
-    "at": "2026-08-29T02:37:01.103Z",
+    "runId": "run-004bfa4e-a65f-49fe-8028-c26a8e4c1897",
+    "at": "2026-08-30T01:41:34.822Z",
     "type": "observed",
     "stepId": "read-share-accounts",
     "obsSeq": 19,
@@ -1076,8 +1076,8 @@
   },
   {
     "seq": 86,
-    "runId": "run-9561eb60-7398-4c11-a007-0cf42a6ef81b",
-    "at": "2026-08-29T02:37:01.104Z",
+    "runId": "run-004bfa4e-a65f-49fe-8028-c26a8e4c1897",
+    "at": "2026-08-30T01:41:34.822Z",
     "type": "classified",
     "stepId": "read-share-accounts",
     "phase": "pre",
@@ -1089,8 +1089,8 @@
   },
   {
     "seq": 87,
-    "runId": "run-9561eb60-7398-4c11-a007-0cf42a6ef81b",
-    "at": "2026-08-29T02:37:01.104Z",
+    "runId": "run-004bfa4e-a65f-49fe-8028-c26a8e4c1897",
+    "at": "2026-08-30T01:41:34.822Z",
     "type": "budget.charged",
     "ledger": "observations",
     "used": 21,
@@ -1098,8 +1098,8 @@
   },
   {
     "seq": 88,
-    "runId": "run-9561eb60-7398-4c11-a007-0cf42a6ef81b",
-    "at": "2026-08-29T02:37:01.236Z",
+    "runId": "run-004bfa4e-a65f-49fe-8028-c26a8e4c1897",
+    "at": "2026-08-30T01:41:34.955Z",
     "type": "budget.charged",
     "ledger": "observations",
     "used": 22,
@@ -1107,18 +1107,18 @@
   },
   {
     "seq": 89,
-    "runId": "run-9561eb60-7398-4c11-a007-0cf42a6ef81b",
-    "at": "2026-08-29T02:37:01.248Z",
+    "runId": "run-004bfa4e-a65f-49fe-8028-c26a8e4c1897",
+    "at": "2026-08-30T01:41:34.970Z",
     "type": "settled",
     "stepId": "read-share-accounts",
     "polls": 2,
-    "elapsedMs": 144,
+    "elapsedMs": 148,
     "settled": true
   },
   {
     "seq": 90,
-    "runId": "run-9561eb60-7398-4c11-a007-0cf42a6ef81b",
-    "at": "2026-08-29T02:37:01.249Z",
+    "runId": "run-004bfa4e-a65f-49fe-8028-c26a8e4c1897",
+    "at": "2026-08-30T01:41:34.970Z",
     "type": "observed",
     "stepId": "read-share-accounts",
     "obsSeq": 21,
@@ -1129,8 +1129,8 @@
   },
   {
     "seq": 91,
-    "runId": "run-9561eb60-7398-4c11-a007-0cf42a6ef81b",
-    "at": "2026-08-29T02:37:01.249Z",
+    "runId": "run-004bfa4e-a65f-49fe-8028-c26a8e4c1897",
+    "at": "2026-08-30T01:41:34.972Z",
     "type": "classified",
     "stepId": "read-share-accounts",
     "phase": "post",
@@ -1155,8 +1155,8 @@
   },
   {
     "seq": 92,
-    "runId": "run-9561eb60-7398-4c11-a007-0cf42a6ef81b",
-    "at": "2026-08-29T02:37:01.250Z",
+    "runId": "run-004bfa4e-a65f-49fe-8028-c26a8e4c1897",
+    "at": "2026-08-30T01:41:34.972Z",
     "type": "extracted",
     "stepId": "read-share-accounts",
     "output": "shareAccounts",
@@ -1165,8 +1165,8 @@
   },
   {
     "seq": 93,
-    "runId": "run-9561eb60-7398-4c11-a007-0cf42a6ef81b",
-    "at": "2026-08-29T02:37:01.250Z",
+    "runId": "run-004bfa4e-a65f-49fe-8028-c26a8e4c1897",
+    "at": "2026-08-30T01:41:34.972Z",
     "type": "checkpoint",
     "stepId": "read-share-accounts",
     "passed": true,
@@ -1187,8 +1187,8 @@
   },
   {
     "seq": 94,
-    "runId": "run-9561eb60-7398-4c11-a007-0cf42a6ef81b",
-    "at": "2026-08-29T02:37:01.250Z",
+    "runId": "run-004bfa4e-a65f-49fe-8028-c26a8e4c1897",
+    "at": "2026-08-30T01:41:34.972Z",
     "type": "step.entered",
     "stepId": "open-subaccount-form",
     "index": 7,
@@ -1197,8 +1197,8 @@
   },
   {
     "seq": 95,
-    "runId": "run-9561eb60-7398-4c11-a007-0cf42a6ef81b",
-    "at": "2026-08-29T02:37:01.250Z",
+    "runId": "run-004bfa4e-a65f-49fe-8028-c26a8e4c1897",
+    "at": "2026-08-30T01:41:34.972Z",
     "type": "budget.charged",
     "ledger": "observations",
     "used": 23,
@@ -1206,8 +1206,8 @@
   },
   {
     "seq": 96,
-    "runId": "run-9561eb60-7398-4c11-a007-0cf42a6ef81b",
-    "at": "2026-08-29T02:37:01.262Z",
+    "runId": "run-004bfa4e-a65f-49fe-8028-c26a8e4c1897",
+    "at": "2026-08-30T01:41:34.985Z",
     "type": "observed",
     "stepId": "open-subaccount-form",
     "obsSeq": 22,
@@ -1218,8 +1218,8 @@
   },
   {
     "seq": 97,
-    "runId": "run-9561eb60-7398-4c11-a007-0cf42a6ef81b",
-    "at": "2026-08-29T02:37:01.263Z",
+    "runId": "run-004bfa4e-a65f-49fe-8028-c26a8e4c1897",
+    "at": "2026-08-30T01:41:34.986Z",
     "type": "classified",
     "stepId": "open-subaccount-form",
     "phase": "pre",
@@ -1231,8 +1231,8 @@
   },
   {
     "seq": 98,
-    "runId": "run-9561eb60-7398-4c11-a007-0cf42a6ef81b",
-    "at": "2026-08-29T02:37:01.263Z",
+    "runId": "run-004bfa4e-a65f-49fe-8028-c26a8e4c1897",
+    "at": "2026-08-30T01:41:34.986Z",
     "type": "resolved",
     "stepId": "open-subaccount-form",
     "descriptors": [
@@ -1241,14 +1241,14 @@
         "kind": "role-name",
         "evidenceSource": "accessibleName",
         "verdict": "resolved",
-        "nodeId": "button:f3-350"
+        "nodeId": "button:f3-349"
       },
       {
         "id": "open-subaccount-only-control",
         "kind": "ordinal-in-container",
         "evidenceSource": "ordinal",
         "verdict": "resolved",
-        "nodeId": "button:f3-350"
+        "nodeId": "button:f3-349"
       }
     ],
     "agreed": true,
@@ -1256,8 +1256,8 @@
   },
   {
     "seq": 99,
-    "runId": "run-9561eb60-7398-4c11-a007-0cf42a6ef81b",
-    "at": "2026-08-29T02:37:01.263Z",
+    "runId": "run-004bfa4e-a65f-49fe-8028-c26a8e4c1897",
+    "at": "2026-08-30T01:41:34.986Z",
     "type": "policy.decided",
     "decision": {
       "allow": true,
@@ -1269,8 +1269,8 @@
   },
   {
     "seq": 100,
-    "runId": "run-9561eb60-7398-4c11-a007-0cf42a6ef81b",
-    "at": "2026-08-29T02:37:01.263Z",
+    "runId": "run-004bfa4e-a65f-49fe-8028-c26a8e4c1897",
+    "at": "2026-08-30T01:41:34.986Z",
     "type": "budget.charged",
     "ledger": "actions",
     "used": 5,
@@ -1278,8 +1278,8 @@
   },
   {
     "seq": 101,
-    "runId": "run-9561eb60-7398-4c11-a007-0cf42a6ef81b",
-    "at": "2026-08-29T02:37:01.265Z",
+    "runId": "run-004bfa4e-a65f-49fe-8028-c26a8e4c1897",
+    "at": "2026-08-30T01:41:34.988Z",
     "type": "acted",
     "stepId": "open-subaccount-form",
     "actionKind": "click",
@@ -1290,8 +1290,8 @@
   },
   {
     "seq": 102,
-    "runId": "run-9561eb60-7398-4c11-a007-0cf42a6ef81b",
-    "at": "2026-08-29T02:37:01.265Z",
+    "runId": "run-004bfa4e-a65f-49fe-8028-c26a8e4c1897",
+    "at": "2026-08-30T01:41:34.988Z",
     "type": "budget.charged",
     "ledger": "observations",
     "used": 24,
@@ -1299,8 +1299,8 @@
   },
   {
     "seq": 103,
-    "runId": "run-9561eb60-7398-4c11-a007-0cf42a6ef81b",
-    "at": "2026-08-29T02:37:01.395Z",
+    "runId": "run-004bfa4e-a65f-49fe-8028-c26a8e4c1897",
+    "at": "2026-08-30T01:41:35.117Z",
     "type": "budget.charged",
     "ledger": "observations",
     "used": 25,
@@ -1308,8 +1308,8 @@
   },
   {
     "seq": 104,
-    "runId": "run-9561eb60-7398-4c11-a007-0cf42a6ef81b",
-    "at": "2026-08-29T02:37:01.526Z",
+    "runId": "run-004bfa4e-a65f-49fe-8028-c26a8e4c1897",
+    "at": "2026-08-30T01:41:35.253Z",
     "type": "budget.charged",
     "ledger": "observations",
     "used": 26,
@@ -1317,18 +1317,18 @@
   },
   {
     "seq": 105,
-    "runId": "run-9561eb60-7398-4c11-a007-0cf42a6ef81b",
-    "at": "2026-08-29T02:37:01.537Z",
+    "runId": "run-004bfa4e-a65f-49fe-8028-c26a8e4c1897",
+    "at": "2026-08-30T01:41:35.272Z",
     "type": "settled",
     "stepId": "open-subaccount-form",
     "polls": 3,
-    "elapsedMs": 272,
+    "elapsedMs": 284,
     "settled": true
   },
   {
     "seq": 106,
-    "runId": "run-9561eb60-7398-4c11-a007-0cf42a6ef81b",
-    "at": "2026-08-29T02:37:01.537Z",
+    "runId": "run-004bfa4e-a65f-49fe-8028-c26a8e4c1897",
+    "at": "2026-08-30T01:41:35.272Z",
     "type": "observed",
     "stepId": "open-subaccount-form",
     "obsSeq": 24,
@@ -1339,8 +1339,8 @@
   },
   {
     "seq": 107,
-    "runId": "run-9561eb60-7398-4c11-a007-0cf42a6ef81b",
-    "at": "2026-08-29T02:37:01.537Z",
+    "runId": "run-004bfa4e-a65f-49fe-8028-c26a8e4c1897",
+    "at": "2026-08-30T01:41:35.272Z",
     "type": "classified",
     "stepId": "open-subaccount-form",
     "phase": "post",
@@ -1352,8 +1352,8 @@
   },
   {
     "seq": 108,
-    "runId": "run-9561eb60-7398-4c11-a007-0cf42a6ef81b",
-    "at": "2026-08-29T02:37:01.537Z",
+    "runId": "run-004bfa4e-a65f-49fe-8028-c26a8e4c1897",
+    "at": "2026-08-30T01:41:35.272Z",
     "type": "checkpoint",
     "stepId": "open-subaccount-form",
     "passed": true,
@@ -1377,8 +1377,8 @@
   },
   {
     "seq": 109,
-    "runId": "run-9561eb60-7398-4c11-a007-0cf42a6ef81b",
-    "at": "2026-08-29T02:37:01.538Z",
+    "runId": "run-004bfa4e-a65f-49fe-8028-c26a8e4c1897",
+    "at": "2026-08-30T01:41:35.272Z",
     "type": "step.entered",
     "stepId": "confirm-form-ready",
     "index": 8,
@@ -1387,8 +1387,8 @@
   },
   {
     "seq": 110,
-    "runId": "run-9561eb60-7398-4c11-a007-0cf42a6ef81b",
-    "at": "2026-08-29T02:37:01.538Z",
+    "runId": "run-004bfa4e-a65f-49fe-8028-c26a8e4c1897",
+    "at": "2026-08-30T01:41:35.273Z",
     "type": "budget.charged",
     "ledger": "observations",
     "used": 27,
@@ -1396,8 +1396,8 @@
   },
   {
     "seq": 111,
-    "runId": "run-9561eb60-7398-4c11-a007-0cf42a6ef81b",
-    "at": "2026-08-29T02:37:01.547Z",
+    "runId": "run-004bfa4e-a65f-49fe-8028-c26a8e4c1897",
+    "at": "2026-08-30T01:41:35.283Z",
     "type": "observed",
     "stepId": "confirm-form-ready",
     "obsSeq": 25,
@@ -1408,8 +1408,8 @@
   },
   {
     "seq": 112,
-    "runId": "run-9561eb60-7398-4c11-a007-0cf42a6ef81b",
-    "at": "2026-08-29T02:37:01.547Z",
+    "runId": "run-004bfa4e-a65f-49fe-8028-c26a8e4c1897",
+    "at": "2026-08-30T01:41:35.283Z",
     "type": "classified",
     "stepId": "confirm-form-ready",
     "phase": "pre",
@@ -1421,8 +1421,8 @@
   },
   {
     "seq": 113,
-    "runId": "run-9561eb60-7398-4c11-a007-0cf42a6ef81b",
-    "at": "2026-08-29T02:37:01.547Z",
+    "runId": "run-004bfa4e-a65f-49fe-8028-c26a8e4c1897",
+    "at": "2026-08-30T01:41:35.283Z",
     "type": "budget.charged",
     "ledger": "observations",
     "used": 28,
@@ -1430,8 +1430,8 @@
   },
   {
     "seq": 114,
-    "runId": "run-9561eb60-7398-4c11-a007-0cf42a6ef81b",
-    "at": "2026-08-29T02:37:01.678Z",
+    "runId": "run-004bfa4e-a65f-49fe-8028-c26a8e4c1897",
+    "at": "2026-08-30T01:41:35.413Z",
     "type": "budget.charged",
     "ledger": "observations",
     "used": 29,
@@ -1439,18 +1439,18 @@
   },
   {
     "seq": 115,
-    "runId": "run-9561eb60-7398-4c11-a007-0cf42a6ef81b",
-    "at": "2026-08-29T02:37:01.688Z",
+    "runId": "run-004bfa4e-a65f-49fe-8028-c26a8e4c1897",
+    "at": "2026-08-30T01:41:35.427Z",
     "type": "settled",
     "stepId": "confirm-form-ready",
     "polls": 2,
-    "elapsedMs": 141,
+    "elapsedMs": 143,
     "settled": true
   },
   {
     "seq": 116,
-    "runId": "run-9561eb60-7398-4c11-a007-0cf42a6ef81b",
-    "at": "2026-08-29T02:37:01.689Z",
+    "runId": "run-004bfa4e-a65f-49fe-8028-c26a8e4c1897",
+    "at": "2026-08-30T01:41:35.427Z",
     "type": "observed",
     "stepId": "confirm-form-ready",
     "obsSeq": 27,
@@ -1461,8 +1461,8 @@
   },
   {
     "seq": 117,
-    "runId": "run-9561eb60-7398-4c11-a007-0cf42a6ef81b",
-    "at": "2026-08-29T02:37:01.689Z",
+    "runId": "run-004bfa4e-a65f-49fe-8028-c26a8e4c1897",
+    "at": "2026-08-30T01:41:35.428Z",
     "type": "classified",
     "stepId": "confirm-form-ready",
     "phase": "post",
@@ -1474,8 +1474,8 @@
   },
   {
     "seq": 118,
-    "runId": "run-9561eb60-7398-4c11-a007-0cf42a6ef81b",
-    "at": "2026-08-29T02:37:01.690Z",
+    "runId": "run-004bfa4e-a65f-49fe-8028-c26a8e4c1897",
+    "at": "2026-08-30T01:41:35.428Z",
     "type": "checkpoint",
     "stepId": "confirm-form-ready",
     "passed": true,
@@ -1508,8 +1508,8 @@
   },
   {
     "seq": 119,
-    "runId": "run-9561eb60-7398-4c11-a007-0cf42a6ef81b",
-    "at": "2026-08-29T02:37:01.690Z",
+    "runId": "run-004bfa4e-a65f-49fe-8028-c26a8e4c1897",
+    "at": "2026-08-30T01:41:35.429Z",
     "type": "run.finished",
     "status": "ok"
   }

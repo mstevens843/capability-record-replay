@@ -1,0 +1,5 @@
+APPROVED  corebank.member.read_share_position.web-legacy.v1@1
+  digest    sha256:7cde611ddc91bacab30c69a0731676d275b6f4cfe1a771a2480fc8765a6444cf
+  signed by approver:agent-acting-as-approver
+  grade     full (replay-dry, covered through activate-open)
+  written   evidence/outcome-promotion/before/artifact-approved-for-probe.json

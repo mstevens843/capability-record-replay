@@ -7,7 +7,7 @@
 // not depend on Playwright.
 
 import { generateKeyPairSync } from "node:crypto";
-import { mkdtempSync, readFileSync, writeFileSync } from "node:fs";
+import { mkdtempSync, readFileSync, readdirSync, writeFileSync } from "node:fs";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
 import { parseArtifact, sealArtifact } from "@crr/core";
@@ -22,6 +22,8 @@ const write = (name: string, value: unknown): string => {
   writeFileSync(path, JSON.stringify(value, null, 2));
   return path;
 };
+
+const readJsonAt = (path: string): unknown => JSON.parse(readFileSync(path, "utf8"));
 
 const CONTRACT = write("contract.json", mockContract);
 const ARTIFACT = write("artifact.json", mockArtifact());
@@ -353,5 +355,154 @@ describe("crr approve", () => {
       ]),
     ).toBe(1);
     expect(out).toContain("never replayed itself with the model out of the loop");
+  });
+});
+
+// ---------------------------------------------------------------------------------------------
+// The promotion path, from the command line a reviewer actually types
+// ---------------------------------------------------------------------------------------------
+
+describe("crr probe", () => {
+  it("freezes a screen at every step and prints the step-to-digest table", async () => {
+    // The table is the whole ergonomic point: identifying the positive becomes one line of reading
+    // rather than a hunt through a JSONL file for whichever `evidence.captured` came after
+    // whichever `observed`.
+    const evidence = join(dir, "probe-green");
+    capture();
+    const code = await main([
+      "probe",
+      CONTRACT,
+      ARTIFACT,
+      "--surface",
+      SURFACE,
+      "--args",
+      '{"memberId":"50001"}',
+      "--allowlist",
+      ALLOWLIST,
+      "--insecure-trust",
+      "--evidence",
+      evidence,
+      "--journal",
+      join(dir, "probe-green", "journal.jsonl"),
+    ]);
+    expect(code, out).toBe(0);
+    expect(out).toContain("captured observations (step / phase / content address)");
+    expect(out).toContain("submit-search");
+    expect(out).toContain("obs:");
+    // A green run declares `captureOn: ["failure"]` at every step, so without the flag this table
+    // would be empty - which is exactly why the verb exists.
+    expect(readdirSync(evidence).filter((f) => f.startsWith("obs-")).length).toBeGreaterThan(0);
+  });
+});
+
+describe("crr promote", () => {
+  const review = {
+    schemaVersion: "capability.promotion/v1",
+    promotes: {
+      capability: mockContract.name,
+      contractVersion: mockContract.version,
+      artifactDigest: mockArtifact().digest,
+    },
+    reviewedBy: "ops-approver-4",
+    reviewedAt: "2026-08-29T12:00:00.000Z",
+    outcome: {
+      code: "ACCOUNT_CLOSED",
+      kind: "business_outcome",
+      title: "The member's account is closed",
+      summary: "The core reports the account as closed.",
+      terminal: true,
+      payload: [],
+      stableUnderRetry: true,
+      stableUnderRetryBecause:
+        "a closed account is a fact about the record, not about this attempt",
+      callerAction: "refer-to-specialist",
+      retryable: "never",
+      agentGuidance:
+        "Tell the member the account is closed and hand off to a branch representative.",
+    },
+    detector: {
+      atStep: "submit-search",
+      priority: 20,
+      phase: "post",
+      requiresSettled: true,
+      capture: [],
+      detect: {
+        kind: "text-present",
+        scope: {
+          path: [
+            { kind: "frame", name: { mode: "exact", value: "content", normalize: "std.text@1" } },
+          ],
+        },
+        text: { mode: "token", token: "closed-banner", normalize: "std.label@1" },
+      },
+    },
+    vocabulary: { "closed-banner": ["This account is closed"] },
+    evidence: {
+      positives: [
+        {
+          observation: "sha256:0000000000000000000000000000000000000000000000000000000000000000",
+          fromRun: "run-probe-1",
+          atStep: "submit-search",
+          tenantId: "riverbend",
+          appInstanceId: "riverbend-mock",
+        },
+      ],
+      corpusRefs: ["probe-green"],
+    },
+  };
+
+  it("refuses, writes nothing, and names the observation nobody froze", async () => {
+    // A dry run against a corpus that does not hold the positive. The refusal is the useful half:
+    // this is where a detector gets fixed, and it costs no session and no document.
+    //
+    // The artifact is rewound to a DRAFT, because `promote` refuses anything else: an approved
+    // artifact's digest is one an approver signed, and a proposed one has never replayed itself.
+    const approved = mockArtifact();
+    const DRAFT = write(
+      "promote-draft.json",
+      sealArtifact({
+        ...approved,
+        digest: undefined,
+        signatures: [],
+        lifecycle: { status: "draft", supersedes: null, approval: null },
+      }),
+    );
+    const REVIEW = write("promotion.json", {
+      ...review,
+      promotes: { ...review.promotes, artifactDigest: parseArtifact(readJsonAt(DRAFT)).digest },
+    });
+    capture();
+    const code = await main([
+      "promote",
+      CONTRACT,
+      DRAFT,
+      "--review",
+      REVIEW,
+      "--corpus",
+      join(dir, "probe-green"),
+      "--tenant",
+      "riverbend",
+      "--dry-run",
+    ]);
+    expect(code).toBe(1);
+    expect(out).toContain("PROMOTION REFUSED  ACCOUNT_CLOSED at submit-search");
+    expect(out).toContain("a hand-written one is refused");
+  });
+
+  it("refuses --confirm from a run that did not return the outcome", async () => {
+    const RESULT = write("probe-result.json", { status: "ok" });
+    capture();
+    expect(
+      await main([
+        "promote",
+        "--confirm",
+        ARTIFACT,
+        "--code",
+        "ACCOUNT_CLOSED",
+        "--result",
+        RESULT,
+      ]),
+    ).toBe(1);
+    expect(out).toContain("CONFIRMATION REFUSED");
   });
 });

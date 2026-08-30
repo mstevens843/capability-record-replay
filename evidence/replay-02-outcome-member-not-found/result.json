@@ -13,7 +13,7 @@
   },
   "alsoMatched": [],
   "run": {
-    "runId": "run-705feb38-e2fb-465e-92be-9a0ff29ca3e8",
+    "runId": "run-0c1e67db-468a-4f84-8749-8ed244b14697",
     "capability": {
       "name": "corebank.member.read_share_position",
       "version": "1.0.0"
@@ -21,9 +21,9 @@
     "artifact": {
       "artifactId": "corebank-member-share-position-web",
       "version": 1,
-      "digest": "sha256:ba09bc6061370dbf99ecb3c541ab41d22b7808a668591a9730356d952cc726f3",
+      "digest": "sha256:2e45d5f8b847027d8a5fda4d2e54943f70e9abba07fde8106775ac7cc34dab63",
       "overlayDigest": null,
-      "effectiveDigest": "sha256:b98064075b3bbe086ce5130f1cf997fe0ac4d67449b7c826314bbba459cb3b8f"
+      "effectiveDigest": "sha256:133b2dee7f8716f604ee7e1a9cdc6f6661a3f3722527873161606a6b6403068a"
     },
     "tenant": {
       "tenantId": "riverbend",
@@ -31,9 +31,9 @@
     },
     "surface": "web-legacy",
     "engineVersion": "crr-runtime/0.1.0",
-    "startedAt": "2026-08-29T02:37:01.821Z",
-    "endedAt": "2026-08-29T02:37:02.312Z",
-    "durationMs": 491,
+    "startedAt": "2026-08-30T01:41:35.557Z",
+    "endedAt": "2026-08-30T01:41:36.057Z",
+    "durationMs": 500,
     "stepsExecuted": 2,
     "stepsTotal": 9,
     "budgets": {
@@ -54,7 +54,7 @@
         "limit": 1
       },
       "wallClockMs": {
-        "used": 492,
+        "used": 501,
         "limit": 180000
       }
     },
@@ -84,7 +84,7 @@
         },
         "skeletonDigest": "sha256:db600b4254e71da42a08128d6538ea5853a8a1c4746452d7875ee7345501fee3",
         "observationRef": null,
-        "elapsedMs": 160,
+        "elapsedMs": 166,
         "resolution": [
           {
             "descriptorId": "member-id-right-of-label",
@@ -114,7 +114,7 @@
         },
         "skeletonDigest": "sha256:7fac544c14c45e1dea55558a9c3132523d3132f6887ecf70e5a7aa608d48d15a",
         "observationRef": "obs:e26f7bd669185119c6eab2035baa9a84155c2a02629472744c048901d20f69c7",
-        "elapsedMs": 171,
+        "elapsedMs": 175,
         "resolution": [
           {
             "descriptorId": "search-by-name",
@@ -142,9 +142,9 @@
     },
     "evidence": [
       "obs:e26f7bd669185119c6eab2035baa9a84155c2a02629472744c048901d20f69c7",
-      "journal:7a455a8ec52e89ae81f6fd138b47882550f4b391efec3bb3342907f30c6c06b3"
+      "journal:12675c56214612adc7a2770d4e5f72f2ea29101a58ad575c82f62f245db280ae"
     ],
-    "journalRef": "journal:7a455a8ec52e89ae81f6fd138b47882550f4b391efec3bb3342907f30c6c06b3",
+    "journalRef": "journal:12675c56214612adc7a2770d4e5f72f2ea29101a58ad575c82f62f245db280ae",
     "warnings": []
   }
 }

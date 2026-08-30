@@ -123,6 +123,7 @@ export const disclosureContract: CapabilityContract = sealContract({
       terminal: true,
       payload: [],
       stableUnderRetry: true,
+      origin: "hand-authored",
       callerAction: "retry-different-input",
       retryable: "with_different_inputs",
       agentGuidance: "Tell the member that number is not on file and ask them to read it again.",
@@ -138,6 +139,7 @@ export const disclosureContract: CapabilityContract = sealContract({
       // the next attempt, so it is an answer. A session timeout is a fact about this attempt and is
       // not.
       stableUnderRetry: true,
+      origin: "hand-authored",
       callerAction: "refer-to-specialist",
       retryable: "never",
       agentGuidance:
@@ -265,6 +267,7 @@ export function disclosureArtifact(): CapabilityArtifact {
               priority: 10,
               phase: "post",
               requiresSettled: true,
+              origin: "hand-authored",
               capture: [],
             },
             {
@@ -277,6 +280,7 @@ export function disclosureArtifact(): CapabilityArtifact {
               priority: 20,
               phase: "post",
               requiresSettled: true,
+              origin: "hand-authored",
               capture: [],
             },
           ],
@@ -365,6 +369,7 @@ export function disclosureArtifact(): CapabilityArtifact {
       maxProgramAttempts: 1,
       deadlineMs: 60_000,
     },
+    promotions: [],
     signatures: [],
   });
 
@@ -376,6 +381,7 @@ export function disclosureArtifact(): CapabilityArtifact {
     alg: "ed25519",
     acknowledgedEffects: ["READ"],
     acknowledgedGrade: "full",
+    acknowledgedPromotions: [],
   });
 }
 

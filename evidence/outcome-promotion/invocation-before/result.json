@@ -1,0 +1,314 @@
+{
+  "status": "failed",
+  "failure": {
+    "class": "checkpoint-failed",
+    "atStep": "read-membername-sharebalance-membershipstatus",
+    "stepIndex": 2,
+    "sideEffects": "possible",
+    "expected": {
+      "rendered": "the surface is on route search-results and the cell in column <name> of the row whose <member-id> cell equals param.memberId inside frame exactly \"top\", inside frame exactly \"content\", inside the form, inside the table with columns [<member-id>, <name>, <share-balance>, <status>, <action>] is present and the cell in column <share-balance> of the row whose <member-id> cell equals param.memberId inside frame exactly \"top\", inside frame exactly \"content\", inside the form, inside the table with columns [<member-id>, <name>, <share-balance>, <status>, <action>] is present and the cell in column <status> of the row whose <member-id> cell equals param.memberId inside frame exactly \"top\", inside frame exactly \"content\", inside the form, inside the table with columns [<member-id>, <name>, <share-balance>, <status>, <action>] is present",
+      "clauses": [
+        {
+          "rendered": "the surface is on route search-results",
+          "verdict": true
+        },
+        {
+          "rendered": "the cell in column <name> of the row whose <member-id> cell equals param.memberId inside frame exactly \"top\", inside frame exactly \"content\", inside the form, inside the table with columns [<member-id>, <name>, <share-balance>, <status>, <action>] is present",
+          "verdict": false,
+          "evidenceSource": "columnHeader",
+          "nodeSummary": "nothing in scope matched"
+        },
+        {
+          "rendered": "the cell in column <share-balance> of the row whose <member-id> cell equals param.memberId inside frame exactly \"top\", inside frame exactly \"content\", inside the form, inside the table with columns [<member-id>, <name>, <share-balance>, <status>, <action>] is present",
+          "verdict": false,
+          "evidenceSource": "columnHeader",
+          "nodeSummary": "nothing in scope matched"
+        },
+        {
+          "rendered": "the cell in column <status> of the row whose <member-id> cell equals param.memberId inside frame exactly \"top\", inside frame exactly \"content\", inside the form, inside the table with columns [<member-id>, <name>, <share-balance>, <status>, <action>] is present",
+          "verdict": false,
+          "evidenceSource": "columnHeader",
+          "nodeSummary": "nothing in scope matched"
+        }
+      ]
+    },
+    "observed": {
+      "route": {
+        "originAlias": "corebank",
+        "path": "/search/results",
+        "query": {
+          "ctl00$ctl32$g$9a1$txtMemberId": "<taint:memberId-1>",
+          "ctl00$ctl32$g$9a1$txtLast": "",
+          "ctl00$ctl32$g$9a1$btnGo": "Search"
+        },
+        "frame": "content"
+      },
+      "settled": true,
+      "pendingReason": null,
+      "skeletonDigest": "sha256:ad2ce166f03dd9a941bdc1bf8ac0c5ea08756e24e8a273f0597d428be3111019",
+      "nodeCount": 121,
+      "nativeDialog": null,
+      "inputIntercepted": false,
+      "salient": [
+        {
+          "role": "link",
+          "name": "Member Search",
+          "disabled": false,
+          "visible": true
+        },
+        {
+          "role": "link",
+          "name": "Account Maintenance",
+          "disabled": false,
+          "visible": true
+        },
+        {
+          "role": "link",
+          "name": "Card Services",
+          "disabled": false,
+          "visible": true
+        },
+        {
+          "role": "link",
+          "name": "Teller Journal",
+          "disabled": false,
+          "visible": true
+        },
+        {
+          "role": "button",
+          "name": "Search",
+          "disabled": false,
+          "visible": true
+        }
+      ],
+      "redactionsApplied": 1
+    },
+    "attempts": [],
+    "retriable": "after-human-action",
+    "operatorAction": "The postcondition did not hold; the expectation trace says which clause.",
+    "observationRef": "obs:394ed4f0ecb4eff6dfbed88e829141f4587973e26257cb6ea017844b95d8df8a"
+  },
+  "run": {
+    "runId": "run-e211c484-5158-40bc-8d8b-33a61f7af6ff",
+    "capability": {
+      "name": "corebank.member.read_share_position",
+      "version": "1.0.0"
+    },
+    "artifact": {
+      "artifactId": "corebank.member.read_share_position.web-legacy.v1",
+      "version": 1,
+      "digest": "sha256:7cde611ddc91bacab30c69a0731676d275b6f4cfe1a771a2480fc8765a6444cf",
+      "overlayDigest": null,
+      "effectiveDigest": "sha256:9d4eaffb53baf9224b3bdc8475ddcfff643bb21eec8257141d3594b93e2c6a5f"
+    },
+    "tenant": {
+      "tenantId": "riverbend",
+      "appInstanceId": "riverbend-corebank-live"
+    },
+    "surface": "web-legacy",
+    "engineVersion": "crr-runtime/0.1.0",
+    "startedAt": "2026-08-30T01:29:01.493Z",
+    "endedAt": "2026-08-30T01:29:02.619Z",
+    "durationMs": 1126,
+    "stepsExecuted": 2,
+    "stepsTotal": 4,
+    "budgets": {
+      "actions": {
+        "used": 2,
+        "limit": 13
+      },
+      "observations": {
+        "used": 12,
+        "limit": 48
+      },
+      "remediations": {
+        "used": 0,
+        "limit": 0
+      },
+      "programAttempts": {
+        "used": 0,
+        "limit": 1
+      },
+      "wallClockMs": {
+        "used": 1127,
+        "limit": 120000
+      }
+    },
+    "recoveriesApplied": [],
+    "attribution": {
+      "by": "automation",
+      "transfers": []
+    },
+    "steps": [
+      {
+        "stepId": "fill-fill",
+        "attempt": 1,
+        "verdict": {
+          "kind": "advance",
+          "outputs": []
+        },
+        "skeletonDigest": "sha256:e41392131c3b50ffe57e8b5f4a29f7591995ee82fe439f3d3f4ec1ae74ad9af5",
+        "observationRef": null,
+        "elapsedMs": 368,
+        "resolution": [
+          {
+            "descriptorId": "label-anchored",
+            "kind": "label-anchored",
+            "evidenceSource": "labelText",
+            "verdict": "resolved",
+            "resolvedNodeId": "textbox:f3-112"
+          },
+          {
+            "descriptorId": "ordinal-in-container",
+            "kind": "ordinal-in-container",
+            "evidenceSource": "ordinal",
+            "verdict": "resolved",
+            "resolvedNodeId": "textbox:f3-112"
+          }
+        ]
+      },
+      {
+        "stepId": "activate-search",
+        "attempt": 1,
+        "verdict": {
+          "kind": "advance",
+          "outputs": []
+        },
+        "skeletonDigest": "sha256:ad2ce166f03dd9a941bdc1bf8ac0c5ea08756e24e8a273f0597d428be3111019",
+        "observationRef": null,
+        "elapsedMs": 368,
+        "resolution": [
+          {
+            "descriptorId": "role-name",
+            "kind": "role-name",
+            "evidenceSource": "accessibleName",
+            "verdict": "resolved",
+            "resolvedNodeId": "button:f3-122"
+          },
+          {
+            "descriptorId": "label-anchored",
+            "kind": "label-anchored",
+            "evidenceSource": "labelText",
+            "verdict": "resolved",
+            "resolvedNodeId": "button:f3-122"
+          },
+          {
+            "descriptorId": "ordinal-in-container",
+            "kind": "ordinal-in-container",
+            "evidenceSource": "ordinal",
+            "verdict": "resolved",
+            "resolvedNodeId": "button:f3-122"
+          }
+        ]
+      },
+      {
+        "stepId": "read-membername-sharebalance-membershipstatus",
+        "attempt": 1,
+        "verdict": {
+          "kind": "fail",
+          "failure": "checkpoint-failed",
+          "detail": {
+            "sideEffects": "possible",
+            "expected": {
+              "rendered": "the surface is on route search-results and the cell in column <name> of the row whose <member-id> cell equals param.memberId inside frame exactly \"top\", inside frame exactly \"content\", inside the form, inside the table with columns [<member-id>, <name>, <share-balance>, <status>, <action>] is present and the cell in column <share-balance> of the row whose <member-id> cell equals param.memberId inside frame exactly \"top\", inside frame exactly \"content\", inside the form, inside the table with columns [<member-id>, <name>, <share-balance>, <status>, <action>] is present and the cell in column <status> of the row whose <member-id> cell equals param.memberId inside frame exactly \"top\", inside frame exactly \"content\", inside the form, inside the table with columns [<member-id>, <name>, <share-balance>, <status>, <action>] is present",
+              "clauses": [
+                {
+                  "rendered": "the surface is on route search-results",
+                  "verdict": true
+                },
+                {
+                  "rendered": "the cell in column <name> of the row whose <member-id> cell equals param.memberId inside frame exactly \"top\", inside frame exactly \"content\", inside the form, inside the table with columns [<member-id>, <name>, <share-balance>, <status>, <action>] is present",
+                  "verdict": false,
+                  "evidenceSource": "columnHeader",
+                  "nodeSummary": "nothing in scope matched"
+                },
+                {
+                  "rendered": "the cell in column <share-balance> of the row whose <member-id> cell equals param.memberId inside frame exactly \"top\", inside frame exactly \"content\", inside the form, inside the table with columns [<member-id>, <name>, <share-balance>, <status>, <action>] is present",
+                  "verdict": false,
+                  "evidenceSource": "columnHeader",
+                  "nodeSummary": "nothing in scope matched"
+                },
+                {
+                  "rendered": "the cell in column <status> of the row whose <member-id> cell equals param.memberId inside frame exactly \"top\", inside frame exactly \"content\", inside the form, inside the table with columns [<member-id>, <name>, <share-balance>, <status>, <action>] is present",
+                  "verdict": false,
+                  "evidenceSource": "columnHeader",
+                  "nodeSummary": "nothing in scope matched"
+                }
+              ]
+            },
+            "observed": {
+              "route": {
+                "originAlias": "corebank",
+                "path": "/search/results",
+                "query": {
+                  "ctl00$ctl32$g$9a1$txtMemberId": "<taint:memberId-1>",
+                  "ctl00$ctl32$g$9a1$txtLast": "",
+                  "ctl00$ctl32$g$9a1$btnGo": "Search"
+                },
+                "frame": "content"
+              },
+              "settled": true,
+              "pendingReason": null,
+              "skeletonDigest": "sha256:ad2ce166f03dd9a941bdc1bf8ac0c5ea08756e24e8a273f0597d428be3111019",
+              "nodeCount": 121,
+              "nativeDialog": null,
+              "inputIntercepted": false,
+              "salient": [
+                {
+                  "role": "link",
+                  "name": "Member Search",
+                  "disabled": false,
+                  "visible": true
+                },
+                {
+                  "role": "link",
+                  "name": "Account Maintenance",
+                  "disabled": false,
+                  "visible": true
+                },
+                {
+                  "role": "link",
+                  "name": "Card Services",
+                  "disabled": false,
+                  "visible": true
+                },
+                {
+                  "role": "link",
+                  "name": "Teller Journal",
+                  "disabled": false,
+                  "visible": true
+                },
+                {
+                  "role": "button",
+                  "name": "Search",
+                  "disabled": false,
+                  "visible": true
+                }
+              ],
+              "redactionsApplied": 1
+            },
+            "attempts": [],
+            "retriable": "after-human-action",
+            "operatorAction": "The postcondition did not hold; the expectation trace says which clause."
+          }
+        },
+        "skeletonDigest": "sha256:ad2ce166f03dd9a941bdc1bf8ac0c5ea08756e24e8a273f0597d428be3111019",
+        "observationRef": "obs:394ed4f0ecb4eff6dfbed88e829141f4587973e26257cb6ea017844b95d8df8a",
+        "elapsedMs": 369
+      }
+    ],
+    "drift": {
+      "fingerprint": "sha256:cb85dc169791b68b8cc52a811549205cb15ce7ec5e3f044abb157270e53791ea",
+      "expected": "sha256:06693b82645c7b0e9e50645933b63c57d8998e004577f8061278581a9e18a34f",
+      "divergence": 0,
+      "changed": [],
+      "needsSpecialization": false
+    },
+    "evidence": [
+      "obs:394ed4f0ecb4eff6dfbed88e829141f4587973e26257cb6ea017844b95d8df8a",
+      "journal:9d39fe772e5bdbf81be56e53a8b881d594d23ad2702f378d0bcfc85bf6f63f5a"
+    ],
+    "journalRef": "journal:9d39fe772e5bdbf81be56e53a8b881d594d23ad2702f378d0bcfc85bf6f63f5a",
+    "warnings": []
+  }
+}

@@ -1,0 +1,8 @@
+APPROVED  corebank.member.read_share_position.web-legacy.v1@2
+  digest    sha256:c48695280cc2ead7ca3da1b8df00c4c2aa761d8efa43aebc932ccbc5f8c9198c
+  signed by approver:agent-acting-as-approver
+  grade     full (replay-dry, covered through activate-open)
+  promoted  MEMBER_NOT_FOUND at read-membername-sharebalance-membershipstatus by reviewer:agent-acting-as-reviewer, review sha256:47ebed5ea3648929e03c742a36eeb85a814c7d63549d9c12d2045a66e3addf5d
+            proven at riverbend against 11 negatives (1 green at the step, 0 other abnormal at the step)
+            probe CONFIRMED against this revision
+  written   evidence/outcome-promotion/confirm/artifact-approved.json

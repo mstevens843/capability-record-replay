@@ -1,0 +1,9 @@
+OK  run run-fb1f2936-b2ff-4ae0-8a72-2e7956fe00c4  4/4 steps  1692ms
+{
+  "memberName": "CHEN, MIN (SYNTHETIC)",
+  "shareBalance": {
+    "amount": "15900.00",
+    "currency": "USD"
+  },
+  "membershipStatus": "ACTIVE"
+}

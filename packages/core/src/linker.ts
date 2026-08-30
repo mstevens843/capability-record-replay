@@ -25,6 +25,7 @@
 // advertisement, and hands the interpreter a `LinkedProgram` plus the `ProgramFacts` the classifier
 // takes as plain data.
 
+import type { ApprovalTrust } from "./approval.js";
 import {
   type CapabilityArtifact,
   type EffectSummary,
@@ -83,7 +84,7 @@ import { locatorShapeOf, piiShapeOf } from "./text-safety.js";
  *  Bumping it is a deliberate act: it changes the effective digest of every run. */
 export const LINKER_VERSION = "crr-linker/1";
 
-export const LINK_CHECK_COUNT = 28;
+export const LINK_CHECK_COUNT = 29;
 
 /**
  * Why the linker was asked.
@@ -96,23 +97,16 @@ export const LINK_CHECK_COUNT = 28;
 export type LinkMode = "replay" | "verification" | "discovery";
 
 /**
- * The approver trust store.
+ * The approver trust store, DEFINED IN `approval.ts` and used here for check 27.
  *
- * `verifySignature` is INJECTED rather than implemented here, and that is the honest seam: ed25519
- * verification is arithmetic `@crr/core` does not own, and importing a crypto library into the
- * package whose entire claim is that it has no ambient dependencies would trade the architecture for
- * one function. What core owns is the part that is a document question - which digest was signed,
- * and whether the key that signed it is one this deployment trusts.
+ * It moved there when the approval model grew a signer roster and a revocation list: the linker
+ * needs only the two members it has always needed - is this key one we listed, and does this
+ * signature verify - while the runtime's write gate needs to know WHO a key belongs to, what they
+ * are entitled to authorise, and what has been withdrawn since. `ApprovalTrustStore` extends this
+ * with exactly those, so one store satisfies both readers and neither has to know about the other's
+ * fields. `verifySignature` is still INJECTED rather than implemented, for the reason it always
+ * was: signature arithmetic is a dependency `@crr/core` does not have.
  */
-export interface ApprovalTrust {
-  readonly trustedKeyIds: readonly string[];
-  readonly verifySignature: (signed: {
-    readonly over: string;
-    readonly keyId: string;
-    readonly alg: string;
-    readonly signature: string;
-  }) => boolean;
-}
 
 /** What the caller pinned when its tool definitions were generated (SPEC section 2.6). */
 export interface ContractPin {
@@ -132,6 +126,15 @@ export interface LinkRequest {
    *  vacuous: there is no caller whose generated types could be stale. */
   readonly invocation?: ContractPin | null;
   readonly mode: LinkMode;
+  /**
+   * The tenant this program is being linked for, for check 29.
+   *
+   * Optional, and read off the overlay when it is absent, because that is the only tenant identity
+   * a stored document carries. Supplying it explicitly is what lets a base artifact with no overlay
+   * still satisfy a tenant-scoped promotion - and when neither is present, check 29 refuses in
+   * `replay` mode rather than assuming a tenant.
+   */
+  readonly tenant?: string | null;
   /** Absent when the caller has no allowlist of its own; the artifact's own origin aliases are still
    *  checked. Supplying one is what closes check 26. */
   readonly allowlist?: Allowlist | null;
@@ -235,6 +238,16 @@ export function link(request: LinkRequest): LinkResult {
   checkCheckpoints(view, add);
   checkRoutes(view, request.allowlist ?? null, add);
   checkApproval(artifactDoc, request.mode, request.trust ?? null, add);
+  // The tenant is taken from the caller when it supplies one and from the overlay otherwise, which
+  // is the only tenant identity a stored document carries. A base artifact with no overlay and no
+  // caller-supplied tenant links at NO tenant, and check 29 fails closed on that rather than
+  // guessing one.
+  checkPromotions(
+    view,
+    request.mode,
+    request.tenant ?? asString(overlayDoc?.tenantId) ?? null,
+    add,
+  );
 
   const binding = bindArguments(contractDoc, request.args ?? {}, add);
 
@@ -780,6 +793,36 @@ function checkOutcomes(view: View, add: Report): void {
       `the contract declares ${code} and no step can detect it; a caller is promised an answer this program cannot give`,
       `outcomes.${i}.code`,
     );
+  });
+
+  // THE THIRD DIRECTION: the two halves must agree about WHO WROTE THIS OUTCOME.
+  //
+  // `origin` is required, with no parse-time default, on both `OutcomeDecl` and `OutcomeRule`, and
+  // it is inside both digests. What the schemas cannot see is each other: a contract claiming a
+  // detector was derived by synthesis while the artifact says a human wrote it parses fine on both
+  // sides and is a lie about provenance in the one place a reviewer would look for it. That is a
+  // link error and not a warning, because check 29 below gates on the ARTIFACT's answer and an
+  // artifact that could disagree with its contract could route around it.
+  const declaredOrigin = new Map<string, string>();
+  for (const outcome of view.outcomes) {
+    const code = asString(outcome.code);
+    const origin = asString(outcome.origin);
+    if (code !== null && origin !== null) declaredOrigin.set(code, origin);
+  }
+  view.steps.forEach((step, i) => {
+    asObjects(step.outcomes).forEach((rule, j) => {
+      const code = asString(rule.code);
+      const origin = asString(rule.origin);
+      if (code === null || origin === null) return;
+      const declared = declaredOrigin.get(code);
+      if (declared === undefined || declared === origin) return;
+      add(
+        8,
+        "outcome-origin-mismatch",
+        `the contract declares ${code} as ${declared} and step ${view.stepIds[i]} detects it as ${origin}; provenance that two documents disagree about is provenance nobody can rely on`,
+        `${stepPath(i)}.outcomes.${j}.origin`,
+      );
+    });
   });
 }
 
@@ -2004,6 +2047,89 @@ function checkApproval(
       "lifecycle.approval.signature",
     );
   }
+}
+
+// ---------------------------------------------------------------------------------------------
+// 29 - every reviewer-authored outcome is named by a proof, at THIS tenant
+// ---------------------------------------------------------------------------------------------
+
+/**
+ * The check that makes tenant-scoped promotion enforceable rather than advisory.
+ *
+ * Every `OutcomeRule` with `origin: "reviewer-authored"` must be named by a `promotions[]` entry
+ * whose `code` and `atStep` match. In `mode: "replay"` ONLY, that receipt's `proof.provenAt` must
+ * additionally contain the tenant being linked.
+ *
+ * WHY THE TENANT CLAUSE EXISTS AT ALL. A detector uses a `token` matcher; a token resolves through
+ * `flow.vocabulary`, which an overlay overrides per tenant. So `not-found-banner` is DIFFERENT TEXT
+ * at Riverbend and at Summit, and a proof at one says nothing whatever about the other. The
+ * operational cost is real and is the price of the guarantee: onboarding a new tenant to a
+ * capability with a promoted outcome needs a probe and a re-proof there, rather than being a pure
+ * overlay change. What is bought is never shipping a detector that is silent at the institution
+ * nobody tested - which fails by returning `failed` instead of `MEMBER_NOT_FOUND`, or worse, by
+ * matching some other tenant's banner.
+ *
+ * WHY IT IS A NUMBERED LINKER CHECK rather than a save-time invariant. The schema already refuses a
+ * receipt whose code or step disagrees with the program, so a document with no receipt at all
+ * cannot be stored. The interesting failure is the one only the linker sees: a STORED, SIGNED,
+ * perfectly valid artifact being linked at a tenant nobody proved it at.
+ *
+ * `discovery` and `verification` modes skip the tenant clause, exactly as check 27 skips the
+ * approval requirement in `verification` mode, and for the same reason: otherwise the first
+ * promotion could never be verified at all, because verification is what turns v2 from `proposed`
+ * into a draft and there is no earlier point at which the tenant clause could be satisfied.
+ */
+function checkPromotions(view: View, mode: LinkMode, tenant: string | null, add: Report): void {
+  const receipts = asObjects(view.artifact.promotions);
+  view.steps.forEach((step, i) => {
+    asObjects(step.outcomes).forEach((rule, j) => {
+      if (asString(rule.origin) !== "reviewer-authored") return;
+      const code = asString(rule.code);
+      const stepId = view.stepIds[i] ?? "";
+      const where = `${stepPath(i)}.outcomes.${j}`;
+      const receipt = receipts.find(
+        (r) => asString(r.code) === code && asString(r.atStep) === stepId,
+      );
+      if (receipt === undefined) {
+        add(
+          29,
+          "outcome-unproven",
+          `step ${stepId} detects ${code ?? "an outcome"} with a detector a human wrote and this artifact carries no promotion receipt for it; a detector is trusted because it was proven to discriminate, never because a person typed it`,
+          `${where}.origin`,
+        );
+        return;
+      }
+      const proof = asObject(receipt.proof);
+      if (asString(proof?.verdict) !== "discriminates") {
+        add(
+          29,
+          "outcome-unproven",
+          `the promotion receipt for ${code ?? "an outcome"} at ${stepId} carries no discrimination verdict`,
+          `${where}.origin`,
+        );
+        return;
+      }
+      if (mode !== "replay") return;
+      const provenAt = asStrings(proof?.provenAt);
+      if (tenant === null) {
+        add(
+          29,
+          "outcome-unproven",
+          `${code ?? "an outcome"} at ${stepId} was written by a reviewer and proven per tenant, and this link names no tenant; an unnamed tenant cannot be one of the tenants it was proven at`,
+          `${where}.origin`,
+        );
+        return;
+      }
+      if (!provenAt.includes(tenant)) {
+        add(
+          29,
+          "outcome-unproven",
+          `${code ?? "an outcome"} at ${stepId} was proven at ${provenAt.join(", ") || "no tenant"} and this run is at ${tenant}; its detector reads a vocabulary token an overlay overrides per tenant, so a proof elsewhere says nothing about here`,
+          `${where}.origin`,
+        );
+      }
+    });
+  });
 }
 
 // ---------------------------------------------------------------------------------------------

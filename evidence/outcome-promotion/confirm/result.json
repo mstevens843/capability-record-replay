@@ -1,0 +1,156 @@
+{
+  "status": "outcome",
+  "outcome": "MEMBER_NOT_FOUND",
+  "data": {},
+  "terminal": true,
+  "callerAction": "retry-different-input",
+  "retryable": "with_different_inputs",
+  "guidance": "Tell the member that number is not on file and ask them to read it again from their card or statement. Do not guess a different number on their behalf.",
+  "detectedAt": {
+    "stepId": "read-membername-sharebalance-membershipstatus",
+    "stepIndex": 2,
+    "priority": 10
+  },
+  "alsoMatched": [],
+  "run": {
+    "runId": "run-25ef2c1c-9328-4554-badd-44320667cbbf",
+    "capability": {
+      "name": "corebank.member.read_share_position",
+      "version": "2.0.0"
+    },
+    "artifact": {
+      "artifactId": "corebank.member.read_share_position.web-legacy.v1",
+      "version": 2,
+      "digest": "sha256:21f298ec7a17285c776a32d61b1e01dca378f381e19c4d56da9ef95cec5f44b1",
+      "overlayDigest": null,
+      "effectiveDigest": "sha256:1f69f55bc706d5d94e64d8e38721ce6a2910a5b4849bb7fd7b82f36190fe4266"
+    },
+    "tenant": {
+      "tenantId": "riverbend",
+      "appInstanceId": "riverbend-corebank-live"
+    },
+    "surface": "web-legacy",
+    "engineVersion": "crr-runtime/0.1.0",
+    "startedAt": "2026-08-30T01:29:09.395Z",
+    "endedAt": "2026-08-30T01:29:10.518Z",
+    "durationMs": 1123,
+    "stepsExecuted": 2,
+    "stepsTotal": 4,
+    "budgets": {
+      "actions": {
+        "used": 2,
+        "limit": 13
+      },
+      "observations": {
+        "used": 12,
+        "limit": 48
+      },
+      "remediations": {
+        "used": 0,
+        "limit": 0
+      },
+      "programAttempts": {
+        "used": 0,
+        "limit": 1
+      },
+      "wallClockMs": {
+        "used": 1124,
+        "limit": 120000
+      }
+    },
+    "recoveriesApplied": [],
+    "attribution": {
+      "by": "automation",
+      "transfers": []
+    },
+    "steps": [
+      {
+        "stepId": "fill-fill",
+        "attempt": 1,
+        "verdict": {
+          "kind": "advance",
+          "outputs": []
+        },
+        "skeletonDigest": "sha256:e41392131c3b50ffe57e8b5f4a29f7591995ee82fe439f3d3f4ec1ae74ad9af5",
+        "observationRef": null,
+        "elapsedMs": 366,
+        "resolution": [
+          {
+            "descriptorId": "label-anchored",
+            "kind": "label-anchored",
+            "evidenceSource": "labelText",
+            "verdict": "resolved",
+            "resolvedNodeId": "textbox:f3-109"
+          },
+          {
+            "descriptorId": "ordinal-in-container",
+            "kind": "ordinal-in-container",
+            "evidenceSource": "ordinal",
+            "verdict": "resolved",
+            "resolvedNodeId": "textbox:f3-109"
+          }
+        ]
+      },
+      {
+        "stepId": "activate-search",
+        "attempt": 1,
+        "verdict": {
+          "kind": "advance",
+          "outputs": []
+        },
+        "skeletonDigest": "sha256:ad2ce166f03dd9a941bdc1bf8ac0c5ea08756e24e8a273f0597d428be3111019",
+        "observationRef": null,
+        "elapsedMs": 371,
+        "resolution": [
+          {
+            "descriptorId": "role-name",
+            "kind": "role-name",
+            "evidenceSource": "accessibleName",
+            "verdict": "resolved",
+            "resolvedNodeId": "button:f3-119"
+          },
+          {
+            "descriptorId": "label-anchored",
+            "kind": "label-anchored",
+            "evidenceSource": "labelText",
+            "verdict": "resolved",
+            "resolvedNodeId": "button:f3-119"
+          },
+          {
+            "descriptorId": "ordinal-in-container",
+            "kind": "ordinal-in-container",
+            "evidenceSource": "ordinal",
+            "verdict": "resolved",
+            "resolvedNodeId": "button:f3-119"
+          }
+        ]
+      },
+      {
+        "stepId": "read-membername-sharebalance-membershipstatus",
+        "attempt": 1,
+        "verdict": {
+          "kind": "outcome",
+          "code": "MEMBER_NOT_FOUND",
+          "data": [],
+          "priority": 10,
+          "alsoMatched": []
+        },
+        "skeletonDigest": "sha256:ad2ce166f03dd9a941bdc1bf8ac0c5ea08756e24e8a273f0597d428be3111019",
+        "observationRef": null,
+        "elapsedMs": 365
+      }
+    ],
+    "drift": {
+      "fingerprint": "sha256:cb85dc169791b68b8cc52a811549205cb15ce7ec5e3f044abb157270e53791ea",
+      "expected": "sha256:06693b82645c7b0e9e50645933b63c57d8998e004577f8061278581a9e18a34f",
+      "divergence": 0,
+      "changed": [],
+      "needsSpecialization": false
+    },
+    "evidence": [
+      "journal:e894064751be482f503c599cf4dd495942b5a4df413006ce6155e7a5f7222174"
+    ],
+    "journalRef": "journal:e894064751be482f503c599cf4dd495942b5a4df413006ce6155e7a5f7222174",
+    "warnings": []
+  }
+}

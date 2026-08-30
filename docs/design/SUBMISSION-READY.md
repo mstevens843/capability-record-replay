@@ -10,6 +10,16 @@ was made by this pass, to any provider** — `.private/BRIEF.md` §11.
 Turbo caches aggressively, and a cached task replays an old log. Every board figure below was taken
 from a run forced with `TURBO_FORCE=1` (or `--force`), so `Cached: 0` is part of the receipt.
 
+> **RE-TAKEN IN PART ON 2026-08-29, AFTER THE OUTCOME-PROMOTION PASS.** That pass added linker check
+> 29 (`outcome-unproven`), `packages/core/src/promotion.ts`, `packages/runtime/src/promote.ts` and
+> their two test files, so the test board below moved. **Only the test board was re-run**, with
+> `npx turbo run test --force` and every credential variable unset: **1,984 passed, 107 files, 14/14
+> tasks, `Cached: 0/14`, exit 0.** The figures that carry that number are marked `re-taken
+> 2026-08-29`; every other figure in this document — `pnpm lint` 317 files, `pnpm demo` 65 files, the
+> no-Chromium board, `pnpm preflight`, the conformance stability line — is still the 2026-08-28
+> measurement and was **not** re-run, so read it as dated rather than as current. Nothing was
+> weakened, skipped or deleted to move the number; the three members that grew are named below.
+
 ---
 
 ## 1. The board
@@ -21,8 +31,8 @@ $ pnpm lint                               → Checked 317 files in 104ms. No fix
 
 $ env -u ANTHROPIC_API_KEY -u ANTHROPIC_AUTH_TOKEN -u OPENAI_API_KEY \
       -u CLAUDE_CODE_OAUTH_TOKEN TURBO_FORCE=1 pnpm test
-                                          → 1,921 passed, 105 files, 14/14 tasks, Cached 0/14
-                                            1m30s                                          exit 0
+                                          → 1,984 passed, 107 files, 14/14 tasks, Cached 0/14
+                                            1m31s      (re-taken 2026-08-29)               exit 0
 
 $ pnpm demo   (three consecutive runs)    → 65 files, DEMO OK, whole-bundle canary CLEAN
                                             every time                                     exit 0
@@ -38,21 +48,23 @@ $ pnpm -F @crr/conformance stability      → 25/25, 0 FALSE SUCCESSES, 9/9 muta
 
 **Nothing regressed. No test was weakened, skipped or deleted.**
 
-### Per member — the numbers that add up to 1,921
+### Per member — the numbers that add up to 1,984
 
-`env -u … TURBO_FORCE=1 pnpm test`, per-member `Tests N passed (N)` / `Test Files N passed (N)`:
+`env -u … npx turbo run test --force`, per-member `Tests N passed (N)` / `Test Files N passed (N)`.
+**Re-taken 2026-08-29**; the `2026-08-28` column is the board this document was originally written
+against, kept so the move is visible rather than silent.
 
-| Member | Tests | Test files |
-|---|---:|---:|
-| `packages/core` | 788 | 36 |
-| `packages/runtime` | 336 | 22 |
-| `packages/discovery` | 361 | 16 |
-| `packages/surface-browser` | 107 | 12 |
-| `packages/surface-terminal` | 125 | 9 |
-| `packages/conformance` | 102 | 8 |
-| `fixtures/corebank-web` | 66 | 1 |
-| `fixtures/corebank-tui` | 36 | 1 |
-| **Total** | **1,921** | **105** |
+| Member | Tests | Test files | was, 2026-08-28 |
+|---|---:|---:|---:|
+| `packages/core` | 819 | 37 | 788 / 36 |
+| `packages/runtime` | 367 | 23 | 336 / 22 |
+| `packages/discovery` | 362 | 16 | 361 / 16 |
+| `packages/surface-browser` | 107 | 12 | unchanged |
+| `packages/surface-terminal` | 125 | 9 | unchanged |
+| `packages/conformance` | 102 | 8 | unchanged |
+| `fixtures/corebank-web` | 66 | 1 | unchanged |
+| `fixtures/corebank-tui` | 36 | 1 | unchanged |
+| **Total** | **1,984** | **107** | 1,921 / 105 |
 
 The submission brief that opened this pass said "1,843 must still pass." **1,843 is the count from an
 earlier revision and it was already stale before this pass began.** Two test files landed since:
@@ -60,6 +72,16 @@ earlier revision and it was already stale before this pass began.** Two test fil
 `packages/discovery/test/canary-scopes.test.ts` (56 tests), plus 3 source scans added to
 `packages/runtime/test/demo-contract.test.ts` (9 → 12). 1,843 + 19 + 56 + 3 = 1,921. Nothing was
 removed to get there; every number above is a fresh forced run.
+
+**The same discipline for the 2026-08-29 move, 1,921 → 1,984.** Sixty-three tests were added and
+none removed. Fifty-six of them are the two new files the outcome-promotion pass owes:
+`packages/core/test/promotion.test.ts` (**28 passed**, `pnpm -F @crr/core exec vitest run
+test/promotion.test.ts`) and `packages/runtime/test/promote.test.ts` (**28 passed**, `pnpm -F
+@crr/runtime exec vitest run test/promote.test.ts`) — which is also why the file count moves 105 →
+107 and only by two. The remaining seven are spread over existing files in `@crr/core` (+3 beyond
+`promotion.test.ts`), `@crr/runtime` (+3 beyond `promote.test.ts`) and `@crr/discovery` (+1); those
+seven were **not** attributed to individual files by this pass, so 63 = 56 + 7 is a measured total
+with an unattributed remainder rather than a full accounting.
 
 ### The board a reviewer with no Chromium gets
 
@@ -71,7 +93,15 @@ $ env -u … PLAYWRIGHT_BROWSERS_PATH=<empty dir> TURBO_FORCE=1 pnpm test
     (the other five members unchanged)             Tasks: 14 successful, 14 total    exit 0
 ```
 
-**1,875 passing, 46 skipped, green.** All 46 are the Chromium guard
+**1,875 passing, 46 skipped, green.** *(2026-08-28 figures, and the pass totals are stale — the
+members grew on 2026-08-29, so `336` should read `367`. What the 2026-08-29 re-run does establish is
+that **the skips did not move**: `@crr/surface-browser` `78 passed | 29 skipped (107)`,
+`@crr/runtime` `16 skipped (367)`, `@crr/conformance` `101 passed | 1 skipped (102)` — still 46, all
+still the Chromium guard. It is **not** re-certified green: that run exited 1 on a stray scratch
+module left in `packages/runtime/src/` by the pass itself, which failed three
+`packages/runtime/test/barrel.test.ts` assertions — that test doing its job, not a regression. This
+block is recorded as unsettled rather than repaired on paper; re-run it once the tree is clean.)*
+All 46 are the Chromium guard
 (`const describeBrowser = CHROMIUM ? describe : describe.skip`, `describe.skipIf(!chromiumAvailable())`).
 `grep -rn 'it\.skip\|test\.skip\|describe\.skip\|\.todo(' packages/*/test fixtures/*/test` returns
 **14** lines and every one is that guard. There is no unconditional skip and no `.todo`.
@@ -398,7 +428,7 @@ git add -A evidence
 git status --short          # nothing left but what you meant to commit
 
 env -u ANTHROPIC_API_KEY -u ANTHROPIC_AUTH_TOKEN -u OPENAI_API_KEY \
-    -u CLAUDE_CODE_OAUTH_TOKEN TURBO_FORCE=1 pnpm test   # 1,921, exit 0
+    -u CLAUDE_CODE_OAUTH_TOKEN TURBO_FORCE=1 pnpm test   # 1,984, exit 0
 pnpm demo                                                # 65 files, DEMO OK, exit 0
 ```
 

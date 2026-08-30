@@ -31,6 +31,7 @@ import {
   ExtractorIdSchema,
   LabelTokenSchema,
   NormalizerIdSchema,
+  OutcomeOriginSchema,
   ParserIdSchema,
   type RouteId,
   RouteIdSchema,
@@ -367,6 +368,16 @@ const outcomeRuleSchemaImpl = z.strictObject({
   requiresSettled: z.literal(true),
   /** Extraction for the outcome's OWN payload, read from the SAME observation that matched. */
   capture: z.array(ExtractSpecSchema).max(16).readonly(),
+  /**
+   * WHO WROTE THIS DETECTOR. Required, no default - house rule 3 above, applied to the one field
+   * whose absence would be indistinguishable from an honest older document.
+   *
+   * A `reviewer-authored` rule is the only thing linker check 29 (`outcome-unproven`) will demand a
+   * `promotions[]` receipt for, and check 8 additionally requires this to equal the `origin` on the
+   * contract's matching `OutcomeDecl`. Both halves are inside their document's digest, so flipping
+   * one after approval breaks the signature three ways at once.
+   */
+  origin: OutcomeOriginSchema,
 });
 /** The step's half of an outcome: the detector, linked to a contract declaration by `code`. */
 export interface OutcomeRuleSchemaType extends SchemaIdentity<typeof outcomeRuleSchemaImpl> {}
@@ -990,6 +1001,93 @@ export const SignatureSchema = z.strictObject({
 });
 export type Signature = DeepReadonly<z.infer<typeof SignatureSchema>>;
 
+// ---------------------------------------------------------------------------------------------
+// The promotion receipt (docs/design/OUTCOME-PROMOTION.md section 3.4)
+// ---------------------------------------------------------------------------------------------
+
+const OutcomeCodeRefSchema = z
+  .string()
+  .regex(/^[A-Z][A-Z0-9_]*$/, { error: "an outcome code is SCREAMING_SNAKE_CASE" })
+  .max(64);
+
+/**
+ * A RECEIPT, not a document. One entry per reviewer-authored outcome this artifact carries.
+ *
+ * THREE PROPERTIES, EACH LOAD-BEARING.
+ *
+ * `verdict` is `z.literal("discriminates")`, so a receipt for a proof that did not prove out is
+ * UNREPRESENTABLE. That is the same move `Verification` makes by having no "record that it failed"
+ * path and `OutcomeDecl.stableUnderRetry` makes by being `z.literal(true)`: a failed proof leaves
+ * the previous document exactly where it was, and the reason for it belongs in a report a human
+ * reads, not in a field a later reader might mistake for a qualified pass.
+ *
+ * NO CLOCK AND NO RUN ID. Every field here is a content address, an identity or a count. That is a
+ * direct response to a gap this repository already names in REPORT section 7 - `verification.runId`
+ * and `verification.at` are non-deterministic, so the shipped artifact's content address is not
+ * reproducible from the recording. `promotions` does not repeat that: artifact@v2's digest is
+ * reproducible from `promotion.json` plus the observation corpus. When and by which run live in the
+ * archived review document and the probe journal, both reachable through `reviewDigest`.
+ *
+ * `negativesByClass` SHIPS NO THRESHOLD. Only two things are enforced by the proof (at least one
+ * positive, and at least one happy-path negative at the same step at the tenant being proven);
+ * every other dimension of the corpus is reported here with no opinion attached, per
+ * OPEN-QUESTIONS Q4's precedent. A promotion proven against six happy-path negatives and zero
+ * other-abnormal negatives at the step is one nobody has shown can tell "no member found" from
+ * "the server threw", and the approver reads that fact rather than an invented number's view of it.
+ */
+const promotionReceiptSchemaImpl = z
+  .strictObject({
+    code: OutcomeCodeRefSchema,
+    atStep: StepIdSchema,
+    /** Over the canonical JSON of the review document, archived under `evidence/promotions/`. The
+     *  binding runs one way only: lose those bytes and the receipt names a document nobody can
+     *  read. That is the price of not making the review a fourth runtime document. */
+    reviewDigest: DigestSchema,
+    reviewedBy: z.string().min(1).max(128),
+    supersedesArtifactVersion: z.int().positive(),
+    proof: z.strictObject({
+      verdict: z.literal("discriminates"),
+      proverVersion: z.string().min(1).max(64),
+      positives: z
+        .array(z.strictObject({ observation: DigestSchema, atStep: StepIdSchema }))
+        .min(1)
+        .max(64)
+        .readonly(),
+      negatives: z.strictObject({
+        /** Over the SORTED list of member observation digests, so "proven against which corpus" is
+         *  answerable years later and a corpus that grew afterwards is visibly a different one. */
+        corpusDigest: DigestSchema,
+        total: z.int().nonnegative(),
+        happyPathAtStep: z.int().positive(),
+        otherAbnormalAtStep: z.int().nonnegative(),
+        otherSteps: z.int().nonnegative(),
+        otherTenants: z.int().nonnegative(),
+      }),
+      /** The tenants the proof passed at. Linker check 29 refuses, in `replay` mode, to link at a
+       *  tenant this does not name. */
+      provenAt: z.array(TenantIdSchema).min(1).max(64).readonly(),
+    }),
+    /** V3 of section 3.3: the condition re-run against this revision. EVIDENCE, NEVER A GATE, so
+     *  `false` is a legal and shippable value - and it is printed at approval time rather than
+     *  hidden, because a promotion whose detector has never fired in a live session is exactly the
+     *  thing an approver should be told about. */
+    probeConfirmed: z.boolean(),
+  })
+  .superRefine((receipt, ctx) => {
+    for (const positive of receipt.proof.positives) {
+      if (positive.atStep !== receipt.atStep) {
+        ctx.addIssue(
+          `the receipt for ${receipt.code} is at step ${receipt.atStep} but names a positive captured at ${positive.atStep}; a detector is only ever evaluated at its own step`,
+        );
+      }
+    }
+  });
+export interface PromotionReceiptSchemaType
+  extends SchemaIdentity<typeof promotionReceiptSchemaImpl> {}
+export const PromotionReceiptSchema: PromotionReceiptSchemaType = promotionReceiptSchemaImpl;
+
+export type PromotionReceipt = DeepReadonly<z.infer<typeof PromotionReceiptSchema>>;
+
 const lifecycleSchemaImpl = z
   .strictObject({
     status: z.enum(["proposed", "draft", "approved", "deprecated"]),
@@ -1006,6 +1104,10 @@ const lifecycleSchemaImpl = z
         /** The human ticked these. "Who approved the irreversible one" is an audit answer. */
         acknowledgedEffects: z.array(EffectClassSchema).min(1).max(3).readonly(),
         acknowledgedGrade: z.enum(["full", "partial-up-to-irreversible"]),
+        /** The reviewer-authored outcome codes the approver TICKED BY HAND, refused on mismatch
+         *  exactly as the grade and the effects are. An outcome a human wrote is the one thing in
+         *  the document that no replay established, so the approver says its name out loud. */
+        acknowledgedPromotions: z.array(OutcomeCodeRefSchema).max(32).readonly(),
       })
       .nullable(),
   })
@@ -1113,6 +1215,18 @@ const capabilityArtifactSchemaImpl = z
     /** DERIVED at save time and re-derived by the linker. Stored because a reviewer reads it. */
     effects: EffectSummarySchema,
     budgets: RunBudgetsSchema,
+    /**
+     * One receipt per reviewer-authored outcome. INSIDE THE DIGEST, because an approver signs
+     * *this program with this proof* and a proof that could be swapped out afterwards is not a
+     * proof. `lifecycle` is the only mutable-state field the digest excludes.
+     *
+     * It is a receipt rather than the review document itself: the design considered a fourth
+     * document beside contract/artifact/overlay and rejected it, because at runtime the linker, the
+     * interpreter and the classifier all read the detector off `flow.steps[].outcomes[]` and would
+     * never open a promotion document - so keeping one live would store two copies of one detector
+     * and force somebody to decide which wins.
+     */
+    promotions: z.array(PromotionReceiptSchema).max(32).readonly(),
     signatures: z.array(SignatureSchema).max(8).readonly(),
   })
   .superRefine((a, ctx) => {
@@ -1217,6 +1331,54 @@ const capabilityArtifactSchemaImpl = z
       if (!a.lifecycle.approval.acknowledgedEffects.includes(a.effects.maxEffect)) {
         ctx.addIssue(
           `the approver did not acknowledge this artifact's maximum effect (${a.effects.maxEffect})`,
+        );
+      }
+      // Same argument as the grade and the effects: the tick has to be exact in BOTH directions.
+      // A missing code means a human-authored outcome shipped unread; an extra one means the
+      // approver believes they accepted something this document does not contain.
+      const ticked = new Set(a.lifecycle.approval.acknowledgedPromotions);
+      const promoted = new Set(a.promotions.map((p) => p.code));
+      for (const code of promoted) {
+        if (!ticked.has(code)) {
+          ctx.addIssue(
+            `the approver did not acknowledge the reviewer-authored outcome ${code}; a detector a human wrote is the one thing here no replay established`,
+          );
+        }
+      }
+      for (const code of ticked) {
+        if (!promoted.has(code)) {
+          ctx.addIssue(
+            `the approver acknowledged a promotion of ${code} and this artifact carries no receipt for it`,
+          );
+        }
+      }
+    }
+
+    // The receipt and the program have to be talking about the same detector. Both directions:
+    // a receipt naming a step or a code the flow does not detect is a receipt for some other
+    // program, and a `reviewer-authored` rule with no receipt is the case linker check 29 exists
+    // for - caught here too, because a document that cannot be linked should not be storable.
+    reportDuplicates(
+      ctx,
+      "promotion receipt code",
+      a.promotions.map((p) => p.code),
+    );
+    const rulesByCode = new Map<string, string[]>();
+    for (const step of a.flow.steps) {
+      for (const rule of step.outcomes) {
+        if (rule.origin !== "reviewer-authored") continue;
+        rulesByCode.set(rule.code, [...(rulesByCode.get(rule.code) ?? []), step.id]);
+      }
+    }
+    for (const receipt of a.promotions) {
+      const steps = rulesByCode.get(receipt.code);
+      if (steps === undefined) {
+        ctx.addIssue(
+          `promotions names ${receipt.code} and no step carries a reviewer-authored detector for it`,
+        );
+      } else if (!steps.includes(receipt.atStep)) {
+        ctx.addIssue(
+          `the receipt for ${receipt.code} says step ${receipt.atStep} and the detector is declared at ${steps.join(", ")}`,
         );
       }
     }

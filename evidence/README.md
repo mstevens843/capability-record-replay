@@ -26,6 +26,7 @@ with no model in the decision path.
 | [`cli-replay/`](cli-replay/) | the shipped `crr` binary | **none** |
 | [`masked-capture/`](masked-capture/) | `@crr/surface-browser` `capture()` | **none** |
 | [`redaction-canary/`](redaction-canary/) | `@crr/runtime` `runRedactionCanary()` | **none** |
+| [`outcome-promotion/`](outcome-promotion/) | a reviewer walking the live artifact through `crr probe` / `crr promote` / `crr verify` | **none — the two documents it starts from came from the live run; nothing else here did** |
 | [`discovery-live/`](discovery-live/) | `pnpm discover` — the `anthropic` adapter against the Messages API | see `discovery-live/provenance.json` |
 
 ### About `artifact/`
@@ -110,7 +111,7 @@ alignment, which is too few to tell from noise. Those pairs are listed under `no
 [`redaction-canary/report.txt`](redaction-canary/report.txt). An encoding that was never searched
 for is not coverage, and a report that quietly dropped it would be claiming more than it checked.
 
-Result of the run that produced this bundle: **CLEAN** — 61 files, 1157121 bytes, 26 distinct needles, 0 hits, 0 credential-shaped strings, self-test passed (26/26).
+Result of the run that produced this bundle: **CLEAN** — 140 files, 3924465 bytes, 26 distinct needles, 0 hits, 0 credential-shaped strings, self-test passed (26/26).
 
 That report covers every file that existed when it ran. This `README.md`, the report itself and
 the finished `demo.log` are written afterwards, so a **second whole-bundle pass** runs once every

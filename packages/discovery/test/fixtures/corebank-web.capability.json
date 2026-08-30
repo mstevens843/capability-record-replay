@@ -175,7 +175,7 @@
       "contractDigest": "sha256:77a9f4150f94985aa1f7920ab22cc2734d4e6ec764f06e1740002299df0590a9"
     },
     "version": 1,
-    "digest": "sha256:e03beee25a9ba9f94e7dd83a83b78c5a73a5d22c7efbf623a93d1c4b197ebfc1",
+    "digest": "sha256:4b3062071eee8a1c8504dfe33fe3764441262fdf0aeaa234652d950f38d9010d",
     "target": {
       "product": "CoreBank Servicing",
       "productVersionRange": ">=8.0 <9.0",
@@ -2150,6 +2150,7 @@
       "maxProgramAttempts": 1,
       "deadlineMs": 120000
     },
+    "promotions": [],
     "signatures": []
   },
   "report": {

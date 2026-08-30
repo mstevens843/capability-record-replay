@@ -295,6 +295,7 @@ export const mockContract: CapabilityContract = sealContract({
       terminal: true,
       payload: [],
       stableUnderRetry: true,
+      origin: "hand-authored",
       callerAction: "retry-different-input",
       retryable: "with_different_inputs",
       agentGuidance: "Tell the member that number is not on file and ask them to read it again.",
@@ -439,6 +440,7 @@ export function mockArtifact(options: MockFlowOptions = {}): CapabilityArtifact 
               priority: 10,
               phase: "post",
               requiresSettled: true,
+              origin: "hand-authored",
               capture: [],
             },
           ],
@@ -548,6 +550,7 @@ export function mockArtifact(options: MockFlowOptions = {}): CapabilityArtifact 
       maxProgramAttempts: 1,
       deadlineMs: 60_000,
     },
+    promotions: [],
     signatures: [],
   });
 
@@ -559,6 +562,7 @@ export function mockArtifact(options: MockFlowOptions = {}): CapabilityArtifact 
     alg: "ed25519",
     acknowledgedEffects: ["READ"],
     acknowledgedGrade: "full",
+    acknowledgedPromotions: [],
   });
 }
 

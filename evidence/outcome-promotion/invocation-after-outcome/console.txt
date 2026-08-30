@@ -1,0 +1,3 @@
+OUTCOME  run run-add8b741-fc31-486e-8dc2-510d1188613d  2/4 steps  1115ms
+  outcome  MEMBER_NOT_FOUND
+  guidance Tell the member that number is not on file and ask them to read it again from their card or statement. Do not guess a different number on their behalf.

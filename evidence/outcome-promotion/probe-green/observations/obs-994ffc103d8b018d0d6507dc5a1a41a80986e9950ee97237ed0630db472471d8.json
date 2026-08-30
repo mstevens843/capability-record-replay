@@ -1,0 +1,7656 @@
+{
+  "seq": 16,
+  "surface": {
+    "kind": "web-legacy",
+    "driver": "surface-browser@0.1.0"
+  },
+  "route": {
+    "originAlias": "corebank",
+    "path": "/member/:memberId",
+    "query": {},
+    "frame": "content"
+  },
+  "nodes": [
+    {
+      "id": "structure:f0-1",
+      "rawRole": "RootWebArea",
+      "ariaRole": null,
+      "name": "CoreBank Servicing 8.2.14 - Riverbend Federal Credit Union",
+      "value": null,
+      "text": null,
+      "description": null,
+      "state": {
+        "disabled": false,
+        "focused": false,
+        "visible": true,
+        "checked": null,
+        "expanded": null,
+        "selected": null,
+        "required": null,
+        "invalid": null,
+        "readonly": null
+      },
+      "bounds": null,
+      "containerPath": [],
+      "parent": null,
+      "children": [
+        "structure:f0-6"
+      ],
+      "labelledBy": [],
+      "tablePosition": null,
+      "capacity": null,
+      "confidence": 1,
+      "live": false,
+      "masked": false
+    },
+    {
+      "id": "structure:f0-6",
+      "rawRole": "none",
+      "ariaRole": null,
+      "name": "",
+      "value": null,
+      "text": null,
+      "description": null,
+      "state": {
+        "disabled": false,
+        "focused": false,
+        "visible": false,
+        "checked": null,
+        "expanded": null,
+        "selected": null,
+        "required": null,
+        "invalid": null,
+        "readonly": null
+      },
+      "bounds": null,
+      "containerPath": [
+        {
+          "kind": "frame",
+          "name": "top"
+        }
+      ],
+      "parent": "structure:f0-1",
+      "children": [
+        "structure:f0-9"
+      ],
+      "labelledBy": [],
+      "tablePosition": null,
+      "capacity": null,
+      "confidence": 1,
+      "live": false,
+      "masked": false
+    },
+    {
+      "id": "structure:f0-9",
+      "rawRole": "none",
+      "ariaRole": null,
+      "name": "",
+      "value": null,
+      "text": null,
+      "description": null,
+      "state": {
+        "disabled": false,
+        "focused": false,
+        "visible": false,
+        "checked": null,
+        "expanded": null,
+        "selected": null,
+        "required": null,
+        "invalid": null,
+        "readonly": null
+      },
+      "bounds": null,
+      "containerPath": [
+        {
+          "kind": "frame",
+          "name": "top"
+        }
+      ],
+      "parent": "structure:f0-6",
+      "children": [
+        "structure:f0-10",
+        "structure:f0-11"
+      ],
+      "labelledBy": [],
+      "tablePosition": null,
+      "capacity": null,
+      "confidence": 1,
+      "live": false,
+      "masked": false
+    },
+    {
+      "id": "structure:f0-10",
+      "rawRole": "Iframe",
+      "ariaRole": null,
+      "name": "",
+      "value": null,
+      "text": null,
+      "description": null,
+      "state": {
+        "disabled": false,
+        "focused": false,
+        "visible": true,
+        "checked": null,
+        "expanded": null,
+        "selected": null,
+        "required": null,
+        "invalid": null,
+        "readonly": null
+      },
+      "bounds": null,
+      "containerPath": [
+        {
+          "kind": "frame",
+          "name": "top"
+        }
+      ],
+      "parent": "structure:f0-9",
+      "children": [
+        "structure:f1-3"
+      ],
+      "labelledBy": [],
+      "tablePosition": null,
+      "capacity": null,
+      "confidence": 1,
+      "live": false,
+      "masked": false
+    },
+    {
+      "id": "structure:f1-3",
+      "rawRole": "RootWebArea",
+      "ariaRole": null,
+      "name": "Riverbend Federal Credit Union",
+      "value": null,
+      "text": null,
+      "description": null,
+      "state": {
+        "disabled": false,
+        "focused": false,
+        "visible": true,
+        "checked": null,
+        "expanded": null,
+        "selected": null,
+        "required": null,
+        "invalid": null,
+        "readonly": null
+      },
+      "bounds": null,
+      "containerPath": [
+        {
+          "kind": "frame",
+          "name": "top"
+        }
+      ],
+      "parent": "structure:f0-10",
+      "children": [
+        "structure:f1-15"
+      ],
+      "labelledBy": [],
+      "tablePosition": null,
+      "capacity": null,
+      "confidence": 1,
+      "live": false,
+      "masked": false
+    },
+    {
+      "id": "structure:f1-15",
+      "rawRole": "none",
+      "ariaRole": null,
+      "name": "",
+      "value": null,
+      "text": null,
+      "description": null,
+      "state": {
+        "disabled": false,
+        "focused": false,
+        "visible": false,
+        "checked": null,
+        "expanded": null,
+        "selected": null,
+        "required": null,
+        "invalid": null,
+        "readonly": null
+      },
+      "bounds": null,
+      "containerPath": [
+        {
+          "kind": "frame",
+          "name": "top"
+        },
+        {
+          "kind": "frame",
+          "name": "banner"
+        }
+      ],
+      "parent": "structure:f1-3",
+      "children": [
+        "structure:f1-18"
+      ],
+      "labelledBy": [],
+      "tablePosition": null,
+      "capacity": null,
+      "confidence": 1,
+      "live": false,
+      "masked": false
+    },
+    {
+      "id": "structure:f1-18",
+      "rawRole": "none",
+      "ariaRole": null,
+      "name": "",
+      "value": null,
+      "text": null,
+      "description": null,
+      "state": {
+        "disabled": false,
+        "focused": false,
+        "visible": false,
+        "checked": null,
+        "expanded": null,
+        "selected": null,
+        "required": null,
+        "invalid": null,
+        "readonly": null
+      },
+      "bounds": null,
+      "containerPath": [
+        {
+          "kind": "frame",
+          "name": "top"
+        },
+        {
+          "kind": "frame",
+          "name": "banner"
+        }
+      ],
+      "parent": "structure:f1-15",
+      "children": [
+        "structure:f1-19",
+        "structure:f1-29"
+      ],
+      "labelledBy": [],
+      "tablePosition": null,
+      "capacity": null,
+      "confidence": 1,
+      "live": false,
+      "masked": false
+    },
+    {
+      "id": "structure:f1-19",
+      "rawRole": "LayoutTable",
+      "ariaRole": null,
+      "name": "",
+      "value": null,
+      "text": null,
+      "description": null,
+      "state": {
+        "disabled": false,
+        "focused": false,
+        "visible": true,
+        "checked": null,
+        "expanded": null,
+        "selected": null,
+        "required": null,
+        "invalid": null,
+        "readonly": null
+      },
+      "bounds": null,
+      "containerPath": [
+        {
+          "kind": "frame",
+          "name": "top"
+        },
+        {
+          "kind": "frame",
+          "name": "banner"
+        }
+      ],
+      "parent": "structure:f1-18",
+      "children": [
+        "structure:f1-20"
+      ],
+      "labelledBy": [],
+      "tablePosition": null,
+      "capacity": null,
+      "confidence": 1,
+      "live": false,
+      "masked": false
+    },
+    {
+      "id": "structure:f1-20",
+      "rawRole": "none",
+      "ariaRole": null,
+      "name": "",
+      "value": null,
+      "text": null,
+      "description": null,
+      "state": {
+        "disabled": false,
+        "focused": false,
+        "visible": false,
+        "checked": null,
+        "expanded": null,
+        "selected": null,
+        "required": null,
+        "invalid": null,
+        "readonly": null
+      },
+      "bounds": null,
+      "containerPath": [
+        {
+          "kind": "frame",
+          "name": "top"
+        },
+        {
+          "kind": "frame",
+          "name": "banner"
+        }
+      ],
+      "parent": "structure:f1-19",
+      "children": [
+        "structure:f1-21"
+      ],
+      "labelledBy": [],
+      "tablePosition": null,
+      "capacity": null,
+      "confidence": 1,
+      "live": false,
+      "masked": false
+    },
+    {
+      "id": "structure:f1-21",
+      "rawRole": "LayoutTableRow",
+      "ariaRole": null,
+      "name": "",
+      "value": null,
+      "text": null,
+      "description": null,
+      "state": {
+        "disabled": false,
+        "focused": false,
+        "visible": true,
+        "checked": null,
+        "expanded": null,
+        "selected": null,
+        "required": null,
+        "invalid": null,
+        "readonly": null
+      },
+      "bounds": null,
+      "containerPath": [
+        {
+          "kind": "frame",
+          "name": "top"
+        },
+        {
+          "kind": "frame",
+          "name": "banner"
+        }
+      ],
+      "parent": "structure:f1-20",
+      "children": [
+        "structure:f1-22",
+        "structure:f1-27"
+      ],
+      "labelledBy": [],
+      "tablePosition": null,
+      "capacity": null,
+      "confidence": 1,
+      "live": false,
+      "masked": false
+    },
+    {
+      "id": "structure:f1-22",
+      "rawRole": "LayoutTableCell",
+      "ariaRole": null,
+      "name": "Riverbend Federal Credit Union CoreBank Servicing 8.2.14",
+      "value": null,
+      "text": null,
+      "description": null,
+      "state": {
+        "disabled": false,
+        "focused": false,
+        "visible": true,
+        "checked": null,
+        "expanded": null,
+        "selected": null,
+        "required": null,
+        "invalid": null,
+        "readonly": null
+      },
+      "bounds": null,
+      "containerPath": [
+        {
+          "kind": "frame",
+          "name": "top"
+        },
+        {
+          "kind": "frame",
+          "name": "banner"
+        }
+      ],
+      "parent": "structure:f1-21",
+      "children": [
+        "structure:f1-35",
+        "structure:f1-25",
+        "structure:f1-36"
+      ],
+      "labelledBy": [],
+      "tablePosition": null,
+      "capacity": null,
+      "confidence": 1,
+      "live": false,
+      "masked": false
+    },
+    {
+      "id": "structure:f1-35",
+      "rawRole": "StaticText",
+      "ariaRole": null,
+      "name": "Riverbend Federal Credit Union",
+      "value": null,
+      "text": "Riverbend Federal Credit Union",
+      "description": null,
+      "state": {
+        "disabled": false,
+        "focused": false,
+        "visible": true,
+        "checked": null,
+        "expanded": null,
+        "selected": null,
+        "required": null,
+        "invalid": null,
+        "readonly": null
+      },
+      "bounds": {
+        "x": 4,
+        "y": 4,
+        "w": 270,
+        "h": 20,
+        "unit": "px"
+      },
+      "containerPath": [
+        {
+          "kind": "frame",
+          "name": "top"
+        },
+        {
+          "kind": "frame",
+          "name": "banner"
+        }
+      ],
+      "parent": "structure:f1-22",
+      "children": [],
+      "labelledBy": [],
+      "tablePosition": null,
+      "capacity": null,
+      "confidence": 1,
+      "live": false,
+      "masked": false
+    },
+    {
+      "id": "structure:f1-25",
+      "rawRole": "LineBreak",
+      "ariaRole": null,
+      "name": "\n",
+      "value": null,
+      "text": null,
+      "description": null,
+      "state": {
+        "disabled": false,
+        "focused": false,
+        "visible": true,
+        "checked": null,
+        "expanded": null,
+        "selected": null,
+        "required": null,
+        "invalid": null,
+        "readonly": null
+      },
+      "bounds": null,
+      "containerPath": [
+        {
+          "kind": "frame",
+          "name": "top"
+        },
+        {
+          "kind": "frame",
+          "name": "banner"
+        }
+      ],
+      "parent": "structure:f1-22",
+      "children": [],
+      "labelledBy": [],
+      "tablePosition": null,
+      "capacity": null,
+      "confidence": 1,
+      "live": false,
+      "masked": false
+    },
+    {
+      "id": "structure:f1-36",
+      "rawRole": "StaticText",
+      "ariaRole": null,
+      "name": "CoreBank Servicing 8.2.14",
+      "value": null,
+      "text": "CoreBank Servicing 8.2.14",
+      "description": null,
+      "state": {
+        "disabled": false,
+        "focused": false,
+        "visible": true,
+        "checked": null,
+        "expanded": null,
+        "selected": null,
+        "required": null,
+        "invalid": null,
+        "readonly": null
+      },
+      "bounds": {
+        "x": 4,
+        "y": 25,
+        "w": 119,
+        "h": 12,
+        "unit": "px"
+      },
+      "containerPath": [
+        {
+          "kind": "frame",
+          "name": "top"
+        },
+        {
+          "kind": "frame",
+          "name": "banner"
+        }
+      ],
+      "parent": "structure:f1-22",
+      "children": [],
+      "labelledBy": [],
+      "tablePosition": null,
+      "capacity": null,
+      "confidence": 1,
+      "live": false,
+      "masked": false
+    },
+    {
+      "id": "structure:f1-27",
+      "rawRole": "LayoutTableCell",
+      "ariaRole": null,
+      "name": "Signed in as OPER-TELLER1 (SYNTHETIC)",
+      "value": null,
+      "text": null,
+      "description": null,
+      "state": {
+        "disabled": false,
+        "focused": false,
+        "visible": true,
+        "checked": null,
+        "expanded": null,
+        "selected": null,
+        "required": null,
+        "invalid": null,
+        "readonly": null
+      },
+      "bounds": null,
+      "containerPath": [
+        {
+          "kind": "frame",
+          "name": "top"
+        },
+        {
+          "kind": "frame",
+          "name": "banner"
+        }
+      ],
+      "parent": "structure:f1-21",
+      "children": [
+        "structure:f1-37"
+      ],
+      "labelledBy": [],
+      "tablePosition": null,
+      "capacity": null,
+      "confidence": 1,
+      "live": false,
+      "masked": false
+    },
+    {
+      "id": "structure:f1-37",
+      "rawRole": "StaticText",
+      "ariaRole": null,
+      "name": "Signed in as OPER-TELLER1 (SYNTHETIC)",
+      "value": null,
+      "text": "Signed in as OPER-TELLER1 (SYNTHETIC)",
+      "description": null,
+      "state": {
+        "disabled": false,
+        "focused": false,
+        "visible": true,
+        "checked": null,
+        "expanded": null,
+        "selected": null,
+        "required": null,
+        "invalid": null,
+        "readonly": null
+      },
+      "bounds": {
+        "x": 1077,
+        "y": 15,
+        "w": 199,
+        "h": 12,
+        "unit": "px"
+      },
+      "containerPath": [
+        {
+          "kind": "frame",
+          "name": "top"
+        },
+        {
+          "kind": "frame",
+          "name": "banner"
+        }
+      ],
+      "parent": "structure:f1-27",
+      "children": [],
+      "labelledBy": [],
+      "tablePosition": null,
+      "capacity": null,
+      "confidence": 1,
+      "live": false,
+      "masked": false
+    },
+    {
+      "id": "structure:f1-29",
+      "rawRole": "LayoutTable",
+      "ariaRole": null,
+      "name": "",
+      "value": null,
+      "text": null,
+      "description": null,
+      "state": {
+        "disabled": false,
+        "focused": false,
+        "visible": true,
+        "checked": null,
+        "expanded": null,
+        "selected": null,
+        "required": null,
+        "invalid": null,
+        "readonly": null
+      },
+      "bounds": null,
+      "containerPath": [
+        {
+          "kind": "frame",
+          "name": "top"
+        },
+        {
+          "kind": "frame",
+          "name": "banner"
+        }
+      ],
+      "parent": "structure:f1-18",
+      "children": [
+        "structure:f1-30"
+      ],
+      "labelledBy": [],
+      "tablePosition": null,
+      "capacity": null,
+      "confidence": 1,
+      "live": false,
+      "masked": false
+    },
+    {
+      "id": "structure:f1-30",
+      "rawRole": "none",
+      "ariaRole": null,
+      "name": "",
+      "value": null,
+      "text": null,
+      "description": null,
+      "state": {
+        "disabled": false,
+        "focused": false,
+        "visible": false,
+        "checked": null,
+        "expanded": null,
+        "selected": null,
+        "required": null,
+        "invalid": null,
+        "readonly": null
+      },
+      "bounds": null,
+      "containerPath": [
+        {
+          "kind": "frame",
+          "name": "top"
+        },
+        {
+          "kind": "frame",
+          "name": "banner"
+        }
+      ],
+      "parent": "structure:f1-29",
+      "children": [
+        "structure:f1-31"
+      ],
+      "labelledBy": [],
+      "tablePosition": null,
+      "capacity": null,
+      "confidence": 1,
+      "live": false,
+      "masked": false
+    },
+    {
+      "id": "structure:f1-31",
+      "rawRole": "LayoutTableRow",
+      "ariaRole": null,
+      "name": "",
+      "value": null,
+      "text": null,
+      "description": null,
+      "state": {
+        "disabled": false,
+        "focused": false,
+        "visible": true,
+        "checked": null,
+        "expanded": null,
+        "selected": null,
+        "required": null,
+        "invalid": null,
+        "readonly": null
+      },
+      "bounds": null,
+      "containerPath": [
+        {
+          "kind": "frame",
+          "name": "top"
+        },
+        {
+          "kind": "frame",
+          "name": "banner"
+        }
+      ],
+      "parent": "structure:f1-30",
+      "children": [
+        "structure:f1-32"
+      ],
+      "labelledBy": [],
+      "tablePosition": null,
+      "capacity": null,
+      "confidence": 1,
+      "live": false,
+      "masked": false
+    },
+    {
+      "id": "structure:f1-32",
+      "rawRole": "LayoutTableCell",
+      "ariaRole": null,
+      "name": "TEST FIXTURE — SYNTHETIC DATA ONLY. Not a real financial system. Every member, account, balance and branch below is invented.",
+      "value": null,
+      "text": null,
+      "description": null,
+      "state": {
+        "disabled": false,
+        "focused": false,
+        "visible": true,
+        "checked": null,
+        "expanded": null,
+        "selected": null,
+        "required": null,
+        "invalid": null,
+        "readonly": null
+      },
+      "bounds": null,
+      "containerPath": [
+        {
+          "kind": "frame",
+          "name": "top"
+        },
+        {
+          "kind": "frame",
+          "name": "banner"
+        }
+      ],
+      "parent": "structure:f1-31",
+      "children": [
+        "structure:f1-38"
+      ],
+      "labelledBy": [],
+      "tablePosition": null,
+      "capacity": null,
+      "confidence": 1,
+      "live": false,
+      "masked": false
+    },
+    {
+      "id": "structure:f1-38",
+      "rawRole": "StaticText",
+      "ariaRole": null,
+      "name": "TEST FIXTURE — SYNTHETIC DATA ONLY. Not a real financial system. Every member, account, balance and branch below is invented.",
+      "value": null,
+      "text": "TEST FIXTURE — SYNTHETIC DATA ONLY. Not a real financial system. Every member, account, balance and branch below is invented.",
+      "description": null,
+      "state": {
+        "disabled": false,
+        "focused": false,
+        "visible": true,
+        "checked": null,
+        "expanded": null,
+        "selected": null,
+        "required": null,
+        "invalid": null,
+        "readonly": null
+      },
+      "bounds": {
+        "x": 3,
+        "y": 43,
+        "w": 639,
+        "h": 12,
+        "unit": "px"
+      },
+      "containerPath": [
+        {
+          "kind": "frame",
+          "name": "top"
+        },
+        {
+          "kind": "frame",
+          "name": "banner"
+        }
+      ],
+      "parent": "structure:f1-32",
+      "children": [],
+      "labelledBy": [],
+      "tablePosition": null,
+      "capacity": null,
+      "confidence": 1,
+      "live": false,
+      "masked": false
+    },
+    {
+      "id": "structure:f0-11",
+      "rawRole": "none",
+      "ariaRole": null,
+      "name": "",
+      "value": null,
+      "text": null,
+      "description": null,
+      "state": {
+        "disabled": false,
+        "focused": false,
+        "visible": false,
+        "checked": null,
+        "expanded": null,
+        "selected": null,
+        "required": null,
+        "invalid": null,
+        "readonly": null
+      },
+      "bounds": null,
+      "containerPath": [
+        {
+          "kind": "frame",
+          "name": "top"
+        }
+      ],
+      "parent": "structure:f0-9",
+      "children": [
+        "structure:f0-12",
+        "structure:f0-13"
+      ],
+      "labelledBy": [],
+      "tablePosition": null,
+      "capacity": null,
+      "confidence": 1,
+      "live": false,
+      "masked": false
+    },
+    {
+      "id": "structure:f0-12",
+      "rawRole": "Iframe",
+      "ariaRole": null,
+      "name": "",
+      "value": null,
+      "text": null,
+      "description": null,
+      "state": {
+        "disabled": false,
+        "focused": false,
+        "visible": true,
+        "checked": null,
+        "expanded": null,
+        "selected": null,
+        "required": null,
+        "invalid": null,
+        "readonly": null
+      },
+      "bounds": null,
+      "containerPath": [
+        {
+          "kind": "frame",
+          "name": "top"
+        }
+      ],
+      "parent": "structure:f0-11",
+      "children": [
+        "structure:f2-5"
+      ],
+      "labelledBy": [],
+      "tablePosition": null,
+      "capacity": null,
+      "confidence": 1,
+      "live": false,
+      "masked": false
+    },
+    {
+      "id": "structure:f2-5",
+      "rawRole": "RootWebArea",
+      "ariaRole": null,
+      "name": "Menu",
+      "value": null,
+      "text": null,
+      "description": null,
+      "state": {
+        "disabled": false,
+        "focused": false,
+        "visible": true,
+        "checked": null,
+        "expanded": null,
+        "selected": null,
+        "required": null,
+        "invalid": null,
+        "readonly": null
+      },
+      "bounds": null,
+      "containerPath": [
+        {
+          "kind": "frame",
+          "name": "top"
+        }
+      ],
+      "parent": "structure:f0-12",
+      "children": [
+        "structure:f2-39"
+      ],
+      "labelledBy": [],
+      "tablePosition": null,
+      "capacity": null,
+      "confidence": 1,
+      "live": false,
+      "masked": false
+    },
+    {
+      "id": "structure:f2-39",
+      "rawRole": "none",
+      "ariaRole": null,
+      "name": "",
+      "value": null,
+      "text": null,
+      "description": null,
+      "state": {
+        "disabled": false,
+        "focused": false,
+        "visible": false,
+        "checked": null,
+        "expanded": null,
+        "selected": null,
+        "required": null,
+        "invalid": null,
+        "readonly": null
+      },
+      "bounds": null,
+      "containerPath": [
+        {
+          "kind": "frame",
+          "name": "top"
+        },
+        {
+          "kind": "frame",
+          "name": "nav"
+        }
+      ],
+      "parent": "structure:f2-5",
+      "children": [
+        "structure:f2-42"
+      ],
+      "labelledBy": [],
+      "tablePosition": null,
+      "capacity": null,
+      "confidence": 1,
+      "live": false,
+      "masked": false
+    },
+    {
+      "id": "structure:f2-42",
+      "rawRole": "none",
+      "ariaRole": null,
+      "name": "",
+      "value": null,
+      "text": null,
+      "description": null,
+      "state": {
+        "disabled": false,
+        "focused": false,
+        "visible": false,
+        "checked": null,
+        "expanded": null,
+        "selected": null,
+        "required": null,
+        "invalid": null,
+        "readonly": null
+      },
+      "bounds": null,
+      "containerPath": [
+        {
+          "kind": "frame",
+          "name": "top"
+        },
+        {
+          "kind": "frame",
+          "name": "nav"
+        }
+      ],
+      "parent": "structure:f2-39",
+      "children": [
+        "structure:f2-43"
+      ],
+      "labelledBy": [],
+      "tablePosition": null,
+      "capacity": null,
+      "confidence": 1,
+      "live": false,
+      "masked": false
+    },
+    {
+      "id": "structure:f2-43",
+      "rawRole": "LayoutTable",
+      "ariaRole": null,
+      "name": "",
+      "value": null,
+      "text": null,
+      "description": null,
+      "state": {
+        "disabled": false,
+        "focused": false,
+        "visible": true,
+        "checked": null,
+        "expanded": null,
+        "selected": null,
+        "required": null,
+        "invalid": null,
+        "readonly": null
+      },
+      "bounds": null,
+      "containerPath": [
+        {
+          "kind": "frame",
+          "name": "top"
+        },
+        {
+          "kind": "frame",
+          "name": "nav"
+        }
+      ],
+      "parent": "structure:f2-42",
+      "children": [
+        "structure:f2-44"
+      ],
+      "labelledBy": [],
+      "tablePosition": null,
+      "capacity": null,
+      "confidence": 1,
+      "live": false,
+      "masked": false
+    },
+    {
+      "id": "structure:f2-44",
+      "rawRole": "none",
+      "ariaRole": null,
+      "name": "",
+      "value": null,
+      "text": null,
+      "description": null,
+      "state": {
+        "disabled": false,
+        "focused": false,
+        "visible": false,
+        "checked": null,
+        "expanded": null,
+        "selected": null,
+        "required": null,
+        "invalid": null,
+        "readonly": null
+      },
+      "bounds": null,
+      "containerPath": [
+        {
+          "kind": "frame",
+          "name": "top"
+        },
+        {
+          "kind": "frame",
+          "name": "nav"
+        }
+      ],
+      "parent": "structure:f2-43",
+      "children": [
+        "structure:f2-45",
+        "structure:f2-49",
+        "structure:f2-53",
+        "structure:f2-57",
+        "structure:f2-61",
+        "structure:f2-65",
+        "structure:f2-67"
+      ],
+      "labelledBy": [],
+      "tablePosition": null,
+      "capacity": null,
+      "confidence": 1,
+      "live": false,
+      "masked": false
+    },
+    {
+      "id": "structure:f2-45",
+      "rawRole": "LayoutTableRow",
+      "ariaRole": null,
+      "name": "",
+      "value": null,
+      "text": null,
+      "description": null,
+      "state": {
+        "disabled": false,
+        "focused": false,
+        "visible": true,
+        "checked": null,
+        "expanded": null,
+        "selected": null,
+        "required": null,
+        "invalid": null,
+        "readonly": null
+      },
+      "bounds": null,
+      "containerPath": [
+        {
+          "kind": "frame",
+          "name": "top"
+        },
+        {
+          "kind": "frame",
+          "name": "nav"
+        }
+      ],
+      "parent": "structure:f2-44",
+      "children": [
+        "structure:f2-46"
+      ],
+      "labelledBy": [],
+      "tablePosition": null,
+      "capacity": null,
+      "confidence": 1,
+      "live": false,
+      "masked": false
+    },
+    {
+      "id": "structure:f2-46",
+      "rawRole": "LayoutTableCell",
+      "ariaRole": null,
+      "name": "Servicing",
+      "value": null,
+      "text": null,
+      "description": null,
+      "state": {
+        "disabled": false,
+        "focused": false,
+        "visible": true,
+        "checked": null,
+        "expanded": null,
+        "selected": null,
+        "required": null,
+        "invalid": null,
+        "readonly": null
+      },
+      "bounds": null,
+      "containerPath": [
+        {
+          "kind": "frame",
+          "name": "top"
+        },
+        {
+          "kind": "frame",
+          "name": "nav"
+        }
+      ],
+      "parent": "structure:f2-45",
+      "children": [
+        "structure:f2-71"
+      ],
+      "labelledBy": [],
+      "tablePosition": null,
+      "capacity": null,
+      "confidence": 1,
+      "live": false,
+      "masked": false
+    },
+    {
+      "id": "structure:f2-71",
+      "rawRole": "StaticText",
+      "ariaRole": null,
+      "name": "Servicing",
+      "value": null,
+      "text": "Servicing",
+      "description": null,
+      "state": {
+        "disabled": false,
+        "focused": false,
+        "visible": true,
+        "checked": null,
+        "expanded": null,
+        "selected": null,
+        "required": null,
+        "invalid": null,
+        "readonly": null
+      },
+      "bounds": {
+        "x": 3,
+        "y": 84,
+        "w": 59,
+        "h": 15,
+        "unit": "px"
+      },
+      "containerPath": [
+        {
+          "kind": "frame",
+          "name": "top"
+        },
+        {
+          "kind": "frame",
+          "name": "nav"
+        }
+      ],
+      "parent": "structure:f2-46",
+      "children": [],
+      "labelledBy": [],
+      "tablePosition": null,
+      "capacity": null,
+      "confidence": 1,
+      "live": false,
+      "masked": false
+    },
+    {
+      "id": "structure:f2-49",
+      "rawRole": "LayoutTableRow",
+      "ariaRole": null,
+      "name": "",
+      "value": null,
+      "text": null,
+      "description": null,
+      "state": {
+        "disabled": false,
+        "focused": false,
+        "visible": true,
+        "checked": null,
+        "expanded": null,
+        "selected": null,
+        "required": null,
+        "invalid": null,
+        "readonly": null
+      },
+      "bounds": null,
+      "containerPath": [
+        {
+          "kind": "frame",
+          "name": "top"
+        },
+        {
+          "kind": "frame",
+          "name": "nav"
+        }
+      ],
+      "parent": "structure:f2-44",
+      "children": [
+        "structure:f2-50"
+      ],
+      "labelledBy": [],
+      "tablePosition": null,
+      "capacity": null,
+      "confidence": 1,
+      "live": false,
+      "masked": false
+    },
+    {
+      "id": "structure:f2-50",
+      "rawRole": "LayoutTableCell",
+      "ariaRole": null,
+      "name": " Member Search",
+      "value": null,
+      "text": null,
+      "description": null,
+      "state": {
+        "disabled": false,
+        "focused": false,
+        "visible": true,
+        "checked": null,
+        "expanded": null,
+        "selected": null,
+        "required": null,
+        "invalid": null,
+        "readonly": null
+      },
+      "bounds": null,
+      "containerPath": [
+        {
+          "kind": "frame",
+          "name": "top"
+        },
+        {
+          "kind": "frame",
+          "name": "nav"
+        }
+      ],
+      "parent": "structure:f2-49",
+      "children": [
+        "structure:f2-72",
+        "link:f2-51"
+      ],
+      "labelledBy": [],
+      "tablePosition": null,
+      "capacity": null,
+      "confidence": 1,
+      "live": false,
+      "masked": false
+    },
+    {
+      "id": "structure:f2-72",
+      "rawRole": "StaticText",
+      "ariaRole": null,
+      "name": " ",
+      "value": null,
+      "text": " ",
+      "description": null,
+      "state": {
+        "disabled": false,
+        "focused": false,
+        "visible": true,
+        "checked": null,
+        "expanded": null,
+        "selected": null,
+        "required": null,
+        "invalid": null,
+        "readonly": null
+      },
+      "bounds": null,
+      "containerPath": [
+        {
+          "kind": "frame",
+          "name": "top"
+        },
+        {
+          "kind": "frame",
+          "name": "nav"
+        }
+      ],
+      "parent": "structure:f2-50",
+      "children": [],
+      "labelledBy": [],
+      "tablePosition": null,
+      "capacity": null,
+      "confidence": 1,
+      "live": false,
+      "masked": false
+    },
+    {
+      "id": "link:f2-51",
+      "rawRole": "link",
+      "ariaRole": "link",
+      "name": "Member Search",
+      "value": null,
+      "text": "Member Search",
+      "description": null,
+      "state": {
+        "disabled": false,
+        "focused": false,
+        "visible": true,
+        "checked": null,
+        "expanded": null,
+        "selected": null,
+        "required": null,
+        "invalid": null,
+        "readonly": null
+      },
+      "bounds": {
+        "x": 7,
+        "y": 105,
+        "w": 92,
+        "h": 18,
+        "unit": "px"
+      },
+      "containerPath": [
+        {
+          "kind": "frame",
+          "name": "top"
+        },
+        {
+          "kind": "frame",
+          "name": "nav"
+        }
+      ],
+      "parent": "structure:f2-50",
+      "children": [
+        "structure:f2-73"
+      ],
+      "labelledBy": [],
+      "tablePosition": null,
+      "capacity": null,
+      "confidence": 1,
+      "live": false,
+      "masked": false
+    },
+    {
+      "id": "structure:f2-73",
+      "rawRole": "StaticText",
+      "ariaRole": null,
+      "name": "Member Search",
+      "value": null,
+      "text": "Member Search",
+      "description": null,
+      "state": {
+        "disabled": false,
+        "focused": false,
+        "visible": true,
+        "checked": null,
+        "expanded": null,
+        "selected": null,
+        "required": null,
+        "invalid": null,
+        "readonly": null
+      },
+      "bounds": {
+        "x": 7,
+        "y": 107,
+        "w": 92,
+        "h": 15,
+        "unit": "px"
+      },
+      "containerPath": [
+        {
+          "kind": "frame",
+          "name": "top"
+        },
+        {
+          "kind": "frame",
+          "name": "nav"
+        }
+      ],
+      "parent": "link:f2-51",
+      "children": [],
+      "labelledBy": [],
+      "tablePosition": null,
+      "capacity": null,
+      "confidence": 1,
+      "live": false,
+      "masked": false
+    },
+    {
+      "id": "structure:f2-53",
+      "rawRole": "LayoutTableRow",
+      "ariaRole": null,
+      "name": "",
+      "value": null,
+      "text": null,
+      "description": null,
+      "state": {
+        "disabled": false,
+        "focused": false,
+        "visible": true,
+        "checked": null,
+        "expanded": null,
+        "selected": null,
+        "required": null,
+        "invalid": null,
+        "readonly": null
+      },
+      "bounds": null,
+      "containerPath": [
+        {
+          "kind": "frame",
+          "name": "top"
+        },
+        {
+          "kind": "frame",
+          "name": "nav"
+        }
+      ],
+      "parent": "structure:f2-44",
+      "children": [
+        "structure:f2-54"
+      ],
+      "labelledBy": [],
+      "tablePosition": null,
+      "capacity": null,
+      "confidence": 1,
+      "live": false,
+      "masked": false
+    },
+    {
+      "id": "structure:f2-54",
+      "rawRole": "LayoutTableCell",
+      "ariaRole": null,
+      "name": " Account Maintenance",
+      "value": null,
+      "text": null,
+      "description": null,
+      "state": {
+        "disabled": false,
+        "focused": false,
+        "visible": true,
+        "checked": null,
+        "expanded": null,
+        "selected": null,
+        "required": null,
+        "invalid": null,
+        "readonly": null
+      },
+      "bounds": null,
+      "containerPath": [
+        {
+          "kind": "frame",
+          "name": "top"
+        },
+        {
+          "kind": "frame",
+          "name": "nav"
+        }
+      ],
+      "parent": "structure:f2-53",
+      "children": [
+        "structure:f2-74",
+        "link:f2-55"
+      ],
+      "labelledBy": [],
+      "tablePosition": null,
+      "capacity": null,
+      "confidence": 1,
+      "live": false,
+      "masked": false
+    },
+    {
+      "id": "structure:f2-74",
+      "rawRole": "StaticText",
+      "ariaRole": null,
+      "name": " ",
+      "value": null,
+      "text": " ",
+      "description": null,
+      "state": {
+        "disabled": false,
+        "focused": false,
+        "visible": true,
+        "checked": null,
+        "expanded": null,
+        "selected": null,
+        "required": null,
+        "invalid": null,
+        "readonly": null
+      },
+      "bounds": null,
+      "containerPath": [
+        {
+          "kind": "frame",
+          "name": "top"
+        },
+        {
+          "kind": "frame",
+          "name": "nav"
+        }
+      ],
+      "parent": "structure:f2-54",
+      "children": [],
+      "labelledBy": [],
+      "tablePosition": null,
+      "capacity": null,
+      "confidence": 1,
+      "live": false,
+      "masked": false
+    },
+    {
+      "id": "link:f2-55",
+      "rawRole": "link",
+      "ariaRole": "link",
+      "name": "Account Maintenance",
+      "value": null,
+      "text": "Account Maintenance",
+      "description": null,
+      "state": {
+        "disabled": false,
+        "focused": false,
+        "visible": true,
+        "checked": null,
+        "expanded": null,
+        "selected": null,
+        "required": null,
+        "invalid": null,
+        "readonly": null
+      },
+      "bounds": {
+        "x": 7,
+        "y": 129,
+        "w": 125,
+        "h": 18,
+        "unit": "px"
+      },
+      "containerPath": [
+        {
+          "kind": "frame",
+          "name": "top"
+        },
+        {
+          "kind": "frame",
+          "name": "nav"
+        }
+      ],
+      "parent": "structure:f2-54",
+      "children": [
+        "structure:f2-75"
+      ],
+      "labelledBy": [],
+      "tablePosition": null,
+      "capacity": null,
+      "confidence": 1,
+      "live": false,
+      "masked": false
+    },
+    {
+      "id": "structure:f2-75",
+      "rawRole": "StaticText",
+      "ariaRole": null,
+      "name": "Account Maintenance",
+      "value": null,
+      "text": "Account Maintenance",
+      "description": null,
+      "state": {
+        "disabled": false,
+        "focused": false,
+        "visible": true,
+        "checked": null,
+        "expanded": null,
+        "selected": null,
+        "required": null,
+        "invalid": null,
+        "readonly": null
+      },
+      "bounds": {
+        "x": 6,
+        "y": 131,
+        "w": 127,
+        "h": 15,
+        "unit": "px"
+      },
+      "containerPath": [
+        {
+          "kind": "frame",
+          "name": "top"
+        },
+        {
+          "kind": "frame",
+          "name": "nav"
+        }
+      ],
+      "parent": "link:f2-55",
+      "children": [],
+      "labelledBy": [],
+      "tablePosition": null,
+      "capacity": null,
+      "confidence": 1,
+      "live": false,
+      "masked": false
+    },
+    {
+      "id": "structure:f2-57",
+      "rawRole": "LayoutTableRow",
+      "ariaRole": null,
+      "name": "",
+      "value": null,
+      "text": null,
+      "description": null,
+      "state": {
+        "disabled": false,
+        "focused": false,
+        "visible": true,
+        "checked": null,
+        "expanded": null,
+        "selected": null,
+        "required": null,
+        "invalid": null,
+        "readonly": null
+      },
+      "bounds": null,
+      "containerPath": [
+        {
+          "kind": "frame",
+          "name": "top"
+        },
+        {
+          "kind": "frame",
+          "name": "nav"
+        }
+      ],
+      "parent": "structure:f2-44",
+      "children": [
+        "structure:f2-58"
+      ],
+      "labelledBy": [],
+      "tablePosition": null,
+      "capacity": null,
+      "confidence": 1,
+      "live": false,
+      "masked": false
+    },
+    {
+      "id": "structure:f2-58",
+      "rawRole": "LayoutTableCell",
+      "ariaRole": null,
+      "name": " Card Services",
+      "value": null,
+      "text": null,
+      "description": null,
+      "state": {
+        "disabled": false,
+        "focused": false,
+        "visible": true,
+        "checked": null,
+        "expanded": null,
+        "selected": null,
+        "required": null,
+        "invalid": null,
+        "readonly": null
+      },
+      "bounds": null,
+      "containerPath": [
+        {
+          "kind": "frame",
+          "name": "top"
+        },
+        {
+          "kind": "frame",
+          "name": "nav"
+        }
+      ],
+      "parent": "structure:f2-57",
+      "children": [
+        "structure:f2-76",
+        "link:f2-59"
+      ],
+      "labelledBy": [],
+      "tablePosition": null,
+      "capacity": null,
+      "confidence": 1,
+      "live": false,
+      "masked": false
+    },
+    {
+      "id": "structure:f2-76",
+      "rawRole": "StaticText",
+      "ariaRole": null,
+      "name": " ",
+      "value": null,
+      "text": " ",
+      "description": null,
+      "state": {
+        "disabled": false,
+        "focused": false,
+        "visible": true,
+        "checked": null,
+        "expanded": null,
+        "selected": null,
+        "required": null,
+        "invalid": null,
+        "readonly": null
+      },
+      "bounds": null,
+      "containerPath": [
+        {
+          "kind": "frame",
+          "name": "top"
+        },
+        {
+          "kind": "frame",
+          "name": "nav"
+        }
+      ],
+      "parent": "structure:f2-58",
+      "children": [],
+      "labelledBy": [],
+      "tablePosition": null,
+      "capacity": null,
+      "confidence": 1,
+      "live": false,
+      "masked": false
+    },
+    {
+      "id": "link:f2-59",
+      "rawRole": "link",
+      "ariaRole": "link",
+      "name": "Card Services",
+      "value": null,
+      "text": "Card Services",
+      "description": null,
+      "state": {
+        "disabled": false,
+        "focused": false,
+        "visible": true,
+        "checked": null,
+        "expanded": null,
+        "selected": null,
+        "required": null,
+        "invalid": null,
+        "readonly": null
+      },
+      "bounds": {
+        "x": 7,
+        "y": 153,
+        "w": 82,
+        "h": 18,
+        "unit": "px"
+      },
+      "containerPath": [
+        {
+          "kind": "frame",
+          "name": "top"
+        },
+        {
+          "kind": "frame",
+          "name": "nav"
+        }
+      ],
+      "parent": "structure:f2-58",
+      "children": [
+        "structure:f2-77"
+      ],
+      "labelledBy": [],
+      "tablePosition": null,
+      "capacity": null,
+      "confidence": 1,
+      "live": false,
+      "masked": false
+    },
+    {
+      "id": "structure:f2-77",
+      "rawRole": "StaticText",
+      "ariaRole": null,
+      "name": "Card Services",
+      "value": null,
+      "text": "Card Services",
+      "description": null,
+      "state": {
+        "disabled": false,
+        "focused": false,
+        "visible": true,
+        "checked": null,
+        "expanded": null,
+        "selected": null,
+        "required": null,
+        "invalid": null,
+        "readonly": null
+      },
+      "bounds": {
+        "x": 7,
+        "y": 155,
+        "w": 82,
+        "h": 15,
+        "unit": "px"
+      },
+      "containerPath": [
+        {
+          "kind": "frame",
+          "name": "top"
+        },
+        {
+          "kind": "frame",
+          "name": "nav"
+        }
+      ],
+      "parent": "link:f2-59",
+      "children": [],
+      "labelledBy": [],
+      "tablePosition": null,
+      "capacity": null,
+      "confidence": 1,
+      "live": false,
+      "masked": false
+    },
+    {
+      "id": "structure:f2-61",
+      "rawRole": "LayoutTableRow",
+      "ariaRole": null,
+      "name": "",
+      "value": null,
+      "text": null,
+      "description": null,
+      "state": {
+        "disabled": false,
+        "focused": false,
+        "visible": true,
+        "checked": null,
+        "expanded": null,
+        "selected": null,
+        "required": null,
+        "invalid": null,
+        "readonly": null
+      },
+      "bounds": null,
+      "containerPath": [
+        {
+          "kind": "frame",
+          "name": "top"
+        },
+        {
+          "kind": "frame",
+          "name": "nav"
+        }
+      ],
+      "parent": "structure:f2-44",
+      "children": [
+        "structure:f2-62"
+      ],
+      "labelledBy": [],
+      "tablePosition": null,
+      "capacity": null,
+      "confidence": 1,
+      "live": false,
+      "masked": false
+    },
+    {
+      "id": "structure:f2-62",
+      "rawRole": "LayoutTableCell",
+      "ariaRole": null,
+      "name": " Teller Journal",
+      "value": null,
+      "text": null,
+      "description": null,
+      "state": {
+        "disabled": false,
+        "focused": false,
+        "visible": true,
+        "checked": null,
+        "expanded": null,
+        "selected": null,
+        "required": null,
+        "invalid": null,
+        "readonly": null
+      },
+      "bounds": null,
+      "containerPath": [
+        {
+          "kind": "frame",
+          "name": "top"
+        },
+        {
+          "kind": "frame",
+          "name": "nav"
+        }
+      ],
+      "parent": "structure:f2-61",
+      "children": [
+        "structure:f2-78",
+        "link:f2-63"
+      ],
+      "labelledBy": [],
+      "tablePosition": null,
+      "capacity": null,
+      "confidence": 1,
+      "live": false,
+      "masked": false
+    },
+    {
+      "id": "structure:f2-78",
+      "rawRole": "StaticText",
+      "ariaRole": null,
+      "name": " ",
+      "value": null,
+      "text": " ",
+      "description": null,
+      "state": {
+        "disabled": false,
+        "focused": false,
+        "visible": true,
+        "checked": null,
+        "expanded": null,
+        "selected": null,
+        "required": null,
+        "invalid": null,
+        "readonly": null
+      },
+      "bounds": null,
+      "containerPath": [
+        {
+          "kind": "frame",
+          "name": "top"
+        },
+        {
+          "kind": "frame",
+          "name": "nav"
+        }
+      ],
+      "parent": "structure:f2-62",
+      "children": [],
+      "labelledBy": [],
+      "tablePosition": null,
+      "capacity": null,
+      "confidence": 1,
+      "live": false,
+      "masked": false
+    },
+    {
+      "id": "link:f2-63",
+      "rawRole": "link",
+      "ariaRole": "link",
+      "name": "Teller Journal",
+      "value": null,
+      "text": "Teller Journal",
+      "description": null,
+      "state": {
+        "disabled": false,
+        "focused": false,
+        "visible": true,
+        "checked": null,
+        "expanded": null,
+        "selected": null,
+        "required": null,
+        "invalid": null,
+        "readonly": null
+      },
+      "bounds": {
+        "x": 7,
+        "y": 177,
+        "w": 77,
+        "h": 18,
+        "unit": "px"
+      },
+      "containerPath": [
+        {
+          "kind": "frame",
+          "name": "top"
+        },
+        {
+          "kind": "frame",
+          "name": "nav"
+        }
+      ],
+      "parent": "structure:f2-62",
+      "children": [
+        "structure:f2-79"
+      ],
+      "labelledBy": [],
+      "tablePosition": null,
+      "capacity": null,
+      "confidence": 1,
+      "live": false,
+      "masked": false
+    },
+    {
+      "id": "structure:f2-79",
+      "rawRole": "StaticText",
+      "ariaRole": null,
+      "name": "Teller Journal",
+      "value": null,
+      "text": "Teller Journal",
+      "description": null,
+      "state": {
+        "disabled": false,
+        "focused": false,
+        "visible": true,
+        "checked": null,
+        "expanded": null,
+        "selected": null,
+        "required": null,
+        "invalid": null,
+        "readonly": null
+      },
+      "bounds": {
+        "x": 7,
+        "y": 179,
+        "w": 77,
+        "h": 15,
+        "unit": "px"
+      },
+      "containerPath": [
+        {
+          "kind": "frame",
+          "name": "top"
+        },
+        {
+          "kind": "frame",
+          "name": "nav"
+        }
+      ],
+      "parent": "link:f2-63",
+      "children": [],
+      "labelledBy": [],
+      "tablePosition": null,
+      "capacity": null,
+      "confidence": 1,
+      "live": false,
+      "masked": false
+    },
+    {
+      "id": "structure:f2-65",
+      "rawRole": "LayoutTableRow",
+      "ariaRole": null,
+      "name": "",
+      "value": null,
+      "text": null,
+      "description": null,
+      "state": {
+        "disabled": false,
+        "focused": false,
+        "visible": true,
+        "checked": null,
+        "expanded": null,
+        "selected": null,
+        "required": null,
+        "invalid": null,
+        "readonly": null
+      },
+      "bounds": null,
+      "containerPath": [
+        {
+          "kind": "frame",
+          "name": "top"
+        },
+        {
+          "kind": "frame",
+          "name": "nav"
+        }
+      ],
+      "parent": "structure:f2-44",
+      "children": [
+        "structure:f2-66"
+      ],
+      "labelledBy": [],
+      "tablePosition": null,
+      "capacity": null,
+      "confidence": 1,
+      "live": false,
+      "masked": false
+    },
+    {
+      "id": "structure:f2-66",
+      "rawRole": "LayoutTableCell",
+      "ariaRole": null,
+      "name": " ",
+      "value": null,
+      "text": null,
+      "description": null,
+      "state": {
+        "disabled": false,
+        "focused": false,
+        "visible": true,
+        "checked": null,
+        "expanded": null,
+        "selected": null,
+        "required": null,
+        "invalid": null,
+        "readonly": null
+      },
+      "bounds": null,
+      "containerPath": [
+        {
+          "kind": "frame",
+          "name": "top"
+        },
+        {
+          "kind": "frame",
+          "name": "nav"
+        }
+      ],
+      "parent": "structure:f2-65",
+      "children": [
+        "structure:f2-80"
+      ],
+      "labelledBy": [],
+      "tablePosition": null,
+      "capacity": null,
+      "confidence": 1,
+      "live": false,
+      "masked": false
+    },
+    {
+      "id": "structure:f2-80",
+      "rawRole": "StaticText",
+      "ariaRole": null,
+      "name": " ",
+      "value": null,
+      "text": " ",
+      "description": null,
+      "state": {
+        "disabled": false,
+        "focused": false,
+        "visible": true,
+        "checked": null,
+        "expanded": null,
+        "selected": null,
+        "required": null,
+        "invalid": null,
+        "readonly": null
+      },
+      "bounds": null,
+      "containerPath": [
+        {
+          "kind": "frame",
+          "name": "top"
+        },
+        {
+          "kind": "frame",
+          "name": "nav"
+        }
+      ],
+      "parent": "structure:f2-66",
+      "children": [],
+      "labelledBy": [],
+      "tablePosition": null,
+      "capacity": null,
+      "confidence": 1,
+      "live": false,
+      "masked": false
+    },
+    {
+      "id": "structure:f2-67",
+      "rawRole": "LayoutTableRow",
+      "ariaRole": null,
+      "name": "",
+      "value": null,
+      "text": null,
+      "description": null,
+      "state": {
+        "disabled": false,
+        "focused": false,
+        "visible": true,
+        "checked": null,
+        "expanded": null,
+        "selected": null,
+        "required": null,
+        "invalid": null,
+        "readonly": null
+      },
+      "bounds": null,
+      "containerPath": [
+        {
+          "kind": "frame",
+          "name": "top"
+        },
+        {
+          "kind": "frame",
+          "name": "nav"
+        }
+      ],
+      "parent": "structure:f2-44",
+      "children": [
+        "structure:f2-68"
+      ],
+      "labelledBy": [],
+      "tablePosition": null,
+      "capacity": null,
+      "confidence": 1,
+      "live": false,
+      "masked": false
+    },
+    {
+      "id": "structure:f2-68",
+      "rawRole": "LayoutTableCell",
+      "ariaRole": null,
+      "name": "TEST FIXTURE — SYNTHETIC DATA ONLY",
+      "value": null,
+      "text": null,
+      "description": null,
+      "state": {
+        "disabled": false,
+        "focused": false,
+        "visible": true,
+        "checked": null,
+        "expanded": null,
+        "selected": null,
+        "required": null,
+        "invalid": null,
+        "readonly": null
+      },
+      "bounds": null,
+      "containerPath": [
+        {
+          "kind": "frame",
+          "name": "top"
+        },
+        {
+          "kind": "frame",
+          "name": "nav"
+        }
+      ],
+      "parent": "structure:f2-67",
+      "children": [
+        "structure:f2-81"
+      ],
+      "labelledBy": [],
+      "tablePosition": null,
+      "capacity": null,
+      "confidence": 1,
+      "live": false,
+      "masked": false
+    },
+    {
+      "id": "structure:f2-81",
+      "rawRole": "StaticText",
+      "ariaRole": null,
+      "name": "TEST FIXTURE — SYNTHETIC DATA ONLY",
+      "value": null,
+      "text": "TEST FIXTURE — SYNTHETIC DATA ONLY",
+      "description": null,
+      "state": {
+        "disabled": false,
+        "focused": false,
+        "visible": true,
+        "checked": null,
+        "expanded": null,
+        "selected": null,
+        "required": null,
+        "invalid": null,
+        "readonly": null
+      },
+      "bounds": {
+        "x": 3,
+        "y": 225,
+        "w": 173,
+        "h": 22,
+        "unit": "px"
+      },
+      "containerPath": [
+        {
+          "kind": "frame",
+          "name": "top"
+        },
+        {
+          "kind": "frame",
+          "name": "nav"
+        }
+      ],
+      "parent": "structure:f2-68",
+      "children": [],
+      "labelledBy": [],
+      "tablePosition": null,
+      "capacity": null,
+      "confidence": 1,
+      "live": false,
+      "masked": false
+    },
+    {
+      "id": "structure:f0-13",
+      "rawRole": "Iframe",
+      "ariaRole": null,
+      "name": "",
+      "value": null,
+      "text": null,
+      "description": null,
+      "state": {
+        "disabled": false,
+        "focused": false,
+        "visible": true,
+        "checked": null,
+        "expanded": null,
+        "selected": null,
+        "required": null,
+        "invalid": null,
+        "readonly": null
+      },
+      "bounds": null,
+      "containerPath": [
+        {
+          "kind": "frame",
+          "name": "top"
+        }
+      ],
+      "parent": "structure:f0-11",
+      "children": [
+        "structure:f3-229"
+      ],
+      "labelledBy": [],
+      "tablePosition": null,
+      "capacity": null,
+      "confidence": 1,
+      "live": false,
+      "masked": false
+    },
+    {
+      "id": "structure:f3-229",
+      "rawRole": "RootWebArea",
+      "ariaRole": null,
+      "name": "Member Detail - Riverbend Federal Credit Union",
+      "value": null,
+      "text": null,
+      "description": null,
+      "state": {
+        "disabled": false,
+        "focused": true,
+        "visible": true,
+        "checked": null,
+        "expanded": null,
+        "selected": null,
+        "required": null,
+        "invalid": null,
+        "readonly": null
+      },
+      "bounds": null,
+      "containerPath": [
+        {
+          "kind": "frame",
+          "name": "top"
+        }
+      ],
+      "parent": "structure:f0-13",
+      "children": [
+        "structure:f3-232"
+      ],
+      "labelledBy": [],
+      "tablePosition": null,
+      "capacity": null,
+      "confidence": 1,
+      "live": false,
+      "masked": false
+    },
+    {
+      "id": "structure:f3-232",
+      "rawRole": "none",
+      "ariaRole": null,
+      "name": "",
+      "value": null,
+      "text": null,
+      "description": null,
+      "state": {
+        "disabled": false,
+        "focused": false,
+        "visible": false,
+        "checked": null,
+        "expanded": null,
+        "selected": null,
+        "required": null,
+        "invalid": null,
+        "readonly": null
+      },
+      "bounds": null,
+      "containerPath": [
+        {
+          "kind": "frame",
+          "name": "top"
+        },
+        {
+          "kind": "frame",
+          "name": "content"
+        }
+      ],
+      "parent": "structure:f3-229",
+      "children": [
+        "structure:f3-235"
+      ],
+      "labelledBy": [],
+      "tablePosition": null,
+      "capacity": null,
+      "confidence": 1,
+      "live": false,
+      "masked": false
+    },
+    {
+      "id": "structure:f3-235",
+      "rawRole": "none",
+      "ariaRole": null,
+      "name": "",
+      "value": null,
+      "text": null,
+      "description": null,
+      "state": {
+        "disabled": false,
+        "focused": false,
+        "visible": false,
+        "checked": null,
+        "expanded": null,
+        "selected": null,
+        "required": null,
+        "invalid": null,
+        "readonly": null
+      },
+      "bounds": null,
+      "containerPath": [
+        {
+          "kind": "frame",
+          "name": "top"
+        },
+        {
+          "kind": "frame",
+          "name": "content"
+        }
+      ],
+      "parent": "structure:f3-232",
+      "children": [
+        "structure:f3-236",
+        "structure:f3-242"
+      ],
+      "labelledBy": [],
+      "tablePosition": null,
+      "capacity": null,
+      "confidence": 1,
+      "live": false,
+      "masked": false
+    },
+    {
+      "id": "structure:f3-236",
+      "rawRole": "LayoutTable",
+      "ariaRole": null,
+      "name": "",
+      "value": null,
+      "text": null,
+      "description": null,
+      "state": {
+        "disabled": false,
+        "focused": false,
+        "visible": true,
+        "checked": null,
+        "expanded": null,
+        "selected": null,
+        "required": null,
+        "invalid": null,
+        "readonly": null
+      },
+      "bounds": null,
+      "containerPath": [
+        {
+          "kind": "frame",
+          "name": "top"
+        },
+        {
+          "kind": "frame",
+          "name": "content"
+        }
+      ],
+      "parent": "structure:f3-235",
+      "children": [
+        "structure:f3-237"
+      ],
+      "labelledBy": [],
+      "tablePosition": null,
+      "capacity": null,
+      "confidence": 1,
+      "live": false,
+      "masked": false
+    },
+    {
+      "id": "structure:f3-237",
+      "rawRole": "none",
+      "ariaRole": null,
+      "name": "",
+      "value": null,
+      "text": null,
+      "description": null,
+      "state": {
+        "disabled": false,
+        "focused": false,
+        "visible": false,
+        "checked": null,
+        "expanded": null,
+        "selected": null,
+        "required": null,
+        "invalid": null,
+        "readonly": null
+      },
+      "bounds": null,
+      "containerPath": [
+        {
+          "kind": "frame",
+          "name": "top"
+        },
+        {
+          "kind": "frame",
+          "name": "content"
+        }
+      ],
+      "parent": "structure:f3-236",
+      "children": [
+        "structure:f3-238"
+      ],
+      "labelledBy": [],
+      "tablePosition": null,
+      "capacity": null,
+      "confidence": 1,
+      "live": false,
+      "masked": false
+    },
+    {
+      "id": "structure:f3-238",
+      "rawRole": "LayoutTableRow",
+      "ariaRole": null,
+      "name": "",
+      "value": null,
+      "text": null,
+      "description": null,
+      "state": {
+        "disabled": false,
+        "focused": false,
+        "visible": true,
+        "checked": null,
+        "expanded": null,
+        "selected": null,
+        "required": null,
+        "invalid": null,
+        "readonly": null
+      },
+      "bounds": null,
+      "containerPath": [
+        {
+          "kind": "frame",
+          "name": "top"
+        },
+        {
+          "kind": "frame",
+          "name": "content"
+        }
+      ],
+      "parent": "structure:f3-237",
+      "children": [
+        "structure:f3-239"
+      ],
+      "labelledBy": [],
+      "tablePosition": null,
+      "capacity": null,
+      "confidence": 1,
+      "live": false,
+      "masked": false
+    },
+    {
+      "id": "structure:f3-239",
+      "rawRole": "LayoutTableCell",
+      "ariaRole": null,
+      "name": "TEST FIXTURE — SYNTHETIC DATA ONLY. Not a real financial system. Every member, account, balance and branch below is invented.",
+      "value": null,
+      "text": null,
+      "description": null,
+      "state": {
+        "disabled": false,
+        "focused": false,
+        "visible": true,
+        "checked": null,
+        "expanded": null,
+        "selected": null,
+        "required": null,
+        "invalid": null,
+        "readonly": null
+      },
+      "bounds": null,
+      "containerPath": [
+        {
+          "kind": "frame",
+          "name": "top"
+        },
+        {
+          "kind": "frame",
+          "name": "content"
+        }
+      ],
+      "parent": "structure:f3-238",
+      "children": [
+        "structure:f3-307"
+      ],
+      "labelledBy": [],
+      "tablePosition": null,
+      "capacity": null,
+      "confidence": 1,
+      "live": false,
+      "masked": false
+    },
+    {
+      "id": "structure:f3-307",
+      "rawRole": "StaticText",
+      "ariaRole": null,
+      "name": "TEST FIXTURE — SYNTHETIC DATA ONLY. Not a real financial system. Every member, account, balance and branch below is invented.",
+      "value": null,
+      "text": "TEST FIXTURE — SYNTHETIC DATA ONLY. Not a real financial system. Every member, account, balance and branch below is invented.",
+      "description": null,
+      "state": {
+        "disabled": false,
+        "focused": false,
+        "visible": true,
+        "checked": null,
+        "expanded": null,
+        "selected": null,
+        "required": null,
+        "invalid": null,
+        "readonly": null
+      },
+      "bounds": {
+        "x": 192,
+        "y": 84,
+        "w": 639,
+        "h": 12,
+        "unit": "px"
+      },
+      "containerPath": [
+        {
+          "kind": "frame",
+          "name": "top"
+        },
+        {
+          "kind": "frame",
+          "name": "content"
+        }
+      ],
+      "parent": "structure:f3-239",
+      "children": [],
+      "labelledBy": [],
+      "tablePosition": null,
+      "capacity": null,
+      "confidence": 1,
+      "live": false,
+      "masked": false
+    },
+    {
+      "id": "structure:f3-242",
+      "rawRole": "LayoutTable",
+      "ariaRole": null,
+      "name": "",
+      "value": null,
+      "text": null,
+      "description": null,
+      "state": {
+        "disabled": false,
+        "focused": false,
+        "visible": true,
+        "checked": null,
+        "expanded": null,
+        "selected": null,
+        "required": null,
+        "invalid": null,
+        "readonly": null
+      },
+      "bounds": null,
+      "containerPath": [
+        {
+          "kind": "frame",
+          "name": "top"
+        },
+        {
+          "kind": "frame",
+          "name": "content"
+        }
+      ],
+      "parent": "structure:f3-235",
+      "children": [
+        "structure:f3-243"
+      ],
+      "labelledBy": [],
+      "tablePosition": null,
+      "capacity": null,
+      "confidence": 1,
+      "live": false,
+      "masked": false
+    },
+    {
+      "id": "structure:f3-243",
+      "rawRole": "none",
+      "ariaRole": null,
+      "name": "",
+      "value": null,
+      "text": null,
+      "description": null,
+      "state": {
+        "disabled": false,
+        "focused": false,
+        "visible": false,
+        "checked": null,
+        "expanded": null,
+        "selected": null,
+        "required": null,
+        "invalid": null,
+        "readonly": null
+      },
+      "bounds": null,
+      "containerPath": [
+        {
+          "kind": "frame",
+          "name": "top"
+        },
+        {
+          "kind": "frame",
+          "name": "content"
+        }
+      ],
+      "parent": "structure:f3-242",
+      "children": [
+        "structure:f3-244"
+      ],
+      "labelledBy": [],
+      "tablePosition": null,
+      "capacity": null,
+      "confidence": 1,
+      "live": false,
+      "masked": false
+    },
+    {
+      "id": "structure:f3-244",
+      "rawRole": "LayoutTableRow",
+      "ariaRole": null,
+      "name": "",
+      "value": null,
+      "text": null,
+      "description": null,
+      "state": {
+        "disabled": false,
+        "focused": false,
+        "visible": true,
+        "checked": null,
+        "expanded": null,
+        "selected": null,
+        "required": null,
+        "invalid": null,
+        "readonly": null
+      },
+      "bounds": null,
+      "containerPath": [
+        {
+          "kind": "frame",
+          "name": "top"
+        },
+        {
+          "kind": "frame",
+          "name": "content"
+        }
+      ],
+      "parent": "structure:f3-243",
+      "children": [
+        "structure:f3-245"
+      ],
+      "labelledBy": [],
+      "tablePosition": null,
+      "capacity": null,
+      "confidence": 1,
+      "live": false,
+      "masked": false
+    },
+    {
+      "id": "structure:f3-245",
+      "rawRole": "LayoutTableCell",
+      "ariaRole": null,
+      "name": "Member Detail Member ID   <taint:memberId-1> Name   <read-membername-sharebalance-membershipstatus.memberName> Branch   011 - NORTHGATE (SYNTHETIC) Joined   2012-01-19 Status   <read-membername-sharebalance-membershipstatus.membershipStatus> Total Share Balance   15,900.00      Share Accounts ",
+      "value": null,
+      "text": null,
+      "description": null,
+      "state": {
+        "disabled": false,
+        "focused": false,
+        "visible": true,
+        "checked": null,
+        "expanded": null,
+        "selected": null,
+        "required": null,
+        "invalid": null,
+        "readonly": null
+      },
+      "bounds": null,
+      "containerPath": [
+        {
+          "kind": "frame",
+          "name": "top"
+        },
+        {
+          "kind": "frame",
+          "name": "content"
+        }
+      ],
+      "parent": "structure:f3-244",
+      "children": [
+        "structure:f3-308",
+        "structure:f3-248",
+        "structure:f3-249",
+        "structure:f3-250",
+        "structure:f3-302",
+        "structure:f3-329",
+        "structure:f3-305",
+        "structure:f3-306"
+      ],
+      "labelledBy": [],
+      "tablePosition": null,
+      "capacity": null,
+      "confidence": 1,
+      "live": false,
+      "masked": false
+    },
+    {
+      "id": "structure:f3-308",
+      "rawRole": "StaticText",
+      "ariaRole": null,
+      "name": "Member Detail",
+      "value": null,
+      "text": "Member Detail",
+      "description": null,
+      "state": {
+        "disabled": false,
+        "focused": false,
+        "visible": true,
+        "checked": null,
+        "expanded": null,
+        "selected": null,
+        "required": null,
+        "invalid": null,
+        "readonly": null
+      },
+      "bounds": {
+        "x": 189,
+        "y": 98,
+        "w": 109,
+        "h": 17,
+        "unit": "px"
+      },
+      "containerPath": [
+        {
+          "kind": "frame",
+          "name": "top"
+        },
+        {
+          "kind": "frame",
+          "name": "content"
+        }
+      ],
+      "parent": "structure:f3-245",
+      "children": [],
+      "labelledBy": [],
+      "tablePosition": null,
+      "capacity": null,
+      "confidence": 1,
+      "live": false,
+      "masked": false
+    },
+    {
+      "id": "structure:f3-248",
+      "rawRole": "LineBreak",
+      "ariaRole": null,
+      "name": "\n",
+      "value": null,
+      "text": null,
+      "description": null,
+      "state": {
+        "disabled": false,
+        "focused": false,
+        "visible": true,
+        "checked": null,
+        "expanded": null,
+        "selected": null,
+        "required": null,
+        "invalid": null,
+        "readonly": null
+      },
+      "bounds": null,
+      "containerPath": [
+        {
+          "kind": "frame",
+          "name": "top"
+        },
+        {
+          "kind": "frame",
+          "name": "content"
+        }
+      ],
+      "parent": "structure:f3-245",
+      "children": [],
+      "labelledBy": [],
+      "tablePosition": null,
+      "capacity": null,
+      "confidence": 1,
+      "live": false,
+      "masked": false
+    },
+    {
+      "id": "structure:f3-249",
+      "rawRole": "LineBreak",
+      "ariaRole": null,
+      "name": "\n",
+      "value": null,
+      "text": null,
+      "description": null,
+      "state": {
+        "disabled": false,
+        "focused": false,
+        "visible": true,
+        "checked": null,
+        "expanded": null,
+        "selected": null,
+        "required": null,
+        "invalid": null,
+        "readonly": null
+      },
+      "bounds": null,
+      "containerPath": [
+        {
+          "kind": "frame",
+          "name": "top"
+        },
+        {
+          "kind": "frame",
+          "name": "content"
+        }
+      ],
+      "parent": "structure:f3-245",
+      "children": [],
+      "labelledBy": [],
+      "tablePosition": null,
+      "capacity": null,
+      "confidence": 1,
+      "live": false,
+      "masked": false
+    },
+    {
+      "id": "structure:f3-250",
+      "rawRole": "LayoutTable",
+      "ariaRole": null,
+      "name": "",
+      "value": null,
+      "text": null,
+      "description": null,
+      "state": {
+        "disabled": false,
+        "focused": false,
+        "visible": true,
+        "checked": null,
+        "expanded": null,
+        "selected": null,
+        "required": null,
+        "invalid": null,
+        "readonly": null
+      },
+      "bounds": null,
+      "containerPath": [
+        {
+          "kind": "frame",
+          "name": "top"
+        },
+        {
+          "kind": "frame",
+          "name": "content"
+        }
+      ],
+      "parent": "structure:f3-245",
+      "children": [
+        "structure:f3-251"
+      ],
+      "labelledBy": [],
+      "tablePosition": null,
+      "capacity": null,
+      "confidence": 1,
+      "live": false,
+      "masked": false
+    },
+    {
+      "id": "structure:f3-251",
+      "rawRole": "none",
+      "ariaRole": null,
+      "name": "",
+      "value": null,
+      "text": null,
+      "description": null,
+      "state": {
+        "disabled": false,
+        "focused": false,
+        "visible": false,
+        "checked": null,
+        "expanded": null,
+        "selected": null,
+        "required": null,
+        "invalid": null,
+        "readonly": null
+      },
+      "bounds": null,
+      "containerPath": [
+        {
+          "kind": "frame",
+          "name": "top"
+        },
+        {
+          "kind": "frame",
+          "name": "content"
+        }
+      ],
+      "parent": "structure:f3-250",
+      "children": [
+        "structure:f3-252"
+      ],
+      "labelledBy": [],
+      "tablePosition": null,
+      "capacity": null,
+      "confidence": 1,
+      "live": false,
+      "masked": false
+    },
+    {
+      "id": "structure:f3-252",
+      "rawRole": "LayoutTableRow",
+      "ariaRole": null,
+      "name": "",
+      "value": null,
+      "text": null,
+      "description": null,
+      "state": {
+        "disabled": false,
+        "focused": false,
+        "visible": true,
+        "checked": null,
+        "expanded": null,
+        "selected": null,
+        "required": null,
+        "invalid": null,
+        "readonly": null
+      },
+      "bounds": null,
+      "containerPath": [
+        {
+          "kind": "frame",
+          "name": "top"
+        },
+        {
+          "kind": "frame",
+          "name": "content"
+        }
+      ],
+      "parent": "structure:f3-251",
+      "children": [
+        "structure:f3-253",
+        "structure:f3-298",
+        "structure:f3-299"
+      ],
+      "labelledBy": [],
+      "tablePosition": null,
+      "capacity": null,
+      "confidence": 1,
+      "live": false,
+      "masked": false
+    },
+    {
+      "id": "structure:f3-253",
+      "rawRole": "LayoutTableCell",
+      "ariaRole": null,
+      "name": "Member ID   <taint:memberId-1> Name   <read-membername-sharebalance-membershipstatus.memberName> Branch   011 - NORTHGATE (SYNTHETIC) Joined   2012-01-19 Status   <read-membername-sharebalance-membershipstatus.membershipStatus> Total Share Balance   15,900.00",
+      "value": null,
+      "text": null,
+      "description": null,
+      "state": {
+        "disabled": false,
+        "focused": false,
+        "visible": true,
+        "checked": null,
+        "expanded": null,
+        "selected": null,
+        "required": null,
+        "invalid": null,
+        "readonly": null
+      },
+      "bounds": null,
+      "containerPath": [
+        {
+          "kind": "frame",
+          "name": "top"
+        },
+        {
+          "kind": "frame",
+          "name": "content"
+        }
+      ],
+      "parent": "structure:f3-252",
+      "children": [
+        "structure:f3-254"
+      ],
+      "labelledBy": [],
+      "tablePosition": null,
+      "capacity": null,
+      "confidence": 1,
+      "live": false,
+      "masked": false
+    },
+    {
+      "id": "structure:f3-254",
+      "rawRole": "LayoutTable",
+      "ariaRole": null,
+      "name": "",
+      "value": null,
+      "text": null,
+      "description": null,
+      "state": {
+        "disabled": false,
+        "focused": false,
+        "visible": true,
+        "checked": null,
+        "expanded": null,
+        "selected": null,
+        "required": null,
+        "invalid": null,
+        "readonly": null
+      },
+      "bounds": null,
+      "containerPath": [
+        {
+          "kind": "frame",
+          "name": "top"
+        },
+        {
+          "kind": "frame",
+          "name": "content"
+        }
+      ],
+      "parent": "structure:f3-253",
+      "children": [
+        "structure:f3-255"
+      ],
+      "labelledBy": [],
+      "tablePosition": null,
+      "capacity": null,
+      "confidence": 1,
+      "live": false,
+      "masked": false
+    },
+    {
+      "id": "structure:f3-255",
+      "rawRole": "none",
+      "ariaRole": null,
+      "name": "",
+      "value": null,
+      "text": null,
+      "description": null,
+      "state": {
+        "disabled": false,
+        "focused": false,
+        "visible": false,
+        "checked": null,
+        "expanded": null,
+        "selected": null,
+        "required": null,
+        "invalid": null,
+        "readonly": null
+      },
+      "bounds": null,
+      "containerPath": [
+        {
+          "kind": "frame",
+          "name": "top"
+        },
+        {
+          "kind": "frame",
+          "name": "content"
+        }
+      ],
+      "parent": "structure:f3-254",
+      "children": [
+        "structure:f3-256",
+        "structure:f3-263",
+        "structure:f3-270",
+        "structure:f3-277",
+        "structure:f3-284",
+        "structure:f3-291"
+      ],
+      "labelledBy": [],
+      "tablePosition": null,
+      "capacity": null,
+      "confidence": 1,
+      "live": false,
+      "masked": false
+    },
+    {
+      "id": "structure:f3-256",
+      "rawRole": "LayoutTableRow",
+      "ariaRole": null,
+      "name": "",
+      "value": null,
+      "text": null,
+      "description": null,
+      "state": {
+        "disabled": false,
+        "focused": false,
+        "visible": true,
+        "checked": null,
+        "expanded": null,
+        "selected": null,
+        "required": null,
+        "invalid": null,
+        "readonly": null
+      },
+      "bounds": null,
+      "containerPath": [
+        {
+          "kind": "frame",
+          "name": "top"
+        },
+        {
+          "kind": "frame",
+          "name": "content"
+        }
+      ],
+      "parent": "structure:f3-255",
+      "children": [
+        "structure:f3-257",
+        "structure:f3-259",
+        "structure:f3-260"
+      ],
+      "labelledBy": [],
+      "tablePosition": null,
+      "capacity": null,
+      "confidence": 1,
+      "live": false,
+      "masked": false
+    },
+    {
+      "id": "structure:f3-257",
+      "rawRole": "LayoutTableCell",
+      "ariaRole": null,
+      "name": "Member ID",
+      "value": null,
+      "text": null,
+      "description": null,
+      "state": {
+        "disabled": false,
+        "focused": false,
+        "visible": true,
+        "checked": null,
+        "expanded": null,
+        "selected": null,
+        "required": null,
+        "invalid": null,
+        "readonly": null
+      },
+      "bounds": null,
+      "containerPath": [
+        {
+          "kind": "frame",
+          "name": "top"
+        },
+        {
+          "kind": "frame",
+          "name": "content"
+        }
+      ],
+      "parent": "structure:f3-256",
+      "children": [
+        "structure:f3-309"
+      ],
+      "labelledBy": [],
+      "tablePosition": null,
+      "capacity": null,
+      "confidence": 1,
+      "live": false,
+      "masked": false
+    },
+    {
+      "id": "structure:f3-309",
+      "rawRole": "StaticText",
+      "ariaRole": null,
+      "name": "Member ID",
+      "value": null,
+      "text": "Member ID",
+      "description": null,
+      "state": {
+        "disabled": false,
+        "focused": false,
+        "visible": true,
+        "checked": null,
+        "expanded": null,
+        "selected": null,
+        "required": null,
+        "invalid": null,
+        "readonly": null
+      },
+      "bounds": {
+        "x": 243,
+        "y": 138,
+        "w": 64,
+        "h": 15,
+        "unit": "px"
+      },
+      "containerPath": [
+        {
+          "kind": "frame",
+          "name": "top"
+        },
+        {
+          "kind": "frame",
+          "name": "content"
+        }
+      ],
+      "parent": "structure:f3-257",
+      "children": [],
+      "labelledBy": [],
+      "tablePosition": null,
+      "capacity": null,
+      "confidence": 1,
+      "live": false,
+      "masked": false
+    },
+    {
+      "id": "structure:f3-259",
+      "rawRole": "LayoutTableCell",
+      "ariaRole": null,
+      "name": " ",
+      "value": null,
+      "text": null,
+      "description": null,
+      "state": {
+        "disabled": false,
+        "focused": false,
+        "visible": true,
+        "checked": null,
+        "expanded": null,
+        "selected": null,
+        "required": null,
+        "invalid": null,
+        "readonly": null
+      },
+      "bounds": null,
+      "containerPath": [
+        {
+          "kind": "frame",
+          "name": "top"
+        },
+        {
+          "kind": "frame",
+          "name": "content"
+        }
+      ],
+      "parent": "structure:f3-256",
+      "children": [
+        "structure:f3-310"
+      ],
+      "labelledBy": [],
+      "tablePosition": null,
+      "capacity": null,
+      "confidence": 1,
+      "live": false,
+      "masked": false
+    },
+    {
+      "id": "structure:f3-310",
+      "rawRole": "StaticText",
+      "ariaRole": null,
+      "name": " ",
+      "value": null,
+      "text": " ",
+      "description": null,
+      "state": {
+        "disabled": false,
+        "focused": false,
+        "visible": true,
+        "checked": null,
+        "expanded": null,
+        "selected": null,
+        "required": null,
+        "invalid": null,
+        "readonly": null
+      },
+      "bounds": null,
+      "containerPath": [
+        {
+          "kind": "frame",
+          "name": "top"
+        },
+        {
+          "kind": "frame",
+          "name": "content"
+        }
+      ],
+      "parent": "structure:f3-259",
+      "children": [],
+      "labelledBy": [],
+      "tablePosition": null,
+      "capacity": null,
+      "confidence": 1,
+      "live": false,
+      "masked": false
+    },
+    {
+      "id": "structure:f3-260",
+      "rawRole": "LayoutTableCell",
+      "ariaRole": null,
+      "name": "<taint:memberId-1>",
+      "value": null,
+      "text": null,
+      "description": null,
+      "state": {
+        "disabled": false,
+        "focused": false,
+        "visible": true,
+        "checked": null,
+        "expanded": null,
+        "selected": null,
+        "required": null,
+        "invalid": null,
+        "readonly": null
+      },
+      "bounds": null,
+      "containerPath": [
+        {
+          "kind": "frame",
+          "name": "top"
+        },
+        {
+          "kind": "frame",
+          "name": "content"
+        }
+      ],
+      "parent": "structure:f3-256",
+      "children": [
+        "structure:f3-311"
+      ],
+      "labelledBy": [],
+      "tablePosition": null,
+      "capacity": null,
+      "confidence": 1,
+      "live": false,
+      "masked": false
+    },
+    {
+      "id": "structure:f3-311",
+      "rawRole": "StaticText",
+      "ariaRole": null,
+      "name": "<taint:memberId-1>",
+      "value": null,
+      "text": "<taint:memberId-1>",
+      "description": null,
+      "state": {
+        "disabled": false,
+        "focused": false,
+        "visible": true,
+        "checked": null,
+        "expanded": null,
+        "selected": null,
+        "required": null,
+        "invalid": null,
+        "readonly": null
+      },
+      "bounds": {
+        "x": 319,
+        "y": 138,
+        "w": 36,
+        "h": 15,
+        "unit": "px"
+      },
+      "containerPath": [
+        {
+          "kind": "frame",
+          "name": "top"
+        },
+        {
+          "kind": "frame",
+          "name": "content"
+        }
+      ],
+      "parent": "structure:f3-260",
+      "children": [],
+      "labelledBy": [],
+      "tablePosition": null,
+      "capacity": null,
+      "confidence": 1,
+      "live": false,
+      "masked": false
+    },
+    {
+      "id": "structure:f3-263",
+      "rawRole": "LayoutTableRow",
+      "ariaRole": null,
+      "name": "",
+      "value": null,
+      "text": null,
+      "description": null,
+      "state": {
+        "disabled": false,
+        "focused": false,
+        "visible": true,
+        "checked": null,
+        "expanded": null,
+        "selected": null,
+        "required": null,
+        "invalid": null,
+        "readonly": null
+      },
+      "bounds": null,
+      "containerPath": [
+        {
+          "kind": "frame",
+          "name": "top"
+        },
+        {
+          "kind": "frame",
+          "name": "content"
+        }
+      ],
+      "parent": "structure:f3-255",
+      "children": [
+        "structure:f3-264",
+        "structure:f3-266",
+        "structure:f3-267"
+      ],
+      "labelledBy": [],
+      "tablePosition": null,
+      "capacity": null,
+      "confidence": 1,
+      "live": false,
+      "masked": false
+    },
+    {
+      "id": "structure:f3-264",
+      "rawRole": "LayoutTableCell",
+      "ariaRole": null,
+      "name": "Name",
+      "value": null,
+      "text": null,
+      "description": null,
+      "state": {
+        "disabled": false,
+        "focused": false,
+        "visible": true,
+        "checked": null,
+        "expanded": null,
+        "selected": null,
+        "required": null,
+        "invalid": null,
+        "readonly": null
+      },
+      "bounds": null,
+      "containerPath": [
+        {
+          "kind": "frame",
+          "name": "top"
+        },
+        {
+          "kind": "frame",
+          "name": "content"
+        }
+      ],
+      "parent": "structure:f3-263",
+      "children": [
+        "structure:f3-312"
+      ],
+      "labelledBy": [],
+      "tablePosition": null,
+      "capacity": null,
+      "confidence": 1,
+      "live": false,
+      "masked": false
+    },
+    {
+      "id": "structure:f3-312",
+      "rawRole": "StaticText",
+      "ariaRole": null,
+      "name": "Name",
+      "value": null,
+      "text": "Name",
+      "description": null,
+      "state": {
+        "disabled": false,
+        "focused": false,
+        "visible": true,
+        "checked": null,
+        "expanded": null,
+        "selected": null,
+        "required": null,
+        "invalid": null,
+        "readonly": null
+      },
+      "bounds": {
+        "x": 273,
+        "y": 160,
+        "w": 35,
+        "h": 15,
+        "unit": "px"
+      },
+      "containerPath": [
+        {
+          "kind": "frame",
+          "name": "top"
+        },
+        {
+          "kind": "frame",
+          "name": "content"
+        }
+      ],
+      "parent": "structure:f3-264",
+      "children": [],
+      "labelledBy": [],
+      "tablePosition": null,
+      "capacity": null,
+      "confidence": 1,
+      "live": false,
+      "masked": false
+    },
+    {
+      "id": "structure:f3-266",
+      "rawRole": "LayoutTableCell",
+      "ariaRole": null,
+      "name": " ",
+      "value": null,
+      "text": null,
+      "description": null,
+      "state": {
+        "disabled": false,
+        "focused": false,
+        "visible": true,
+        "checked": null,
+        "expanded": null,
+        "selected": null,
+        "required": null,
+        "invalid": null,
+        "readonly": null
+      },
+      "bounds": null,
+      "containerPath": [
+        {
+          "kind": "frame",
+          "name": "top"
+        },
+        {
+          "kind": "frame",
+          "name": "content"
+        }
+      ],
+      "parent": "structure:f3-263",
+      "children": [
+        "structure:f3-313"
+      ],
+      "labelledBy": [],
+      "tablePosition": null,
+      "capacity": null,
+      "confidence": 1,
+      "live": false,
+      "masked": false
+    },
+    {
+      "id": "structure:f3-313",
+      "rawRole": "StaticText",
+      "ariaRole": null,
+      "name": " ",
+      "value": null,
+      "text": " ",
+      "description": null,
+      "state": {
+        "disabled": false,
+        "focused": false,
+        "visible": true,
+        "checked": null,
+        "expanded": null,
+        "selected": null,
+        "required": null,
+        "invalid": null,
+        "readonly": null
+      },
+      "bounds": null,
+      "containerPath": [
+        {
+          "kind": "frame",
+          "name": "top"
+        },
+        {
+          "kind": "frame",
+          "name": "content"
+        }
+      ],
+      "parent": "structure:f3-266",
+      "children": [],
+      "labelledBy": [],
+      "tablePosition": null,
+      "capacity": null,
+      "confidence": 1,
+      "live": false,
+      "masked": false
+    },
+    {
+      "id": "structure:f3-267",
+      "rawRole": "LayoutTableCell",
+      "ariaRole": null,
+      "name": "<read-membername-sharebalance-membershipstatus.memberName>",
+      "value": null,
+      "text": null,
+      "description": null,
+      "state": {
+        "disabled": false,
+        "focused": false,
+        "visible": true,
+        "checked": null,
+        "expanded": null,
+        "selected": null,
+        "required": null,
+        "invalid": null,
+        "readonly": null
+      },
+      "bounds": null,
+      "containerPath": [
+        {
+          "kind": "frame",
+          "name": "top"
+        },
+        {
+          "kind": "frame",
+          "name": "content"
+        }
+      ],
+      "parent": "structure:f3-263",
+      "children": [
+        "structure:f3-314"
+      ],
+      "labelledBy": [],
+      "tablePosition": null,
+      "capacity": null,
+      "confidence": 1,
+      "live": false,
+      "masked": false
+    },
+    {
+      "id": "structure:f3-314",
+      "rawRole": "StaticText",
+      "ariaRole": null,
+      "name": "<read-membername-sharebalance-membershipstatus.memberName>",
+      "value": null,
+      "text": "<read-membername-sharebalance-membershipstatus.memberName>",
+      "description": null,
+      "state": {
+        "disabled": false,
+        "focused": false,
+        "visible": true,
+        "checked": null,
+        "expanded": null,
+        "selected": null,
+        "required": null,
+        "invalid": null,
+        "readonly": null
+      },
+      "bounds": {
+        "x": 319,
+        "y": 160,
+        "w": 154,
+        "h": 15,
+        "unit": "px"
+      },
+      "containerPath": [
+        {
+          "kind": "frame",
+          "name": "top"
+        },
+        {
+          "kind": "frame",
+          "name": "content"
+        }
+      ],
+      "parent": "structure:f3-267",
+      "children": [],
+      "labelledBy": [],
+      "tablePosition": null,
+      "capacity": null,
+      "confidence": 1,
+      "live": false,
+      "masked": false
+    },
+    {
+      "id": "structure:f3-270",
+      "rawRole": "LayoutTableRow",
+      "ariaRole": null,
+      "name": "",
+      "value": null,
+      "text": null,
+      "description": null,
+      "state": {
+        "disabled": false,
+        "focused": false,
+        "visible": true,
+        "checked": null,
+        "expanded": null,
+        "selected": null,
+        "required": null,
+        "invalid": null,
+        "readonly": null
+      },
+      "bounds": null,
+      "containerPath": [
+        {
+          "kind": "frame",
+          "name": "top"
+        },
+        {
+          "kind": "frame",
+          "name": "content"
+        }
+      ],
+      "parent": "structure:f3-255",
+      "children": [
+        "structure:f3-271",
+        "structure:f3-273",
+        "structure:f3-274"
+      ],
+      "labelledBy": [],
+      "tablePosition": null,
+      "capacity": null,
+      "confidence": 1,
+      "live": false,
+      "masked": false
+    },
+    {
+      "id": "structure:f3-271",
+      "rawRole": "LayoutTableCell",
+      "ariaRole": null,
+      "name": "Branch",
+      "value": null,
+      "text": null,
+      "description": null,
+      "state": {
+        "disabled": false,
+        "focused": false,
+        "visible": true,
+        "checked": null,
+        "expanded": null,
+        "selected": null,
+        "required": null,
+        "invalid": null,
+        "readonly": null
+      },
+      "bounds": null,
+      "containerPath": [
+        {
+          "kind": "frame",
+          "name": "top"
+        },
+        {
+          "kind": "frame",
+          "name": "content"
+        }
+      ],
+      "parent": "structure:f3-270",
+      "children": [
+        "structure:f3-315"
+      ],
+      "labelledBy": [],
+      "tablePosition": null,
+      "capacity": null,
+      "confidence": 1,
+      "live": false,
+      "masked": false
+    },
+    {
+      "id": "structure:f3-315",
+      "rawRole": "StaticText",
+      "ariaRole": null,
+      "name": "Branch",
+      "value": null,
+      "text": "Branch",
+      "description": null,
+      "state": {
+        "disabled": false,
+        "focused": false,
+        "visible": true,
+        "checked": null,
+        "expanded": null,
+        "selected": null,
+        "required": null,
+        "invalid": null,
+        "readonly": null
+      },
+      "bounds": {
+        "x": 266,
+        "y": 182,
+        "w": 41,
+        "h": 15,
+        "unit": "px"
+      },
+      "containerPath": [
+        {
+          "kind": "frame",
+          "name": "top"
+        },
+        {
+          "kind": "frame",
+          "name": "content"
+        }
+      ],
+      "parent": "structure:f3-271",
+      "children": [],
+      "labelledBy": [],
+      "tablePosition": null,
+      "capacity": null,
+      "confidence": 1,
+      "live": false,
+      "masked": false
+    },
+    {
+      "id": "structure:f3-273",
+      "rawRole": "LayoutTableCell",
+      "ariaRole": null,
+      "name": " ",
+      "value": null,
+      "text": null,
+      "description": null,
+      "state": {
+        "disabled": false,
+        "focused": false,
+        "visible": true,
+        "checked": null,
+        "expanded": null,
+        "selected": null,
+        "required": null,
+        "invalid": null,
+        "readonly": null
+      },
+      "bounds": null,
+      "containerPath": [
+        {
+          "kind": "frame",
+          "name": "top"
+        },
+        {
+          "kind": "frame",
+          "name": "content"
+        }
+      ],
+      "parent": "structure:f3-270",
+      "children": [
+        "structure:f3-316"
+      ],
+      "labelledBy": [],
+      "tablePosition": null,
+      "capacity": null,
+      "confidence": 1,
+      "live": false,
+      "masked": false
+    },
+    {
+      "id": "structure:f3-316",
+      "rawRole": "StaticText",
+      "ariaRole": null,
+      "name": " ",
+      "value": null,
+      "text": " ",
+      "description": null,
+      "state": {
+        "disabled": false,
+        "focused": false,
+        "visible": true,
+        "checked": null,
+        "expanded": null,
+        "selected": null,
+        "required": null,
+        "invalid": null,
+        "readonly": null
+      },
+      "bounds": null,
+      "containerPath": [
+        {
+          "kind": "frame",
+          "name": "top"
+        },
+        {
+          "kind": "frame",
+          "name": "content"
+        }
+      ],
+      "parent": "structure:f3-273",
+      "children": [],
+      "labelledBy": [],
+      "tablePosition": null,
+      "capacity": null,
+      "confidence": 1,
+      "live": false,
+      "masked": false
+    },
+    {
+      "id": "structure:f3-274",
+      "rawRole": "LayoutTableCell",
+      "ariaRole": null,
+      "name": "011 - NORTHGATE (SYNTHETIC)",
+      "value": null,
+      "text": null,
+      "description": null,
+      "state": {
+        "disabled": false,
+        "focused": false,
+        "visible": true,
+        "checked": null,
+        "expanded": null,
+        "selected": null,
+        "required": null,
+        "invalid": null,
+        "readonly": null
+      },
+      "bounds": null,
+      "containerPath": [
+        {
+          "kind": "frame",
+          "name": "top"
+        },
+        {
+          "kind": "frame",
+          "name": "content"
+        }
+      ],
+      "parent": "structure:f3-270",
+      "children": [
+        "structure:f3-317"
+      ],
+      "labelledBy": [],
+      "tablePosition": null,
+      "capacity": null,
+      "confidence": 1,
+      "live": false,
+      "masked": false
+    },
+    {
+      "id": "structure:f3-317",
+      "rawRole": "StaticText",
+      "ariaRole": null,
+      "name": "011 - NORTHGATE (SYNTHETIC)",
+      "value": null,
+      "text": "011 - NORTHGATE (SYNTHETIC)",
+      "description": null,
+      "state": {
+        "disabled": false,
+        "focused": false,
+        "visible": true,
+        "checked": null,
+        "expanded": null,
+        "selected": null,
+        "required": null,
+        "invalid": null,
+        "readonly": null
+      },
+      "bounds": {
+        "x": 319,
+        "y": 182,
+        "w": 200,
+        "h": 15,
+        "unit": "px"
+      },
+      "containerPath": [
+        {
+          "kind": "frame",
+          "name": "top"
+        },
+        {
+          "kind": "frame",
+          "name": "content"
+        }
+      ],
+      "parent": "structure:f3-274",
+      "children": [],
+      "labelledBy": [],
+      "tablePosition": null,
+      "capacity": null,
+      "confidence": 1,
+      "live": false,
+      "masked": false
+    },
+    {
+      "id": "structure:f3-277",
+      "rawRole": "LayoutTableRow",
+      "ariaRole": null,
+      "name": "",
+      "value": null,
+      "text": null,
+      "description": null,
+      "state": {
+        "disabled": false,
+        "focused": false,
+        "visible": true,
+        "checked": null,
+        "expanded": null,
+        "selected": null,
+        "required": null,
+        "invalid": null,
+        "readonly": null
+      },
+      "bounds": null,
+      "containerPath": [
+        {
+          "kind": "frame",
+          "name": "top"
+        },
+        {
+          "kind": "frame",
+          "name": "content"
+        }
+      ],
+      "parent": "structure:f3-255",
+      "children": [
+        "structure:f3-278",
+        "structure:f3-280",
+        "structure:f3-281"
+      ],
+      "labelledBy": [],
+      "tablePosition": null,
+      "capacity": null,
+      "confidence": 1,
+      "live": false,
+      "masked": false
+    },
+    {
+      "id": "structure:f3-278",
+      "rawRole": "LayoutTableCell",
+      "ariaRole": null,
+      "name": "Joined",
+      "value": null,
+      "text": null,
+      "description": null,
+      "state": {
+        "disabled": false,
+        "focused": false,
+        "visible": true,
+        "checked": null,
+        "expanded": null,
+        "selected": null,
+        "required": null,
+        "invalid": null,
+        "readonly": null
+      },
+      "bounds": null,
+      "containerPath": [
+        {
+          "kind": "frame",
+          "name": "top"
+        },
+        {
+          "kind": "frame",
+          "name": "content"
+        }
+      ],
+      "parent": "structure:f3-277",
+      "children": [
+        "structure:f3-318"
+      ],
+      "labelledBy": [],
+      "tablePosition": null,
+      "capacity": null,
+      "confidence": 1,
+      "live": false,
+      "masked": false
+    },
+    {
+      "id": "structure:f3-318",
+      "rawRole": "StaticText",
+      "ariaRole": null,
+      "name": "Joined",
+      "value": null,
+      "text": "Joined",
+      "description": null,
+      "state": {
+        "disabled": false,
+        "focused": false,
+        "visible": true,
+        "checked": null,
+        "expanded": null,
+        "selected": null,
+        "required": null,
+        "invalid": null,
+        "readonly": null
+      },
+      "bounds": {
+        "x": 269,
+        "y": 204,
+        "w": 38,
+        "h": 15,
+        "unit": "px"
+      },
+      "containerPath": [
+        {
+          "kind": "frame",
+          "name": "top"
+        },
+        {
+          "kind": "frame",
+          "name": "content"
+        }
+      ],
+      "parent": "structure:f3-278",
+      "children": [],
+      "labelledBy": [],
+      "tablePosition": null,
+      "capacity": null,
+      "confidence": 1,
+      "live": false,
+      "masked": false
+    },
+    {
+      "id": "structure:f3-280",
+      "rawRole": "LayoutTableCell",
+      "ariaRole": null,
+      "name": " ",
+      "value": null,
+      "text": null,
+      "description": null,
+      "state": {
+        "disabled": false,
+        "focused": false,
+        "visible": true,
+        "checked": null,
+        "expanded": null,
+        "selected": null,
+        "required": null,
+        "invalid": null,
+        "readonly": null
+      },
+      "bounds": null,
+      "containerPath": [
+        {
+          "kind": "frame",
+          "name": "top"
+        },
+        {
+          "kind": "frame",
+          "name": "content"
+        }
+      ],
+      "parent": "structure:f3-277",
+      "children": [
+        "structure:f3-319"
+      ],
+      "labelledBy": [],
+      "tablePosition": null,
+      "capacity": null,
+      "confidence": 1,
+      "live": false,
+      "masked": false
+    },
+    {
+      "id": "structure:f3-319",
+      "rawRole": "StaticText",
+      "ariaRole": null,
+      "name": " ",
+      "value": null,
+      "text": " ",
+      "description": null,
+      "state": {
+        "disabled": false,
+        "focused": false,
+        "visible": true,
+        "checked": null,
+        "expanded": null,
+        "selected": null,
+        "required": null,
+        "invalid": null,
+        "readonly": null
+      },
+      "bounds": null,
+      "containerPath": [
+        {
+          "kind": "frame",
+          "name": "top"
+        },
+        {
+          "kind": "frame",
+          "name": "content"
+        }
+      ],
+      "parent": "structure:f3-280",
+      "children": [],
+      "labelledBy": [],
+      "tablePosition": null,
+      "capacity": null,
+      "confidence": 1,
+      "live": false,
+      "masked": false
+    },
+    {
+      "id": "structure:f3-281",
+      "rawRole": "LayoutTableCell",
+      "ariaRole": null,
+      "name": "2012-01-19",
+      "value": null,
+      "text": null,
+      "description": null,
+      "state": {
+        "disabled": false,
+        "focused": false,
+        "visible": true,
+        "checked": null,
+        "expanded": null,
+        "selected": null,
+        "required": null,
+        "invalid": null,
+        "readonly": null
+      },
+      "bounds": null,
+      "containerPath": [
+        {
+          "kind": "frame",
+          "name": "top"
+        },
+        {
+          "kind": "frame",
+          "name": "content"
+        }
+      ],
+      "parent": "structure:f3-277",
+      "children": [
+        "structure:f3-320"
+      ],
+      "labelledBy": [],
+      "tablePosition": null,
+      "capacity": null,
+      "confidence": 1,
+      "live": false,
+      "masked": false
+    },
+    {
+      "id": "structure:f3-320",
+      "rawRole": "StaticText",
+      "ariaRole": null,
+      "name": "2012-01-19",
+      "value": null,
+      "text": "2012-01-19",
+      "description": null,
+      "state": {
+        "disabled": false,
+        "focused": false,
+        "visible": true,
+        "checked": null,
+        "expanded": null,
+        "selected": null,
+        "required": null,
+        "invalid": null,
+        "readonly": null
+      },
+      "bounds": {
+        "x": 319,
+        "y": 204,
+        "w": 67,
+        "h": 15,
+        "unit": "px"
+      },
+      "containerPath": [
+        {
+          "kind": "frame",
+          "name": "top"
+        },
+        {
+          "kind": "frame",
+          "name": "content"
+        }
+      ],
+      "parent": "structure:f3-281",
+      "children": [],
+      "labelledBy": [],
+      "tablePosition": null,
+      "capacity": null,
+      "confidence": 1,
+      "live": false,
+      "masked": false
+    },
+    {
+      "id": "structure:f3-284",
+      "rawRole": "LayoutTableRow",
+      "ariaRole": null,
+      "name": "",
+      "value": null,
+      "text": null,
+      "description": null,
+      "state": {
+        "disabled": false,
+        "focused": false,
+        "visible": true,
+        "checked": null,
+        "expanded": null,
+        "selected": null,
+        "required": null,
+        "invalid": null,
+        "readonly": null
+      },
+      "bounds": null,
+      "containerPath": [
+        {
+          "kind": "frame",
+          "name": "top"
+        },
+        {
+          "kind": "frame",
+          "name": "content"
+        }
+      ],
+      "parent": "structure:f3-255",
+      "children": [
+        "structure:f3-285",
+        "structure:f3-287",
+        "structure:f3-288"
+      ],
+      "labelledBy": [],
+      "tablePosition": null,
+      "capacity": null,
+      "confidence": 1,
+      "live": false,
+      "masked": false
+    },
+    {
+      "id": "structure:f3-285",
+      "rawRole": "LayoutTableCell",
+      "ariaRole": null,
+      "name": "Status",
+      "value": null,
+      "text": null,
+      "description": null,
+      "state": {
+        "disabled": false,
+        "focused": false,
+        "visible": true,
+        "checked": null,
+        "expanded": null,
+        "selected": null,
+        "required": null,
+        "invalid": null,
+        "readonly": null
+      },
+      "bounds": null,
+      "containerPath": [
+        {
+          "kind": "frame",
+          "name": "top"
+        },
+        {
+          "kind": "frame",
+          "name": "content"
+        }
+      ],
+      "parent": "structure:f3-284",
+      "children": [
+        "structure:f3-321"
+      ],
+      "labelledBy": [],
+      "tablePosition": null,
+      "capacity": null,
+      "confidence": 1,
+      "live": false,
+      "masked": false
+    },
+    {
+      "id": "structure:f3-321",
+      "rawRole": "StaticText",
+      "ariaRole": null,
+      "name": "Status",
+      "value": null,
+      "text": "Status",
+      "description": null,
+      "state": {
+        "disabled": false,
+        "focused": false,
+        "visible": true,
+        "checked": null,
+        "expanded": null,
+        "selected": null,
+        "required": null,
+        "invalid": null,
+        "readonly": null
+      },
+      "bounds": {
+        "x": 271,
+        "y": 226,
+        "w": 37,
+        "h": 15,
+        "unit": "px"
+      },
+      "containerPath": [
+        {
+          "kind": "frame",
+          "name": "top"
+        },
+        {
+          "kind": "frame",
+          "name": "content"
+        }
+      ],
+      "parent": "structure:f3-285",
+      "children": [],
+      "labelledBy": [],
+      "tablePosition": null,
+      "capacity": null,
+      "confidence": 1,
+      "live": false,
+      "masked": false
+    },
+    {
+      "id": "structure:f3-287",
+      "rawRole": "LayoutTableCell",
+      "ariaRole": null,
+      "name": " ",
+      "value": null,
+      "text": null,
+      "description": null,
+      "state": {
+        "disabled": false,
+        "focused": false,
+        "visible": true,
+        "checked": null,
+        "expanded": null,
+        "selected": null,
+        "required": null,
+        "invalid": null,
+        "readonly": null
+      },
+      "bounds": null,
+      "containerPath": [
+        {
+          "kind": "frame",
+          "name": "top"
+        },
+        {
+          "kind": "frame",
+          "name": "content"
+        }
+      ],
+      "parent": "structure:f3-284",
+      "children": [
+        "structure:f3-322"
+      ],
+      "labelledBy": [],
+      "tablePosition": null,
+      "capacity": null,
+      "confidence": 1,
+      "live": false,
+      "masked": false
+    },
+    {
+      "id": "structure:f3-322",
+      "rawRole": "StaticText",
+      "ariaRole": null,
+      "name": " ",
+      "value": null,
+      "text": " ",
+      "description": null,
+      "state": {
+        "disabled": false,
+        "focused": false,
+        "visible": true,
+        "checked": null,
+        "expanded": null,
+        "selected": null,
+        "required": null,
+        "invalid": null,
+        "readonly": null
+      },
+      "bounds": null,
+      "containerPath": [
+        {
+          "kind": "frame",
+          "name": "top"
+        },
+        {
+          "kind": "frame",
+          "name": "content"
+        }
+      ],
+      "parent": "structure:f3-287",
+      "children": [],
+      "labelledBy": [],
+      "tablePosition": null,
+      "capacity": null,
+      "confidence": 1,
+      "live": false,
+      "masked": false
+    },
+    {
+      "id": "structure:f3-288",
+      "rawRole": "LayoutTableCell",
+      "ariaRole": null,
+      "name": "<read-membername-sharebalance-membershipstatus.membershipStatus>",
+      "value": null,
+      "text": null,
+      "description": null,
+      "state": {
+        "disabled": false,
+        "focused": false,
+        "visible": true,
+        "checked": null,
+        "expanded": null,
+        "selected": null,
+        "required": null,
+        "invalid": null,
+        "readonly": null
+      },
+      "bounds": null,
+      "containerPath": [
+        {
+          "kind": "frame",
+          "name": "top"
+        },
+        {
+          "kind": "frame",
+          "name": "content"
+        }
+      ],
+      "parent": "structure:f3-284",
+      "children": [
+        "structure:f3-323"
+      ],
+      "labelledBy": [],
+      "tablePosition": null,
+      "capacity": null,
+      "confidence": 1,
+      "live": false,
+      "masked": false
+    },
+    {
+      "id": "structure:f3-323",
+      "rawRole": "StaticText",
+      "ariaRole": null,
+      "name": "<read-membername-sharebalance-membershipstatus.membershipStatus>",
+      "value": null,
+      "text": "<read-membername-sharebalance-membershipstatus.membershipStatus>",
+      "description": null,
+      "state": {
+        "disabled": false,
+        "focused": false,
+        "visible": true,
+        "checked": null,
+        "expanded": null,
+        "selected": null,
+        "required": null,
+        "invalid": null,
+        "readonly": null
+      },
+      "bounds": {
+        "x": 319,
+        "y": 226,
+        "w": 48,
+        "h": 15,
+        "unit": "px"
+      },
+      "containerPath": [
+        {
+          "kind": "frame",
+          "name": "top"
+        },
+        {
+          "kind": "frame",
+          "name": "content"
+        }
+      ],
+      "parent": "structure:f3-288",
+      "children": [],
+      "labelledBy": [],
+      "tablePosition": null,
+      "capacity": null,
+      "confidence": 1,
+      "live": false,
+      "masked": false
+    },
+    {
+      "id": "structure:f3-291",
+      "rawRole": "LayoutTableRow",
+      "ariaRole": null,
+      "name": "",
+      "value": null,
+      "text": null,
+      "description": null,
+      "state": {
+        "disabled": false,
+        "focused": false,
+        "visible": true,
+        "checked": null,
+        "expanded": null,
+        "selected": null,
+        "required": null,
+        "invalid": null,
+        "readonly": null
+      },
+      "bounds": null,
+      "containerPath": [
+        {
+          "kind": "frame",
+          "name": "top"
+        },
+        {
+          "kind": "frame",
+          "name": "content"
+        }
+      ],
+      "parent": "structure:f3-255",
+      "children": [
+        "structure:f3-292",
+        "structure:f3-294",
+        "structure:f3-295"
+      ],
+      "labelledBy": [],
+      "tablePosition": null,
+      "capacity": null,
+      "confidence": 1,
+      "live": false,
+      "masked": false
+    },
+    {
+      "id": "structure:f3-292",
+      "rawRole": "LayoutTableCell",
+      "ariaRole": null,
+      "name": "Total Share Balance",
+      "value": null,
+      "text": null,
+      "description": null,
+      "state": {
+        "disabled": false,
+        "focused": false,
+        "visible": true,
+        "checked": null,
+        "expanded": null,
+        "selected": null,
+        "required": null,
+        "invalid": null,
+        "readonly": null
+      },
+      "bounds": null,
+      "containerPath": [
+        {
+          "kind": "frame",
+          "name": "top"
+        },
+        {
+          "kind": "frame",
+          "name": "content"
+        }
+      ],
+      "parent": "structure:f3-291",
+      "children": [
+        "structure:f3-324"
+      ],
+      "labelledBy": [],
+      "tablePosition": null,
+      "capacity": null,
+      "confidence": 1,
+      "live": false,
+      "masked": false
+    },
+    {
+      "id": "structure:f3-324",
+      "rawRole": "StaticText",
+      "ariaRole": null,
+      "name": "Total Share Balance",
+      "value": null,
+      "text": "Total Share Balance",
+      "description": null,
+      "state": {
+        "disabled": false,
+        "focused": false,
+        "visible": true,
+        "checked": null,
+        "expanded": null,
+        "selected": null,
+        "required": null,
+        "invalid": null,
+        "readonly": null
+      },
+      "bounds": {
+        "x": 191,
+        "y": 248,
+        "w": 116,
+        "h": 15,
+        "unit": "px"
+      },
+      "containerPath": [
+        {
+          "kind": "frame",
+          "name": "top"
+        },
+        {
+          "kind": "frame",
+          "name": "content"
+        }
+      ],
+      "parent": "structure:f3-292",
+      "children": [],
+      "labelledBy": [],
+      "tablePosition": null,
+      "capacity": null,
+      "confidence": 1,
+      "live": false,
+      "masked": false
+    },
+    {
+      "id": "structure:f3-294",
+      "rawRole": "LayoutTableCell",
+      "ariaRole": null,
+      "name": " ",
+      "value": null,
+      "text": null,
+      "description": null,
+      "state": {
+        "disabled": false,
+        "focused": false,
+        "visible": true,
+        "checked": null,
+        "expanded": null,
+        "selected": null,
+        "required": null,
+        "invalid": null,
+        "readonly": null
+      },
+      "bounds": null,
+      "containerPath": [
+        {
+          "kind": "frame",
+          "name": "top"
+        },
+        {
+          "kind": "frame",
+          "name": "content"
+        }
+      ],
+      "parent": "structure:f3-291",
+      "children": [
+        "structure:f3-325"
+      ],
+      "labelledBy": [],
+      "tablePosition": null,
+      "capacity": null,
+      "confidence": 1,
+      "live": false,
+      "masked": false
+    },
+    {
+      "id": "structure:f3-325",
+      "rawRole": "StaticText",
+      "ariaRole": null,
+      "name": " ",
+      "value": null,
+      "text": " ",
+      "description": null,
+      "state": {
+        "disabled": false,
+        "focused": false,
+        "visible": true,
+        "checked": null,
+        "expanded": null,
+        "selected": null,
+        "required": null,
+        "invalid": null,
+        "readonly": null
+      },
+      "bounds": null,
+      "containerPath": [
+        {
+          "kind": "frame",
+          "name": "top"
+        },
+        {
+          "kind": "frame",
+          "name": "content"
+        }
+      ],
+      "parent": "structure:f3-294",
+      "children": [],
+      "labelledBy": [],
+      "tablePosition": null,
+      "capacity": null,
+      "confidence": 1,
+      "live": false,
+      "masked": false
+    },
+    {
+      "id": "structure:f3-295",
+      "rawRole": "LayoutTableCell",
+      "ariaRole": null,
+      "name": "15,900.00",
+      "value": null,
+      "text": null,
+      "description": null,
+      "state": {
+        "disabled": false,
+        "focused": false,
+        "visible": true,
+        "checked": null,
+        "expanded": null,
+        "selected": null,
+        "required": null,
+        "invalid": null,
+        "readonly": null
+      },
+      "bounds": null,
+      "containerPath": [
+        {
+          "kind": "frame",
+          "name": "top"
+        },
+        {
+          "kind": "frame",
+          "name": "content"
+        }
+      ],
+      "parent": "structure:f3-291",
+      "children": [
+        "structure:f3-326"
+      ],
+      "labelledBy": [],
+      "tablePosition": null,
+      "capacity": null,
+      "confidence": 1,
+      "live": false,
+      "masked": false
+    },
+    {
+      "id": "structure:f3-326",
+      "rawRole": "StaticText",
+      "ariaRole": null,
+      "name": "15,900.00",
+      "value": null,
+      "text": "15,900.00",
+      "description": null,
+      "state": {
+        "disabled": false,
+        "focused": false,
+        "visible": true,
+        "checked": null,
+        "expanded": null,
+        "selected": null,
+        "required": null,
+        "invalid": null,
+        "readonly": null
+      },
+      "bounds": {
+        "x": 319,
+        "y": 248,
+        "w": 58,
+        "h": 15,
+        "unit": "px"
+      },
+      "containerPath": [
+        {
+          "kind": "frame",
+          "name": "top"
+        },
+        {
+          "kind": "frame",
+          "name": "content"
+        }
+      ],
+      "parent": "structure:f3-295",
+      "children": [],
+      "labelledBy": [],
+      "tablePosition": null,
+      "capacity": null,
+      "confidence": 1,
+      "live": false,
+      "masked": false
+    },
+    {
+      "id": "structure:f3-298",
+      "rawRole": "LayoutTableCell",
+      "ariaRole": null,
+      "name": "    ",
+      "value": null,
+      "text": null,
+      "description": null,
+      "state": {
+        "disabled": false,
+        "focused": false,
+        "visible": true,
+        "checked": null,
+        "expanded": null,
+        "selected": null,
+        "required": null,
+        "invalid": null,
+        "readonly": null
+      },
+      "bounds": null,
+      "containerPath": [
+        {
+          "kind": "frame",
+          "name": "top"
+        },
+        {
+          "kind": "frame",
+          "name": "content"
+        }
+      ],
+      "parent": "structure:f3-252",
+      "children": [
+        "structure:f3-327"
+      ],
+      "labelledBy": [],
+      "tablePosition": null,
+      "capacity": null,
+      "confidence": 1,
+      "live": false,
+      "masked": false
+    },
+    {
+      "id": "structure:f3-327",
+      "rawRole": "StaticText",
+      "ariaRole": null,
+      "name": "    ",
+      "value": null,
+      "text": "    ",
+      "description": null,
+      "state": {
+        "disabled": false,
+        "focused": false,
+        "visible": true,
+        "checked": null,
+        "expanded": null,
+        "selected": null,
+        "required": null,
+        "invalid": null,
+        "readonly": null
+      },
+      "bounds": null,
+      "containerPath": [
+        {
+          "kind": "frame",
+          "name": "top"
+        },
+        {
+          "kind": "frame",
+          "name": "content"
+        }
+      ],
+      "parent": "structure:f3-298",
+      "children": [],
+      "labelledBy": [],
+      "tablePosition": null,
+      "capacity": null,
+      "confidence": 1,
+      "live": false,
+      "masked": false
+    },
+    {
+      "id": "structure:f3-299",
+      "rawRole": "LayoutTableCell",
+      "ariaRole": null,
+      "name": "",
+      "value": null,
+      "text": null,
+      "description": null,
+      "state": {
+        "disabled": false,
+        "focused": false,
+        "visible": true,
+        "checked": null,
+        "expanded": null,
+        "selected": null,
+        "required": null,
+        "invalid": null,
+        "readonly": null
+      },
+      "bounds": null,
+      "containerPath": [
+        {
+          "kind": "frame",
+          "name": "top"
+        },
+        {
+          "kind": "frame",
+          "name": "content"
+        }
+      ],
+      "parent": "structure:f3-252",
+      "children": [
+        "form:f3-300"
+      ],
+      "labelledBy": [],
+      "tablePosition": null,
+      "capacity": null,
+      "confidence": 1,
+      "live": false,
+      "masked": false
+    },
+    {
+      "id": "form:f3-300",
+      "rawRole": "form",
+      "ariaRole": "form",
+      "name": "",
+      "value": null,
+      "text": "Open Sub-Account",
+      "description": null,
+      "state": {
+        "disabled": false,
+        "focused": false,
+        "visible": true,
+        "checked": null,
+        "expanded": null,
+        "selected": null,
+        "required": null,
+        "invalid": null,
+        "readonly": null
+      },
+      "bounds": {
+        "x": 537,
+        "y": 134,
+        "w": 129,
+        "h": 21,
+        "unit": "px"
+      },
+      "containerPath": [
+        {
+          "kind": "frame",
+          "name": "top"
+        },
+        {
+          "kind": "frame",
+          "name": "content"
+        }
+      ],
+      "parent": "structure:f3-299",
+      "children": [
+        "button:f3-301"
+      ],
+      "labelledBy": [],
+      "tablePosition": null,
+      "capacity": null,
+      "confidence": 1,
+      "live": false,
+      "masked": false
+    },
+    {
+      "id": "button:f3-301",
+      "rawRole": "button",
+      "ariaRole": "button",
+      "name": "Open Sub-Account",
+      "value": null,
+      "text": "Open Sub-Account",
+      "description": null,
+      "state": {
+        "disabled": false,
+        "focused": false,
+        "visible": true,
+        "checked": null,
+        "expanded": null,
+        "selected": null,
+        "required": null,
+        "invalid": false,
+        "readonly": null
+      },
+      "bounds": {
+        "x": 537,
+        "y": 134,
+        "w": 129,
+        "h": 21,
+        "unit": "px"
+      },
+      "containerPath": [
+        {
+          "kind": "frame",
+          "name": "top"
+        },
+        {
+          "kind": "frame",
+          "name": "content"
+        },
+        {
+          "kind": "landmark",
+          "role": "form",
+          "name": null
+        }
+      ],
+      "parent": "form:f3-300",
+      "children": [
+        "structure:f3-328"
+      ],
+      "labelledBy": [],
+      "tablePosition": null,
+      "capacity": null,
+      "confidence": 1,
+      "live": false,
+      "masked": false
+    },
+    {
+      "id": "structure:f3-328",
+      "rawRole": "StaticText",
+      "ariaRole": null,
+      "name": "Open Sub-Account",
+      "value": null,
+      "text": "Open Sub-Account",
+      "description": null,
+      "state": {
+        "disabled": false,
+        "focused": false,
+        "visible": true,
+        "checked": null,
+        "expanded": null,
+        "selected": null,
+        "required": null,
+        "invalid": null,
+        "readonly": null
+      },
+      "bounds": {
+        "x": 545,
+        "y": 137,
+        "w": 113,
+        "h": 15,
+        "unit": "px"
+      },
+      "containerPath": [
+        {
+          "kind": "frame",
+          "name": "top"
+        },
+        {
+          "kind": "frame",
+          "name": "content"
+        },
+        {
+          "kind": "landmark",
+          "role": "form",
+          "name": null
+        }
+      ],
+      "parent": "button:f3-301",
+      "children": [],
+      "labelledBy": [],
+      "tablePosition": null,
+      "capacity": null,
+      "confidence": 1,
+      "live": false,
+      "masked": false
+    },
+    {
+      "id": "structure:f3-302",
+      "rawRole": "LineBreak",
+      "ariaRole": null,
+      "name": "\n",
+      "value": null,
+      "text": null,
+      "description": null,
+      "state": {
+        "disabled": false,
+        "focused": false,
+        "visible": true,
+        "checked": null,
+        "expanded": null,
+        "selected": null,
+        "required": null,
+        "invalid": null,
+        "readonly": null
+      },
+      "bounds": null,
+      "containerPath": [
+        {
+          "kind": "frame",
+          "name": "top"
+        },
+        {
+          "kind": "frame",
+          "name": "content"
+        }
+      ],
+      "parent": "structure:f3-245",
+      "children": [],
+      "labelledBy": [],
+      "tablePosition": null,
+      "capacity": null,
+      "confidence": 1,
+      "live": false,
+      "masked": false
+    },
+    {
+      "id": "structure:f3-329",
+      "rawRole": "StaticText",
+      "ariaRole": null,
+      "name": "Share Accounts",
+      "value": null,
+      "text": "Share Accounts",
+      "description": null,
+      "state": {
+        "disabled": false,
+        "focused": false,
+        "visible": true,
+        "checked": null,
+        "expanded": null,
+        "selected": null,
+        "required": null,
+        "invalid": null,
+        "readonly": null
+      },
+      "bounds": {
+        "x": 189,
+        "y": 284,
+        "w": 99,
+        "h": 15,
+        "unit": "px"
+      },
+      "containerPath": [
+        {
+          "kind": "frame",
+          "name": "top"
+        },
+        {
+          "kind": "frame",
+          "name": "content"
+        }
+      ],
+      "parent": "structure:f3-245",
+      "children": [],
+      "labelledBy": [],
+      "tablePosition": null,
+      "capacity": null,
+      "confidence": 1,
+      "live": false,
+      "masked": false
+    },
+    {
+      "id": "structure:f3-305",
+      "rawRole": "LineBreak",
+      "ariaRole": null,
+      "name": "\n",
+      "value": null,
+      "text": null,
+      "description": null,
+      "state": {
+        "disabled": false,
+        "focused": false,
+        "visible": true,
+        "checked": null,
+        "expanded": null,
+        "selected": null,
+        "required": null,
+        "invalid": null,
+        "readonly": null
+      },
+      "bounds": null,
+      "containerPath": [
+        {
+          "kind": "frame",
+          "name": "top"
+        },
+        {
+          "kind": "frame",
+          "name": "content"
+        }
+      ],
+      "parent": "structure:f3-245",
+      "children": [],
+      "labelledBy": [],
+      "tablePosition": null,
+      "capacity": null,
+      "confidence": 1,
+      "live": false,
+      "masked": false
+    },
+    {
+      "id": "structure:f3-306",
+      "rawRole": "Iframe",
+      "ariaRole": null,
+      "name": "",
+      "value": null,
+      "text": null,
+      "description": null,
+      "state": {
+        "disabled": false,
+        "focused": false,
+        "visible": true,
+        "checked": null,
+        "expanded": null,
+        "selected": null,
+        "required": null,
+        "invalid": null,
+        "readonly": null
+      },
+      "bounds": null,
+      "containerPath": [
+        {
+          "kind": "frame",
+          "name": "top"
+        },
+        {
+          "kind": "frame",
+          "name": "content"
+        }
+      ],
+      "parent": "structure:f3-245",
+      "children": [
+        "structure:f4-231"
+      ],
+      "labelledBy": [],
+      "tablePosition": null,
+      "capacity": null,
+      "confidence": 1,
+      "live": false,
+      "masked": false
+    },
+    {
+      "id": "structure:f4-231",
+      "rawRole": "RootWebArea",
+      "ariaRole": null,
+      "name": "Share Accounts",
+      "value": null,
+      "text": null,
+      "description": null,
+      "state": {
+        "disabled": false,
+        "focused": false,
+        "visible": true,
+        "checked": null,
+        "expanded": null,
+        "selected": null,
+        "required": null,
+        "invalid": null,
+        "readonly": null
+      },
+      "bounds": null,
+      "containerPath": [
+        {
+          "kind": "frame",
+          "name": "top"
+        },
+        {
+          "kind": "frame",
+          "name": "content"
+        }
+      ],
+      "parent": "structure:f3-306",
+      "children": [
+        "structure:f4-330"
+      ],
+      "labelledBy": [],
+      "tablePosition": null,
+      "capacity": null,
+      "confidence": 1,
+      "live": false,
+      "masked": false
+    },
+    {
+      "id": "structure:f4-330",
+      "rawRole": "none",
+      "ariaRole": null,
+      "name": "",
+      "value": null,
+      "text": null,
+      "description": null,
+      "state": {
+        "disabled": false,
+        "focused": false,
+        "visible": false,
+        "checked": null,
+        "expanded": null,
+        "selected": null,
+        "required": null,
+        "invalid": null,
+        "readonly": null
+      },
+      "bounds": null,
+      "containerPath": [
+        {
+          "kind": "frame",
+          "name": "top"
+        },
+        {
+          "kind": "frame",
+          "name": "content"
+        },
+        {
+          "kind": "frame",
+          "name": "subacct"
+        }
+      ],
+      "parent": "structure:f4-231",
+      "children": [
+        "structure:f4-333"
+      ],
+      "labelledBy": [],
+      "tablePosition": null,
+      "capacity": null,
+      "confidence": 1,
+      "live": false,
+      "masked": false
+    },
+    {
+      "id": "structure:f4-333",
+      "rawRole": "none",
+      "ariaRole": null,
+      "name": "",
+      "value": null,
+      "text": null,
+      "description": null,
+      "state": {
+        "disabled": false,
+        "focused": false,
+        "visible": false,
+        "checked": null,
+        "expanded": null,
+        "selected": null,
+        "required": null,
+        "invalid": null,
+        "readonly": null
+      },
+      "bounds": null,
+      "containerPath": [
+        {
+          "kind": "frame",
+          "name": "top"
+        },
+        {
+          "kind": "frame",
+          "name": "content"
+        },
+        {
+          "kind": "frame",
+          "name": "subacct"
+        }
+      ],
+      "parent": "structure:f4-330",
+      "children": [
+        "structure:f4-334",
+        "table:f4-340"
+      ],
+      "labelledBy": [],
+      "tablePosition": null,
+      "capacity": null,
+      "confidence": 1,
+      "live": false,
+      "masked": false
+    },
+    {
+      "id": "structure:f4-334",
+      "rawRole": "LayoutTable",
+      "ariaRole": null,
+      "name": "",
+      "value": null,
+      "text": null,
+      "description": null,
+      "state": {
+        "disabled": false,
+        "focused": false,
+        "visible": true,
+        "checked": null,
+        "expanded": null,
+        "selected": null,
+        "required": null,
+        "invalid": null,
+        "readonly": null
+      },
+      "bounds": null,
+      "containerPath": [
+        {
+          "kind": "frame",
+          "name": "top"
+        },
+        {
+          "kind": "frame",
+          "name": "content"
+        },
+        {
+          "kind": "frame",
+          "name": "subacct"
+        }
+      ],
+      "parent": "structure:f4-333",
+      "children": [
+        "structure:f4-335"
+      ],
+      "labelledBy": [],
+      "tablePosition": null,
+      "capacity": null,
+      "confidence": 1,
+      "live": false,
+      "masked": false
+    },
+    {
+      "id": "structure:f4-335",
+      "rawRole": "none",
+      "ariaRole": null,
+      "name": "",
+      "value": null,
+      "text": null,
+      "description": null,
+      "state": {
+        "disabled": false,
+        "focused": false,
+        "visible": false,
+        "checked": null,
+        "expanded": null,
+        "selected": null,
+        "required": null,
+        "invalid": null,
+        "readonly": null
+      },
+      "bounds": null,
+      "containerPath": [
+        {
+          "kind": "frame",
+          "name": "top"
+        },
+        {
+          "kind": "frame",
+          "name": "content"
+        },
+        {
+          "kind": "frame",
+          "name": "subacct"
+        }
+      ],
+      "parent": "structure:f4-334",
+      "children": [
+        "structure:f4-336"
+      ],
+      "labelledBy": [],
+      "tablePosition": null,
+      "capacity": null,
+      "confidence": 1,
+      "live": false,
+      "masked": false
+    },
+    {
+      "id": "structure:f4-336",
+      "rawRole": "LayoutTableRow",
+      "ariaRole": null,
+      "name": "",
+      "value": null,
+      "text": null,
+      "description": null,
+      "state": {
+        "disabled": false,
+        "focused": false,
+        "visible": true,
+        "checked": null,
+        "expanded": null,
+        "selected": null,
+        "required": null,
+        "invalid": null,
+        "readonly": null
+      },
+      "bounds": null,
+      "containerPath": [
+        {
+          "kind": "frame",
+          "name": "top"
+        },
+        {
+          "kind": "frame",
+          "name": "content"
+        },
+        {
+          "kind": "frame",
+          "name": "subacct"
+        }
+      ],
+      "parent": "structure:f4-335",
+      "children": [
+        "structure:f4-337"
+      ],
+      "labelledBy": [],
+      "tablePosition": null,
+      "capacity": null,
+      "confidence": 1,
+      "live": false,
+      "masked": false
+    },
+    {
+      "id": "structure:f4-337",
+      "rawRole": "LayoutTableCell",
+      "ariaRole": null,
+      "name": "TEST FIXTURE — SYNTHETIC DATA ONLY. Not a real financial system. Every member, account, balance and branch below is invented.",
+      "value": null,
+      "text": null,
+      "description": null,
+      "state": {
+        "disabled": false,
+        "focused": false,
+        "visible": true,
+        "checked": null,
+        "expanded": null,
+        "selected": null,
+        "required": null,
+        "invalid": null,
+        "readonly": null
+      },
+      "bounds": null,
+      "containerPath": [
+        {
+          "kind": "frame",
+          "name": "top"
+        },
+        {
+          "kind": "frame",
+          "name": "content"
+        },
+        {
+          "kind": "frame",
+          "name": "subacct"
+        }
+      ],
+      "parent": "structure:f4-336",
+      "children": [
+        "structure:f4-373"
+      ],
+      "labelledBy": [],
+      "tablePosition": null,
+      "capacity": null,
+      "confidence": 1,
+      "live": false,
+      "masked": false
+    },
+    {
+      "id": "structure:f4-373",
+      "rawRole": "StaticText",
+      "ariaRole": null,
+      "name": "TEST FIXTURE — SYNTHETIC DATA ONLY. Not a real financial system. Every member, account, balance and branch below is invented.",
+      "value": null,
+      "text": "TEST FIXTURE — SYNTHETIC DATA ONLY. Not a real financial system. Every member, account, balance and branch below is invented.",
+      "description": null,
+      "state": {
+        "disabled": false,
+        "focused": false,
+        "visible": true,
+        "checked": null,
+        "expanded": null,
+        "selected": null,
+        "required": null,
+        "invalid": null,
+        "readonly": null
+      },
+      "bounds": {
+        "x": 196,
+        "y": 306,
+        "w": 592,
+        "h": 22,
+        "unit": "px"
+      },
+      "containerPath": [
+        {
+          "kind": "frame",
+          "name": "top"
+        },
+        {
+          "kind": "frame",
+          "name": "content"
+        },
+        {
+          "kind": "frame",
+          "name": "subacct"
+        }
+      ],
+      "parent": "structure:f4-337",
+      "children": [],
+      "labelledBy": [],
+      "tablePosition": null,
+      "capacity": null,
+      "confidence": 1,
+      "live": false,
+      "masked": false
+    },
+    {
+      "id": "table:f4-340",
+      "rawRole": "table",
+      "ariaRole": "table",
+      "name": "",
+      "value": null,
+      "text": "AcctShare AccountShare BalanceOpened0001Share Account - Regular900.002012-01-190002Share Account - Holiday Club15,000.002021-11-04",
+      "description": null,
+      "state": {
+        "disabled": false,
+        "focused": false,
+        "visible": true,
+        "checked": null,
+        "expanded": null,
+        "selected": null,
+        "required": null,
+        "invalid": null,
+        "readonly": null
+      },
+      "bounds": {
+        "x": 193,
+        "y": 331,
+        "w": 389,
+        "h": 71,
+        "unit": "px"
+      },
+      "containerPath": [
+        {
+          "kind": "frame",
+          "name": "top"
+        },
+        {
+          "kind": "frame",
+          "name": "content"
+        },
+        {
+          "kind": "frame",
+          "name": "subacct"
+        }
+      ],
+      "parent": "structure:f4-333",
+      "children": [
+        "structure:f4-341"
+      ],
+      "labelledBy": [],
+      "tablePosition": null,
+      "capacity": null,
+      "confidence": 1,
+      "live": false,
+      "masked": false
+    },
+    {
+      "id": "structure:f4-341",
+      "rawRole": "none",
+      "ariaRole": null,
+      "name": "",
+      "value": null,
+      "text": null,
+      "description": null,
+      "state": {
+        "disabled": false,
+        "focused": false,
+        "visible": false,
+        "checked": null,
+        "expanded": null,
+        "selected": null,
+        "required": null,
+        "invalid": null,
+        "readonly": null
+      },
+      "bounds": null,
+      "containerPath": [
+        {
+          "kind": "frame",
+          "name": "top"
+        },
+        {
+          "kind": "frame",
+          "name": "content"
+        },
+        {
+          "kind": "frame",
+          "name": "subacct"
+        },
+        {
+          "kind": "table",
+          "headers": [
+            "Acct",
+            "Share Account",
+            "Share Balance",
+            "Opened"
+          ]
+        }
+      ],
+      "parent": "table:f4-340",
+      "children": [
+        "row:f4-342",
+        "row:f4-355",
+        "row:f4-364"
+      ],
+      "labelledBy": [],
+      "tablePosition": null,
+      "capacity": null,
+      "confidence": 1,
+      "live": false,
+      "masked": false
+    },
+    {
+      "id": "row:f4-342",
+      "rawRole": "row",
+      "ariaRole": "row",
+      "name": "",
+      "value": null,
+      "text": "AcctShare AccountShare BalanceOpened",
+      "description": null,
+      "state": {
+        "disabled": false,
+        "focused": false,
+        "visible": true,
+        "checked": null,
+        "expanded": null,
+        "selected": null,
+        "required": null,
+        "invalid": null,
+        "readonly": null
+      },
+      "bounds": {
+        "x": 194,
+        "y": 332,
+        "w": 387,
+        "h": 23,
+        "unit": "px"
+      },
+      "containerPath": [
+        {
+          "kind": "frame",
+          "name": "top"
+        },
+        {
+          "kind": "frame",
+          "name": "content"
+        },
+        {
+          "kind": "frame",
+          "name": "subacct"
+        },
+        {
+          "kind": "table",
+          "headers": [
+            "Acct",
+            "Share Account",
+            "Share Balance",
+            "Opened"
+          ]
+        }
+      ],
+      "parent": "structure:f4-341",
+      "children": [
+        "cell:f4-343",
+        "cell:f4-346",
+        "cell:f4-349",
+        "cell:f4-352"
+      ],
+      "labelledBy": [],
+      "tablePosition": null,
+      "capacity": null,
+      "confidence": 1,
+      "live": false,
+      "masked": false
+    },
+    {
+      "id": "cell:f4-343",
+      "rawRole": "cell",
+      "ariaRole": "cell",
+      "name": "Acct",
+      "value": null,
+      "text": "Acct",
+      "description": null,
+      "state": {
+        "disabled": false,
+        "focused": false,
+        "visible": true,
+        "checked": null,
+        "expanded": null,
+        "selected": null,
+        "required": null,
+        "invalid": null,
+        "readonly": null
+      },
+      "bounds": {
+        "x": 194,
+        "y": 332,
+        "w": 37,
+        "h": 23,
+        "unit": "px"
+      },
+      "containerPath": [
+        {
+          "kind": "frame",
+          "name": "top"
+        },
+        {
+          "kind": "frame",
+          "name": "content"
+        },
+        {
+          "kind": "frame",
+          "name": "subacct"
+        },
+        {
+          "kind": "table",
+          "headers": [
+            "Acct",
+            "Share Account",
+            "Share Balance",
+            "Opened"
+          ]
+        }
+      ],
+      "parent": "row:f4-342",
+      "children": [
+        "structure:f4-374"
+      ],
+      "labelledBy": [],
+      "tablePosition": {
+        "rowIndex": 0,
+        "colIndex": 0,
+        "colHeader": "Acct",
+        "rowHeader": null,
+        "headerProvenance": "first-row-heuristic"
+      },
+      "capacity": null,
+      "confidence": 1,
+      "live": false,
+      "masked": false
+    },
+    {
+      "id": "structure:f4-374",
+      "rawRole": "StaticText",
+      "ariaRole": null,
+      "name": "Acct",
+      "value": null,
+      "text": "Acct",
+      "description": null,
+      "state": {
+        "disabled": false,
+        "focused": false,
+        "visible": true,
+        "checked": null,
+        "expanded": null,
+        "selected": null,
+        "required": null,
+        "invalid": null,
+        "readonly": null
+      },
+      "bounds": {
+        "x": 198,
+        "y": 336,
+        "w": 28,
+        "h": 15,
+        "unit": "px"
+      },
+      "containerPath": [
+        {
+          "kind": "frame",
+          "name": "top"
+        },
+        {
+          "kind": "frame",
+          "name": "content"
+        },
+        {
+          "kind": "frame",
+          "name": "subacct"
+        },
+        {
+          "kind": "table",
+          "headers": [
+            "Acct",
+            "Share Account",
+            "Share Balance",
+            "Opened"
+          ]
+        }
+      ],
+      "parent": "cell:f4-343",
+      "children": [],
+      "labelledBy": [],
+      "tablePosition": null,
+      "capacity": null,
+      "confidence": 1,
+      "live": false,
+      "masked": false
+    },
+    {
+      "id": "cell:f4-346",
+      "rawRole": "cell",
+      "ariaRole": "cell",
+      "name": "Share Account",
+      "value": null,
+      "text": "Share Account",
+      "description": null,
+      "state": {
+        "disabled": false,
+        "focused": false,
+        "visible": true,
+        "checked": null,
+        "expanded": null,
+        "selected": null,
+        "required": null,
+        "invalid": null,
+        "readonly": null
+      },
+      "bounds": {
+        "x": 231,
+        "y": 332,
+        "w": 178,
+        "h": 23,
+        "unit": "px"
+      },
+      "containerPath": [
+        {
+          "kind": "frame",
+          "name": "top"
+        },
+        {
+          "kind": "frame",
+          "name": "content"
+        },
+        {
+          "kind": "frame",
+          "name": "subacct"
+        },
+        {
+          "kind": "table",
+          "headers": [
+            "Acct",
+            "Share Account",
+            "Share Balance",
+            "Opened"
+          ]
+        }
+      ],
+      "parent": "row:f4-342",
+      "children": [
+        "structure:f4-375"
+      ],
+      "labelledBy": [],
+      "tablePosition": {
+        "rowIndex": 0,
+        "colIndex": 1,
+        "colHeader": "Share Account",
+        "rowHeader": null,
+        "headerProvenance": "first-row-heuristic"
+      },
+      "capacity": null,
+      "confidence": 1,
+      "live": false,
+      "masked": false
+    },
+    {
+      "id": "structure:f4-375",
+      "rawRole": "StaticText",
+      "ariaRole": null,
+      "name": "Share Account",
+      "value": null,
+      "text": "Share Account",
+      "description": null,
+      "state": {
+        "disabled": false,
+        "focused": false,
+        "visible": true,
+        "checked": null,
+        "expanded": null,
+        "selected": null,
+        "required": null,
+        "invalid": null,
+        "readonly": null
+      },
+      "bounds": {
+        "x": 235,
+        "y": 336,
+        "w": 91,
+        "h": 15,
+        "unit": "px"
+      },
+      "containerPath": [
+        {
+          "kind": "frame",
+          "name": "top"
+        },
+        {
+          "kind": "frame",
+          "name": "content"
+        },
+        {
+          "kind": "frame",
+          "name": "subacct"
+        },
+        {
+          "kind": "table",
+          "headers": [
+            "Acct",
+            "Share Account",
+            "Share Balance",
+            "Opened"
+          ]
+        }
+      ],
+      "parent": "cell:f4-346",
+      "children": [],
+      "labelledBy": [],
+      "tablePosition": null,
+      "capacity": null,
+      "confidence": 1,
+      "live": false,
+      "masked": false
+    },
+    {
+      "id": "cell:f4-349",
+      "rawRole": "cell",
+      "ariaRole": "cell",
+      "name": "Share Balance",
+      "value": null,
+      "text": "Share Balance",
+      "description": null,
+      "state": {
+        "disabled": false,
+        "focused": false,
+        "visible": true,
+        "checked": null,
+        "expanded": null,
+        "selected": null,
+        "required": null,
+        "invalid": null,
+        "readonly": null
+      },
+      "bounds": {
+        "x": 409,
+        "y": 332,
+        "w": 98,
+        "h": 23,
+        "unit": "px"
+      },
+      "containerPath": [
+        {
+          "kind": "frame",
+          "name": "top"
+        },
+        {
+          "kind": "frame",
+          "name": "content"
+        },
+        {
+          "kind": "frame",
+          "name": "subacct"
+        },
+        {
+          "kind": "table",
+          "headers": [
+            "Acct",
+            "Share Account",
+            "Share Balance",
+            "Opened"
+          ]
+        }
+      ],
+      "parent": "row:f4-342",
+      "children": [
+        "structure:f4-376"
+      ],
+      "labelledBy": [],
+      "tablePosition": {
+        "rowIndex": 0,
+        "colIndex": 2,
+        "colHeader": "Share Balance",
+        "rowHeader": null,
+        "headerProvenance": "first-row-heuristic"
+      },
+      "capacity": null,
+      "confidence": 1,
+      "live": false,
+      "masked": false
+    },
+    {
+      "id": "structure:f4-376",
+      "rawRole": "StaticText",
+      "ariaRole": null,
+      "name": "Share Balance",
+      "value": null,
+      "text": "Share Balance",
+      "description": null,
+      "state": {
+        "disabled": false,
+        "focused": false,
+        "visible": true,
+        "checked": null,
+        "expanded": null,
+        "selected": null,
+        "required": null,
+        "invalid": null,
+        "readonly": null
+      },
+      "bounds": {
+        "x": 413,
+        "y": 336,
+        "w": 90,
+        "h": 15,
+        "unit": "px"
+      },
+      "containerPath": [
+        {
+          "kind": "frame",
+          "name": "top"
+        },
+        {
+          "kind": "frame",
+          "name": "content"
+        },
+        {
+          "kind": "frame",
+          "name": "subacct"
+        },
+        {
+          "kind": "table",
+          "headers": [
+            "Acct",
+            "Share Account",
+            "Share Balance",
+            "Opened"
+          ]
+        }
+      ],
+      "parent": "cell:f4-349",
+      "children": [],
+      "labelledBy": [],
+      "tablePosition": null,
+      "capacity": null,
+      "confidence": 1,
+      "live": false,
+      "masked": false
+    },
+    {
+      "id": "cell:f4-352",
+      "rawRole": "cell",
+      "ariaRole": "cell",
+      "name": "Opened",
+      "value": null,
+      "text": "Opened",
+      "description": null,
+      "state": {
+        "disabled": false,
+        "focused": false,
+        "visible": true,
+        "checked": null,
+        "expanded": null,
+        "selected": null,
+        "required": null,
+        "invalid": null,
+        "readonly": null
+      },
+      "bounds": {
+        "x": 506,
+        "y": 332,
+        "w": 75,
+        "h": 23,
+        "unit": "px"
+      },
+      "containerPath": [
+        {
+          "kind": "frame",
+          "name": "top"
+        },
+        {
+          "kind": "frame",
+          "name": "content"
+        },
+        {
+          "kind": "frame",
+          "name": "subacct"
+        },
+        {
+          "kind": "table",
+          "headers": [
+            "Acct",
+            "Share Account",
+            "Share Balance",
+            "Opened"
+          ]
+        }
+      ],
+      "parent": "row:f4-342",
+      "children": [
+        "structure:f4-377"
+      ],
+      "labelledBy": [],
+      "tablePosition": {
+        "rowIndex": 0,
+        "colIndex": 3,
+        "colHeader": "Opened",
+        "rowHeader": null,
+        "headerProvenance": "first-row-heuristic"
+      },
+      "capacity": null,
+      "confidence": 1,
+      "live": false,
+      "masked": false
+    },
+    {
+      "id": "structure:f4-377",
+      "rawRole": "StaticText",
+      "ariaRole": null,
+      "name": "Opened",
+      "value": null,
+      "text": "Opened",
+      "description": null,
+      "state": {
+        "disabled": false,
+        "focused": false,
+        "visible": true,
+        "checked": null,
+        "expanded": null,
+        "selected": null,
+        "required": null,
+        "invalid": null,
+        "readonly": null
+      },
+      "bounds": {
+        "x": 510,
+        "y": 336,
+        "w": 48,
+        "h": 15,
+        "unit": "px"
+      },
+      "containerPath": [
+        {
+          "kind": "frame",
+          "name": "top"
+        },
+        {
+          "kind": "frame",
+          "name": "content"
+        },
+        {
+          "kind": "frame",
+          "name": "subacct"
+        },
+        {
+          "kind": "table",
+          "headers": [
+            "Acct",
+            "Share Account",
+            "Share Balance",
+            "Opened"
+          ]
+        }
+      ],
+      "parent": "cell:f4-352",
+      "children": [],
+      "labelledBy": [],
+      "tablePosition": null,
+      "capacity": null,
+      "confidence": 1,
+      "live": false,
+      "masked": false
+    },
+    {
+      "id": "row:f4-355",
+      "rawRole": "row",
+      "ariaRole": "row",
+      "name": "",
+      "value": null,
+      "text": "0001Share Account - Regular900.002012-01-19",
+      "description": null,
+      "state": {
+        "disabled": false,
+        "focused": false,
+        "visible": true,
+        "checked": null,
+        "expanded": null,
+        "selected": null,
+        "required": null,
+        "invalid": null,
+        "readonly": null
+      },
+      "bounds": {
+        "x": 194,
+        "y": 355,
+        "w": 387,
+        "h": 23,
+        "unit": "px"
+      },
+      "containerPath": [
+        {
+          "kind": "frame",
+          "name": "top"
+        },
+        {
+          "kind": "frame",
+          "name": "content"
+        },
+        {
+          "kind": "frame",
+          "name": "subacct"
+        },
+        {
+          "kind": "table",
+          "headers": [
+            "Acct",
+            "Share Account",
+            "Share Balance",
+            "Opened"
+          ]
+        }
+      ],
+      "parent": "structure:f4-341",
+      "children": [
+        "cell:f4-356",
+        "cell:f4-358",
+        "cell:f4-360",
+        "cell:f4-362"
+      ],
+      "labelledBy": [],
+      "tablePosition": null,
+      "capacity": null,
+      "confidence": 1,
+      "live": false,
+      "masked": false
+    },
+    {
+      "id": "cell:f4-356",
+      "rawRole": "cell",
+      "ariaRole": "cell",
+      "name": "0001",
+      "value": null,
+      "text": "0001",
+      "description": null,
+      "state": {
+        "disabled": false,
+        "focused": false,
+        "visible": true,
+        "checked": null,
+        "expanded": null,
+        "selected": null,
+        "required": null,
+        "invalid": null,
+        "readonly": null
+      },
+      "bounds": {
+        "x": 194,
+        "y": 355,
+        "w": 37,
+        "h": 23,
+        "unit": "px"
+      },
+      "containerPath": [
+        {
+          "kind": "frame",
+          "name": "top"
+        },
+        {
+          "kind": "frame",
+          "name": "content"
+        },
+        {
+          "kind": "frame",
+          "name": "subacct"
+        },
+        {
+          "kind": "table",
+          "headers": [
+            "Acct",
+            "Share Account",
+            "Share Balance",
+            "Opened"
+          ]
+        }
+      ],
+      "parent": "row:f4-355",
+      "children": [
+        "structure:f4-378"
+      ],
+      "labelledBy": [],
+      "tablePosition": {
+        "rowIndex": 1,
+        "colIndex": 0,
+        "colHeader": "Acct",
+        "rowHeader": null,
+        "headerProvenance": "first-row-heuristic"
+      },
+      "capacity": null,
+      "confidence": 1,
+      "live": false,
+      "masked": false
+    },
+    {
+      "id": "structure:f4-378",
+      "rawRole": "StaticText",
+      "ariaRole": null,
+      "name": "0001",
+      "value": null,
+      "text": "0001",
+      "description": null,
+      "state": {
+        "disabled": false,
+        "focused": false,
+        "visible": true,
+        "checked": null,
+        "expanded": null,
+        "selected": null,
+        "required": null,
+        "invalid": null,
+        "readonly": null
+      },
+      "bounds": {
+        "x": 198,
+        "y": 359,
+        "w": 29,
+        "h": 15,
+        "unit": "px"
+      },
+      "containerPath": [
+        {
+          "kind": "frame",
+          "name": "top"
+        },
+        {
+          "kind": "frame",
+          "name": "content"
+        },
+        {
+          "kind": "frame",
+          "name": "subacct"
+        },
+        {
+          "kind": "table",
+          "headers": [
+            "Acct",
+            "Share Account",
+            "Share Balance",
+            "Opened"
+          ]
+        }
+      ],
+      "parent": "cell:f4-356",
+      "children": [],
+      "labelledBy": [],
+      "tablePosition": null,
+      "capacity": null,
+      "confidence": 1,
+      "live": false,
+      "masked": false
+    },
+    {
+      "id": "cell:f4-358",
+      "rawRole": "cell",
+      "ariaRole": "cell",
+      "name": "Share Account - Regular",
+      "value": null,
+      "text": "Share Account - Regular",
+      "description": null,
+      "state": {
+        "disabled": false,
+        "focused": false,
+        "visible": true,
+        "checked": null,
+        "expanded": null,
+        "selected": null,
+        "required": null,
+        "invalid": null,
+        "readonly": null
+      },
+      "bounds": {
+        "x": 231,
+        "y": 355,
+        "w": 178,
+        "h": 23,
+        "unit": "px"
+      },
+      "containerPath": [
+        {
+          "kind": "frame",
+          "name": "top"
+        },
+        {
+          "kind": "frame",
+          "name": "content"
+        },
+        {
+          "kind": "frame",
+          "name": "subacct"
+        },
+        {
+          "kind": "table",
+          "headers": [
+            "Acct",
+            "Share Account",
+            "Share Balance",
+            "Opened"
+          ]
+        }
+      ],
+      "parent": "row:f4-355",
+      "children": [
+        "structure:f4-379"
+      ],
+      "labelledBy": [],
+      "tablePosition": {
+        "rowIndex": 1,
+        "colIndex": 1,
+        "colHeader": "Share Account",
+        "rowHeader": null,
+        "headerProvenance": "first-row-heuristic"
+      },
+      "capacity": null,
+      "confidence": 1,
+      "live": false,
+      "masked": false
+    },
+    {
+      "id": "structure:f4-379",
+      "rawRole": "StaticText",
+      "ariaRole": null,
+      "name": "Share Account - Regular",
+      "value": null,
+      "text": "Share Account - Regular",
+      "description": null,
+      "state": {
+        "disabled": false,
+        "focused": false,
+        "visible": true,
+        "checked": null,
+        "expanded": null,
+        "selected": null,
+        "required": null,
+        "invalid": null,
+        "readonly": null
+      },
+      "bounds": {
+        "x": 235,
+        "y": 359,
+        "w": 142,
+        "h": 15,
+        "unit": "px"
+      },
+      "containerPath": [
+        {
+          "kind": "frame",
+          "name": "top"
+        },
+        {
+          "kind": "frame",
+          "name": "content"
+        },
+        {
+          "kind": "frame",
+          "name": "subacct"
+        },
+        {
+          "kind": "table",
+          "headers": [
+            "Acct",
+            "Share Account",
+            "Share Balance",
+            "Opened"
+          ]
+        }
+      ],
+      "parent": "cell:f4-358",
+      "children": [],
+      "labelledBy": [],
+      "tablePosition": null,
+      "capacity": null,
+      "confidence": 1,
+      "live": false,
+      "masked": false
+    },
+    {
+      "id": "cell:f4-360",
+      "rawRole": "cell",
+      "ariaRole": "cell",
+      "name": "900.00",
+      "value": null,
+      "text": "900.00",
+      "description": null,
+      "state": {
+        "disabled": false,
+        "focused": false,
+        "visible": true,
+        "checked": null,
+        "expanded": null,
+        "selected": null,
+        "required": null,
+        "invalid": null,
+        "readonly": null
+      },
+      "bounds": {
+        "x": 409,
+        "y": 355,
+        "w": 98,
+        "h": 23,
+        "unit": "px"
+      },
+      "containerPath": [
+        {
+          "kind": "frame",
+          "name": "top"
+        },
+        {
+          "kind": "frame",
+          "name": "content"
+        },
+        {
+          "kind": "frame",
+          "name": "subacct"
+        },
+        {
+          "kind": "table",
+          "headers": [
+            "Acct",
+            "Share Account",
+            "Share Balance",
+            "Opened"
+          ]
+        }
+      ],
+      "parent": "row:f4-355",
+      "children": [
+        "structure:f4-380"
+      ],
+      "labelledBy": [],
+      "tablePosition": {
+        "rowIndex": 1,
+        "colIndex": 2,
+        "colHeader": "Share Balance",
+        "rowHeader": null,
+        "headerProvenance": "first-row-heuristic"
+      },
+      "capacity": null,
+      "confidence": 1,
+      "live": false,
+      "masked": false
+    },
+    {
+      "id": "structure:f4-380",
+      "rawRole": "StaticText",
+      "ariaRole": null,
+      "name": "900.00",
+      "value": null,
+      "text": "900.00",
+      "description": null,
+      "state": {
+        "disabled": false,
+        "focused": false,
+        "visible": true,
+        "checked": null,
+        "expanded": null,
+        "selected": null,
+        "required": null,
+        "invalid": null,
+        "readonly": null
+      },
+      "bounds": {
+        "x": 463,
+        "y": 359,
+        "w": 40,
+        "h": 15,
+        "unit": "px"
+      },
+      "containerPath": [
+        {
+          "kind": "frame",
+          "name": "top"
+        },
+        {
+          "kind": "frame",
+          "name": "content"
+        },
+        {
+          "kind": "frame",
+          "name": "subacct"
+        },
+        {
+          "kind": "table",
+          "headers": [
+            "Acct",
+            "Share Account",
+            "Share Balance",
+            "Opened"
+          ]
+        }
+      ],
+      "parent": "cell:f4-360",
+      "children": [],
+      "labelledBy": [],
+      "tablePosition": null,
+      "capacity": null,
+      "confidence": 1,
+      "live": false,
+      "masked": false
+    },
+    {
+      "id": "cell:f4-362",
+      "rawRole": "cell",
+      "ariaRole": "cell",
+      "name": "2012-01-19",
+      "value": null,
+      "text": "2012-01-19",
+      "description": null,
+      "state": {
+        "disabled": false,
+        "focused": false,
+        "visible": true,
+        "checked": null,
+        "expanded": null,
+        "selected": null,
+        "required": null,
+        "invalid": null,
+        "readonly": null
+      },
+      "bounds": {
+        "x": 506,
+        "y": 355,
+        "w": 75,
+        "h": 23,
+        "unit": "px"
+      },
+      "containerPath": [
+        {
+          "kind": "frame",
+          "name": "top"
+        },
+        {
+          "kind": "frame",
+          "name": "content"
+        },
+        {
+          "kind": "frame",
+          "name": "subacct"
+        },
+        {
+          "kind": "table",
+          "headers": [
+            "Acct",
+            "Share Account",
+            "Share Balance",
+            "Opened"
+          ]
+        }
+      ],
+      "parent": "row:f4-355",
+      "children": [
+        "structure:f4-381"
+      ],
+      "labelledBy": [],
+      "tablePosition": {
+        "rowIndex": 1,
+        "colIndex": 3,
+        "colHeader": "Opened",
+        "rowHeader": null,
+        "headerProvenance": "first-row-heuristic"
+      },
+      "capacity": null,
+      "confidence": 1,
+      "live": false,
+      "masked": false
+    },
+    {
+      "id": "structure:f4-381",
+      "rawRole": "StaticText",
+      "ariaRole": null,
+      "name": "2012-01-19",
+      "value": null,
+      "text": "2012-01-19",
+      "description": null,
+      "state": {
+        "disabled": false,
+        "focused": false,
+        "visible": true,
+        "checked": null,
+        "expanded": null,
+        "selected": null,
+        "required": null,
+        "invalid": null,
+        "readonly": null
+      },
+      "bounds": {
+        "x": 510,
+        "y": 359,
+        "w": 67,
+        "h": 15,
+        "unit": "px"
+      },
+      "containerPath": [
+        {
+          "kind": "frame",
+          "name": "top"
+        },
+        {
+          "kind": "frame",
+          "name": "content"
+        },
+        {
+          "kind": "frame",
+          "name": "subacct"
+        },
+        {
+          "kind": "table",
+          "headers": [
+            "Acct",
+            "Share Account",
+            "Share Balance",
+            "Opened"
+          ]
+        }
+      ],
+      "parent": "cell:f4-362",
+      "children": [],
+      "labelledBy": [],
+      "tablePosition": null,
+      "capacity": null,
+      "confidence": 1,
+      "live": false,
+      "masked": false
+    },
+    {
+      "id": "row:f4-364",
+      "rawRole": "row",
+      "ariaRole": "row",
+      "name": "",
+      "value": null,
+      "text": "0002Share Account - Holiday Club15,000.002021-11-04",
+      "description": null,
+      "state": {
+        "disabled": false,
+        "focused": false,
+        "visible": true,
+        "checked": null,
+        "expanded": null,
+        "selected": null,
+        "required": null,
+        "invalid": null,
+        "readonly": null
+      },
+      "bounds": {
+        "x": 194,
+        "y": 378,
+        "w": 387,
+        "h": 23,
+        "unit": "px"
+      },
+      "containerPath": [
+        {
+          "kind": "frame",
+          "name": "top"
+        },
+        {
+          "kind": "frame",
+          "name": "content"
+        },
+        {
+          "kind": "frame",
+          "name": "subacct"
+        },
+        {
+          "kind": "table",
+          "headers": [
+            "Acct",
+            "Share Account",
+            "Share Balance",
+            "Opened"
+          ]
+        }
+      ],
+      "parent": "structure:f4-341",
+      "children": [
+        "cell:f4-365",
+        "cell:f4-367",
+        "cell:f4-369",
+        "cell:f4-371"
+      ],
+      "labelledBy": [],
+      "tablePosition": null,
+      "capacity": null,
+      "confidence": 1,
+      "live": false,
+      "masked": false
+    },
+    {
+      "id": "cell:f4-365",
+      "rawRole": "cell",
+      "ariaRole": "cell",
+      "name": "0002",
+      "value": null,
+      "text": "0002",
+      "description": null,
+      "state": {
+        "disabled": false,
+        "focused": false,
+        "visible": true,
+        "checked": null,
+        "expanded": null,
+        "selected": null,
+        "required": null,
+        "invalid": null,
+        "readonly": null
+      },
+      "bounds": {
+        "x": 194,
+        "y": 378,
+        "w": 37,
+        "h": 23,
+        "unit": "px"
+      },
+      "containerPath": [
+        {
+          "kind": "frame",
+          "name": "top"
+        },
+        {
+          "kind": "frame",
+          "name": "content"
+        },
+        {
+          "kind": "frame",
+          "name": "subacct"
+        },
+        {
+          "kind": "table",
+          "headers": [
+            "Acct",
+            "Share Account",
+            "Share Balance",
+            "Opened"
+          ]
+        }
+      ],
+      "parent": "row:f4-364",
+      "children": [
+        "structure:f4-382"
+      ],
+      "labelledBy": [],
+      "tablePosition": {
+        "rowIndex": 2,
+        "colIndex": 0,
+        "colHeader": "Acct",
+        "rowHeader": null,
+        "headerProvenance": "first-row-heuristic"
+      },
+      "capacity": null,
+      "confidence": 1,
+      "live": false,
+      "masked": false
+    },
+    {
+      "id": "structure:f4-382",
+      "rawRole": "StaticText",
+      "ariaRole": null,
+      "name": "0002",
+      "value": null,
+      "text": "0002",
+      "description": null,
+      "state": {
+        "disabled": false,
+        "focused": false,
+        "visible": true,
+        "checked": null,
+        "expanded": null,
+        "selected": null,
+        "required": null,
+        "invalid": null,
+        "readonly": null
+      },
+      "bounds": {
+        "x": 198,
+        "y": 382,
+        "w": 29,
+        "h": 15,
+        "unit": "px"
+      },
+      "containerPath": [
+        {
+          "kind": "frame",
+          "name": "top"
+        },
+        {
+          "kind": "frame",
+          "name": "content"
+        },
+        {
+          "kind": "frame",
+          "name": "subacct"
+        },
+        {
+          "kind": "table",
+          "headers": [
+            "Acct",
+            "Share Account",
+            "Share Balance",
+            "Opened"
+          ]
+        }
+      ],
+      "parent": "cell:f4-365",
+      "children": [],
+      "labelledBy": [],
+      "tablePosition": null,
+      "capacity": null,
+      "confidence": 1,
+      "live": false,
+      "masked": false
+    },
+    {
+      "id": "cell:f4-367",
+      "rawRole": "cell",
+      "ariaRole": "cell",
+      "name": "Share Account - Holiday Club",
+      "value": null,
+      "text": "Share Account - Holiday Club",
+      "description": null,
+      "state": {
+        "disabled": false,
+        "focused": false,
+        "visible": true,
+        "checked": null,
+        "expanded": null,
+        "selected": null,
+        "required": null,
+        "invalid": null,
+        "readonly": null
+      },
+      "bounds": {
+        "x": 231,
+        "y": 378,
+        "w": 178,
+        "h": 23,
+        "unit": "px"
+      },
+      "containerPath": [
+        {
+          "kind": "frame",
+          "name": "top"
+        },
+        {
+          "kind": "frame",
+          "name": "content"
+        },
+        {
+          "kind": "frame",
+          "name": "subacct"
+        },
+        {
+          "kind": "table",
+          "headers": [
+            "Acct",
+            "Share Account",
+            "Share Balance",
+            "Opened"
+          ]
+        }
+      ],
+      "parent": "row:f4-364",
+      "children": [
+        "structure:f4-383"
+      ],
+      "labelledBy": [],
+      "tablePosition": {
+        "rowIndex": 2,
+        "colIndex": 1,
+        "colHeader": "Share Account",
+        "rowHeader": null,
+        "headerProvenance": "first-row-heuristic"
+      },
+      "capacity": null,
+      "confidence": 1,
+      "live": false,
+      "masked": false
+    },
+    {
+      "id": "structure:f4-383",
+      "rawRole": "StaticText",
+      "ariaRole": null,
+      "name": "Share Account - Holiday Club",
+      "value": null,
+      "text": "Share Account - Holiday Club",
+      "description": null,
+      "state": {
+        "disabled": false,
+        "focused": false,
+        "visible": true,
+        "checked": null,
+        "expanded": null,
+        "selected": null,
+        "required": null,
+        "invalid": null,
+        "readonly": null
+      },
+      "bounds": {
+        "x": 235,
+        "y": 382,
+        "w": 170,
+        "h": 15,
+        "unit": "px"
+      },
+      "containerPath": [
+        {
+          "kind": "frame",
+          "name": "top"
+        },
+        {
+          "kind": "frame",
+          "name": "content"
+        },
+        {
+          "kind": "frame",
+          "name": "subacct"
+        },
+        {
+          "kind": "table",
+          "headers": [
+            "Acct",
+            "Share Account",
+            "Share Balance",
+            "Opened"
+          ]
+        }
+      ],
+      "parent": "cell:f4-367",
+      "children": [],
+      "labelledBy": [],
+      "tablePosition": null,
+      "capacity": null,
+      "confidence": 1,
+      "live": false,
+      "masked": false
+    },
+    {
+      "id": "cell:f4-369",
+      "rawRole": "cell",
+      "ariaRole": "cell",
+      "name": "15,000.00",
+      "value": null,
+      "text": "15,000.00",
+      "description": null,
+      "state": {
+        "disabled": false,
+        "focused": false,
+        "visible": true,
+        "checked": null,
+        "expanded": null,
+        "selected": null,
+        "required": null,
+        "invalid": null,
+        "readonly": null
+      },
+      "bounds": {
+        "x": 409,
+        "y": 378,
+        "w": 98,
+        "h": 23,
+        "unit": "px"
+      },
+      "containerPath": [
+        {
+          "kind": "frame",
+          "name": "top"
+        },
+        {
+          "kind": "frame",
+          "name": "content"
+        },
+        {
+          "kind": "frame",
+          "name": "subacct"
+        },
+        {
+          "kind": "table",
+          "headers": [
+            "Acct",
+            "Share Account",
+            "Share Balance",
+            "Opened"
+          ]
+        }
+      ],
+      "parent": "row:f4-364",
+      "children": [
+        "structure:f4-384"
+      ],
+      "labelledBy": [],
+      "tablePosition": {
+        "rowIndex": 2,
+        "colIndex": 2,
+        "colHeader": "Share Balance",
+        "rowHeader": null,
+        "headerProvenance": "first-row-heuristic"
+      },
+      "capacity": null,
+      "confidence": 1,
+      "live": false,
+      "masked": false
+    },
+    {
+      "id": "structure:f4-384",
+      "rawRole": "StaticText",
+      "ariaRole": null,
+      "name": "15,000.00",
+      "value": null,
+      "text": "15,000.00",
+      "description": null,
+      "state": {
+        "disabled": false,
+        "focused": false,
+        "visible": true,
+        "checked": null,
+        "expanded": null,
+        "selected": null,
+        "required": null,
+        "invalid": null,
+        "readonly": null
+      },
+      "bounds": {
+        "x": 445,
+        "y": 382,
+        "w": 58,
+        "h": 15,
+        "unit": "px"
+      },
+      "containerPath": [
+        {
+          "kind": "frame",
+          "name": "top"
+        },
+        {
+          "kind": "frame",
+          "name": "content"
+        },
+        {
+          "kind": "frame",
+          "name": "subacct"
+        },
+        {
+          "kind": "table",
+          "headers": [
+            "Acct",
+            "Share Account",
+            "Share Balance",
+            "Opened"
+          ]
+        }
+      ],
+      "parent": "cell:f4-369",
+      "children": [],
+      "labelledBy": [],
+      "tablePosition": null,
+      "capacity": null,
+      "confidence": 1,
+      "live": false,
+      "masked": false
+    },
+    {
+      "id": "cell:f4-371",
+      "rawRole": "cell",
+      "ariaRole": "cell",
+      "name": "2021-11-04",
+      "value": null,
+      "text": "2021-11-04",
+      "description": null,
+      "state": {
+        "disabled": false,
+        "focused": false,
+        "visible": true,
+        "checked": null,
+        "expanded": null,
+        "selected": null,
+        "required": null,
+        "invalid": null,
+        "readonly": null
+      },
+      "bounds": {
+        "x": 506,
+        "y": 378,
+        "w": 75,
+        "h": 23,
+        "unit": "px"
+      },
+      "containerPath": [
+        {
+          "kind": "frame",
+          "name": "top"
+        },
+        {
+          "kind": "frame",
+          "name": "content"
+        },
+        {
+          "kind": "frame",
+          "name": "subacct"
+        },
+        {
+          "kind": "table",
+          "headers": [
+            "Acct",
+            "Share Account",
+            "Share Balance",
+            "Opened"
+          ]
+        }
+      ],
+      "parent": "row:f4-364",
+      "children": [
+        "structure:f4-385"
+      ],
+      "labelledBy": [],
+      "tablePosition": {
+        "rowIndex": 2,
+        "colIndex": 3,
+        "colHeader": "Opened",
+        "rowHeader": null,
+        "headerProvenance": "first-row-heuristic"
+      },
+      "capacity": null,
+      "confidence": 1,
+      "live": false,
+      "masked": false
+    },
+    {
+      "id": "structure:f4-385",
+      "rawRole": "StaticText",
+      "ariaRole": null,
+      "name": "2021-11-04",
+      "value": null,
+      "text": "2021-11-04",
+      "description": null,
+      "state": {
+        "disabled": false,
+        "focused": false,
+        "visible": true,
+        "checked": null,
+        "expanded": null,
+        "selected": null,
+        "required": null,
+        "invalid": null,
+        "readonly": null
+      },
+      "bounds": {
+        "x": 510,
+        "y": 382,
+        "w": 66,
+        "h": 15,
+        "unit": "px"
+      },
+      "containerPath": [
+        {
+          "kind": "frame",
+          "name": "top"
+        },
+        {
+          "kind": "frame",
+          "name": "content"
+        },
+        {
+          "kind": "frame",
+          "name": "subacct"
+        },
+        {
+          "kind": "table",
+          "headers": [
+            "Acct",
+            "Share Account",
+            "Share Balance",
+            "Opened"
+          ]
+        }
+      ],
+      "parent": "cell:f4-371",
+      "children": [],
+      "labelledBy": [],
+      "tablePosition": null,
+      "capacity": null,
+      "confidence": 1,
+      "live": false,
+      "masked": false
+    }
+  ],
+  "roots": [
+    "structure:f0-1"
+  ],
+  "skeletonDigest": "sha256:a334d7ea61cb27cac5c4b1fa4d5edefbabac6d376fbc7c328a95917db42877df",
+  "stability": {
+    "settled": true,
+    "generation": 6,
+    "pendingReason": null
+  },
+  "nativeDialog": null,
+  "inputIntercepted": false
+}

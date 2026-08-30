@@ -1,0 +1,516 @@
+[
+  {
+    "seq": 0,
+    "runId": "run-2fd61d75-892a-444b-a453-65d9d240b63b",
+    "at": "2026-08-30T01:28:58.010Z",
+    "type": "run.started",
+    "mode": "replay",
+    "capability": "corebank.member.read_share_position",
+    "artifactDigest": "sha256:7cde611ddc91bacab30c69a0731676d275b6f4cfe1a771a2480fc8765a6444cf",
+    "effectiveDigest": "sha256:7cde611ddc91bacab30c69a0731676d275b6f4cfe1a771a2480fc8765a6444cf",
+    "tenantId": "riverbend",
+    "argsShape": {
+      "memberId": "digits(5)"
+    }
+  },
+  {
+    "seq": 1,
+    "runId": "run-2fd61d75-892a-444b-a453-65d9d240b63b",
+    "at": "2026-08-30T01:28:58.029Z",
+    "type": "link.completed",
+    "checksRun": 29,
+    "errors": []
+  },
+  {
+    "seq": 2,
+    "runId": "run-2fd61d75-892a-444b-a453-65d9d240b63b",
+    "at": "2026-08-30T01:28:58.029Z",
+    "type": "session.opened",
+    "sessionId": "static-session",
+    "sessionProfile": "corebank-teller"
+  },
+  {
+    "seq": 3,
+    "runId": "run-2fd61d75-892a-444b-a453-65d9d240b63b",
+    "at": "2026-08-30T01:28:58.030Z",
+    "type": "lease.acquired",
+    "holder": "automation",
+    "actorId": "run:run-2fd61d75-892a-444b-a453-65d9d240b63b",
+    "epoch": 1
+  },
+  {
+    "seq": 4,
+    "runId": "run-2fd61d75-892a-444b-a453-65d9d240b63b",
+    "at": "2026-08-30T01:28:58.030Z",
+    "type": "step.entered",
+    "stepId": "fill-fill",
+    "index": 0,
+    "attempt": 1,
+    "effect": "WRITE_REVERSIBLE"
+  },
+  {
+    "seq": 5,
+    "runId": "run-2fd61d75-892a-444b-a453-65d9d240b63b",
+    "at": "2026-08-30T01:28:58.030Z",
+    "type": "budget.charged",
+    "ledger": "observations",
+    "used": 1,
+    "limit": 48
+  },
+  {
+    "seq": 6,
+    "runId": "run-2fd61d75-892a-444b-a453-65d9d240b63b",
+    "at": "2026-08-30T01:28:58.042Z",
+    "type": "observed",
+    "stepId": "fill-fill",
+    "obsSeq": 0,
+    "skeletonDigest": "sha256:77133a7a47cabfb23d8a04fdd48bd97dff3e5670d891b221c3db0bf8275c79c4",
+    "settled": true,
+    "nodeCount": 99,
+    "observationRef": null
+  },
+  {
+    "seq": 7,
+    "runId": "run-2fd61d75-892a-444b-a453-65d9d240b63b",
+    "at": "2026-08-30T01:28:58.043Z",
+    "type": "classified",
+    "stepId": "fill-fill",
+    "phase": "pre",
+    "verdict": {
+      "kind": "advance",
+      "outputs": []
+    },
+    "alsoMatched": []
+  },
+  {
+    "seq": 8,
+    "runId": "run-2fd61d75-892a-444b-a453-65d9d240b63b",
+    "at": "2026-08-30T01:28:58.044Z",
+    "type": "resolved",
+    "stepId": "fill-fill",
+    "descriptors": [
+      {
+        "id": "label-anchored",
+        "kind": "label-anchored",
+        "evidenceSource": "labelText",
+        "verdict": "resolved",
+        "nodeId": "textbox:f3-109"
+      },
+      {
+        "id": "ordinal-in-container",
+        "kind": "ordinal-in-container",
+        "evidenceSource": "ordinal",
+        "verdict": "resolved",
+        "nodeId": "textbox:f3-109"
+      }
+    ],
+    "agreed": true,
+    "distinctSources": 2
+  },
+  {
+    "seq": 9,
+    "runId": "run-2fd61d75-892a-444b-a453-65d9d240b63b",
+    "at": "2026-08-30T01:28:58.045Z",
+    "type": "policy.decided",
+    "decision": {
+      "allow": true,
+      "effect": "WRITE_REVERSIBLE",
+      "ruleId": "route:corebank/search"
+    },
+    "actionKind": "type",
+    "effect": "WRITE_REVERSIBLE"
+  },
+  {
+    "seq": 10,
+    "runId": "run-2fd61d75-892a-444b-a453-65d9d240b63b",
+    "at": "2026-08-30T01:28:58.045Z",
+    "type": "budget.charged",
+    "ledger": "actions",
+    "used": 1,
+    "limit": 13
+  },
+  {
+    "seq": 11,
+    "runId": "run-2fd61d75-892a-444b-a453-65d9d240b63b",
+    "at": "2026-08-30T01:28:58.058Z",
+    "type": "acted",
+    "stepId": "fill-fill",
+    "actionKind": "type",
+    "targetTitle": "the textbox to the right of the label <member-id>, within 32px, inside frame exactly \"top\", inside frame exactly \"content\", inside the form",
+    "valueRef": "taint:memberId-1",
+    "valueLength": 5,
+    "result": "dispatched"
+  },
+  {
+    "seq": 12,
+    "runId": "run-2fd61d75-892a-444b-a453-65d9d240b63b",
+    "at": "2026-08-30T01:28:58.058Z",
+    "type": "budget.charged",
+    "ledger": "observations",
+    "used": 2,
+    "limit": 48
+  },
+  {
+    "seq": 13,
+    "runId": "run-2fd61d75-892a-444b-a453-65d9d240b63b",
+    "at": "2026-08-30T01:28:58.216Z",
+    "type": "budget.charged",
+    "ledger": "observations",
+    "used": 3,
+    "limit": 48
+  },
+  {
+    "seq": 14,
+    "runId": "run-2fd61d75-892a-444b-a453-65d9d240b63b",
+    "at": "2026-08-30T01:28:58.378Z",
+    "type": "budget.charged",
+    "ledger": "observations",
+    "used": 4,
+    "limit": 48
+  },
+  {
+    "seq": 15,
+    "runId": "run-2fd61d75-892a-444b-a453-65d9d240b63b",
+    "at": "2026-08-30T01:28:58.396Z",
+    "type": "settled",
+    "stepId": "fill-fill",
+    "polls": 3,
+    "elapsedMs": 337,
+    "settled": true
+  },
+  {
+    "seq": 16,
+    "runId": "run-2fd61d75-892a-444b-a453-65d9d240b63b",
+    "at": "2026-08-30T01:28:58.396Z",
+    "type": "observed",
+    "stepId": "fill-fill",
+    "obsSeq": 3,
+    "skeletonDigest": "sha256:2f3557f174d28b8eb81a201ee0ec50ba3934271eabbff33503d7baf7ae6e8045",
+    "settled": true,
+    "nodeCount": 100,
+    "observationRef": null
+  },
+  {
+    "seq": 17,
+    "runId": "run-2fd61d75-892a-444b-a453-65d9d240b63b",
+    "at": "2026-08-30T01:28:58.396Z",
+    "type": "classified",
+    "stepId": "fill-fill",
+    "phase": "post",
+    "verdict": {
+      "kind": "advance",
+      "outputs": []
+    },
+    "alsoMatched": []
+  },
+  {
+    "seq": 18,
+    "runId": "run-2fd61d75-892a-444b-a453-65d9d240b63b",
+    "at": "2026-08-30T01:28:58.397Z",
+    "type": "checkpoint",
+    "stepId": "fill-fill",
+    "passed": true,
+    "trace": {
+      "rendered": "the surface is on route search and a textbox inside frame exactly \"top\", inside frame exactly \"content\", inside the form is present and the surface has settled - NOTE: the field is masked because its value is bound to a sensitive parameter, so the written value could not be read back; a truncating maxlength or input mask on this field would not be detected",
+      "clauses": [
+        {
+          "rendered": "the surface is on route search",
+          "verdict": true
+        },
+        {
+          "rendered": "a textbox inside frame exactly \"top\", inside frame exactly \"content\", inside the form is present",
+          "verdict": true,
+          "nodeSummary": "2 nodes matched"
+        },
+        {
+          "rendered": "the surface has settled",
+          "verdict": true
+        }
+      ]
+    }
+  },
+  {
+    "seq": 19,
+    "runId": "run-2fd61d75-892a-444b-a453-65d9d240b63b",
+    "at": "2026-08-30T01:28:58.401Z",
+    "type": "evidence.captured",
+    "ref": "obs:833660ebbc9beae49c4cedb77bcbced1997c20e8ffcee99d27d81481c224e704",
+    "kind": "observation",
+    "maskedRegions": 1,
+    "stepId": "fill-fill",
+    "phase": "post"
+  },
+  {
+    "seq": 20,
+    "runId": "run-2fd61d75-892a-444b-a453-65d9d240b63b",
+    "at": "2026-08-30T01:28:58.401Z",
+    "type": "step.entered",
+    "stepId": "activate-search",
+    "index": 1,
+    "attempt": 1,
+    "effect": "WRITE_REVERSIBLE"
+  },
+  {
+    "seq": 21,
+    "runId": "run-2fd61d75-892a-444b-a453-65d9d240b63b",
+    "at": "2026-08-30T01:28:58.401Z",
+    "type": "budget.charged",
+    "ledger": "observations",
+    "used": 5,
+    "limit": 48
+  },
+  {
+    "seq": 22,
+    "runId": "run-2fd61d75-892a-444b-a453-65d9d240b63b",
+    "at": "2026-08-30T01:28:58.409Z",
+    "type": "observed",
+    "stepId": "activate-search",
+    "obsSeq": 4,
+    "skeletonDigest": "sha256:2f3557f174d28b8eb81a201ee0ec50ba3934271eabbff33503d7baf7ae6e8045",
+    "settled": true,
+    "nodeCount": 100,
+    "observationRef": null
+  },
+  {
+    "seq": 23,
+    "runId": "run-2fd61d75-892a-444b-a453-65d9d240b63b",
+    "at": "2026-08-30T01:28:58.410Z",
+    "type": "classified",
+    "stepId": "activate-search",
+    "phase": "pre",
+    "verdict": {
+      "kind": "advance",
+      "outputs": []
+    },
+    "alsoMatched": []
+  },
+  {
+    "seq": 24,
+    "runId": "run-2fd61d75-892a-444b-a453-65d9d240b63b",
+    "at": "2026-08-30T01:28:58.410Z",
+    "type": "resolved",
+    "stepId": "activate-search",
+    "descriptors": [
+      {
+        "id": "role-name",
+        "kind": "role-name",
+        "evidenceSource": "accessibleName",
+        "verdict": "resolved",
+        "nodeId": "button:f3-119"
+      },
+      {
+        "id": "label-anchored",
+        "kind": "label-anchored",
+        "evidenceSource": "labelText",
+        "verdict": "resolved",
+        "nodeId": "button:f3-119"
+      },
+      {
+        "id": "ordinal-in-container",
+        "kind": "ordinal-in-container",
+        "evidenceSource": "ordinal",
+        "verdict": "resolved",
+        "nodeId": "button:f3-119"
+      }
+    ],
+    "agreed": true,
+    "distinctSources": 3
+  },
+  {
+    "seq": 25,
+    "runId": "run-2fd61d75-892a-444b-a453-65d9d240b63b",
+    "at": "2026-08-30T01:28:58.410Z",
+    "type": "policy.decided",
+    "decision": {
+      "allow": true,
+      "effect": "WRITE_REVERSIBLE",
+      "ruleId": "route:corebank/search"
+    },
+    "actionKind": "click",
+    "effect": "WRITE_REVERSIBLE"
+  },
+  {
+    "seq": 26,
+    "runId": "run-2fd61d75-892a-444b-a453-65d9d240b63b",
+    "at": "2026-08-30T01:28:58.410Z",
+    "type": "budget.charged",
+    "ledger": "actions",
+    "used": 2,
+    "limit": 13
+  },
+  {
+    "seq": 27,
+    "runId": "run-2fd61d75-892a-444b-a453-65d9d240b63b",
+    "at": "2026-08-30T01:28:58.413Z",
+    "type": "acted",
+    "stepId": "activate-search",
+    "actionKind": "click",
+    "targetTitle": "the button named <search>, inside frame exactly \"top\", inside frame exactly \"content\", inside the form",
+    "valueRef": null,
+    "valueLength": null,
+    "result": "dispatched"
+  },
+  {
+    "seq": 28,
+    "runId": "run-2fd61d75-892a-444b-a453-65d9d240b63b",
+    "at": "2026-08-30T01:28:58.413Z",
+    "type": "budget.charged",
+    "ledger": "observations",
+    "used": 6,
+    "limit": 48
+  },
+  {
+    "seq": 29,
+    "runId": "run-2fd61d75-892a-444b-a453-65d9d240b63b",
+    "at": "2026-08-30T01:28:58.577Z",
+    "type": "budget.charged",
+    "ledger": "observations",
+    "used": 7,
+    "limit": 48
+  },
+  {
+    "seq": 30,
+    "runId": "run-2fd61d75-892a-444b-a453-65d9d240b63b",
+    "at": "2026-08-30T01:28:58.743Z",
+    "type": "budget.charged",
+    "ledger": "observations",
+    "used": 8,
+    "limit": 48
+  },
+  {
+    "seq": 31,
+    "runId": "run-2fd61d75-892a-444b-a453-65d9d240b63b",
+    "at": "2026-08-30T01:28:58.764Z",
+    "type": "settled",
+    "stepId": "activate-search",
+    "polls": 3,
+    "elapsedMs": 351,
+    "settled": true
+  },
+  {
+    "seq": 32,
+    "runId": "run-2fd61d75-892a-444b-a453-65d9d240b63b",
+    "at": "2026-08-30T01:28:58.764Z",
+    "type": "observed",
+    "stepId": "activate-search",
+    "obsSeq": 7,
+    "skeletonDigest": "sha256:659180a60bf9b19e64be202a63135c2ed945f5a16c27d8275049ab25431e1bd9",
+    "settled": true,
+    "nodeCount": 116,
+    "observationRef": null
+  },
+  {
+    "seq": 33,
+    "runId": "run-2fd61d75-892a-444b-a453-65d9d240b63b",
+    "at": "2026-08-30T01:28:58.766Z",
+    "type": "classified",
+    "stepId": "activate-search",
+    "phase": "post",
+    "verdict": {
+      "kind": "fail",
+      "failure": "continuity-broken",
+      "detail": {
+        "sideEffects": "possible",
+        "expected": {
+          "rendered": "the surface is on route search-results and a cell named <member-id> inside frame exactly \"top\", inside frame exactly \"content\", inside the form, inside the table with columns [<member-id>, <name>, <share-balance>, <status>, <action>] is present and a cell named <name> inside frame exactly \"top\", inside frame exactly \"content\", inside the form, inside the table with columns [<member-id>, <name>, <share-balance>, <status>, <action>] is present and the surface has settled (memberId)",
+          "clauses": [
+            {
+              "rendered": "the surface is on route search-results",
+              "verdict": true
+            },
+            {
+              "rendered": "a cell named <member-id> inside frame exactly \"top\", inside frame exactly \"content\", inside the form, inside the table with columns [<member-id>, <name>, <share-balance>, <status>, <action>] is present",
+              "verdict": false,
+              "evidenceSource": "accessibleName",
+              "nodeSummary": "nothing in scope matched"
+            },
+            {
+              "rendered": "a cell named <name> inside frame exactly \"top\", inside frame exactly \"content\", inside the form, inside the table with columns [<member-id>, <name>, <share-balance>, <status>, <action>] is present",
+              "verdict": false,
+              "evidenceSource": "accessibleName",
+              "nodeSummary": "nothing in scope matched"
+            },
+            {
+              "rendered": "the surface has settled",
+              "verdict": true
+            }
+          ]
+        },
+        "observed": {
+          "route": {
+            "originAlias": "corebank",
+            "path": "/search/results",
+            "query": {
+              "ctl00$ctl32$g$9a1$txtMemberId": "<taint:memberId-1>",
+              "ctl00$ctl32$g$9a1$txtLast": "",
+              "ctl00$ctl32$g$9a1$btnGo": "Search"
+            },
+            "frame": "content"
+          },
+          "settled": true,
+          "pendingReason": null,
+          "skeletonDigest": "sha256:659180a60bf9b19e64be202a63135c2ed945f5a16c27d8275049ab25431e1bd9",
+          "nodeCount": 116,
+          "nativeDialog": null,
+          "inputIntercepted": false,
+          "salient": [
+            {
+              "role": "link",
+              "name": "Member Search",
+              "disabled": false,
+              "visible": true
+            },
+            {
+              "role": "link",
+              "name": "Account Maintenance",
+              "disabled": false,
+              "visible": true
+            },
+            {
+              "role": "link",
+              "name": "Card Services",
+              "disabled": false,
+              "visible": true
+            },
+            {
+              "role": "link",
+              "name": "Teller Journal",
+              "disabled": false,
+              "visible": true
+            },
+            {
+              "role": "button",
+              "name": "Sign In",
+              "disabled": false,
+              "visible": true
+            }
+          ],
+          "redactionsApplied": 1
+        },
+        "attempts": [],
+        "retriable": "no",
+        "operatorAction": "The run was no longer on the record it started with; stop and investigate before retrying."
+      }
+    },
+    "alsoMatched": []
+  },
+  {
+    "seq": 34,
+    "runId": "run-2fd61d75-892a-444b-a453-65d9d240b63b",
+    "at": "2026-08-30T01:28:58.772Z",
+    "type": "evidence.captured",
+    "ref": "obs:428dc63946f0f60240cbd6df5e820db5eb01560ed0b2ffc38f63adbe2c41817a",
+    "kind": "observation",
+    "maskedRegions": 0,
+    "stepId": "activate-search",
+    "phase": "post"
+  },
+  {
+    "seq": 35,
+    "runId": "run-2fd61d75-892a-444b-a453-65d9d240b63b",
+    "at": "2026-08-30T01:28:58.772Z",
+    "type": "run.finished",
+    "status": "failed",
+    "failureClass": "continuity-broken"
+  }
+]

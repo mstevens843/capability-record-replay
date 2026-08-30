@@ -49,6 +49,10 @@ export * from "./console.js";
 // -- lifecycle turns a passing grade into a `draft` and a signed digest into an `approved`.
 export * from "./verify.js";
 export * from "./lifecycle.js";
+// -- The other half of that gate, for the half of an artifact a replay cannot establish: a human's
+// -- detector, admitted only by a proof that it fires on the outcome screen and is silent on every
+// -- other screen the system holds.
+export * from "./promote.js";
 
 // -- The production door: one of four arms typed by the caller's contract, the catalog an agent
 // -- discovers capabilities in, the deliberately poorer projection a MODEL sees, and the codegen

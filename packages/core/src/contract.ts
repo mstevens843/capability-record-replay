@@ -17,6 +17,7 @@ import {
   type DeepReadonly,
   DigestSchema,
   EffectClassSchema,
+  OutcomeOriginSchema,
   SensitivitySchema,
   ValueTypeSchema,
 } from "./primitives.js";
@@ -188,6 +189,18 @@ const outcomeDeclSchemaImpl = z.strictObject({
   /** v1: an outcome ends the run. */
   terminal: z.literal(true),
   payload: z.array(FieldSpecSchema).max(32).readonly(),
+
+  /**
+   * WHO WROTE THIS OUTCOME. Required, no default, and matched against the detector's own `origin`
+   * by linker check 8 - a contract that claims a detector was derived while the artifact says a
+   * human wrote it is a link error, not a warning.
+   *
+   * It is deliberately NOT rendered to a calling agent (`agent-view.ts`, `tools.ts`): a model
+   * handed a pedigree starts weighing outcomes by it, and "in the contract, but by a human" is not
+   * a third state a caller is entitled to act on. The approval gate exists to make that distinction
+   * already resolved by the time a caller sees the code.
+   */
+  origin: OutcomeOriginSchema,
 
   /**
    * The Q1 assertion, and the reason it is a field rather than a doctrine.

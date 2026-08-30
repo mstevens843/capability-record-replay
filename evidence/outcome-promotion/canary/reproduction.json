@@ -1,0 +1,112 @@
+{
+  "bundleDir": "/Users/devlegacy/Desktop/projects/ai-gap-coverage-projects/capability-record-replay/evidence/outcome-promotion",
+  "filesScanned": 2,
+  "bytesScanned": 35459,
+  "secrets": [
+    "green probe + re-verification + green invocation / args.memberId",
+    "absent-member probe + before/after invocation / args.memberId",
+    "malformed-number probe / args.memberId"
+  ],
+  "encodings": [
+    "utf8",
+    "utf8-lower",
+    "utf8-upper",
+    "utf16le",
+    "json-escape",
+    "json-unicode",
+    "uri-component",
+    "percent-bytes",
+    "html-entity-decimal",
+    "html-entity-hex",
+    "hex-lower",
+    "hex-upper",
+    "base64",
+    "base64url"
+  ],
+  "needles": 21,
+  "skippedEncodings": [
+    "green probe + re-verification + green invocation / args.memberId / base64 - no needle of at least 6 characters",
+    "green probe + re-verification + green invocation / args.memberId / base64url - no needle of at least 6 characters",
+    "absent-member probe + before/after invocation / args.memberId / base64 - no needle of at least 6 characters",
+    "absent-member probe + before/after invocation / args.memberId / base64url - no needle of at least 6 characters",
+    "malformed-number probe / args.memberId / base64 - no needle of at least 6 characters",
+    "malformed-number probe / args.memberId / base64url - no needle of at least 6 characters"
+  ],
+  "hits": [
+    {
+      "file": "README.md",
+      "view": "bytes",
+      "secret": "green probe + re-verification + green invocation / args.memberId",
+      "encoding": "utf8",
+      "offset": 4402,
+      "length": 5,
+      "line": 76,
+      "context": "he fixture holds (`GREEN_MEMBER=<5 REDACTED BYTES>`, the member the live discovery",
+      "suppressed": null
+    },
+    {
+      "file": "README.md",
+      "view": "bytes",
+      "secret": "absent-member probe + before/after invocation / args.memberId",
+      "encoding": "utf8",
+      "offset": 4524,
+      "length": 5,
+      "line": 77,
+      "context": "probe-absent/` | `ABSENT_MEMBER=<5 REDACTED BYTES>` ... five digits, **no record i",
+      "suppressed": null
+    },
+    {
+      "file": "README.md",
+      "view": "bytes",
+      "secret": "malformed-number probe / args.memberId",
+      "encoding": "utf8",
+      "offset": 5136,
+      "length": 4,
+      "line": 81,
+      "context": "ion-error/` | `MALFORMED_MEMBER=<4 REDACTED BYTES>` ... four digits. The applicati",
+      "suppressed": null
+    },
+    {
+      "file": "reproduce.sh",
+      "view": "bytes",
+      "secret": "green probe + re-verification + green invocation / args.memberId",
+      "encoding": "utf8",
+      "offset": 2229,
+      "length": 5,
+      "line": 37,
+      "context": "un picked its own..GREEN_MEMBER=<5 REDACTED BYTES>       # on file: the member the",
+      "suppressed": null
+    },
+    {
+      "file": "reproduce.sh",
+      "view": "bytes",
+      "secret": "absent-member probe + before/after invocation / args.memberId",
+      "encoding": "utf8",
+      "offset": 2322,
+      "length": 5,
+      "line": 38,
+      "context": "recorded against..ABSENT_MEMBER=<5 REDACTED BYTES>      # well-formed and not on f",
+      "suppressed": null
+    },
+    {
+      "file": "reproduce.sh",
+      "view": "bytes",
+      "secret": "malformed-number probe / args.memberId",
+      "encoding": "utf8",
+      "offset": 2417,
+      "length": 4,
+      "line": 39,
+      "context": "cise promotes..MALFORMED_MEMBER=<4 REDACTED BYTES>    # not five digits: the appli",
+      "suppressed": null
+    }
+  ],
+  "suppressed": [],
+  "forbidden": [],
+  "selfTest": {
+    "planted": 21,
+    "found": 21,
+    "missed": [],
+    "ok": true
+  },
+  "clean": false
+}

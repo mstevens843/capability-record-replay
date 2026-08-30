@@ -32,6 +32,34 @@ function routesFromArtifact() {
   return JSON.parse(readFileSync(path, "utf8")).flow.routes;
 }
 
+/**
+ * Arm one of the fixture's faults for THIS browser session, if `CRR_DEMO_FAULT` asks for one.
+ *
+ * WHY IT IS HERE AND NOT IN THE ENGINE. Arming a fault is a property of the deployment the driver
+ * opened, not of the program being replayed, so it belongs beside the factory that started the
+ * server - the same place `demo/surface.ts` puts it for the demo's own scenarios. Nothing above
+ * this file learns that a fault exists.
+ *
+ * WHY IT EXISTS AT ALL. `crr promote` proves a detector by showing it fires on one frozen screen
+ * and is silent on every other one the corpus holds, and the negatives that make that claim worth
+ * anything are the OTHER abnormal screens at the same step - the app-error page, the sign-in
+ * screen - which a fixture only produces on cue. Without this hook the only corpus `crr probe`
+ * could build is "the happy path and the outcome", and a detector proven against that has been
+ * shown to tell an answer from a success and from nothing else.
+ *
+ * The value is the query string of the fixture's own control endpoint, e.g.
+ * `set=app-error&at=results&mode=sticky`. Unset - which is every `pnpm demo` run - arms nothing and
+ * this function does not touch the network at all.
+ */
+async function armFaultIfAsked(page, origin) {
+  const spec = process.env.CRR_DEMO_FAULT;
+  if (spec === undefined || spec.length === 0) return;
+  // Through the PAGE's request context, so the fixture's session cookie goes with it and the fault
+  // is armed for the session the browser is actually driving.
+  const response = await page.request.get(`${origin}/__fixture/fault?${spec}`);
+  process.stderr.write(`fixture fault armed  ${JSON.stringify(await response.json())}\n`);
+}
+
 export default async function openSurface() {
   const fixture = await startFixtureServer({ port: 0 });
   const browser = await chromium.launch();
@@ -39,6 +67,7 @@ export default async function openSurface() {
   // The frameset first: `banner`, `nav` and `content` only exist once the top document has loaded,
   // and every route this program names lands in `content`.
   await page.goto(`${fixture.origin}/`, { waitUntil: "load" });
+  await armFaultIfAsked(page, fixture.origin);
 
   const surface = await attachBrowserSurface({
     page,

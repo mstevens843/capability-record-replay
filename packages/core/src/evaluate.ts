@@ -965,8 +965,31 @@ export function observedSummaryOf(
     nativeDialog = { type: observation.nativeDialog.type, message: redacted.text };
   }
 
+  // THE ROUTE'S QUERY IS A PLACE A CALLER'S ARGUMENT LIVES, and it used to travel through here in
+  // clear. A legacy GET form puts the value the caller supplied in the url, synthesis records that
+  // as a `query` binding on the route pattern, and the driver then reports the OBSERVED query
+  // beside the canonicalized path - so a failure verdict's `observed` block carried the member
+  // number into the journal, into the result document's failure trace and onto the operator's
+  // screen, while the frozen observation beside it had the same field blanked. Measured on the
+  // live artifact, whose route table declares such a binding; the hand-authored demo artifact
+  // declares none, which is why five `pnpm demo` canary runs were clean over the same code.
+  //
+  // The path needs no pass of its own - it is canonicalized against the artifact's route patterns
+  // before it reaches here, so a value in it is already `:memberId` - but the query values are the
+  // raw ones and are redacted here, by the same substitution every other field goes through.
+  let route = observation.route;
+  if (route !== null && Object.keys(route.query).length > 0) {
+    const query: Record<string, string> = {};
+    for (const [key, value] of Object.entries(route.query)) {
+      const redacted = redactTaint(value, bindings);
+      redactions += redacted.redactions;
+      query[key] = redacted.text;
+    }
+    route = { ...route, query };
+  }
+
   return {
-    route: observation.route,
+    route,
     settled: observation.stability.settled,
     pendingReason: observation.stability.pendingReason,
     skeletonDigest: observation.skeletonDigest,

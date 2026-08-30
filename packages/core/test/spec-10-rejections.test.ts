@@ -2,12 +2,13 @@
 // failing fixture.
 //
 // The test does two things that a list of assertions would not. It asserts that every one of the
-// twenty-eight checks HAS a fixture, so a check cannot be quietly dropped; and it asserts that the
+// numbered checks HAS a fixture, so a check cannot be quietly dropped; and it asserts that the
 // linker-owned fixtures still PARSE, which is the load-bearing claim about where the boundary
 // between a validator and a linker actually falls. A "linker" case that the schema happened to
 // refuse would mean the boundary was drawn in the wrong place, and this test would say so.
 
 import { describe, expect, it } from "vitest";
+import { LINK_CHECK_COUNT } from "../src/index.js";
 import {
   SPEC_10_REJECTIONS,
   buildRejection,
@@ -15,9 +16,9 @@ import {
 } from "./fixtures/spec-10-rejections.js";
 
 describe("SPEC section 10", () => {
-  it("has a fixture for all twenty-eight checks", () => {
+  it("has a fixture for every numbered check", () => {
     const covered = [...new Set(SPEC_10_REJECTIONS.map((c) => c.check))].sort((a, b) => a - b);
-    expect(covered).toEqual(Array.from({ length: 28 }, (_, i) => i + 1));
+    expect(covered).toEqual(Array.from({ length: LINK_CHECK_COUNT }, (_, i) => i + 1));
   });
 
   const schemaOwned = SPEC_10_REJECTIONS.filter((c) => c.refusedBy !== "linker");

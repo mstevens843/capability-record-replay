@@ -1,0 +1,8 @@
+APPROVED  corebank.member.read_share_position.web-legacy.v1@2
+  digest    sha256:21f298ec7a17285c776a32d61b1e01dca378f381e19c4d56da9ef95cec5f44b1
+  signed by approver:agent-acting-as-approver
+  grade     full (replay-dry, covered through activate-open)
+  promoted  MEMBER_NOT_FOUND at read-membername-sharebalance-membershipstatus by reviewer:agent-acting-as-reviewer, review sha256:47ebed5ea3648929e03c742a36eeb85a814c7d63549d9c12d2045a66e3addf5d
+            proven at riverbend against 11 negatives (1 green at the step, 0 other abnormal at the step)
+            probe NOT confirmed - this detector has never fired in a live session
+  written   evidence/outcome-promotion/approved/artifact.json

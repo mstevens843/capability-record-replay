@@ -28,6 +28,7 @@ import {
   FAILURE_GUIDANCE,
   type Intervention,
   type InterventionId,
+  LINK_CHECK_COUNT,
   type LinkError,
   type LinkedProgram,
   type ReplayResultDocument,
@@ -47,6 +48,7 @@ import {
   preFlightVerdict,
 } from "@crr/core";
 import type { ApprovalGrant } from "./approval.js";
+import type { InvocationApprovalGrant } from "./approval.js";
 import { RunLedger } from "./budgets.js";
 import { type Clock, systemClock } from "./clock.js";
 import { interventionBrief } from "./escalation.js";
@@ -78,6 +80,9 @@ export interface ReplayOptions {
   readonly broker: SessionBroker;
   readonly trust: ApprovalTrust;
   readonly approval?: ApprovalGrant | null;
+  readonly invocationApproval?: InvocationApprovalGrant | null;
+  readonly approvalPolicyVersion?: string;
+  readonly idempotencyKey?: string | null;
   readonly clock?: Clock;
   readonly ids?: IdSource;
   readonly journal?: (runId: RunId, clock: Clock) => Journal;
@@ -136,6 +141,17 @@ export interface ReplayOptions {
    * extension point; see `DecisionFunctions`.
    */
   readonly decisions?: DecisionFunctions | null;
+  /**
+   * Freeze an observation at every step, whatever the steps declare. What `crr probe
+   * --capture-every` sets.
+   *
+   * A RUNTIME OPTION, NOT AN ARTIFACT EDIT: `evidence.captureOn` is a recording policy inside the
+   * digest an approval signs, so overriding it from a command line must not move the program's
+   * content address - and it does not, because nothing here touches the document. The probe's
+   * result, its journal and its `effectiveDigest` are the same ones an ordinary replay would
+   * produce; only the number of files on disk differs.
+   */
+  readonly captureEvery?: boolean;
 }
 
 export interface ReplayOutput {
@@ -171,7 +187,7 @@ export async function replay(options: ReplayOptions): Promise<ReplayOutput> {
     argsShape: shapeOf(options.args),
   });
 
-  // ---- LINK: 28 checks, zero actions performed -------------------------------------------------
+  // ---- LINK: 29 checks, zero actions performed -------------------------------------------------
   const linked = link({
     contract: options.contract,
     artifact: options.artifact,
@@ -180,12 +196,16 @@ export async function replay(options: ReplayOptions): Promise<ReplayOutput> {
     args: options.args,
     invocation: options.invocation ?? null,
     mode,
+    // Check 29 is tenant-scoped: a reviewer-authored detector reads a vocabulary token an overlay
+    // overrides per tenant, so a proof at riverbend says nothing about summit. The run knows which
+    // tenant it is at even when there is no overlay to read one off, so it says so.
+    tenant: tenantRef(options.tenant).tenantId,
     allowlist: options.allowlist,
     trust: options.trust,
   });
   journal.append({
     type: "link.completed",
-    checksRun: 28,
+    checksRun: LINK_CHECK_COUNT,
     errors: linked.ok ? [] : (linked.errors as readonly LinkError[]),
   });
 
@@ -292,6 +312,11 @@ export async function replay(options: ReplayOptions): Promise<ReplayOutput> {
         evidence,
         ledger,
         allowlist: options.allowlist,
+        args: options.args,
+        tenant: options.tenant,
+        ...(options.idempotencyKey === undefined
+          ? {}
+          : { idempotencyKey: options.idempotencyKey }),
         // THE POLICY MODE IS NOT THE REPLAY MODE, and this is the one line where they part company.
         //
         // A verification replay runs an artifact nobody has approved yet - that is the whole point of
@@ -310,6 +335,10 @@ export async function replay(options: ReplayOptions): Promise<ReplayOutput> {
         // gets neither by accident.
         mode: mode === "verification" ? "discovery" : "replay",
         approval: options.approval ?? null,
+        invocationApproval: options.invocationApproval ?? null,
+        ...(options.approvalPolicyVersion === undefined
+          ? {}
+          : { approvalPolicyVersion: options.approvalPolicyVersion }),
         actorId,
         ...(options.dryRun === undefined || options.dryRun === null
           ? {}
@@ -320,6 +349,7 @@ export async function replay(options: ReplayOptions): Promise<ReplayOutput> {
         ...(options.onIntervention === undefined ? {} : { onIntervention: options.onIntervention }),
         ...(carried === null ? {} : { resumeFrom: carried }),
         ...(options.decisions == null ? {} : { decisions: options.decisions }),
+        ...(options.captureEvery === true ? { captureEvery: true } : {}),
       });
       carried = null;
       const attemptRun = await interpreter.run();
@@ -444,6 +474,10 @@ export async function replay(options: ReplayOptions): Promise<ReplayOutput> {
         clock,
         allowlist: options.allowlist,
         approval: options.approval ?? null,
+        invocationApproval: options.invocationApproval ?? null,
+        ...(options.idempotencyKey === undefined
+          ? {}
+          : { idempotencyKey: options.idempotencyKey }),
         bindings: program.bindings,
         perceiveDeadlineMs: options.perceiveDeadlineMs ?? 15_000,
         heldBefore: suspended.heldBefore,

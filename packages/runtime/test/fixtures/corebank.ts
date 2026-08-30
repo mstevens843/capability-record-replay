@@ -188,6 +188,7 @@ export const sharePositionContract: CapabilityContract = sealContract({
       // record that will still be true on the next attempt. This one is. A session timeout is not,
       // which is why that is a failure and this is an answer.
       stableUnderRetry: true,
+      origin: "hand-authored",
       callerAction: "retry-different-input",
       retryable: "with_different_inputs",
       agentGuidance:
@@ -661,6 +662,7 @@ const unsealed = {
             priority: 10,
             phase: "post",
             requiresSettled: true,
+            origin: "hand-authored",
             capture: [],
           },
         ],
@@ -1107,6 +1109,7 @@ const unsealed = {
     deadlineMs: 180_000,
   },
 
+  promotions: [],
   signatures: [],
 };
 
@@ -1147,6 +1150,7 @@ export const sharePositionArtifact: CapabilityArtifact = approveArtifact(sharePo
   alg: "ed25519",
   acknowledgedEffects: ["READ"],
   acknowledgedGrade: "full",
+  acknowledgedPromotions: [],
 });
 
 // ---------------------------------------------------------------------------------------------

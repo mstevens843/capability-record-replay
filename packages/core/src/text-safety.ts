@@ -18,6 +18,7 @@
 // the two names are spelled out in prose instead - "stylesheet selector" and "document path
 // expression". The regular expressions below are the real specification.
 
+import { normalize } from "./normalizers.js";
 import { TextMatcherSchema, ValueRefSchema, looksLikeNodeId } from "./primitives.js";
 
 /** What an unsafe string looked like. Reported, not just refused, because the message is read by a
@@ -214,7 +215,39 @@ export const SafeTextMatcherSchema = TextMatcherSchema.superRefine((matcher, ctx
   if (matcher.mode === "token") return;
   const reason = unsafeTextReason(matcher.value);
   if (reason !== null) ctx.addIssue(reason);
+  const trivial = trivialMatcherReason(matcher.value, matcher.normalize);
+  if (trivial !== null) ctx.addIssue(trivial);
 });
+
+/**
+ * THE TRIVIALITY LINT, and the reason `min(1)` is not enough.
+ *
+ * `TextMatcherSchema` already requires a non-empty string on `contains` and `template`, and that
+ * refuses the naive attack. What survives it is a matcher whose NORMALIZED value is empty:
+ * `{ mode: "contains", value: "  ", normalize: "std.text@1" }` is one character long, passes
+ * `min(1)`, and compares as the empty string - which is contained in every string on every screen,
+ * including a blank one. The detector is then a machine for emitting a business outcome that was
+ * never observed, which is the exact failure `NodeQuery`'s "a scope alone matches every node"
+ * refusal exists to prevent, arriving through a different door.
+ *
+ * Checked against the matcher's OWN declared normalizer rather than against a trim, because that is
+ * the function the runtime will compare with: `std.text@1` folds whitespace and drops zero-width
+ * characters, so a value of `"​"` normalizes to nothing at match time no matter how it looks
+ * in the diff. `std.identity@1` normalizes nothing, so under it only a genuinely empty string is
+ * refused - and that is correct, because under `std.identity@1` two spaces really do only match two
+ * spaces.
+ *
+ * Branding tokens are deliberately NOT supplied. They are per-tenant, this runs at parse time with
+ * no tenant in hand, and a matcher that survives here and normalizes to nothing at ONE tenant is
+ * caught downstream by the discrimination proof, which runs against the merged program.
+ */
+export function trivialMatcherReason(
+  value: string,
+  normalizerId: Parameters<typeof normalize>[0],
+): string | null {
+  if (normalize(normalizerId, value) !== "") return null;
+  return `${JSON.stringify(value)} normalizes to the empty string under ${normalizerId}, and the empty string is present on every screen; a matcher that cannot be false has matched nothing`;
+}
 
 /**
  * `ValueRef` with the same guard on its one free-text arm.

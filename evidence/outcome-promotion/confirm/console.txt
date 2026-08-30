@@ -1,0 +1,11 @@
+$ crr promote --confirm <the APPROVED revision> --code MEMBER_NOT_FOUND --result confirm/result.json
+CONFIRMATION REFUSED
+  stamping a receipt changes the digest this artifact's approval signs, which is the same thing as revoking the approval; confirm before approving
+exit 1
+
+$ crr promote --confirm <the VERIFIED DRAFT> --code MEMBER_NOT_FOUND --result confirm/result.json --out confirm/artifact.json
+CONFIRMED  MEMBER_NOT_FOUND
+  why      the probe returned MEMBER_NOT_FOUND at read-membername-sharebalance-membershipstatus
+  digest   sha256:c48695280cc2ead7ca3da1b8df00c4c2aa761d8efa43aebc932ccbc5f8c9198c
+  written  evidence/outcome-promotion/confirm/artifact.json
+exit 0

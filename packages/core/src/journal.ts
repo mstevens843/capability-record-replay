@@ -15,6 +15,7 @@
 //      runtime assertion.
 
 import { z } from "zod";
+import { ApprovalRefusalReasonSchema, ApprovalSubjectSchema } from "./approval.js";
 import {
   DescriptorKindSchema,
   DescriptorVerdictSchema,
@@ -194,10 +195,59 @@ const journalEventSchemaImpl = z.discriminatedUnion("type", [
     gate: z.enum(["passed", "refused"]),
     restartSafeUpToPc: z.int().nonnegative(),
   }),
+  /**
+   * `stepId` and `phase` are REQUIRED, and they were added for one reason: the binding from a
+   * frozen observation to the step it was captured at used to be POSITIONAL - a reader inferred it
+   * from which `observed` line came before this one.
+   *
+   * That inference is load-bearing in exactly one place, and it is a security-relevant one. The
+   * discrimination proof behind an outcome promotion evaluates a candidate detector only against
+   * observations captured at the step it is declared for, and cross-checks the review document's
+   * claim ("this screen is the not-found screen at `submit-search`") against the journal that
+   * recorded the capture. A binding read off line ordering is a binding a reordered writer or an
+   * interleaved recovery could quietly break, and this repository refuses that kind of quiet
+   * wrongness everywhere else.
+   */
   event("evidence.captured", {
     ref: EvidenceRefSchema,
     kind: z.enum(["image", "text-grid", "observation"]),
     maskedRegions: z.int().nonnegative(),
+    stepId: StepIdSchema,
+    phase: z.enum(["pre", "post"]),
+  }),
+  /**
+   * THE APPROVAL DECISION, both ways, and both are mandatory.
+   *
+   * An audit trail that records only the writes it allowed cannot answer the question an incident
+   * actually asks, which is "what was refused, and why". So there are two events, they carry the
+   * same shape, and the refusal carries the EXACT named reason rather than a boolean - `expired` is
+   * a five-second fix, `signer-key-revoked` is an incident, and a journal that flattened them into
+   * `approval-invalid` would make the two indistinguishable six months later.
+   *
+   * `over` is the recomputed content digest the signature was checked against, so "which approval
+   * authorised this write" is answerable from the journal alone, without the document. No argument
+   * value appears in either event: `detail` is written under the same rule as every other journalled
+   * string, and `args-hash-mismatch` reports two digests rather than what differed.
+   */
+  event("approval.accepted", {
+    approvalId: z.string().min(1).max(128),
+    subject: ApprovalSubjectSchema,
+    ceiling: EffectClassSchema,
+    signerId: z.string().min(1).max(128),
+    keyId: z.string().min(1).max(128),
+    over: DigestSchema,
+    expiresAt: TimestampSchema,
+    stepId: StepIdSchema.nullable(),
+    effect: EffectClassSchema,
+  }),
+  event("approval.refused", {
+    approvalId: z.string().min(1).max(128),
+    reason: ApprovalRefusalReasonSchema,
+    /** One sentence naming ids, digests, timestamps and roles - never a bound value. */
+    detail: z.string().min(1).max(600),
+    keyId: z.string().min(1).max(128).nullable(),
+    stepId: StepIdSchema.nullable(),
+    effect: EffectClassSchema,
   }),
   event("run.finished", {
     status: ReplayStatusSchema,
@@ -232,6 +282,8 @@ export const JOURNAL_EVENT_TYPES = [
   "human.acted",
   "restart.requested",
   "evidence.captured",
+  "approval.accepted",
+  "approval.refused",
   "run.finished",
 ] as const;
 export type JournalEventType = (typeof JOURNAL_EVENT_TYPES)[number];

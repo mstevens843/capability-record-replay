@@ -490,7 +490,7 @@ export const ALL_SCENARIOS: readonly Scenario[] = [
         },
       });
       // The gate that fires is the LINKER's, not the chokepoint's, and the difference matters: the
-      // linker runs 28 checks with zero actions performed, so a capability whose flow leaves the
+      // linker runs 29 checks with zero actions performed, so a capability whose flow leaves the
       // allowlist is refused before a browser is ever pointed at anything. The chokepoint is the
       // second line and `@crr/core`'s policy suite is where each of its denial reasons is proved.
       return observed(out, [

@@ -1,0 +1,4 @@
+VERIFIED  replay-dry  grade full
+  covered   activate-open
+  why       the whole flow replayed with the model out of the loop, through step activate-open
+  written   evidence/outcome-promotion/verified/artifact.json

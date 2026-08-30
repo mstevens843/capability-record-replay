@@ -1350,6 +1350,7 @@ function artifactDraftOf(args: ArtifactDraftInput): Draft {
     },
     effects,
     budgets: runBudgetsOf(flow.steps, flow.ambient),
+    promotions: [],
     signatures: [],
   };
 }

@@ -1,0 +1,9 @@
+fixture fault armed  {"ok":true,"session":"s000001","armed":{"id":"interstitial","screen":"results","mode":"sticky","delayMs":1200}}
+FAILED  run run-d005935a-2524-4a27-b319-9bb6e34ba375  1/4 steps  771ms
+  failure      undeclared-dialog at activate-search
+  side effects possible
+  expected     no undeclared dialog or blocking overlay is intercepting input
+  do this      An unmodelled native dialog appeared; add a declared recovery for it.
+  captured observations (step / phase / content address)
+    fill-fill            post  obs:833660ebbc9beae49c4cedb77bcbced1997c20e8ffcee99d27d81481c224e704
+    activate-search      post  obs:3f895bd453a530e101c7f6b813e387e49323b5da94e1032df25b9ccf92580b29

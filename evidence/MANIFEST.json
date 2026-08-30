@@ -1,6 +1,6 @@
 {
   "note": "Produced by `pnpm demo`. Excludes itself and `redaction-canary/`, which are written after it. Every entry names what produced it; nothing here came from a model.",
-  "generatedAt": "2026-08-29T02:37:09.755Z",
+  "generatedAt": "2026-08-30T01:41:43.455Z",
   "files": [
     {
       "path": "artifact/README.md",
@@ -17,19 +17,19 @@
     {
       "path": "artifact/approver.spki.pem",
       "bytes": 113,
-      "sha256": "f74a8f028e77fb7595b27f0111887875b4964b284f8316725705eb87c8a5f710",
+      "sha256": "a9053399ca01ef92f8753ed48751aa304feeb33cb453a18afb475beaebfdb01e",
       "producer": "hand-authored (no model) — see README §Provenance"
     },
     {
       "path": "artifact/artifact.json",
-      "bytes": 59071,
-      "sha256": "a2c48d3b20dd4dbb14d3a73099319f329ea9cb640752546a888a84da8087c44d",
+      "bytes": 59166,
+      "sha256": "6a0e8d7a96702734a59e66dae3bc404207848fb7eab7ff2cb889bb7e59e82fc9",
       "producer": "hand-authored (no model) — see README §Provenance"
     },
     {
       "path": "artifact/contract.json",
-      "bytes": 3983,
-      "sha256": "3d342356f628b84dbb0dbb0ed436979a2093ab1113b003997c5912a2bd303868",
+      "bytes": 4016,
+      "sha256": "72899c9fe4fa61b6a3c84a1d073131e233cd3dc09917aeb462870a4112b30fc5",
       "producer": "hand-authored (no model) — see README §Provenance"
     },
     {
@@ -41,31 +41,31 @@
     {
       "path": "cli-replay/console.txt",
       "bytes": 1055,
-      "sha256": "0418945c79c62d98be60eda07f08d9e1cc518515197984b0af6d630b37010285",
+      "sha256": "d68e7a87897799a883c50174da3f82cd927e4706642e804d78059f4acf32cf65",
       "producer": "`crr replay` (shipped CLI), no model"
     },
     {
       "path": "cli-replay/journal.jsonl",
       "bytes": 32104,
-      "sha256": "f4d5aa9a3bdd521f0afb7fd92306833ae451b4183a2fac7dac0b8072ea97a482",
+      "sha256": "3ffc2394c01602842b0918c33296993c4af5e38e654243bec6e8df5ad549f941",
       "producer": "`crr replay` (shipped CLI), no model"
     },
     {
-      "path": "cli-replay/observations/journal-880e6e80b4cc2b1405a1e06935ce6e3cadd938116187aae18501abf6b4d9be1f.json",
+      "path": "cli-replay/observations/journal-055e21434f7529c7fde0a113917752a7343098af5e0f96c5c115a8cc983e39a1.json",
       "bytes": 41477,
-      "sha256": "03fc474e078c48a6dd6034c0358cabda7368eaa5588e1bae867ada3440977b00",
+      "sha256": "ef629de13702f742aefb0bb78e1d4869fd3810a42ea7fb072e186cdcf1aa6cbc",
       "producer": "`crr replay` (shipped CLI), no model"
     },
     {
       "path": "demo.log",
       "bytes": 6432,
-      "sha256": "84a6405f30eb722175f026ad0868158f2a91276083c900350294713e1ec7f009",
+      "sha256": "182d3966b9ef372262a7361c15b0ba4fb65875bdbba65aa7dd5f23bbc2fc9dc5",
       "producer": "`pnpm demo`"
     },
     {
       "path": "discovery-live/README.md",
-      "bytes": 6546,
-      "sha256": "fb462a76044c2b40a300da05a0e18f42cdc7a1715c127dafceab18a741b27dfa",
+      "bytes": 8370,
+      "sha256": "4f18c9356faa759367d9547d45316ae5c258b6ba16f90459d98ce81d52cd2917",
       "producer": "`pnpm discover` — a LIVE model run, or PENDING.md if none has happened"
     },
     {
@@ -130,8 +130,8 @@
     },
     {
       "path": "discovery-live/synthesized/artifact.json",
-      "bytes": 62711,
-      "sha256": "2a9de633e419ae6c47b19912479fc18714225abaa6fca0145a849a85604f79cf",
+      "bytes": 62731,
+      "sha256": "09384558c338012c6ee8a4b5d3afb85ae168e36a232c425533eaa55715c35971",
       "producer": "`pnpm discover` — a LIVE model run, or PENDING.md if none has happened"
     },
     {
@@ -195,6 +195,480 @@
       "producer": "`@crr/surface-browser` `capture()`, no model"
     },
     {
+      "path": "outcome-promotion/README.md",
+      "bytes": 21861,
+      "sha256": "3d1910e5eca19a0e947d03cebf382953eef6073e04f70d2e592333751b832776",
+      "producer": "a reviewer plus `crr` verbs, no model — that directory's README names a producer per file"
+    },
+    {
+      "path": "outcome-promotion/allowlist.json",
+      "bytes": 526,
+      "sha256": "8f03d87abc1ba6f7e531c0335a4be78a9fa8afdf5e18da232ae5ff10c0b577f9",
+      "producer": "a reviewer plus `crr` verbs, no model — that directory's README names a producer per file"
+    },
+    {
+      "path": "outcome-promotion/approved/artifact.json",
+      "bytes": 65447,
+      "sha256": "6c5a05a55011bbcfa58aca5c983c989aafe14a7ace4ab82ce2613be43b661aa0",
+      "producer": "a reviewer plus `crr` verbs, no model — that directory's README names a producer per file"
+    },
+    {
+      "path": "outcome-promotion/approved/console.txt",
+      "bytes": 697,
+      "sha256": "7a141f0282045dff687f8669222b7cd722cfe67e017deb4ff87ead1de2e8aeeb",
+      "producer": "a reviewer plus `crr` verbs, no model — that directory's README names a producer per file"
+    },
+    {
+      "path": "outcome-promotion/before/approve-console.txt",
+      "bytes": 332,
+      "sha256": "8e5d9b671916a6b7e4795f0c1ff60b9b41ca313b36049abc230f843f9d07b8a2",
+      "producer": "a reviewer plus `crr` verbs, no model — that directory's README names a producer per file"
+    },
+    {
+      "path": "outcome-promotion/before/artifact-approved-for-probe.json",
+      "bytes": 63244,
+      "sha256": "d46f091f8d4901b5ebf2eec7c0a36ef5a4a312be3a7d4c6241b816d00f0e5b37",
+      "producer": "a reviewer plus `crr` verbs, no model — that directory's README names a producer per file"
+    },
+    {
+      "path": "outcome-promotion/before/artifact.json",
+      "bytes": 62731,
+      "sha256": "09384558c338012c6ee8a4b5d3afb85ae168e36a232c425533eaa55715c35971",
+      "producer": "a reviewer plus `crr` verbs, no model — that directory's README names a producer per file"
+    },
+    {
+      "path": "outcome-promotion/before/contract.json",
+      "bytes": 2236,
+      "sha256": "f3bb99409e525ba5099819f49ca947a1b788f389d947418ec1a58f7bf923ba52",
+      "producer": "a reviewer plus `crr` verbs, no model — that directory's README names a producer per file"
+    },
+    {
+      "path": "outcome-promotion/canary/documents.json",
+      "bytes": 1531,
+      "sha256": "cd10f22f297f9757d3b836386ed678c5d8d1e80dca8cec9b211a94e8c2b5fd40",
+      "producer": "a reviewer plus `crr` verbs, no model — that directory's README names a producer per file"
+    },
+    {
+      "path": "outcome-promotion/canary/report.txt",
+      "bytes": 1259,
+      "sha256": "e4407b803fdfad46ae3429301cd10c81609e95761ff64567099437021ab9467f",
+      "producer": "a reviewer plus `crr` verbs, no model — that directory's README names a producer per file"
+    },
+    {
+      "path": "outcome-promotion/canary/reproduction.json",
+      "bytes": 3642,
+      "sha256": "2e4b1b83fe4e3d43036f77b65b86c001af5a26a3bdee361ffac112e2a723a4f4",
+      "producer": "a reviewer plus `crr` verbs, no model — that directory's README names a producer per file"
+    },
+    {
+      "path": "outcome-promotion/canary/run-canary.mjs",
+      "bytes": 4702,
+      "sha256": "372c67e040bd6ef129bbd3ac08704cd216f443b40594210889c8228107101446",
+      "producer": "a reviewer plus `crr` verbs, no model — that directory's README names a producer per file"
+    },
+    {
+      "path": "outcome-promotion/confirm/approve-console.txt",
+      "bytes": 673,
+      "sha256": "bb3120a09a3fc82f06ac959e0d792724237a0b032119cbeefad0ed25da6ce3b8",
+      "producer": "a reviewer plus `crr` verbs, no model — that directory's README names a producer per file"
+    },
+    {
+      "path": "outcome-promotion/confirm/artifact-approved.json",
+      "bytes": 65446,
+      "sha256": "b356861103140d0e7b7dde6e37d9249d7de352131fdc46d130abb5a1b4a2e1d0",
+      "producer": "a reviewer plus `crr` verbs, no model — that directory's README names a producer per file"
+    },
+    {
+      "path": "outcome-promotion/confirm/artifact.json",
+      "bytes": 64899,
+      "sha256": "a595f4df6f0aa71550d8f497cf94939300a6990fe695189d2a7df138cad4a64e",
+      "producer": "a reviewer plus `crr` verbs, no model — that directory's README names a producer per file"
+    },
+    {
+      "path": "outcome-promotion/confirm/console.txt",
+      "bytes": 677,
+      "sha256": "11d49513b051369d8ae916a36ca7e6fe48d535a0d7b41b41c56528440756a129",
+      "producer": "a reviewer plus `crr` verbs, no model — that directory's README names a producer per file"
+    },
+    {
+      "path": "outcome-promotion/confirm/journal.jsonl",
+      "bytes": 12213,
+      "sha256": "82ffe20c4a6f23460b2c4f44490b5f645fc38f198a95e56c9100839dc8d698da",
+      "producer": "a reviewer plus `crr` verbs, no model — that directory's README names a producer per file"
+    },
+    {
+      "path": "outcome-promotion/confirm/observations/journal-e894064751be482f503c599cf4dd495942b5a4df413006ce6155e7a5f7222174.json",
+      "bytes": 15565,
+      "sha256": "8d89cd4a5698c37457493ac81e80fe56eb82f2941dbe58a51df716fde5731abb",
+      "producer": "a reviewer plus `crr` verbs, no model — that directory's README names a producer per file"
+    },
+    {
+      "path": "outcome-promotion/confirm/result.json",
+      "bytes": 4679,
+      "sha256": "7cfbcc5dbe96088bfa0a1c48c023eba3dee56b2a9034bca6ea78f88b0c0515ce",
+      "producer": "a reviewer plus `crr` verbs, no model — that directory's README names a producer per file"
+    },
+    {
+      "path": "outcome-promotion/invocation-after-green/console.txt",
+      "bytes": 217,
+      "sha256": "7b22f091025fc75d7106635a7fe8b657464aae09bfcec27d0fb66b850a0e03a6",
+      "producer": "a reviewer plus `crr` verbs, no model — that directory's README names a producer per file"
+    },
+    {
+      "path": "outcome-promotion/invocation-after-green/journal.jsonl",
+      "bytes": 20475,
+      "sha256": "c66176d096aa9b4dc90552d7c60206db83afbcf171de48cad000a771344b3954",
+      "producer": "a reviewer plus `crr` verbs, no model — that directory's README names a producer per file"
+    },
+    {
+      "path": "outcome-promotion/invocation-after-green/observations/journal-95a3798e98a8bd7b7bb20cfd1a1d21177a2a30cdac75c5f4444beb8b3a8a52f9.json",
+      "bytes": 25911,
+      "sha256": "94a9b364464fd16dd9ca7887b663443dad5e073fb512b911f2dd43d2caf19a61",
+      "producer": "a reviewer plus `crr` verbs, no model — that directory's README names a producer per file"
+    },
+    {
+      "path": "outcome-promotion/invocation-after-outcome/console.txt",
+      "bytes": 264,
+      "sha256": "93b26a4465c7ecd321e38d7677a9f0aee228d64ae43ef47456827143800057e9",
+      "producer": "a reviewer plus `crr` verbs, no model — that directory's README names a producer per file"
+    },
+    {
+      "path": "outcome-promotion/invocation-after-outcome/journal.jsonl",
+      "bytes": 12213,
+      "sha256": "9963de0b30e5418c289422cbea2cbaab054622b3921615f29a9ce61fa803c61b",
+      "producer": "a reviewer plus `crr` verbs, no model — that directory's README names a producer per file"
+    },
+    {
+      "path": "outcome-promotion/invocation-after-outcome/observations/journal-9c8e6f6123c3d2f56eea7d26eb26164fe75a363b89f47c549558b368f7af8035.json",
+      "bytes": 15565,
+      "sha256": "f492a49801eddc4882e084f9c79a3e4e593a3f3fa5f107baadbe50addd4d2ee3",
+      "producer": "a reviewer plus `crr` verbs, no model — that directory's README names a producer per file"
+    },
+    {
+      "path": "outcome-promotion/invocation-before/journal.jsonl",
+      "bytes": 15527,
+      "sha256": "2398c360ba262397d41a3becb2c29b4211b48ebacc3373d61691ea7e2439757a",
+      "producer": "a reviewer plus `crr` verbs, no model — that directory's README names a producer per file"
+    },
+    {
+      "path": "outcome-promotion/invocation-before/observations/journal-9d39fe772e5bdbf81be56e53a8b881d594d23ad2702f378d0bcfc85bf6f63f5a.json",
+      "bytes": 20068,
+      "sha256": "d7b8d7553cc2ee6e3d8ce9fe541da9ffb75ac6866a7184ee6406664693261f26",
+      "producer": "a reviewer plus `crr` verbs, no model — that directory's README names a producer per file"
+    },
+    {
+      "path": "outcome-promotion/invocation-before/observations/obs-394ed4f0ecb4eff6dfbed88e829141f4587973e26257cb6ea017844b95d8df8a.json",
+      "bytes": 121030,
+      "sha256": "111fbb53126f8818b414f8b290c63caed726f2c5e7085f4530224643bf64bf04",
+      "producer": "a reviewer plus `crr` verbs, no model — that directory's README names a producer per file"
+    },
+    {
+      "path": "outcome-promotion/invocation-before/result.json",
+      "bytes": 12887,
+      "sha256": "e30e291afaf58ab3b2ae99bbf06846981c3236ee1699ba7a44d7fd19f3275819",
+      "producer": "a reviewer plus `crr` verbs, no model — that directory's README names a producer per file"
+    },
+    {
+      "path": "outcome-promotion/keys/reviewer.spki.pem",
+      "bytes": 113,
+      "sha256": "ec47370e424fe190b052e2fe21f4d1adab25cbdb9afafbfd43389d1e2467d421",
+      "producer": "a reviewer plus `crr` verbs, no model — that directory's README names a producer per file"
+    },
+    {
+      "path": "outcome-promotion/link.txt",
+      "bytes": 1162,
+      "sha256": "b23dc325d4cd6072d636663d3f00927805c72152fbbf0c111106d75c721905b8",
+      "producer": "a reviewer plus `crr` verbs, no model — that directory's README names a producer per file"
+    },
+    {
+      "path": "outcome-promotion/probe-absent/console.txt",
+      "bytes": 1502,
+      "sha256": "5eb721a981af3c18b83ee1ea94bbd4daafddecc15c9cbc240de37c891ceaaaa4",
+      "producer": "a reviewer plus `crr` verbs, no model — that directory's README names a producer per file"
+    },
+    {
+      "path": "outcome-promotion/probe-absent/journal.jsonl",
+      "bytes": 16079,
+      "sha256": "28a3921c959405246a7eaaeb6db48b199d0e6bc788d3e754eb497f29614a475e",
+      "producer": "a reviewer plus `crr` verbs, no model — that directory's README names a producer per file"
+    },
+    {
+      "path": "outcome-promotion/probe-absent/observations/journal-0e20c6e4798aef479fa767f36b4fc3906476019e702f9ea19d6147ddc96bb353.json",
+      "bytes": 20740,
+      "sha256": "ee34ca866a444c4fff53c71b5ea2b098633132c3569ca2d653686f15f3a29510",
+      "producer": "a reviewer plus `crr` verbs, no model — that directory's README names a producer per file"
+    },
+    {
+      "path": "outcome-promotion/probe-absent/observations/obs-29648031893c750c814816b0a46d3bd7bc1baa2722a848657f2702ad729e68cd.json",
+      "bytes": 121029,
+      "sha256": "a6266f22e4acd4c6d395a643d11bc80fca78821d7d6754a79ba7124fb9fb5408",
+      "producer": "a reviewer plus `crr` verbs, no model — that directory's README names a producer per file"
+    },
+    {
+      "path": "outcome-promotion/probe-absent/observations/obs-52daf882b4b2666a7f299b62339e39bb422f2c844a19255d38fdbb1de03c39e3.json",
+      "bytes": 95277,
+      "sha256": "cef9090c4984a4f8a5128c9dbec11226ada77cd206a7033d37368d204a8eb49e",
+      "producer": "a reviewer plus `crr` verbs, no model — that directory's README names a producer per file"
+    },
+    {
+      "path": "outcome-promotion/probe-absent/observations/obs-c33a647ab66a18aecab31653a4ff8af185b23e6f8093a8e554e549a778d3e36c.json",
+      "bytes": 121030,
+      "sha256": "9a3347ee342b58e091b6ad87cd299932fbdcca2067e0841df3b42d7e66b5154f",
+      "producer": "a reviewer plus `crr` verbs, no model — that directory's README names a producer per file"
+    },
+    {
+      "path": "outcome-promotion/probe-app-error/console.txt",
+      "bytes": 1140,
+      "sha256": "8b515ee332cab59ac55cae8bbc2b58ccfaa5dd04d8ba0ae3ceb6eee1a48175f4",
+      "producer": "a reviewer plus `crr` verbs, no model — that directory's README names a producer per file"
+    },
+    {
+      "path": "outcome-promotion/probe-app-error/journal.jsonl",
+      "bytes": 11474,
+      "sha256": "0e22011336907cfd2b97a0a44955e2cc7873b2d71fdb0e3669ca78ce795f04f6",
+      "producer": "a reviewer plus `crr` verbs, no model — that directory's README names a producer per file"
+    },
+    {
+      "path": "outcome-promotion/probe-app-error/observations/journal-632500acb405119c31bdd5228a6e39c972380eec8c9e539ad7d7b702b773dd7d.json",
+      "bytes": 15259,
+      "sha256": "c5b976f268a2962f58a9a0e826a5b1a5baffe8137232e4cac4512eb91172a151",
+      "producer": "a reviewer plus `crr` verbs, no model — that directory's README names a producer per file"
+    },
+    {
+      "path": "outcome-promotion/probe-app-error/observations/obs-5752ad0b57335f2d468220b762a725a3786166cbd106ffca2097cd5416f76b1d.json",
+      "bytes": 80468,
+      "sha256": "94afec85f061f8702e43480515600a62ba3f4b889edcec9077c6b228082304e3",
+      "producer": "a reviewer plus `crr` verbs, no model — that directory's README names a producer per file"
+    },
+    {
+      "path": "outcome-promotion/probe-app-error/observations/obs-61d5848e95de9be85854e51403a8bd45ec7f12017e6d647a84ea09c8a60aa737.json",
+      "bytes": 95258,
+      "sha256": "5267be6671546bb1bbf3d98a79e09532d435d5a3264d7abb7d207962f09705f7",
+      "producer": "a reviewer plus `crr` verbs, no model — that directory's README names a producer per file"
+    },
+    {
+      "path": "outcome-promotion/probe-green/console.txt",
+      "bytes": 699,
+      "sha256": "69847db9786e0f7524b13ee2fb842ec8160993925ea2d54937c30eb8052861a4",
+      "producer": "a reviewer plus `crr` verbs, no model — that directory's README names a producer per file"
+    },
+    {
+      "path": "outcome-promotion/probe-green/journal.jsonl",
+      "bytes": 21613,
+      "sha256": "fa617a567044d4e3f1339596c6e94eb4d4d65ab7fbdb813c6f235025c464dd4c",
+      "producer": "a reviewer plus `crr` verbs, no model — that directory's README names a producer per file"
+    },
+    {
+      "path": "outcome-promotion/probe-green/observations/journal-be14dd569c856b738cf1052ec71e672194526484f4910177b81882269964051c.json",
+      "bytes": 27289,
+      "sha256": "4e3af311c4c389c01560a8a6b57ac54ae33214e17f6b778f109e29d80be4a100",
+      "producer": "a reviewer plus `crr` verbs, no model — that directory's README names a producer per file"
+    },
+    {
+      "path": "outcome-promotion/probe-green/observations/obs-010c989dc4d41e814b5ed795c20e61ccda7e648543e8b4c0809c8a83ddb0e82b.json",
+      "bytes": 95264,
+      "sha256": "f842aac252f0cf18871fd451af3ae37776673992644cfe96cbff7ecc09847008",
+      "producer": "a reviewer plus `crr` verbs, no model — that directory's README names a producer per file"
+    },
+    {
+      "path": "outcome-promotion/probe-green/observations/obs-58c29bef3f3c0ac8250d98547b60f8cd2d8b41fa8e1847e03769b233f85fd9ba.json",
+      "bytes": 134837,
+      "sha256": "013259fcffbab86795fff574c2989d9f9cd25c4d63ff9a748ea873b5bfbdeca6",
+      "producer": "a reviewer plus `crr` verbs, no model — that directory's README names a producer per file"
+    },
+    {
+      "path": "outcome-promotion/probe-green/observations/obs-994ffc103d8b018d0d6507dc5a1a41a80986e9950ee97237ed0630db472471d8.json",
+      "bytes": 166609,
+      "sha256": "eaa52e0c5377d3a5ebf301e070f2a4fa28f0e1ad7cd1512e05ade9b9085943bc",
+      "producer": "a reviewer plus `crr` verbs, no model — that directory's README names a producer per file"
+    },
+    {
+      "path": "outcome-promotion/probe-green/observations/obs-a4d2e079d4c5f6a42d1a6db059d3d2362b1650b03dbf1f6bb314de0d2974f894.json",
+      "bytes": 134171,
+      "sha256": "75dcab1767963749e83b8914ac5560f66ed22d250bafec041eb047d6a5c5b045",
+      "producer": "a reviewer plus `crr` verbs, no model — that directory's README names a producer per file"
+    },
+    {
+      "path": "outcome-promotion/probe-interstitial/console.txt",
+      "bytes": 700,
+      "sha256": "e8c7e230eef94959064d8c0f679aabc48c23cb6f26f90390095bd5c882be53ca",
+      "producer": "a reviewer plus `crr` verbs, no model — that directory's README names a producer per file"
+    },
+    {
+      "path": "outcome-promotion/probe-interstitial/journal.jsonl",
+      "bytes": 10364,
+      "sha256": "03c3cb215f3264cb19d0485aa8a6c57661b05bafbc4b7d5b3303d4dedff910e3",
+      "producer": "a reviewer plus `crr` verbs, no model — that directory's README names a producer per file"
+    },
+    {
+      "path": "outcome-promotion/probe-interstitial/observations/journal-a2c8241459e4f0f1bf265b87f2fd09b9d035e9bf5679e4eb4ba82f7e63058a0e.json",
+      "bytes": 14022,
+      "sha256": "a13db07d99e519099f38d67db0788d8dc83a18fc4666f629393b8491c96ef620",
+      "producer": "a reviewer plus `crr` verbs, no model — that directory's README names a producer per file"
+    },
+    {
+      "path": "outcome-promotion/probe-interstitial/observations/obs-3f895bd453a530e101c7f6b813e387e49323b5da94e1032df25b9ccf92580b29.json",
+      "bytes": 148822,
+      "sha256": "ca5d8df8156146478480c999124ebbfd609394a64ceb9640332da4be086efaf0",
+      "producer": "a reviewer plus `crr` verbs, no model — that directory's README names a producer per file"
+    },
+    {
+      "path": "outcome-promotion/probe-interstitial/observations/obs-833660ebbc9beae49c4cedb77bcbced1997c20e8ffcee99d27d81481c224e704.json",
+      "bytes": 95258,
+      "sha256": "09c48e0f2e7a4cfe68caf3c9672fafc9ab20fddb02c110291cc19f5e5e93158a",
+      "producer": "a reviewer plus `crr` verbs, no model — that directory's README names a producer per file"
+    },
+    {
+      "path": "outcome-promotion/probe-session-expired/console.txt",
+      "bytes": 1146,
+      "sha256": "945f0636fa333255bca1d019b00ef449c475c6066e9d6abc21404ff8bf3e780d",
+      "producer": "a reviewer plus `crr` verbs, no model — that directory's README names a producer per file"
+    },
+    {
+      "path": "outcome-promotion/probe-session-expired/journal.jsonl",
+      "bytes": 11336,
+      "sha256": "fde729171c3925e6fd560828b5c5daf461444307b6ff4e28870939712b5dee87",
+      "producer": "a reviewer plus `crr` verbs, no model — that directory's README names a producer per file"
+    },
+    {
+      "path": "outcome-promotion/probe-session-expired/observations/journal-bc342b4293ab7f238b8238f7563e5f66c0117e7d1cb492a595a9cdd88a39005b.json",
+      "bytes": 15031,
+      "sha256": "135766bddc10abc1494f66b1fe04ef4be0b99df8ee8511617772cca2407e56c7",
+      "producer": "a reviewer plus `crr` verbs, no model — that directory's README names a producer per file"
+    },
+    {
+      "path": "outcome-promotion/probe-session-expired/observations/obs-428dc63946f0f60240cbd6df5e820db5eb01560ed0b2ffc38f63adbe2c41817a.json",
+      "bytes": 114225,
+      "sha256": "cdd2ab3c793d049154aa72fa3bf9d21f89dc9f6663aa5c6e692ca6af76bbd104",
+      "producer": "a reviewer plus `crr` verbs, no model — that directory's README names a producer per file"
+    },
+    {
+      "path": "outcome-promotion/probe-session-expired/observations/obs-833660ebbc9beae49c4cedb77bcbced1997c20e8ffcee99d27d81481c224e704.json",
+      "bytes": 95258,
+      "sha256": "09c48e0f2e7a4cfe68caf3c9672fafc9ab20fddb02c110291cc19f5e5e93158a",
+      "producer": "a reviewer plus `crr` verbs, no model — that directory's README names a producer per file"
+    },
+    {
+      "path": "outcome-promotion/probe-validation-error/console.txt",
+      "bytes": 981,
+      "sha256": "fd14988934ea94fcda83d0bc25f4e8979d27f6feb1abfbbac454b1ea7dd23ed4",
+      "producer": "a reviewer plus `crr` verbs, no model — that directory's README names a producer per file"
+    },
+    {
+      "path": "outcome-promotion/probe-validation-error/journal.jsonl",
+      "bytes": 11322,
+      "sha256": "25ffabd20404773a8577a675fd6752c1cea9237f4c9f88c5d374659944f6ef96",
+      "producer": "a reviewer plus `crr` verbs, no model — that directory's README names a producer per file"
+    },
+    {
+      "path": "outcome-promotion/probe-validation-error/observations/journal-af0f6583c766127e719ab322bd72a6e18b724c2c7cee7abd8ca1b1a9f8ab8dfa.json",
+      "bytes": 15017,
+      "sha256": "c7dd03624166811e8cdbbdb607e244d3e48e696b24b9d22ec40cb65c3a16ab01",
+      "producer": "a reviewer plus `crr` verbs, no model — that directory's README names a producer per file"
+    },
+    {
+      "path": "outcome-promotion/probe-validation-error/observations/obs-713d1a442f7bde6c9b7fa60ce3b69194aac0062d84c51c48e35de66c98ecacae.json",
+      "bytes": 95271,
+      "sha256": "3ca9c4eece39b07b954be00d8f9edb5b63aa32d71f5c2d7e22a5c09825231b02",
+      "producer": "a reviewer plus `crr` verbs, no model — that directory's README names a producer per file"
+    },
+    {
+      "path": "outcome-promotion/probe-validation-error/observations/obs-803bb002eeb7d1a3c9d1a983a6e7b975c3933cff7e69843a71b9a0263ddd61ef.json",
+      "bytes": 101658,
+      "sha256": "200d543c35a62bd07ce7a663293ab31dd4302c6fc90ec46e98113d6e0f261a14",
+      "producer": "a reviewer plus `crr` verbs, no model — that directory's README names a producer per file"
+    },
+    {
+      "path": "outcome-promotion/promoted/artifact.json",
+      "bytes": 64905,
+      "sha256": "a6d5276b848d43f0e40114ae55300518f6f65082dba8f8a76784dbf835d35013",
+      "producer": "a reviewer plus `crr` verbs, no model — that directory's README names a producer per file"
+    },
+    {
+      "path": "outcome-promotion/promoted/console-dry-run.txt",
+      "bytes": 982,
+      "sha256": "6409ca41c0a263a8fc1c8152b5dcf1721b1a4cec6e4cff7f2c4778eb2e453e54",
+      "producer": "a reviewer plus `crr` verbs, no model — that directory's README names a producer per file"
+    },
+    {
+      "path": "outcome-promotion/promoted/console.txt",
+      "bytes": 1932,
+      "sha256": "e8ad0fa82c9994e7db19f0a971c68bb26d6c1c7c87f245feb50bd5f7bf3dc2e6",
+      "producer": "a reviewer plus `crr` verbs, no model — that directory's README names a producer per file"
+    },
+    {
+      "path": "outcome-promotion/promoted/contract.json",
+      "bytes": 2824,
+      "sha256": "3041a8ea3b7d8551999592eecb6e0489e4e4f54526e4e8da218af568d84b38ed",
+      "producer": "a reviewer plus `crr` verbs, no model — that directory's README names a producer per file"
+    },
+    {
+      "path": "outcome-promotion/promoted/promotions/sha256-47ebed5ea3648929e03c742a36eeb85a814c7d63549d9c12d2045a66e3addf5d.json",
+      "bytes": 3311,
+      "sha256": "2a286cfdb498f71cd31ab94954bfc623f494ddcd1a9734ddff10c3a717263de3",
+      "producer": "a reviewer plus `crr` verbs, no model — that directory's README names a producer per file"
+    },
+    {
+      "path": "outcome-promotion/reproduce.sh",
+      "bytes": 13598,
+      "sha256": "2ccd3dc854dc809592baa78297cc04c6dd049ef816504716b65419fbaab96d3e",
+      "producer": "a reviewer plus `crr` verbs, no model — that directory's README names a producer per file"
+    },
+    {
+      "path": "outcome-promotion/review/build-review.mjs",
+      "bytes": 2363,
+      "sha256": "4e035a9ee37d422b874ed0cee4c2a1e2b75877608ed6623909ab49d1442f7759",
+      "producer": "a reviewer plus `crr` verbs, no model — that directory's README names a producer per file"
+    },
+    {
+      "path": "outcome-promotion/review/promote-attempt-1-refused.txt",
+      "bytes": 1383,
+      "sha256": "cea8bf5e6679d76b9a95857d1ec17b0721679376479c9d399521877749451195",
+      "producer": "a reviewer plus `crr` verbs, no model — that directory's README names a producer per file"
+    },
+    {
+      "path": "outcome-promotion/review/promotion-attempt-1-refused.json",
+      "bytes": 3246,
+      "sha256": "9b9e8d1474f7ae1e27099c1018268537f893b5eab35d7b43687b99bfc2e35990",
+      "producer": "a reviewer plus `crr` verbs, no model — that directory's README names a producer per file"
+    },
+    {
+      "path": "outcome-promotion/review/promotion.json",
+      "bytes": 3311,
+      "sha256": "2a286cfdb498f71cd31ab94954bfc623f494ddcd1a9734ddff10c3a717263de3",
+      "producer": "a reviewer plus `crr` verbs, no model — that directory's README names a producer per file"
+    },
+    {
+      "path": "outcome-promotion/review/promotion.template.json",
+      "bytes": 2612,
+      "sha256": "036a550b096dd2644278a15b67f36f16cff7f7f6ca356db11e2e0c96cfb70935",
+      "producer": "a reviewer plus `crr` verbs, no model — that directory's README names a producer per file"
+    },
+    {
+      "path": "outcome-promotion/verified/artifact.json",
+      "bytes": 64900,
+      "sha256": "ae524a5225bb2ffbba9254b87b1cbd046ed0159de482aa1716ad154a08c2a643",
+      "producer": "a reviewer plus `crr` verbs, no model — that directory's README names a producer per file"
+    },
+    {
+      "path": "outcome-promotion/verified/console.txt",
+      "bytes": 216,
+      "sha256": "4b411f8bf546e29c64fc20ed1487d065ee87e2f5670d009402b22d5fbaf42b9e",
+      "producer": "a reviewer plus `crr` verbs, no model — that directory's README names a producer per file"
+    },
+    {
+      "path": "outcome-promotion/verified/journal.jsonl",
+      "bytes": 20475,
+      "sha256": "c1728e371188d494b8194f9033b4b2fc1a0749dd19d7e91ce2cf22d777234dd6",
+      "producer": "a reviewer plus `crr` verbs, no model — that directory's README names a producer per file"
+    },
+    {
+      "path": "outcome-promotion/verified/observations/journal-10fc9553afdec1886c0d700a63f36f7540ef57618ab9f162a27e74d2ad957f4f.json",
+      "bytes": 25911,
+      "sha256": "061228fc966382582d93badf57e925ca34c0bf8c4fbb5102c959f971ad7dfee4",
+      "producer": "a reviewer plus `crr` verbs, no model — that directory's README names a producer per file"
+    },
+    {
       "path": "replay-01-green/README.md",
       "bytes": 898,
       "sha256": "802f537d9f940d03f6a7b84c45b2b658ce31f5532fd32812f7c084318db13391",
@@ -203,25 +677,25 @@
     {
       "path": "replay-01-green/journal.jsonl",
       "bytes": 32103,
-      "sha256": "81841a59eb675f7e45f01ca92590c6402c3ef0a90a2f17d985b80a991a7da2cb",
+      "sha256": "e77ac7feb7689d6b6a2f702cb8d8308ed2d7cced85ae8f790f777fb403b008fb",
       "producer": "`@crr/runtime` `replay()` over `@crr/surface-browser`, no model"
     },
     {
-      "path": "replay-01-green/observations/journal-02949829cf31fd0ad100b3de84a44e56a49edef097a7b56edf80abde53df08b7.json",
+      "path": "replay-01-green/observations/journal-f30ca6aa6e02ab059515298777bfceda4e2f71e68643213fb216886be9975faf.json",
       "bytes": 41476,
-      "sha256": "e0e6b8caef452f1a30109b3a43a4ed6924cc4f73f4bc6b3dfbb34dcd5c702cb9",
+      "sha256": "c5550e501374aaacad9a9ace77cd16b248211f5077ba42a7aedcd80d0426aa50",
       "producer": "`@crr/runtime` `replay()` over `@crr/surface-browser`, no model"
     },
     {
       "path": "replay-01-green/result.json",
       "bytes": 8106,
-      "sha256": "5905ade57a34a35106e2a335d646b3e43c002f418fb98bb55822407397883fe4",
+      "sha256": "1688137b1b6d4965b84b0e372c8a037ef589cb6a50808bfb7361c795c1bfd696",
       "producer": "`@crr/runtime` `replay()` over `@crr/surface-browser`, no model"
     },
     {
       "path": "replay-01-green/run.log",
       "bytes": 581,
-      "sha256": "e9ad828ab72560aca3fde73ad889400e6439999a9811b3665ad016f4f2012068",
+      "sha256": "837c3731ef913a281a1b76393724b6f1ebbfc56333c3a37ae04da6b0873dfc5f",
       "producer": "`@crr/runtime` `replay()` over `@crr/surface-browser`, no model"
     },
     {
@@ -232,14 +706,14 @@
     },
     {
       "path": "replay-02-outcome-member-not-found/journal.jsonl",
-      "bytes": 11275,
-      "sha256": "e8a95cb902175b71ce36ee76e9b1c1ea57814ef7d67f983df7675b6fec8b4334",
+      "bytes": 11315,
+      "sha256": "ff85eccbe6b4d90a3fbd1493e515cb6abfc54d3971b068d7149b4d61670d0402",
       "producer": "`@crr/runtime` `replay()` over `@crr/surface-browser`, no model"
     },
     {
-      "path": "replay-02-outcome-member-not-found/observations/journal-7a455a8ec52e89ae81f6fd138b47882550f4b391efec3bb3342907f30c6c06b3.json",
-      "bytes": 14538,
-      "sha256": "5865cc37fc63c295a2af522181df5e929ff3661949f59c3989ac4b24e1428f13",
+      "path": "replay-02-outcome-member-not-found/observations/journal-12675c56214612adc7a2770d4e5f72f2ea29101a58ad575c82f62f245db280ae.json",
+      "bytes": 14590,
+      "sha256": "4fc8de1d5cc1619b7bb10685bc8b82274ce44f259ed6b4823c1989c5a3a12a2e",
       "producer": "`@crr/runtime` `replay()` over `@crr/surface-browser`, no model"
     },
     {
@@ -251,13 +725,13 @@
     {
       "path": "replay-02-outcome-member-not-found/result.json",
       "bytes": 4527,
-      "sha256": "3c8903051e94f2ec4093992c302e74f157bf776ab09abcf676568060fe49f1a0",
+      "sha256": "33df325845886886048ed63b0a4323a795ef817d44f810063e344eebb91f1994",
       "producer": "`@crr/runtime` `replay()` over `@crr/surface-browser`, no model"
     },
     {
       "path": "replay-02-outcome-member-not-found/run.log",
       "bytes": 749,
-      "sha256": "91c06ceed4cba85b8734a1a2263b3dee9e7fe2813b26426eba5e34b96e7c3784",
+      "sha256": "8e0523b1e7c2793a67eb257eed14adc90792f0f9d5327961028f0f6f3ffde709",
       "producer": "`@crr/runtime` `replay()` over `@crr/surface-browser`, no model"
     },
     {
@@ -269,25 +743,25 @@
     {
       "path": "replay-03-recovered-interstitial/journal.jsonl",
       "bytes": 44786,
-      "sha256": "f62af2c68d88b14c4235e274d3227ee23f10d7e2d8367a36abdf73241839690a",
+      "sha256": "55f6d50fe4ccd71f91b93a379eae81e083584db5603c6c5b19f99afc8325a14f",
       "producer": "`@crr/runtime` `replay()` over `@crr/surface-browser`, no model"
     },
     {
-      "path": "replay-03-recovered-interstitial/observations/journal-710a12fb47489f16234279992255a7223ebbb6644c5d79b8e269b78f7e081cbd.json",
+      "path": "replay-03-recovered-interstitial/observations/journal-eaf8c484a302f2dc3fad2ba640b45902d2df2465540ce145194536b3cc7cc48e.json",
       "bytes": 59661,
-      "sha256": "aa404bba9c604ec8f38c4974add4fda92f3e3b5e68a30531bd2325662587c5bd",
+      "sha256": "ea864343ebe259e3b9a336743c1c0d43bcc51d2ec0f7a4b0cc6925773e349316",
       "producer": "`@crr/runtime` `replay()` over `@crr/surface-browser`, no model"
     },
     {
       "path": "replay-03-recovered-interstitial/result.json",
       "bytes": 14038,
-      "sha256": "232e9487acf57494dd6bc08d7fefc75c2731335b9af0e976bc5b4c9900a5bb4a",
+      "sha256": "0d5b0dcd97e35e2e5fe99b43d7b4bafb2ab5ce926d967a75635e58f7f0805d65",
       "producer": "`@crr/runtime` `replay()` over `@crr/surface-browser`, no model"
     },
     {
       "path": "replay-03-recovered-interstitial/run.log",
       "bytes": 836,
-      "sha256": "d2e181c3f7e8a85e8a61eed6425e6b8c4488b58d9a5f0a9929650394187ff07c",
+      "sha256": "8c80da58749b9ced7ecb639a1c62bf9f1c79b714c054a58e5efc4f36e95d3c00",
       "producer": "`@crr/runtime` `replay()` over `@crr/surface-browser`, no model"
     },
     {
@@ -298,32 +772,32 @@
     },
     {
       "path": "replay-04-failed-app-error/journal.jsonl",
-      "bytes": 39368,
-      "sha256": "2472004fe332246642b0d912d553cf2125b735dc8824d3d96617a9f9c4dcf160",
+      "bytes": 39413,
+      "sha256": "3dc45f5953a329e7baa69d82799cb5f54ab9680ec1bf97028568b0a1951bca18",
       "producer": "`@crr/runtime` `replay()` over `@crr/surface-browser`, no model"
     },
     {
-      "path": "replay-04-failed-app-error/observations/journal-5d1fa39cb2d8b74f6e41a53e6e9964faa54f6de3adbfcb662ebcc7a5aa5c8c0e.json",
-      "bytes": 51430,
-      "sha256": "27a0b469cb94da807ced974468395a982c06f54c1834fe9722984e853a8ed0b2",
+      "path": "replay-04-failed-app-error/observations/journal-94c79aac9ff6965bef5bea622e0ca9f9f91000a9017e9865ed321be821edd30e.json",
+      "bytes": 51487,
+      "sha256": "1ebc1cd1f2e82439c95712f4685dd1d0eb3eb637d07657b718c696cc1157d0f1",
       "producer": "`@crr/runtime` `replay()` over `@crr/surface-browser`, no model"
     },
     {
-      "path": "replay-04-failed-app-error/observations/obs-a50b2fbc343314a2a07f3922a050c0663c4c8829032b8e464337d648325f538a.json",
+      "path": "replay-04-failed-app-error/observations/obs-09adb420116943f708f54f8f9693d60c5045f76a5d1518f6b21d7cef52930932.json",
       "bytes": 80347,
-      "sha256": "a8215fda993a2a22b3c3c7efafaba8cff5e932abb7bea592d9c5528943b551c2",
+      "sha256": "75827d342f5cc3b5970f759192a254388c0a42255be2c6d865036f0ed933abaa",
       "producer": "`@crr/runtime` `replay()` over `@crr/surface-browser`, no model"
     },
     {
       "path": "replay-04-failed-app-error/result.json",
       "bytes": 13828,
-      "sha256": "5d75a899525e553021befe7480838e232e1c7d03dae273db22b956b250d24930",
+      "sha256": "13b32cf2cf507b3f2a4ca34f86737eb4738223078fe47085a796347779d4b02d",
       "producer": "`@crr/runtime` `replay()` over `@crr/surface-browser`, no model"
     },
     {
       "path": "replay-04-failed-app-error/run.log",
       "bytes": 774,
-      "sha256": "64ab6619e6c2210cbecc844552d9a820cf23ad2ae646dff26b8163b474156f66",
+      "sha256": "20a0e00cb4e33e92dbdd4a43c9946a88c46f0768ba549c13a088ffc560e8c21f",
       "producer": "`@crr/runtime` `replay()` over `@crr/surface-browser`, no model"
     },
     {
@@ -335,31 +809,31 @@
     {
       "path": "replay-05-failed-session-expired/journal.jsonl",
       "bytes": 19063,
-      "sha256": "511c83d0ee7cd08109a48d79b2bf6dcbf16470bb764e36bc228d4ee05b117ea7",
+      "sha256": "d2fd0e4efcf139493799dddbf94c8201a9cefecb18f7f55cb0555a563f016e69",
       "producer": "`@crr/runtime` `replay()` over `@crr/surface-browser`, no model"
     },
     {
-      "path": "replay-05-failed-session-expired/observations/journal-27a8b769957a3b34806a517cfeb73b234650eca771bdd6498aa0432e3df37252.json",
+      "path": "replay-05-failed-session-expired/observations/journal-cb4442cff5930d9f35a053bd21dc510ad7f74b787ad3449237f360ca45748be1.json",
       "bytes": 24621,
-      "sha256": "e97de60340270a2aa278124cf980d5ac88b2dbdd91969b40354147f823508a45",
+      "sha256": "3a9e505fb70ce14f803fc514450f67520489f635924fec0a236f4de0f8b4fc2c",
       "producer": "`@crr/runtime` `replay()` over `@crr/surface-browser`, no model"
     },
     {
-      "path": "replay-05-failed-session-expired/observations/obs-fdbdca2a5299692a7942a46669ea842936d036cd118df74eedbe1f8bca59deb8.json",
+      "path": "replay-05-failed-session-expired/observations/obs-cecf7d7a2153937b264ec98be62344ffc8cea15109392dd913904f84d9fcd0e5.json",
       "bytes": 114081,
-      "sha256": "f12fb51424216b042b0ba9e36826c06095fdcd512ca11a0e026b74144a623866",
+      "sha256": "0210d90fdda76e92ff6b7ab227c3986e69d05a1b6aa0259922541e99c56cce4a",
       "producer": "`@crr/runtime` `replay()` over `@crr/surface-browser`, no model"
     },
     {
       "path": "replay-05-failed-session-expired/result.json",
       "bytes": 7537,
-      "sha256": "33310067a9980d5dce0fd22c8dd150daec2915fc5a9b1fbd5e82de857b3dfd0d",
+      "sha256": "42d4a6b8debf87eacbbda3e527acf9bf49b4b574ba67dc7e06a0770444c98114",
       "producer": "`@crr/runtime` `replay()` over `@crr/surface-browser`, no model"
     },
     {
       "path": "replay-05-failed-session-expired/run.log",
       "bytes": 828,
-      "sha256": "d07fb62527bb44d64811d9f6969dbafe9ffe810ba91297dcc9bed5e1014111fd",
+      "sha256": "1627061d81c421b09241e407e5f1a065668c47abd0520ddfdf8228ea18066620",
       "producer": "`@crr/runtime` `replay()` over `@crr/surface-browser`, no model"
     }
   ]

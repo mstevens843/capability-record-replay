@@ -45,6 +45,10 @@ export * from "./contract.js";
 export * from "./artifact.js";
 export * from "./overlay.js";
 export * from "./documents.js";
+// -- The REVIEW document: an input consumed once at promotion time, plus the pure proof that
+// -- decides whether a human-authored detector is allowed to exist. Not a fourth document type -
+// -- see the module header for why there is no fourth reader.
+export * from "./promotion.js";
 
 // -- The port, and a scripted implementation of it. `MockSurface` ships in `src/` rather than in
 // -- `test/` on purpose: units in other packages (interpreter, discovery, conformance) cannot
@@ -61,7 +65,7 @@ export * from "./result.js";
 export * from "./journal.js";
 export * from "./session.js";
 
-// -- LINK: contract (+) artifact (+) overlay (+) capabilities (+) args, 28 checks, zero actions.
+// -- LINK: contract (+) artifact (+) overlay (+) capabilities (+) args, 29 checks, zero actions.
 export * from "./document-walk.js";
 export * from "./overlay-merge.js";
 export * from "./effects.js";
@@ -73,6 +77,10 @@ export * from "./evaluate.js";
 export * from "./target-resolver.js";
 export * from "./policy.js";
 export * from "./policy-engine.js";
+// -- The APPROVAL model, which the chokepoint above reads: the two subjects an approval can have,
+// -- what one must carry and bind, and the pure verification that turns a signed document into
+// -- permission to dispatch an action nobody can take back. See docs/design/APPROVAL-MODEL.md.
+export * from "./approval.js";
 export * from "./taint.js";
 export * from "./masking.js";
 export * from "./classify.js";

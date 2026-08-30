@@ -67,7 +67,7 @@ import {
   safeCaptureRequest,
 } from "@crr/core";
 import type { Action } from "@crr/core";
-import type { ApprovalGrant } from "./approval.js";
+import type { ApprovalGrant, InvocationApprovalGrant } from "./approval.js";
 import { type RunLedger, StepLedger } from "./budgets.js";
 import type { Clock } from "./clock.js";
 import type { EvidenceSink } from "./evidence.js";
@@ -155,6 +155,8 @@ export interface ParkedRun {
   readonly clock: Clock;
   readonly allowlist: Allowlist;
   readonly approval: ApprovalGrant | null;
+  readonly invocationApproval?: InvocationApprovalGrant | null;
+  readonly idempotencyKey?: string | null;
   readonly bindings: ResolvedBindings;
   readonly perceiveDeadlineMs: number;
   /**
@@ -811,6 +813,14 @@ export class ControlPlane {
           ref: capture.ref,
           kind: format === "image" ? "image" : "text-grid",
           maskedRegions: capture.maskedRegions,
+          stepId: parked.step.id,
+          // `pre`, and it is not a shrug. A parked run is suspended BEFORE its step re-runs, and
+          // `resume` re-perceives and re-classifies at `phase: "pre"` against exactly the screen
+          // this capture is of - so the phase recorded here is the phase the screen will be judged
+          // in. (It is also a masked screenshot rather than an `observation`, so no discrimination
+          // proof will ever draw on it; the field is here because a journal line that is precise
+          // for two of three kinds is a journal line somebody will misread.)
+          phase: "pre",
         });
       }
     }

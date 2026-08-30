@@ -338,7 +338,7 @@ describe("the synthesized program", () => {
 // ---------------------------------------------------------------------------------------------
 
 describe("linking the synthesized documents against the real driver's capabilities", () => {
-  it("passes all 28 checks in replay mode, with zero actions performed", () => {
+  it("passes all 29 checks in replay mode, with zero actions performed", () => {
     const result = link({
       contract,
       artifact,

@@ -84,7 +84,10 @@ them means another live run.
 ```
 discovery.log:71                    artifact digest sha256:923ab02f…   (as synthesized, `proposed`)
 verification.json:42  result.run.artifact.digest sha256:923ab02f…
-synthesized/artifact.json:10                     sha256:32e56a6f…      (as written, `draft`)
+synthesized/artifact.json:10                     sha256:7cde611d…      (as written, `draft`,
+                                                                        after the migration below;
+                                                                        it read sha256:32e56a6f…
+                                                                        when the run produced it)
 ```
 
 `ARTIFACT_DIGEST_EXCLUDED_FIELDS` (`packages/core/src/documents.ts`) is
@@ -101,6 +104,29 @@ reproducible from the recording** even though synthesis itself is. By the same a
 on the excluded list. That is a one-line change plus a re-emit; it moves every committed artifact's
 digest, so it was not made for this submission. It is named in `REPORT.md` §7 and in the README's
 limitations list.
+
+## The one edit this directory has taken since the run
+
+`CapabilityArtifact` gained a required `promotions` field — the receipt an outcome promotion leaves
+behind (`docs/design/OUTCOME-PROMOTION.md`, `packages/core/src/promotion.ts`). Every field of an
+artifact is required and none has a parse-time default, deliberately, so adding one makes every
+document written before it fail to parse. This one did.
+
+**What was changed, exactly:** `"promotions": []` was inserted, and `digest` was recomputed. Nothing
+else. The value is empty and could not be anything else — this run declares no business outcome at
+all, which is the whole point the bundle exists to make — and the artifact is a `draft` carrying no
+approval, so no signature was invalidated.
+
+**What it cost:** the shipped document's content address moved from `sha256:32e56a6f…` to
+`sha256:7cde611d…`. The run's own record of what it produced is unchanged: `discovery.log`,
+`journal.jsonl` and `verification.json` still say `sha256:923ab02f…`, and the row above now names
+three values rather than two. That is worse than two and better than the alternative, which was
+shipping a document the validator in the same commit refuses to read.
+
+**What was NOT done:** the run was not re-run and synthesis was not re-emitted. A live model call
+costs the author money and is out of scope for any agent working here; and re-emitting from the
+recorded transcript would produce a different document rather than this one, which is the record of
+what actually happened.
 
 ## One file in `verification-evidence/`
 

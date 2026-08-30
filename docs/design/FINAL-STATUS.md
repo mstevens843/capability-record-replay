@@ -14,7 +14,21 @@ discovery run happened; §7 is why neither of those is the same as "done".
 > 8 members with every credential variable unset, `pnpm build` 8/8, `pnpm typecheck` 14/14, `pnpm lint`
 > 317 files, `pnpm demo` 65 files three runs in a row. `docs/design/SUBMISSION-READY.md` is that
 > board with its commands, plus the list of limitations that are still true. **§11 is a dated ledger
-> of an earlier pass and is banner-marked as such** — read §1 and §2 for current numbers.
+> of an earlier pass and is banner-marked as such** — read §1 and §2 for that pass's numbers, and the
+> paragraph below for what has moved since.
+
+> **THE 2026-08-29 OUTCOME-PROMOTION PASS MOVED THEM AGAIN, AND THIS DOCUMENT WAS NOT RE-TAKEN FOR
+> IT.** §1, §2 and §11 are the 2026-08-28 board and are kept exactly as they were written.
+> Re-measured after that pass with `npx turbo run test --force` and every credential variable unset:
+> **1,984 tests / 107 files / 8 members**, `Tasks: 14 successful, 14 total`, `Cached: 0/14`, exit 0.
+> Three members moved and the rest did not — `@crr/core` 788 → 819 (36 → 37 files), `@crr/runtime`
+> 336 → 367 (22 → 23), `@crr/discovery` 361 → 362. **§2's table calls it a "28-check linker"; it is a
+> 29-check linker** — check 29 `outcome-unproven` landed with `docs/design/OUTCOME-PROMOTION.md`,
+> and so did `packages/core/test/promotion.test.ts` (28 passed) and
+> `packages/runtime/test/promote.test.ts` (28 passed), which are 56 of the 63 new tests. **Only the
+> test board was re-measured.** §1's `pnpm lint` `317 files` and `pnpm demo` `65 files` were not
+> re-run here and are still the 2026-08-28 figures; `README.md` now carries `144 files` for the demo
+> bundle, and nothing in this note checked it.
 
 ---
 
@@ -462,8 +476,12 @@ operator console pass the same gate as the interpreter's**, and the live run's j
 stops being a design claim: `policy.decided` appears 3 times in `evidence/discovery-live/journal.jsonl`
 and 3 times in `verification-journal.jsonl`, once per dispatch on each side.
 
-`packages/core/src/linker.ts:86` still reads `LINK_CHECK_COUNT = 28`, and the live verification
-replay journals `link.completed { checksRun: 28, errors: [] }`.
+`packages/core/src/linker.ts:86` read `LINK_CHECK_COUNT = 28` when this pass ran, and the live
+verification replay journals `link.completed { checksRun: 28, errors: [] }`. **The constant is `29`
+today**: check 29 (`outcome-unproven`) landed with `docs/design/OUTCOME-PROMOTION.md`. The live run's
+journal keeps its `28` and must — it is a record of what executed on 2026-08-28, not a statement
+about the tree, and `evidence/discovery-live/verification-journal.jsonl` still reads `checksRun: 28`
+while every bundle written since reads `29`.
 
 **The `src/` scan does not read `packages/discovery/tools/`**, and that is worth being exact about
 because the runner is the file that drove the browser. `packageSources` filters to

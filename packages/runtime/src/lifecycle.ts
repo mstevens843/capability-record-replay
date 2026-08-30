@@ -131,6 +131,24 @@ export interface ApproveOptions {
   /** Same argument, for the blast radius: the approver ticks the effect classes they are agreeing
    *  to, and the artifact's own maximum has to be among them. */
   readonly acknowledgedEffects: readonly EffectClass[];
+  /**
+   * The reviewer-authored outcome codes the approver TICKED BY HAND, exactly and in both
+   * directions (`--ack-promotions MEMBER_NOT_FOUND`).
+   *
+   * Third instance of the same move, and the one with the least behind it. A grade and an effect
+   * class were each established by a replay; a promoted outcome's detector was established by a
+   * discrimination proof over frozen screens, which is real but is not a live session, and its
+   * MEANING - that this screen says "no such member" rather than "your search timed out and we
+   * rendered an empty grid" - was established by nobody at all except the person signing. So the
+   * approver says its name out loud, and `crr approve` prints that person's own
+   * `stableUnderRetryBecause` and the receipt's `probeConfirmed` next to it.
+   *
+   * Defaults to `[]` rather than being required, because an artifact with no promotions is the
+   * overwhelmingly common case and a mandatory empty array on every call site would train people to
+   * type it without reading it - which is the exact failure this whole family of fields exists to
+   * prevent.
+   */
+  readonly acknowledgedPromotions?: readonly string[];
 }
 
 /**
@@ -173,6 +191,22 @@ export function approve(artifact: CapabilityArtifact, options: ApproveOptions): 
       `the approver did not tick this artifact's maximum effect (${artifact.effects.maxEffect})`,
     );
   }
+  const ticked = new Set(options.acknowledgedPromotions ?? []);
+  const promoted = new Set(artifact.promotions.map((p) => p.code));
+  for (const code of promoted) {
+    if (!ticked.has(code)) {
+      reasons.push(
+        `the approver did not tick the reviewer-authored outcome ${code}, promoted from review ${artifact.promotions.find((p) => p.code === code)?.reviewDigest ?? "?"}; a detector a human wrote is the one thing in this document that no replay established`,
+      );
+    }
+  }
+  for (const code of ticked) {
+    if (!promoted.has(code)) {
+      reasons.push(
+        `the approver ticked a promotion of ${code} and this artifact carries no receipt for it`,
+      );
+    }
+  }
   if (options.signer.alg !== "ed25519") {
     reasons.push(`the approval algorithm is ed25519 and the signer offered ${options.signer.alg}`);
   }
@@ -186,7 +220,25 @@ export function approve(artifact: CapabilityArtifact, options: ApproveOptions): 
     alg: "ed25519",
     acknowledgedEffects: [...options.acknowledgedEffects],
     acknowledgedGrade: options.acknowledgedGrade,
+    acknowledgedPromotions: [...ticked],
   });
+}
+
+/**
+ * The outcome detectors in this artifact that nothing has proven, as `CODE at step S`.
+ *
+ * Exported because `crr approve` and `crr show` both print it and neither should re-derive the
+ * rule. A `hand-authored` detector is legal and unproven; that combination is only safe if the
+ * person signing is told about it, so this is what gets printed next to the signature prompt.
+ */
+export function unprovenOutcomesOf(artifact: CapabilityArtifact): readonly string[] {
+  const out: string[] = [];
+  for (const step of artifact.flow.steps) {
+    for (const rule of step.outcomes) {
+      if (rule.origin === "hand-authored") out.push(`${rule.code} at step ${step.id}`);
+    }
+  }
+  return out;
 }
 
 // ---------------------------------------------------------------------------------------------

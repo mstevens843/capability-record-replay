@@ -96,6 +96,9 @@ function linkedProgram(): LinkedProgram {
       contractDigest: memberLookupContract.digest,
     },
     mode: "replay",
+    // The base artifact with no overlay still runs AT a tenant, and check 29 needs to know which:
+    // this program carries a promoted outcome whose detector reads a per-tenant vocabulary token.
+    tenant: "riverbend",
     allowlist,
     trust: {
       trustedKeyIds: ["ops-approval-key-1"],

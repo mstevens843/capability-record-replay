@@ -1,0 +1,2074 @@
+{
+  "schemaVersion": "capability.artifact/v1",
+  "artifactId": "corebank.member.read_share_position.web-legacy.v1",
+  "implements": {
+    "name": "corebank.member.read_share_position",
+    "version": "2.0.0",
+    "contractDigest": "sha256:e92f2fafa48e84697900d4ec80d86937e74cf9bf1e33c1903b006e376765b8ab"
+  },
+  "version": 2,
+  "digest": "sha256:21f298ec7a17285c776a32d61b1e01dca378f381e19c4d56da9ef95cec5f44b1",
+  "target": {
+    "product": "CoreBank Servicing",
+    "productVersionRange": ">=8.0 <9.0",
+    "surfaceKind": "web-legacy",
+    "requires": [
+      "accessibility-tree",
+      "containers",
+      "geometry",
+      "table-position"
+    ],
+    "sessionProfile": "corebank-teller"
+  },
+  "lifecycle": {
+    "status": "approved",
+    "supersedes": 1,
+    "approval": {
+      "approvedBy": "approver:agent-acting-as-approver",
+      "approvedAt": "2026-08-30T01:29:05.451Z",
+      "signature": "HivMxFV0hQv0Ho7WaJRLe9aKPdb4EF_W9Szz2fsjS6gxvFT5nEFQDMiwpTye9Su-AzCM3NbHpnfsU0DVK_rmAQ",
+      "keyId": "crr-outcome-review-key-1",
+      "alg": "ed25519",
+      "over": "sha256:21f298ec7a17285c776a32d61b1e01dca378f381e19c4d56da9ef95cec5f44b1",
+      "acknowledgedEffects": [
+        "WRITE_REVERSIBLE"
+      ],
+      "acknowledgedGrade": "full",
+      "acknowledgedPromotions": [
+        "MEMBER_NOT_FOUND"
+      ]
+    }
+  },
+  "flow": {
+    "entry": {
+      "route": "search",
+      "precondition": {
+        "kind": "route-matches",
+        "route": "search"
+      }
+    },
+    "routes": [
+      {
+        "id": "search",
+        "originAlias": "corebank",
+        "path": "/search",
+        "frame": "content"
+      },
+      {
+        "id": "search-results",
+        "originAlias": "corebank",
+        "path": "/search/results",
+        "query": {
+          "ctl00$ctl32$g$9a1$txtMemberId": {
+            "from": "param",
+            "param": "memberId"
+          },
+          "ctl00$ctl32$g$9a1$txtLast": ":any",
+          "ctl00$ctl32$g$9a1$btnGo": ":any"
+        },
+        "frame": "content"
+      },
+      {
+        "id": "member-by-memberid",
+        "originAlias": "corebank",
+        "path": "/member/:memberId",
+        "frame": "content"
+      }
+    ],
+    "vocabulary": {
+      "member-id": [
+        "Member ID"
+      ],
+      "search": [
+        "Search"
+      ],
+      "test-fixture-synthetic-data-only-not-a-real-financial-system-eve": [
+        "TEST FIXTURE — SYNTHETIC DATA ONLY. Not a real financial system. Every member, account, balance and branch below is invented."
+      ],
+      "name": [
+        "Name"
+      ],
+      "share-balance": [
+        "Share Balance"
+      ],
+      "status": [
+        "Status"
+      ],
+      "action": [
+        "Action"
+      ],
+      "open": [
+        "Open"
+      ],
+      "member-idnameshare-balancestatusaction": [
+        "Member IDNameShare BalanceStatusAction"
+      ],
+      "open-sub-account": [
+        "Open Sub-Account"
+      ],
+      "acct": [
+        "Acct"
+      ],
+      "share-account": [
+        "Share Account"
+      ],
+      "opened": [
+        "Opened"
+      ],
+      "not-found-banner": [
+        "No members matched the search criteria"
+      ]
+    },
+    "resumePoints": [],
+    "steps": [
+      {
+        "id": "fill-fill",
+        "title": "Fill in fill",
+        "intent": "Enter the member ID {memberId} into the first search field to look up the member.",
+        "effect": "WRITE_REVERSIBLE",
+        "instruction": {
+          "kind": "fill",
+          "value": {
+            "from": "param",
+            "param": "memberId"
+          },
+          "mode": "replace"
+        },
+        "target": {
+          "scope": {
+            "path": [
+              {
+                "kind": "frame",
+                "name": {
+                  "mode": "exact",
+                  "value": "top",
+                  "normalize": "std.identity@1"
+                }
+              },
+              {
+                "kind": "frame",
+                "name": {
+                  "mode": "exact",
+                  "value": "content",
+                  "normalize": "std.identity@1"
+                }
+              },
+              {
+                "kind": "landmark",
+                "role": "form"
+              }
+            ]
+          },
+          "role": "textbox",
+          "descriptors": [
+            {
+              "id": "label-anchored",
+              "kind": "label-anchored",
+              "evidenceSource": "labelText",
+              "label": {
+                "mode": "token",
+                "token": "member-id",
+                "normalize": "std.label@1"
+              },
+              "role": "textbox",
+              "relation": "right-of",
+              "maxDistance": {
+                "unit": "px",
+                "value": 32
+              }
+            },
+            {
+              "id": "ordinal-in-container",
+              "kind": "ordinal-in-container",
+              "evidenceSource": "ordinal",
+              "container": {
+                "path": [
+                  {
+                    "kind": "frame",
+                    "name": {
+                      "mode": "exact",
+                      "value": "top",
+                      "normalize": "std.identity@1"
+                    }
+                  },
+                  {
+                    "kind": "frame",
+                    "name": {
+                      "mode": "exact",
+                      "value": "content",
+                      "normalize": "std.identity@1"
+                    }
+                  },
+                  {
+                    "kind": "landmark",
+                    "role": "form"
+                  }
+                ]
+              },
+              "role": "textbox",
+              "index": 0
+            }
+          ],
+          "quorum": {
+            "min": 2,
+            "distinctEvidenceSources": 2,
+            "requireIdentical": true,
+            "onUnderQuorum": "fail",
+            "expectUnique": true
+          },
+          "assert": {
+            "role": "textbox",
+            "enabled": true,
+            "visible": true
+          },
+          "recordedNode": {
+            "ariaRole": "textbox",
+            "name": null,
+            "containerPath": [
+              {
+                "kind": "frame",
+                "name": "top"
+              },
+              {
+                "kind": "frame",
+                "name": "content"
+              },
+              {
+                "kind": "landmark",
+                "role": "form",
+                "name": null
+              }
+            ],
+            "tablePosition": null,
+            "boundsBucket": "px:12x2"
+          }
+        },
+        "precondition": {
+          "kind": "route-matches",
+          "route": "search"
+        },
+        "settle": {
+          "stableSamples": 3,
+          "pollIntervalMs": 150,
+          "maxWaitMs": 8000
+        },
+        "expect": {
+          "predicate": {
+            "all": [
+              {
+                "kind": "route-matches",
+                "route": "search"
+              },
+              {
+                "kind": "node-exists",
+                "where": {
+                  "scope": {
+                    "path": [
+                      {
+                        "kind": "frame",
+                        "name": {
+                          "mode": "exact",
+                          "value": "top",
+                          "normalize": "std.identity@1"
+                        }
+                      },
+                      {
+                        "kind": "frame",
+                        "name": {
+                          "mode": "exact",
+                          "value": "content",
+                          "normalize": "std.identity@1"
+                        }
+                      },
+                      {
+                        "kind": "landmark",
+                        "role": "form"
+                      }
+                    ]
+                  },
+                  "role": "textbox"
+                }
+              },
+              {
+                "kind": "settled"
+              }
+            ]
+          },
+          "delta": {
+            "mustChange": true
+          },
+          "continuity": []
+        },
+        "outcomes": [],
+        "recoveries": [],
+        "extract": [],
+        "budgets": {
+          "perRecoveryMaxAttempts": {},
+          "maxRemediationCycles": 0
+        },
+        "evidence": {
+          "captureOn": [
+            "failure"
+          ]
+        }
+      },
+      {
+        "id": "activate-search",
+        "title": "Activate Search",
+        "intent": "Submit the search for member {memberId}.",
+        "effect": "WRITE_REVERSIBLE",
+        "instruction": {
+          "kind": "activate"
+        },
+        "target": {
+          "scope": {
+            "path": [
+              {
+                "kind": "frame",
+                "name": {
+                  "mode": "exact",
+                  "value": "top",
+                  "normalize": "std.identity@1"
+                }
+              },
+              {
+                "kind": "frame",
+                "name": {
+                  "mode": "exact",
+                  "value": "content",
+                  "normalize": "std.identity@1"
+                }
+              },
+              {
+                "kind": "landmark",
+                "role": "form"
+              }
+            ]
+          },
+          "role": "button",
+          "descriptors": [
+            {
+              "id": "role-name",
+              "kind": "role-name",
+              "evidenceSource": "accessibleName",
+              "role": "button",
+              "name": {
+                "mode": "token",
+                "token": "search",
+                "normalize": "std.label@1"
+              }
+            },
+            {
+              "id": "label-anchored",
+              "kind": "label-anchored",
+              "evidenceSource": "labelText",
+              "label": {
+                "mode": "token",
+                "token": "test-fixture-synthetic-data-only-not-a-real-financial-system-eve",
+                "normalize": "std.label@1"
+              },
+              "role": "button",
+              "relation": "below",
+              "maxDistance": {
+                "unit": "px",
+                "value": 96
+              }
+            },
+            {
+              "id": "ordinal-in-container",
+              "kind": "ordinal-in-container",
+              "evidenceSource": "ordinal",
+              "container": {
+                "path": [
+                  {
+                    "kind": "frame",
+                    "name": {
+                      "mode": "exact",
+                      "value": "top",
+                      "normalize": "std.identity@1"
+                    }
+                  },
+                  {
+                    "kind": "frame",
+                    "name": {
+                      "mode": "exact",
+                      "value": "content",
+                      "normalize": "std.identity@1"
+                    }
+                  },
+                  {
+                    "kind": "landmark",
+                    "role": "form"
+                  }
+                ]
+              },
+              "role": "button",
+              "index": 0
+            }
+          ],
+          "quorum": {
+            "min": 2,
+            "distinctEvidenceSources": 2,
+            "requireIdentical": true,
+            "onUnderQuorum": "fail",
+            "expectUnique": true
+          },
+          "assert": {
+            "role": "button",
+            "name": {
+              "mode": "token",
+              "token": "search",
+              "normalize": "std.label@1"
+            },
+            "enabled": true,
+            "visible": true
+          },
+          "recordedNode": {
+            "ariaRole": "button",
+            "name": "Search",
+            "containerPath": [
+              {
+                "kind": "frame",
+                "name": "top"
+              },
+              {
+                "kind": "frame",
+                "name": "content"
+              },
+              {
+                "kind": "landmark",
+                "role": "form",
+                "name": null
+              }
+            ],
+            "tablePosition": null,
+            "boundsBucket": "px:7x2"
+          }
+        },
+        "precondition": {
+          "kind": "route-matches",
+          "route": "search"
+        },
+        "settle": {
+          "stableSamples": 3,
+          "pollIntervalMs": 150,
+          "maxWaitMs": 8000
+        },
+        "expect": {
+          "predicate": {
+            "all": [
+              {
+                "kind": "route-matches",
+                "route": "search-results"
+              },
+              {
+                "kind": "node-exists",
+                "where": {
+                  "scope": {
+                    "path": [
+                      {
+                        "kind": "frame",
+                        "name": {
+                          "mode": "exact",
+                          "value": "top",
+                          "normalize": "std.identity@1"
+                        }
+                      },
+                      {
+                        "kind": "frame",
+                        "name": {
+                          "mode": "exact",
+                          "value": "content",
+                          "normalize": "std.identity@1"
+                        }
+                      },
+                      {
+                        "kind": "landmark",
+                        "role": "form"
+                      },
+                      {
+                        "kind": "table",
+                        "headers": [
+                          {
+                            "mode": "token",
+                            "token": "member-id",
+                            "normalize": "std.label@1"
+                          },
+                          {
+                            "mode": "token",
+                            "token": "name",
+                            "normalize": "std.label@1"
+                          },
+                          {
+                            "mode": "token",
+                            "token": "share-balance",
+                            "normalize": "std.label@1"
+                          },
+                          {
+                            "mode": "token",
+                            "token": "status",
+                            "normalize": "std.label@1"
+                          },
+                          {
+                            "mode": "token",
+                            "token": "action",
+                            "normalize": "std.label@1"
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  "role": "cell",
+                  "name": {
+                    "mode": "token",
+                    "token": "member-id",
+                    "normalize": "std.label@1"
+                  }
+                }
+              },
+              {
+                "kind": "node-exists",
+                "where": {
+                  "scope": {
+                    "path": [
+                      {
+                        "kind": "frame",
+                        "name": {
+                          "mode": "exact",
+                          "value": "top",
+                          "normalize": "std.identity@1"
+                        }
+                      },
+                      {
+                        "kind": "frame",
+                        "name": {
+                          "mode": "exact",
+                          "value": "content",
+                          "normalize": "std.identity@1"
+                        }
+                      },
+                      {
+                        "kind": "landmark",
+                        "role": "form"
+                      },
+                      {
+                        "kind": "table",
+                        "headers": [
+                          {
+                            "mode": "token",
+                            "token": "member-id",
+                            "normalize": "std.label@1"
+                          },
+                          {
+                            "mode": "token",
+                            "token": "name",
+                            "normalize": "std.label@1"
+                          },
+                          {
+                            "mode": "token",
+                            "token": "share-balance",
+                            "normalize": "std.label@1"
+                          },
+                          {
+                            "mode": "token",
+                            "token": "status",
+                            "normalize": "std.label@1"
+                          },
+                          {
+                            "mode": "token",
+                            "token": "action",
+                            "normalize": "std.label@1"
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  "role": "cell",
+                  "name": {
+                    "mode": "token",
+                    "token": "name",
+                    "normalize": "std.label@1"
+                  }
+                }
+              },
+              {
+                "kind": "settled"
+              }
+            ]
+          },
+          "delta": {
+            "mustChange": true,
+            "navigatedTo": "search-results"
+          },
+          "continuity": [
+            "memberId"
+          ]
+        },
+        "outcomes": [],
+        "recoveries": [],
+        "extract": [],
+        "budgets": {
+          "perRecoveryMaxAttempts": {},
+          "maxRemediationCycles": 0
+        },
+        "evidence": {
+          "captureOn": [
+            "failure"
+          ]
+        }
+      },
+      {
+        "id": "read-membername-sharebalance-membershipstatus",
+        "title": "Read memberName, shareBalance, membershipStatus",
+        "intent": "Read the values the caller asked for off the screen the run reached.",
+        "effect": "READ",
+        "instruction": {
+          "kind": "read"
+        },
+        "target": null,
+        "precondition": {
+          "kind": "route-matches",
+          "route": "search-results"
+        },
+        "settle": {
+          "stableSamples": 3,
+          "pollIntervalMs": 150,
+          "maxWaitMs": 8000
+        },
+        "expect": {
+          "predicate": {
+            "all": [
+              {
+                "kind": "route-matches",
+                "route": "search-results"
+              },
+              {
+                "kind": "node-exists",
+                "where": {
+                  "scope": {
+                    "path": [
+                      {
+                        "kind": "frame",
+                        "name": {
+                          "mode": "exact",
+                          "value": "top",
+                          "normalize": "std.identity@1"
+                        }
+                      },
+                      {
+                        "kind": "frame",
+                        "name": {
+                          "mode": "exact",
+                          "value": "content",
+                          "normalize": "std.identity@1"
+                        }
+                      },
+                      {
+                        "kind": "landmark",
+                        "role": "form"
+                      },
+                      {
+                        "kind": "table",
+                        "headers": [
+                          {
+                            "mode": "token",
+                            "token": "member-id",
+                            "normalize": "std.label@1"
+                          },
+                          {
+                            "mode": "token",
+                            "token": "name",
+                            "normalize": "std.label@1"
+                          },
+                          {
+                            "mode": "token",
+                            "token": "share-balance",
+                            "normalize": "std.label@1"
+                          },
+                          {
+                            "mode": "token",
+                            "token": "status",
+                            "normalize": "std.label@1"
+                          },
+                          {
+                            "mode": "token",
+                            "token": "action",
+                            "normalize": "std.label@1"
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  "role": "cell",
+                  "cell": {
+                    "table": {
+                      "path": [
+                        {
+                          "kind": "frame",
+                          "name": {
+                            "mode": "exact",
+                            "value": "top",
+                            "normalize": "std.identity@1"
+                          }
+                        },
+                        {
+                          "kind": "frame",
+                          "name": {
+                            "mode": "exact",
+                            "value": "content",
+                            "normalize": "std.identity@1"
+                          }
+                        },
+                        {
+                          "kind": "landmark",
+                          "role": "form"
+                        },
+                        {
+                          "kind": "table",
+                          "headers": [
+                            {
+                              "mode": "token",
+                              "token": "member-id",
+                              "normalize": "std.label@1"
+                            },
+                            {
+                              "mode": "token",
+                              "token": "name",
+                              "normalize": "std.label@1"
+                            },
+                            {
+                              "mode": "token",
+                              "token": "share-balance",
+                              "normalize": "std.label@1"
+                            },
+                            {
+                              "mode": "token",
+                              "token": "status",
+                              "normalize": "std.label@1"
+                            },
+                            {
+                              "mode": "token",
+                              "token": "action",
+                              "normalize": "std.label@1"
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    "rowKey": {
+                      "columnHeader": {
+                        "mode": "token",
+                        "token": "member-id",
+                        "normalize": "std.label@1"
+                      },
+                      "value": {
+                        "from": "param",
+                        "param": "memberId"
+                      }
+                    },
+                    "columnHeader": {
+                      "mode": "token",
+                      "token": "name",
+                      "normalize": "std.label@1"
+                    }
+                  }
+                }
+              },
+              {
+                "kind": "node-exists",
+                "where": {
+                  "scope": {
+                    "path": [
+                      {
+                        "kind": "frame",
+                        "name": {
+                          "mode": "exact",
+                          "value": "top",
+                          "normalize": "std.identity@1"
+                        }
+                      },
+                      {
+                        "kind": "frame",
+                        "name": {
+                          "mode": "exact",
+                          "value": "content",
+                          "normalize": "std.identity@1"
+                        }
+                      },
+                      {
+                        "kind": "landmark",
+                        "role": "form"
+                      },
+                      {
+                        "kind": "table",
+                        "headers": [
+                          {
+                            "mode": "token",
+                            "token": "member-id",
+                            "normalize": "std.label@1"
+                          },
+                          {
+                            "mode": "token",
+                            "token": "name",
+                            "normalize": "std.label@1"
+                          },
+                          {
+                            "mode": "token",
+                            "token": "share-balance",
+                            "normalize": "std.label@1"
+                          },
+                          {
+                            "mode": "token",
+                            "token": "status",
+                            "normalize": "std.label@1"
+                          },
+                          {
+                            "mode": "token",
+                            "token": "action",
+                            "normalize": "std.label@1"
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  "role": "cell",
+                  "cell": {
+                    "table": {
+                      "path": [
+                        {
+                          "kind": "frame",
+                          "name": {
+                            "mode": "exact",
+                            "value": "top",
+                            "normalize": "std.identity@1"
+                          }
+                        },
+                        {
+                          "kind": "frame",
+                          "name": {
+                            "mode": "exact",
+                            "value": "content",
+                            "normalize": "std.identity@1"
+                          }
+                        },
+                        {
+                          "kind": "landmark",
+                          "role": "form"
+                        },
+                        {
+                          "kind": "table",
+                          "headers": [
+                            {
+                              "mode": "token",
+                              "token": "member-id",
+                              "normalize": "std.label@1"
+                            },
+                            {
+                              "mode": "token",
+                              "token": "name",
+                              "normalize": "std.label@1"
+                            },
+                            {
+                              "mode": "token",
+                              "token": "share-balance",
+                              "normalize": "std.label@1"
+                            },
+                            {
+                              "mode": "token",
+                              "token": "status",
+                              "normalize": "std.label@1"
+                            },
+                            {
+                              "mode": "token",
+                              "token": "action",
+                              "normalize": "std.label@1"
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    "rowKey": {
+                      "columnHeader": {
+                        "mode": "token",
+                        "token": "member-id",
+                        "normalize": "std.label@1"
+                      },
+                      "value": {
+                        "from": "param",
+                        "param": "memberId"
+                      }
+                    },
+                    "columnHeader": {
+                      "mode": "token",
+                      "token": "share-balance",
+                      "normalize": "std.label@1"
+                    }
+                  }
+                }
+              },
+              {
+                "kind": "node-exists",
+                "where": {
+                  "scope": {
+                    "path": [
+                      {
+                        "kind": "frame",
+                        "name": {
+                          "mode": "exact",
+                          "value": "top",
+                          "normalize": "std.identity@1"
+                        }
+                      },
+                      {
+                        "kind": "frame",
+                        "name": {
+                          "mode": "exact",
+                          "value": "content",
+                          "normalize": "std.identity@1"
+                        }
+                      },
+                      {
+                        "kind": "landmark",
+                        "role": "form"
+                      },
+                      {
+                        "kind": "table",
+                        "headers": [
+                          {
+                            "mode": "token",
+                            "token": "member-id",
+                            "normalize": "std.label@1"
+                          },
+                          {
+                            "mode": "token",
+                            "token": "name",
+                            "normalize": "std.label@1"
+                          },
+                          {
+                            "mode": "token",
+                            "token": "share-balance",
+                            "normalize": "std.label@1"
+                          },
+                          {
+                            "mode": "token",
+                            "token": "status",
+                            "normalize": "std.label@1"
+                          },
+                          {
+                            "mode": "token",
+                            "token": "action",
+                            "normalize": "std.label@1"
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  "role": "cell",
+                  "cell": {
+                    "table": {
+                      "path": [
+                        {
+                          "kind": "frame",
+                          "name": {
+                            "mode": "exact",
+                            "value": "top",
+                            "normalize": "std.identity@1"
+                          }
+                        },
+                        {
+                          "kind": "frame",
+                          "name": {
+                            "mode": "exact",
+                            "value": "content",
+                            "normalize": "std.identity@1"
+                          }
+                        },
+                        {
+                          "kind": "landmark",
+                          "role": "form"
+                        },
+                        {
+                          "kind": "table",
+                          "headers": [
+                            {
+                              "mode": "token",
+                              "token": "member-id",
+                              "normalize": "std.label@1"
+                            },
+                            {
+                              "mode": "token",
+                              "token": "name",
+                              "normalize": "std.label@1"
+                            },
+                            {
+                              "mode": "token",
+                              "token": "share-balance",
+                              "normalize": "std.label@1"
+                            },
+                            {
+                              "mode": "token",
+                              "token": "status",
+                              "normalize": "std.label@1"
+                            },
+                            {
+                              "mode": "token",
+                              "token": "action",
+                              "normalize": "std.label@1"
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    "rowKey": {
+                      "columnHeader": {
+                        "mode": "token",
+                        "token": "member-id",
+                        "normalize": "std.label@1"
+                      },
+                      "value": {
+                        "from": "param",
+                        "param": "memberId"
+                      }
+                    },
+                    "columnHeader": {
+                      "mode": "token",
+                      "token": "status",
+                      "normalize": "std.label@1"
+                    }
+                  }
+                }
+              }
+            ]
+          },
+          "delta": {
+            "mustChange": false
+          },
+          "continuity": [
+            "memberId"
+          ]
+        },
+        "outcomes": [
+          {
+            "code": "MEMBER_NOT_FOUND",
+            "detect": {
+              "kind": "text-present",
+              "scope": {
+                "path": [
+                  {
+                    "kind": "frame",
+                    "name": {
+                      "mode": "exact",
+                      "value": "top",
+                      "normalize": "std.identity@1"
+                    }
+                  },
+                  {
+                    "kind": "frame",
+                    "name": {
+                      "mode": "exact",
+                      "value": "content",
+                      "normalize": "std.identity@1"
+                    }
+                  }
+                ]
+              },
+              "text": {
+                "mode": "token",
+                "token": "not-found-banner",
+                "normalize": "std.label@1"
+              }
+            },
+            "priority": 10,
+            "phase": "post",
+            "requiresSettled": true,
+            "capture": [],
+            "origin": "reviewer-authored"
+          }
+        ],
+        "recoveries": [],
+        "extract": [
+          {
+            "output": "memberName",
+            "from": "cell@1",
+            "where": {
+              "scope": {
+                "path": [
+                  {
+                    "kind": "frame",
+                    "name": {
+                      "mode": "exact",
+                      "value": "top",
+                      "normalize": "std.identity@1"
+                    }
+                  },
+                  {
+                    "kind": "frame",
+                    "name": {
+                      "mode": "exact",
+                      "value": "content",
+                      "normalize": "std.identity@1"
+                    }
+                  },
+                  {
+                    "kind": "landmark",
+                    "role": "form"
+                  },
+                  {
+                    "kind": "table",
+                    "headers": [
+                      {
+                        "mode": "token",
+                        "token": "member-id",
+                        "normalize": "std.label@1"
+                      },
+                      {
+                        "mode": "token",
+                        "token": "name",
+                        "normalize": "std.label@1"
+                      },
+                      {
+                        "mode": "token",
+                        "token": "share-balance",
+                        "normalize": "std.label@1"
+                      },
+                      {
+                        "mode": "token",
+                        "token": "status",
+                        "normalize": "std.label@1"
+                      },
+                      {
+                        "mode": "token",
+                        "token": "action",
+                        "normalize": "std.label@1"
+                      }
+                    ]
+                  }
+                ]
+              },
+              "role": "cell",
+              "cell": {
+                "table": {
+                  "path": [
+                    {
+                      "kind": "frame",
+                      "name": {
+                        "mode": "exact",
+                        "value": "top",
+                        "normalize": "std.identity@1"
+                      }
+                    },
+                    {
+                      "kind": "frame",
+                      "name": {
+                        "mode": "exact",
+                        "value": "content",
+                        "normalize": "std.identity@1"
+                      }
+                    },
+                    {
+                      "kind": "landmark",
+                      "role": "form"
+                    },
+                    {
+                      "kind": "table",
+                      "headers": [
+                        {
+                          "mode": "token",
+                          "token": "member-id",
+                          "normalize": "std.label@1"
+                        },
+                        {
+                          "mode": "token",
+                          "token": "name",
+                          "normalize": "std.label@1"
+                        },
+                        {
+                          "mode": "token",
+                          "token": "share-balance",
+                          "normalize": "std.label@1"
+                        },
+                        {
+                          "mode": "token",
+                          "token": "status",
+                          "normalize": "std.label@1"
+                        },
+                        {
+                          "mode": "token",
+                          "token": "action",
+                          "normalize": "std.label@1"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                "rowKey": {
+                  "columnHeader": {
+                    "mode": "token",
+                    "token": "member-id",
+                    "normalize": "std.label@1"
+                  },
+                  "value": {
+                    "from": "param",
+                    "param": "memberId"
+                  }
+                },
+                "columnHeader": {
+                  "mode": "token",
+                  "token": "name",
+                  "normalize": "std.label@1"
+                }
+              }
+            },
+            "parse": "string@1",
+            "normalize": "std.identity@1",
+            "onMissing": "fail"
+          },
+          {
+            "output": "shareBalance",
+            "from": "cell@1",
+            "where": {
+              "scope": {
+                "path": [
+                  {
+                    "kind": "frame",
+                    "name": {
+                      "mode": "exact",
+                      "value": "top",
+                      "normalize": "std.identity@1"
+                    }
+                  },
+                  {
+                    "kind": "frame",
+                    "name": {
+                      "mode": "exact",
+                      "value": "content",
+                      "normalize": "std.identity@1"
+                    }
+                  },
+                  {
+                    "kind": "landmark",
+                    "role": "form"
+                  },
+                  {
+                    "kind": "table",
+                    "headers": [
+                      {
+                        "mode": "token",
+                        "token": "member-id",
+                        "normalize": "std.label@1"
+                      },
+                      {
+                        "mode": "token",
+                        "token": "name",
+                        "normalize": "std.label@1"
+                      },
+                      {
+                        "mode": "token",
+                        "token": "share-balance",
+                        "normalize": "std.label@1"
+                      },
+                      {
+                        "mode": "token",
+                        "token": "status",
+                        "normalize": "std.label@1"
+                      },
+                      {
+                        "mode": "token",
+                        "token": "action",
+                        "normalize": "std.label@1"
+                      }
+                    ]
+                  }
+                ]
+              },
+              "role": "cell",
+              "cell": {
+                "table": {
+                  "path": [
+                    {
+                      "kind": "frame",
+                      "name": {
+                        "mode": "exact",
+                        "value": "top",
+                        "normalize": "std.identity@1"
+                      }
+                    },
+                    {
+                      "kind": "frame",
+                      "name": {
+                        "mode": "exact",
+                        "value": "content",
+                        "normalize": "std.identity@1"
+                      }
+                    },
+                    {
+                      "kind": "landmark",
+                      "role": "form"
+                    },
+                    {
+                      "kind": "table",
+                      "headers": [
+                        {
+                          "mode": "token",
+                          "token": "member-id",
+                          "normalize": "std.label@1"
+                        },
+                        {
+                          "mode": "token",
+                          "token": "name",
+                          "normalize": "std.label@1"
+                        },
+                        {
+                          "mode": "token",
+                          "token": "share-balance",
+                          "normalize": "std.label@1"
+                        },
+                        {
+                          "mode": "token",
+                          "token": "status",
+                          "normalize": "std.label@1"
+                        },
+                        {
+                          "mode": "token",
+                          "token": "action",
+                          "normalize": "std.label@1"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                "rowKey": {
+                  "columnHeader": {
+                    "mode": "token",
+                    "token": "member-id",
+                    "normalize": "std.label@1"
+                  },
+                  "value": {
+                    "from": "param",
+                    "param": "memberId"
+                  }
+                },
+                "columnHeader": {
+                  "mode": "token",
+                  "token": "share-balance",
+                  "normalize": "std.label@1"
+                }
+              }
+            },
+            "parse": "moneyUSD@1",
+            "normalize": "std.money@1",
+            "onMissing": "fail"
+          },
+          {
+            "output": "membershipStatus",
+            "from": "cell@1",
+            "where": {
+              "scope": {
+                "path": [
+                  {
+                    "kind": "frame",
+                    "name": {
+                      "mode": "exact",
+                      "value": "top",
+                      "normalize": "std.identity@1"
+                    }
+                  },
+                  {
+                    "kind": "frame",
+                    "name": {
+                      "mode": "exact",
+                      "value": "content",
+                      "normalize": "std.identity@1"
+                    }
+                  },
+                  {
+                    "kind": "landmark",
+                    "role": "form"
+                  },
+                  {
+                    "kind": "table",
+                    "headers": [
+                      {
+                        "mode": "token",
+                        "token": "member-id",
+                        "normalize": "std.label@1"
+                      },
+                      {
+                        "mode": "token",
+                        "token": "name",
+                        "normalize": "std.label@1"
+                      },
+                      {
+                        "mode": "token",
+                        "token": "share-balance",
+                        "normalize": "std.label@1"
+                      },
+                      {
+                        "mode": "token",
+                        "token": "status",
+                        "normalize": "std.label@1"
+                      },
+                      {
+                        "mode": "token",
+                        "token": "action",
+                        "normalize": "std.label@1"
+                      }
+                    ]
+                  }
+                ]
+              },
+              "role": "cell",
+              "cell": {
+                "table": {
+                  "path": [
+                    {
+                      "kind": "frame",
+                      "name": {
+                        "mode": "exact",
+                        "value": "top",
+                        "normalize": "std.identity@1"
+                      }
+                    },
+                    {
+                      "kind": "frame",
+                      "name": {
+                        "mode": "exact",
+                        "value": "content",
+                        "normalize": "std.identity@1"
+                      }
+                    },
+                    {
+                      "kind": "landmark",
+                      "role": "form"
+                    },
+                    {
+                      "kind": "table",
+                      "headers": [
+                        {
+                          "mode": "token",
+                          "token": "member-id",
+                          "normalize": "std.label@1"
+                        },
+                        {
+                          "mode": "token",
+                          "token": "name",
+                          "normalize": "std.label@1"
+                        },
+                        {
+                          "mode": "token",
+                          "token": "share-balance",
+                          "normalize": "std.label@1"
+                        },
+                        {
+                          "mode": "token",
+                          "token": "status",
+                          "normalize": "std.label@1"
+                        },
+                        {
+                          "mode": "token",
+                          "token": "action",
+                          "normalize": "std.label@1"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                "rowKey": {
+                  "columnHeader": {
+                    "mode": "token",
+                    "token": "member-id",
+                    "normalize": "std.label@1"
+                  },
+                  "value": {
+                    "from": "param",
+                    "param": "memberId"
+                  }
+                },
+                "columnHeader": {
+                  "mode": "token",
+                  "token": "status",
+                  "normalize": "std.label@1"
+                }
+              }
+            },
+            "parse": "string@1",
+            "normalize": "std.identity@1",
+            "onMissing": "fail"
+          }
+        ],
+        "budgets": {
+          "perRecoveryMaxAttempts": {},
+          "maxRemediationCycles": 0
+        },
+        "evidence": {
+          "captureOn": [
+            "failure"
+          ]
+        }
+      },
+      {
+        "id": "activate-open",
+        "title": "Activate Open",
+        "intent": "Open the member record for {memberId} as requested by the task.",
+        "effect": "WRITE_REVERSIBLE",
+        "instruction": {
+          "kind": "activate"
+        },
+        "target": {
+          "scope": {
+            "path": [
+              {
+                "kind": "frame",
+                "name": {
+                  "mode": "exact",
+                  "value": "top",
+                  "normalize": "std.identity@1"
+                }
+              },
+              {
+                "kind": "frame",
+                "name": {
+                  "mode": "exact",
+                  "value": "content",
+                  "normalize": "std.identity@1"
+                }
+              },
+              {
+                "kind": "landmark",
+                "role": "form"
+              },
+              {
+                "kind": "table",
+                "headers": [
+                  {
+                    "mode": "token",
+                    "token": "member-id",
+                    "normalize": "std.label@1"
+                  },
+                  {
+                    "mode": "token",
+                    "token": "name",
+                    "normalize": "std.label@1"
+                  },
+                  {
+                    "mode": "token",
+                    "token": "share-balance",
+                    "normalize": "std.label@1"
+                  },
+                  {
+                    "mode": "token",
+                    "token": "status",
+                    "normalize": "std.label@1"
+                  },
+                  {
+                    "mode": "token",
+                    "token": "action",
+                    "normalize": "std.label@1"
+                  }
+                ]
+              }
+            ]
+          },
+          "role": "link",
+          "descriptors": [
+            {
+              "id": "role-name",
+              "kind": "role-name",
+              "evidenceSource": "accessibleName",
+              "role": "link",
+              "name": {
+                "mode": "token",
+                "token": "open",
+                "normalize": "std.label@1"
+              }
+            },
+            {
+              "id": "label-anchored",
+              "kind": "label-anchored",
+              "evidenceSource": "labelText",
+              "label": {
+                "mode": "token",
+                "token": "member-idnameshare-balancestatusaction",
+                "normalize": "std.label@1"
+              },
+              "role": "link",
+              "relation": "below",
+              "maxDistance": {
+                "unit": "px",
+                "value": 32
+              }
+            },
+            {
+              "id": "table-cell",
+              "kind": "table-cell",
+              "evidenceSource": "columnHeader",
+              "table": {
+                "path": [
+                  {
+                    "kind": "frame",
+                    "name": {
+                      "mode": "exact",
+                      "value": "top",
+                      "normalize": "std.identity@1"
+                    }
+                  },
+                  {
+                    "kind": "frame",
+                    "name": {
+                      "mode": "exact",
+                      "value": "content",
+                      "normalize": "std.identity@1"
+                    }
+                  },
+                  {
+                    "kind": "landmark",
+                    "role": "form"
+                  },
+                  {
+                    "kind": "table",
+                    "headers": [
+                      {
+                        "mode": "token",
+                        "token": "member-id",
+                        "normalize": "std.label@1"
+                      },
+                      {
+                        "mode": "token",
+                        "token": "name",
+                        "normalize": "std.label@1"
+                      },
+                      {
+                        "mode": "token",
+                        "token": "share-balance",
+                        "normalize": "std.label@1"
+                      },
+                      {
+                        "mode": "token",
+                        "token": "status",
+                        "normalize": "std.label@1"
+                      },
+                      {
+                        "mode": "token",
+                        "token": "action",
+                        "normalize": "std.label@1"
+                      }
+                    ]
+                  }
+                ]
+              },
+              "rowKey": {
+                "columnHeader": {
+                  "mode": "token",
+                  "token": "member-id",
+                  "normalize": "std.label@1"
+                },
+                "value": {
+                  "from": "param",
+                  "param": "memberId"
+                }
+              },
+              "columnHeader": {
+                "mode": "token",
+                "token": "action",
+                "normalize": "std.label@1"
+              },
+              "childRole": "link",
+              "headerProvenance": "first-row-heuristic"
+            },
+            {
+              "id": "ordinal-in-container",
+              "kind": "ordinal-in-container",
+              "evidenceSource": "ordinal",
+              "container": {
+                "path": [
+                  {
+                    "kind": "frame",
+                    "name": {
+                      "mode": "exact",
+                      "value": "top",
+                      "normalize": "std.identity@1"
+                    }
+                  },
+                  {
+                    "kind": "frame",
+                    "name": {
+                      "mode": "exact",
+                      "value": "content",
+                      "normalize": "std.identity@1"
+                    }
+                  },
+                  {
+                    "kind": "landmark",
+                    "role": "form"
+                  },
+                  {
+                    "kind": "table",
+                    "headers": [
+                      {
+                        "mode": "token",
+                        "token": "member-id",
+                        "normalize": "std.label@1"
+                      },
+                      {
+                        "mode": "token",
+                        "token": "name",
+                        "normalize": "std.label@1"
+                      },
+                      {
+                        "mode": "token",
+                        "token": "share-balance",
+                        "normalize": "std.label@1"
+                      },
+                      {
+                        "mode": "token",
+                        "token": "status",
+                        "normalize": "std.label@1"
+                      },
+                      {
+                        "mode": "token",
+                        "token": "action",
+                        "normalize": "std.label@1"
+                      }
+                    ]
+                  }
+                ]
+              },
+              "role": "link",
+              "index": 0
+            }
+          ],
+          "quorum": {
+            "min": 2,
+            "distinctEvidenceSources": 2,
+            "requireIdentical": true,
+            "onUnderQuorum": "fail",
+            "expectUnique": true
+          },
+          "assert": {
+            "role": "link",
+            "name": {
+              "mode": "token",
+              "token": "open",
+              "normalize": "std.label@1"
+            },
+            "enabled": true,
+            "visible": true,
+            "rowKeyEquals": {
+              "columnHeader": {
+                "mode": "token",
+                "token": "member-id",
+                "normalize": "std.label@1"
+              },
+              "value": {
+                "from": "param",
+                "param": "memberId"
+              }
+            }
+          },
+          "recordedNode": {
+            "ariaRole": "link",
+            "name": "Open",
+            "containerPath": [
+              {
+                "kind": "frame",
+                "name": "top"
+              },
+              {
+                "kind": "frame",
+                "name": "content"
+              },
+              {
+                "kind": "landmark",
+                "role": "form",
+                "name": null
+              },
+              {
+                "kind": "table",
+                "headers": [
+                  "Member ID",
+                  "Name",
+                  "Share Balance",
+                  "Status",
+                  "Action"
+                ]
+              }
+            ],
+            "tablePosition": {
+              "rowHeader": null,
+              "colHeader": "Action"
+            },
+            "boundsBucket": "px:4x2"
+          }
+        },
+        "precondition": {
+          "kind": "route-matches",
+          "route": "search-results"
+        },
+        "settle": {
+          "stableSamples": 3,
+          "pollIntervalMs": 150,
+          "maxWaitMs": 8000
+        },
+        "expect": {
+          "predicate": {
+            "all": [
+              {
+                "kind": "route-matches",
+                "route": "member-by-memberid"
+              },
+              {
+                "kind": "node-exists",
+                "where": {
+                  "scope": {
+                    "path": [
+                      {
+                        "kind": "frame",
+                        "name": {
+                          "mode": "exact",
+                          "value": "top",
+                          "normalize": "std.identity@1"
+                        }
+                      },
+                      {
+                        "kind": "frame",
+                        "name": {
+                          "mode": "exact",
+                          "value": "content",
+                          "normalize": "std.identity@1"
+                        }
+                      },
+                      {
+                        "kind": "landmark",
+                        "role": "form"
+                      }
+                    ]
+                  },
+                  "role": "button",
+                  "name": {
+                    "mode": "token",
+                    "token": "open-sub-account",
+                    "normalize": "std.label@1"
+                  }
+                }
+              },
+              {
+                "kind": "node-exists",
+                "where": {
+                  "scope": {
+                    "path": [
+                      {
+                        "kind": "frame",
+                        "name": {
+                          "mode": "exact",
+                          "value": "top",
+                          "normalize": "std.identity@1"
+                        }
+                      },
+                      {
+                        "kind": "frame",
+                        "name": {
+                          "mode": "exact",
+                          "value": "content",
+                          "normalize": "std.identity@1"
+                        }
+                      },
+                      {
+                        "kind": "frame",
+                        "name": {
+                          "mode": "exact",
+                          "value": "subacct",
+                          "normalize": "std.identity@1"
+                        }
+                      },
+                      {
+                        "kind": "table",
+                        "headers": [
+                          {
+                            "mode": "token",
+                            "token": "acct",
+                            "normalize": "std.label@1"
+                          },
+                          {
+                            "mode": "token",
+                            "token": "share-account",
+                            "normalize": "std.label@1"
+                          },
+                          {
+                            "mode": "token",
+                            "token": "share-balance",
+                            "normalize": "std.label@1"
+                          },
+                          {
+                            "mode": "token",
+                            "token": "opened",
+                            "normalize": "std.label@1"
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  "role": "cell",
+                  "name": {
+                    "mode": "token",
+                    "token": "acct",
+                    "normalize": "std.label@1"
+                  }
+                }
+              },
+              {
+                "kind": "settled"
+              }
+            ]
+          },
+          "delta": {
+            "mustChange": true,
+            "navigatedTo": "member-by-memberid"
+          },
+          "continuity": [
+            "memberId"
+          ]
+        },
+        "outcomes": [],
+        "recoveries": [],
+        "extract": [],
+        "budgets": {
+          "perRecoveryMaxAttempts": {},
+          "maxRemediationCycles": 0
+        },
+        "evidence": {
+          "captureOn": [
+            "failure"
+          ]
+        }
+      }
+    ],
+    "ambient": []
+  },
+  "continuity": [
+    {
+      "id": "memberId",
+      "source": {
+        "from": "param",
+        "param": "memberId"
+      },
+      "compare": {
+        "via": "std.text@1",
+        "type": {
+          "kind": "string",
+          "charset": "digits"
+        }
+      }
+    }
+  ],
+  "provenance": {
+    "discoveryRunId": "run:discovery-live-2026-08-28T02:24:10.144Z",
+    "goalTemplate": "Look up member {memberId} in the riverbend core banking back office, report their name, share balance and membership status, and open their member record.",
+    "model": {
+      "adapter": "anthropic",
+      "modelId": "claude-opus-5",
+      "promptVersion": "discovery/1"
+    },
+    "transcriptRef": {
+      "digest": "sha256:e3b8561b9c1e68c274c1c6a39373c3e3b8c3901aba4cab53f18c7b1d5b43135d",
+      "uri": "evidence/discovery-live/transcript.json"
+    },
+    "recordedAt": "2026-08-28T02:24:10.144Z",
+    "recordedAgainst": {
+      "tenantId": "riverbend",
+      "appInstanceId": "riverbend-corebank-live",
+      "fingerprint": {
+        "perStep": {
+          "fill-fill": "sha256:c1903270f03eb30feb45c1209d70268c67a622bbb5085b19206617432e6300b3",
+          "activate-search": "sha256:b3155947b94a32a2586e344486c516058275124bc891aa6f04689c40915370ff",
+          "read-membername-sharebalance-membershipstatus": "sha256:b3155947b94a32a2586e344486c516058275124bc891aa6f04689c40915370ff",
+          "activate-open": "sha256:9bfb9af92d4b81aba21c80caa821f849bbffecc185e07eb370488762b0ed3c8f"
+        }
+      }
+    }
+  },
+  "verification": {
+    "mode": "replay-dry",
+    "status": "verified",
+    "coveredThroughStep": "activate-open",
+    "grade": "full",
+    "runId": "run-d8f82e5e-240e-4ff8-ada7-04c4d0da8002",
+    "at": "2026-08-30T01:29:05.344Z"
+  },
+  "policy": {
+    "originAliases": [
+      "corebank"
+    ],
+    "maxEffect": "WRITE_REVERSIBLE",
+    "requiresApprovalToken": false,
+    "redaction": {
+      "taintedParams": [
+        "memberId"
+      ],
+      "maskScreenshotRegions": true
+    }
+  },
+  "effects": {
+    "maxEffect": "WRITE_REVERSIBLE",
+    "irreversibleSteps": [],
+    "routesTouched": [
+      "search",
+      "search-results",
+      "member-by-memberid"
+    ],
+    "reads": [
+      {
+        "field": "memberName",
+        "sensitivity": "internal"
+      },
+      {
+        "field": "shareBalance",
+        "sensitivity": "internal"
+      },
+      {
+        "field": "membershipStatus",
+        "sensitivity": "internal"
+      }
+    ],
+    "requiresApproval": false,
+    "restartSafeUpToPc": 4
+  },
+  "budgets": {
+    "maxActions": 13,
+    "maxObservations": 48,
+    "maxTotalRemediations": 0,
+    "maxProgramAttempts": 1,
+    "deadlineMs": 120000
+  },
+  "promotions": [
+    {
+      "code": "MEMBER_NOT_FOUND",
+      "atStep": "read-membername-sharebalance-membershipstatus",
+      "reviewDigest": "sha256:47ebed5ea3648929e03c742a36eeb85a814c7d63549d9c12d2045a66e3addf5d",
+      "reviewedBy": "reviewer:agent-acting-as-reviewer",
+      "supersedesArtifactVersion": 1,
+      "proof": {
+        "verdict": "discriminates",
+        "proverVersion": "crr-prover/1",
+        "positives": [
+          {
+            "observation": "sha256:394ed4f0ecb4eff6dfbed88e829141f4587973e26257cb6ea017844b95d8df8a",
+            "atStep": "read-membername-sharebalance-membershipstatus"
+          }
+        ],
+        "negatives": {
+          "corpusDigest": "sha256:5cf447bc9fc0690ce495a739de90759e836442f0e9a6c348bc9fc2c823c7d054",
+          "total": 11,
+          "happyPathAtStep": 1,
+          "otherAbnormalAtStep": 0,
+          "otherSteps": 10,
+          "otherTenants": 0
+        },
+        "provenAt": [
+          "riverbend"
+        ]
+      },
+      "probeConfirmed": false
+    }
+  ],
+  "signatures": []
+}

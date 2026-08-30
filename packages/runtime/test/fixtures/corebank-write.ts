@@ -684,6 +684,7 @@ const unsealed = {
     deadlineMs: 120_000,
   },
 
+  promotions: [],
   signatures: [],
 };
 
@@ -715,6 +716,7 @@ export const openSubAccountArtifact: CapabilityArtifact = approveArtifact(openSu
   // The human ticked the irreversible one. "Who approved the irreversible one" is an audit answer.
   acknowledgedEffects: ["READ", "WRITE_REVERSIBLE", "WRITE_IRREVERSIBLE"],
   acknowledgedGrade: "partial-up-to-irreversible",
+  acknowledgedPromotions: [],
 });
 
 // ---------------------------------------------------------------------------------------------

@@ -120,6 +120,7 @@
       "summary": "The core system holds no member with the number supplied.",
       "terminal": true,
       "payload": [],
+      "origin": "hand-authored",
       "stableUnderRetry": true,
       "callerAction": "retry-different-input",
       "retryable": "with_different_inputs",
@@ -129,5 +130,5 @@
   "effect": "READ",
   "requiresApproval": false,
   "idempotent": true,
-  "digest": "sha256:7558ab653209bf677b9917252396f9e055af4634eba206a5983a3e33c175aac2"
+  "digest": "sha256:521516b992bd8e9c755b83c80a4c805caeb98509a9182b10cf7c2f8a5a759b44"
 }

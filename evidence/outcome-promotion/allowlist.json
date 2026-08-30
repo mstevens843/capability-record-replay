@@ -1,0 +1,11 @@
+{
+  "originAliases": ["corebank"],
+  "routes": [
+    { "originAlias": "corebank", "pathPattern": "/search", "maxEffect": "WRITE_REVERSIBLE" },
+    { "originAlias": "corebank", "pathPattern": "/search/results", "maxEffect": "WRITE_REVERSIBLE" },
+    { "originAlias": "corebank", "pathPattern": "/member/:memberId", "maxEffect": "WRITE_REVERSIBLE" }
+  ],
+  "actionKinds": ["click", "type", "select", "setChecked", "pressKey", "focus", "navigate"],
+  "maxEffect": "WRITE_REVERSIBLE",
+  "discoveryMaxEffect": "WRITE_REVERSIBLE"
+}
