@@ -20,6 +20,12 @@ from a run forced with `TURBO_FORCE=1` (or `--force`), so `Cached: 0` is part of
 > measurement and was **not** re-run, so read it as dated rather than as current. Nothing was
 > weakened, skipped or deleted to move the number; the three members that grew are named below.
 
+> **ANNOTATED ON 2026-08-30, AFTER THE WRITE-BOUNDARY APPROVAL PASS.** `pnpm test` passed with
+> **2,027 tests / 109 files / 14 of 14 tasks**. An immediate credentials-unset rerun
+> (`env -u ANTHROPIC_API_KEY -u ANTHROPIC_AUTH_TOKEN -u OPENAI_API_KEY -u CLAUDE_CODE_OAUTH_TOKEN
+> pnpm test`) also exited 0 with 14 of 14 turbo tasks served from cache. The forced-run ledger below
+> remains the 2026-08-29 measurement and is preserved as history rather than silently rewritten.
+
 ---
 
 ## 1. The board

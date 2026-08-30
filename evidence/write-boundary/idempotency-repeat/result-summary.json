@@ -1,0 +1,10 @@
+{
+  "id": "idempotency-repeat",
+  "status": "ok",
+  "stepsExecuted": 5,
+  "finalDispatches": 1,
+  "approvalAccepted": 1,
+  "approvalRefused": [],
+  "deduplicated": true,
+  "note": "The first invocation commits once. The second invocation has the same idempotency key and returns the stored result without driving the surface again."
+}

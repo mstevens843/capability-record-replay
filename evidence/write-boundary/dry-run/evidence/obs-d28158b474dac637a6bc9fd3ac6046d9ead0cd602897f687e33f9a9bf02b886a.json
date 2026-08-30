@@ -1,0 +1,104 @@
+{
+  "seq": 12,
+  "surface": {
+    "kind": "web-legacy",
+    "driver": "mock-surface@0.1.0"
+  },
+  "route": {
+    "originAlias": "corebank",
+    "path": "/subaccount/new",
+    "query": {},
+    "frame": "content"
+  },
+  "nodes": [
+    {
+      "id": "status:new-subaccount",
+      "rawRole": "status",
+      "ariaRole": "status",
+      "name": "New sub-account for member <taint:memberId-1>",
+      "value": null,
+      "text": "New sub-account for member <taint:memberId-1>",
+      "description": null,
+      "state": {
+        "disabled": false,
+        "focused": false,
+        "visible": true,
+        "checked": null,
+        "expanded": null,
+        "selected": null,
+        "required": null,
+        "invalid": false,
+        "readonly": false
+      },
+      "bounds": null,
+      "containerPath": [
+        {
+          "kind": "frame",
+          "name": "content"
+        },
+        {
+          "kind": "landmark",
+          "role": "form",
+          "name": "Member Search"
+        }
+      ],
+      "parent": null,
+      "children": [],
+      "labelledBy": [],
+      "tablePosition": null,
+      "capacity": null,
+      "confidence": 1,
+      "live": false,
+      "masked": false
+    },
+    {
+      "id": "button:confirm",
+      "rawRole": "button",
+      "ariaRole": "button",
+      "name": "Confirm",
+      "value": null,
+      "text": "Confirm",
+      "description": null,
+      "state": {
+        "disabled": false,
+        "focused": false,
+        "visible": true,
+        "checked": null,
+        "expanded": null,
+        "selected": null,
+        "required": null,
+        "invalid": false,
+        "readonly": false
+      },
+      "bounds": null,
+      "containerPath": [
+        {
+          "kind": "frame",
+          "name": "content"
+        },
+        {
+          "kind": "landmark",
+          "role": "form",
+          "name": "Member Search"
+        }
+      ],
+      "parent": null,
+      "children": [],
+      "labelledBy": [],
+      "tablePosition": null,
+      "capacity": null,
+      "confidence": 1,
+      "live": false,
+      "masked": false
+    }
+  ],
+  "roots": [],
+  "skeletonDigest": "sha256:eac64aef81ea466e9b79b82f908b23bef9b7c6309910fb33d03d441761c2e4a8",
+  "stability": {
+    "settled": true,
+    "generation": 4,
+    "pendingReason": null
+  },
+  "nativeDialog": null,
+  "inputIntercepted": false
+}

@@ -1,0 +1,10 @@
+{
+  "id": "policy-read-ceiling",
+  "status": "failed",
+  "failureClass": "policy-denied",
+  "stepsExecuted": 3,
+  "finalDispatches": 0,
+  "approvalAccepted": 1,
+  "approvalRefused": [],
+  "note": "A valid approval is present, but policy maxEffect READ is a separate gate and refuses before the first write step dispatches."
+}

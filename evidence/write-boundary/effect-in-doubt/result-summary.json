@@ -1,0 +1,10 @@
+{
+  "id": "effect-in-doubt",
+  "status": "failed",
+  "failureClass": "effect-in-doubt",
+  "stepsExecuted": 4,
+  "finalDispatches": 1,
+  "approvalAccepted": 1,
+  "approvalRefused": [],
+  "note": "The irreversible action dispatches once, then perception times out. The result is effect-in-doubt and is not retryable."
+}

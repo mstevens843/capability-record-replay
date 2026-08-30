@@ -1,0 +1,12 @@
+{
+  "id": "wrong-artifact-digest",
+  "status": "failed",
+  "failureClass": "approval-required",
+  "stepsExecuted": 4,
+  "finalDispatches": 0,
+  "approvalAccepted": 0,
+  "approvalRefused": [
+    "artifact-digest-mismatch"
+  ],
+  "note": "The approval is signed and otherwise valid, but covers a different artifact digest. No irreversible dispatch occurs."
+}

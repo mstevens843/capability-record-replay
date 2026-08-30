@@ -74,6 +74,7 @@ import {
   irreversibleApprovalOf,
   observedSummaryOf,
   outputBindingName,
+  redactTaint,
   renderTarget,
   renderVerdict,
   resolveTarget,
@@ -121,6 +122,14 @@ import { settle } from "./settle.js";
 export interface DryRunPolicy {
   /** Stop before dispatching at the first step whose effect is AT OR ABOVE this class. */
   readonly stopBeforeEffect: EffectClass;
+}
+
+export interface DryRunBoundaryReport {
+  readonly stepId: string;
+  readonly stepIndex: number;
+  readonly effect: EffectClass;
+  readonly expectedAction: ActionKind;
+  readonly requiresApproval: boolean;
 }
 
 /**
@@ -303,6 +312,7 @@ export interface InterpreterRun {
    * `stepsExecuted < stepsTotal` and this field are where the partial coverage is legible.
    */
   readonly dryStoppedAt: { readonly stepId: string; readonly stepIndex: number } | null;
+  readonly dryBoundary: DryRunBoundaryReport | null;
 }
 
 const DEFAULT_PERCEIVE_DEADLINE_MS = 15_000;
@@ -331,6 +341,7 @@ export class Interpreter {
   readonly #startPc: number;
   #humanAssisted = false;
   #dryStoppedAt: { readonly stepId: string; readonly stepIndex: number } | null = null;
+  #dryBoundary: DryRunBoundaryReport | null = null;
 
   constructor(options: InterpreterOptions) {
     this.#o = options;
@@ -358,6 +369,7 @@ export class Interpreter {
       transfers: this.#o.lease.transfers(),
       attribution: this.#humanAssisted ? "human-assisted" : "automation",
       dryStoppedAt: this.#dryStoppedAt,
+      dryBoundary: this.#dryBoundary,
     };
   }
 
@@ -572,7 +584,15 @@ export class Interpreter {
       if (this.#dryRunStopsAt(step)) {
         return {
           irreversibleDispatched,
-          disposition: this.#dryStop(step, observation, pre, resolution, attempt, startedAt),
+          disposition: this.#dryStop(
+            step,
+            observation,
+            pre,
+            resolution,
+            lowered.action.kind,
+            attempt,
+            startedAt,
+          ),
         };
       }
 
@@ -593,6 +613,14 @@ export class Interpreter {
         this.#journalDecision(step, decision, lowered.action.kind);
         const refused = this.#refuse(step, decision, preInput, gateAt);
         if (refused !== null) return { irreversibleDispatched, disposition: refused };
+        return {
+          irreversibleDispatched,
+          disposition: this.#internalDisposition(
+            step,
+            `approval refusal ${authorization.verdict.reason} did not classify as a stopping verdict`,
+            observation,
+          ),
+        };
       }
       const policy = this.#policyContext(step, location, observation, authorization.policyGrant);
       const decision = check(lowered.action, policy, moment);
@@ -1169,10 +1197,18 @@ export class Interpreter {
     observation: Observation,
     verdict: Verdict,
     resolution: TargetResolutionResult | null,
+    actionKind: ActionKind,
     attempt: number,
     startedAt: number,
   ): TurnDisposition {
     this.#dryStoppedAt = { stepId: step.id, stepIndex: step.index };
+    this.#dryBoundary = {
+      stepId: step.id,
+      stepIndex: step.index,
+      effect: step.effect,
+      expectedAction: actionKind,
+      requiresApproval: step.effect === "WRITE_IRREVERSIBLE",
+    };
     this.#traces.push({
       stepId: step.id,
       attempt,
@@ -1527,7 +1563,7 @@ export class Interpreter {
       type: "classified",
       stepId: step.id,
       phase,
-      verdict,
+      verdict: redactJournalVerdict(verdict, this.#bindings),
       alsoMatched: verdict.kind === "outcome" ? verdict.alsoMatched.map((m) => m.code) : [],
     });
   }
@@ -1727,6 +1763,40 @@ function valueAsString(value: unknown): string {
   if (value === null) return "";
   if (typeof value === "string") return value;
   return JSON.stringify(value);
+}
+
+function redactJournalVerdict(verdict: Verdict, bindings: ResolvedBindings): Verdict {
+  switch (verdict.kind) {
+    case "advance":
+      return {
+        ...verdict,
+        outputs: verdict.outputs.map((output) => redactJournalOutput(output, bindings)),
+      };
+    case "outcome":
+      return {
+        ...verdict,
+        data: verdict.data.map((output) => redactJournalOutput(output, bindings)),
+      };
+    default:
+      return verdict;
+  }
+}
+
+function redactJournalOutput(output: ExtractedOutput, bindings: ResolvedBindings): ExtractedOutput {
+  const redactString = (text: string): string => redactTaint(text, bindings).text;
+  if (typeof output.value === "string") {
+    return { ...output, value: redactString(output.value) };
+  }
+  if (Array.isArray(output.value)) {
+    return {
+      ...output,
+      value: output.value.map((row) => {
+        const entries = Object.entries(row as Readonly<Record<string, string>>);
+        return Object.fromEntries(entries.map(([key, value]) => [key, redactString(value)]));
+      }),
+    };
+  }
+  return output;
 }
 
 function actionLocation(action: Action): RouteLocation | null {

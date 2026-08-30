@@ -37,7 +37,7 @@ import {
   sealContract,
 } from "@crr/core";
 import { renderForAgent } from "./agent-view.js";
-import type { ApprovalGrant } from "./approval.js";
+import type { ApprovalGrant, InvocationApprovalGrant } from "./approval.js";
 import { type Clock, systemClock } from "./clock.js";
 import { type EvidenceSink, MemoryEvidenceSink } from "./evidence.js";
 import { type IdSource, evidenceRefOf } from "./ids.js";
@@ -78,6 +78,8 @@ export interface CatalogOptions {
   readonly mode?: "replay" | "verification";
   readonly actorId?: string;
   readonly perceiveDeadlineMs?: number;
+  readonly invocationApproval?: InvocationApprovalGrant | null;
+  readonly approvalPolicyVersion?: string;
   /** Shared across every capability, because an agent's dedupe key is scoped to its own turn and
    *  not to one tool. `idempotencyKeyOf` re-scopes it by capability so two tools in one turn cannot
    *  read each other's result. */
@@ -104,6 +106,8 @@ export interface ToolCallContext {
   readonly idempotencyKey?: string;
   readonly budget?: { readonly wallClockMs: number; readonly maxRemediations: number };
   readonly approval?: ApprovalGrant;
+  readonly invocationApproval?: InvocationApprovalGrant | null;
+  readonly approvalPolicyVersion?: string;
   /**
    * The digest the harness saw when it FETCHED these tool definitions.
    *
@@ -285,6 +289,12 @@ export class Catalog {
     const out = await invokeDetailed(contract, inv, {
       ...host,
       ...(context.approval === undefined ? {} : { approval: context.approval }),
+      ...(context.invocationApproval === undefined
+        ? {}
+        : { invocationApproval: context.invocationApproval }),
+      ...(context.approvalPolicyVersion === undefined
+        ? {}
+        : { approvalPolicyVersion: context.approvalPolicyVersion }),
     });
     return renderForAgent(out.document, contract);
   }
@@ -325,6 +335,12 @@ export class Catalog {
       ...(options.perceiveDeadlineMs === undefined
         ? {}
         : { perceiveDeadlineMs: options.perceiveDeadlineMs }),
+      ...(options.invocationApproval === undefined
+        ? {}
+        : { invocationApproval: options.invocationApproval }),
+      ...(options.approvalPolicyVersion === undefined
+        ? {}
+        : { approvalPolicyVersion: options.approvalPolicyVersion }),
       idempotency: options.idempotency ?? null,
     };
   }

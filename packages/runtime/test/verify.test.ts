@@ -21,7 +21,6 @@ import {
   sealArtifact,
 } from "@crr/core";
 import { describe, expect, it } from "vitest";
-import { approvalGrant } from "../src/approval.js";
 import { manualClock } from "../src/clock.js";
 import { MemoryEvidenceSink } from "../src/evidence.js";
 import { sequentialIds } from "../src/ids.js";
@@ -54,6 +53,7 @@ import {
   writeScreens,
   writeTransitions,
 } from "./fixtures/write-flow.js";
+import { invocationApprovalFixture } from "./support/invocation-approval.js";
 import { eventsOf } from "./support/journal.js";
 
 const TENANT = { tenantId: "riverbend", appInstanceId: "riverbend-mock" };
@@ -88,6 +88,9 @@ function rig(args: {
   readonly args: Readonly<Record<string, unknown>>;
   readonly reset?: EnvironmentReset | null;
   readonly approval?: VerifyOptions["approval"];
+  readonly invocationApproval?: VerifyOptions["invocationApproval"];
+  readonly approvalPolicyVersion?: VerifyOptions["approvalPolicyVersion"];
+  readonly idempotencyKey?: string;
   readonly mode?: VerifyOptions["mode"];
 }): Rig {
   const surface = new MockSurface({
@@ -112,6 +115,13 @@ function rig(args: {
       journal: (runId) => new MemoryJournal({ runId, clock }),
       ...(args.reset === undefined ? {} : { reset: args.reset }),
       ...(args.approval === undefined ? {} : { approval: args.approval }),
+      ...(args.invocationApproval === undefined
+        ? {}
+        : { invocationApproval: args.invocationApproval }),
+      ...(args.approvalPolicyVersion === undefined
+        ? {}
+        : { approvalPolicyVersion: args.approvalPolicyVersion }),
+      ...(args.idempotencyKey === undefined ? {} : { idempotencyKey: args.idempotencyKey }),
       ...(args.mode === undefined ? {} : { mode: args.mode }),
     },
   };
@@ -254,7 +264,14 @@ describe("replay-dry - the write flow", () => {
       ...shared,
       trust: { trustedKeyIds: [], verifySignature: () => false },
       mode: "verification",
-      approval: approvalGrant(artifact.digest, "tok-discovery"),
+      invocationApproval: invocationApprovalFixture({
+        approvalId: "approval-verify-discovery-1",
+        artifact,
+        contract: writeContract,
+        args: { memberId: WRITE_MEMBER_ID },
+        idempotencyKey: "verify-discovery-write-1",
+      }).grant,
+      idempotencyKey: "verify-discovery-write-1",
     });
     expect(discovery.result.status).toBe("ok");
     expect(confirmClicks(surface)).toBe(1);
@@ -356,13 +373,21 @@ describe("replay-reset - the control that proves the dry run withheld something"
   it("runs the whole flow, performs the write EXACTLY ONCE, and grades full", async () => {
     const { hook, calls } = resetHook();
     const artifact = proposedWriteArtifact();
+    const idempotencyKey = "verify-reset-write-1";
     const { surface, options } = writeRig({
       artifact,
       reset: hook,
       // Two deliberate acts, both required, and that is the point: the deployment has to permit a
-      // write during a verification run, and a human has to have minted a token for it.
+      // write during a verification run, and a human has to have minted an invocation approval.
       allowlist: writeAllowlist("WRITE_IRREVERSIBLE"),
-      approval: approvalGrant(artifact.digest, "tok-verify-reset"),
+      invocationApproval: invocationApprovalFixture({
+        approvalId: "approval-verify-reset-1",
+        artifact,
+        contract: writeContract,
+        args: { memberId: WRITE_MEMBER_ID },
+        idempotencyKey,
+      }).grant,
+      idempotencyKey,
     });
 
     const report = await verifyArtifact(options);
@@ -382,10 +407,18 @@ describe("replay-reset - the control that proves the dry run withheld something"
   it("is refused when the deployment does not permit a write during verification", async () => {
     const { hook } = resetHook();
     const artifact = proposedWriteArtifact();
+    const idempotencyKey = "verify-reset-policy-1";
     const { surface, options } = writeRig({
       artifact,
       reset: hook,
-      approval: approvalGrant(artifact.digest, "tok-verify-reset"),
+      invocationApproval: invocationApprovalFixture({
+        approvalId: "approval-verify-policy-1",
+        artifact,
+        contract: writeContract,
+        args: { memberId: WRITE_MEMBER_ID },
+        idempotencyKey,
+      }).grant,
+      idempotencyKey,
     });
 
     const report = await verifyArtifact(options);

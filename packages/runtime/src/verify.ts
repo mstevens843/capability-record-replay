@@ -45,7 +45,7 @@ import type { ApprovalGrant, InvocationApprovalGrant } from "./approval.js";
 import type { Clock } from "./clock.js";
 import type { EvidenceSink } from "./evidence.js";
 import type { IdSource } from "./ids.js";
-import type { DryRunPolicy } from "./interpreter.js";
+import type { DryRunBoundaryReport, DryRunPolicy } from "./interpreter.js";
 import type { Journal } from "./journal.js";
 import { LifecycleError, recordVerification } from "./lifecycle.js";
 import { type ReplayOptions, replay } from "./replay.js";
@@ -122,6 +122,8 @@ export interface VerificationReport {
   readonly coveredThroughStep: StepId | null;
   /** `replay-dry` only: the step the run refused to perform. */
   readonly stoppedBeforeStep: StepId | null;
+  /** `replay-dry` only: the concrete write boundary report the interpreter emitted. */
+  readonly dryBoundary: DryRunBoundaryReport | null;
   /** Prose for a human. On an unverified report this is the whole point of the report. */
   readonly reason: string;
   /** `null` only when the replay could not be attempted at all - see `reset`. */
@@ -203,6 +205,7 @@ export async function verifyArtifact(options: VerifyOptions): Promise<Verificati
         grade: null,
         coveredThroughStep: null,
         stoppedBeforeStep: null,
+        dryBoundary: null,
         reason: `the environment reset "${options.reset.id}" reported itself unavailable, so the flow could not be replayed from the state the recording started in; verify with replay-dry instead`,
         result: null,
         journal: null,
@@ -281,6 +284,7 @@ export async function verifyArtifact(options: VerifyOptions): Promise<Verificati
     grade: graded.grade,
     coveredThroughStep: graded.coveredThroughStep,
     stoppedBeforeStep: graded.stoppedBeforeStep,
+    dryBoundary: output.dryBoundary,
     reason: graded.reason,
     result: output.result,
     journal: output.journal,

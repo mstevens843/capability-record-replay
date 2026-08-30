@@ -1,0 +1,16 @@
+{
+  "id": "dry-run",
+  "status": "ok",
+  "stepsExecuted": 4,
+  "finalDispatches": 0,
+  "dryBoundary": {
+    "stepId": "confirm-open",
+    "stepIndex": 4,
+    "effect": "WRITE_IRREVERSIBLE",
+    "expectedAction": "click",
+    "requiresApproval": true
+  },
+  "approvalAccepted": 0,
+  "approvalRefused": [],
+  "note": "Dry run resolves and lowers the irreversible step, then stops before dispatch."
+}

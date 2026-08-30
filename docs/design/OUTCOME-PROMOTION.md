@@ -860,9 +860,8 @@ Tests the implementer owes, in the shape this repo already uses:
 
 Flagged now so nobody has to notice later:
 
-- **`docs/SPEC.md` §1.1** — the production box says "LINK … 28 checks". Check 29 makes that number
-  wrong. `docs/SPEC.md` §10's check list and §11 unit 7 ("All 28 checks … 28 tests, one per check")
-  go with it.
+- **`docs/SPEC.md` §1.1** — the production box said "LINK … 28 checks". Check 29 made that number
+  wrong. **Resolved 2026-08-30:** current `docs/SPEC.md` says 29 in §1.1, §10 and §11.
 - **`docs/SPEC.md` §0.4 and §2.3** — "three documents, three readers" stays true (§2.1 is why), but
   the sentence "the contract carries outcome *names* and their payload types" acquires `origin`, and
   the `strictObject` argument in `contract.ts`'s header now has a second field to explain.

@@ -11,12 +11,13 @@ in the decision path.
   corpus I wrote bounds hidden state in the engine, not flake in production.
 - **One live discovery run**, nine turns, one surface — and no live model has ever been refused by
   the policy gate, got stuck, or raised an intervention. Those paths have hermetic tests only.
-- **Desktop (AX/UIA) is a seam, not code**, and **approval signs an ed25519 digest and stops** — no
-  key custody, identity, expiry or revocation.
+- **Desktop (AX/UIA) is a seam, not code**, and approval still has no external KMS/HSM custody.
+  Artifact approval signs the artifact digest; invocation approval now adds signer identity,
+  expiry, request binding and revocation checks at the irreversible runtime gate.
 
 | Claim | Result | Command / receipt |
 |---|---|---|
-| Builds and passes with **zero credentials** | **1,984 tests**, 8 members, exit 0 | `env -u ANTHROPIC_API_KEY -u ANTHROPIC_AUTH_TOKEN -u OPENAI_API_KEY -u CLAUDE_CODE_OAUTH_TOKEN pnpm test` |
+| Builds and passes with **zero credentials** | **2,027 tests**, 8 members, exit 0 | `env -u ANTHROPIC_API_KEY -u ANTHROPIC_AUTH_TOKEN -u OPENAI_API_KEY -u CLAUDE_CODE_OAUTH_TOKEN pnpm test` |
 | A real model reached a real goal | `claude-opus-5`, 9 turns, 42,368 billed tokens, **$0.14** | `evidence/discovery-live/provenance.json` |
 | Its artifact replayed with the model out of the loop | `full`, `proposed → draft`, every gating canary pass CLEAN | `evidence/discovery-live/verification.json` |
 | Replay tells a good engine from a broken one | reference engine **0 false successes**; **9/9 mutants killed**, 13 of the 17 kills false successes | `pnpm -F @crr/conformance stability` |

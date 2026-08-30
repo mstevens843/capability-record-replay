@@ -1,0 +1,88 @@
+{
+  "generatedBy": "packages/runtime/demo/write-boundary.ts",
+  "scenarios": [
+    {
+      "id": "no-approval",
+      "status": "failed",
+      "failureClass": "approval-required",
+      "stepsExecuted": 4,
+      "finalDispatches": 0,
+      "approvalAccepted": 0,
+      "approvalRefused": [
+        "request-binding-missing"
+      ],
+      "note": "The runtime reaches the final boundary and refuses before the irreversible dispatch. Reversible setup happened, so sideEffects is conservative, but finalDispatches is zero."
+    },
+    {
+      "id": "dry-run",
+      "status": "ok",
+      "stepsExecuted": 4,
+      "finalDispatches": 0,
+      "dryBoundary": {
+        "stepId": "confirm-open",
+        "stepIndex": 4,
+        "effect": "WRITE_IRREVERSIBLE",
+        "expectedAction": "click",
+        "requiresApproval": true
+      },
+      "approvalAccepted": 0,
+      "approvalRefused": [],
+      "note": "Dry run resolves and lowers the irreversible step, then stops before dispatch."
+    },
+    {
+      "id": "valid-approval",
+      "status": "ok",
+      "stepsExecuted": 5,
+      "finalDispatches": 1,
+      "approvalAccepted": 1,
+      "approvalRefused": [],
+      "note": "A scoped invocation approval is accepted and the final irreversible action dispatches exactly once. The typed output value is withheld from this evidence summary because it contains the synthetic sensitive member id."
+    },
+    {
+      "id": "wrong-artifact-digest",
+      "status": "failed",
+      "failureClass": "approval-required",
+      "stepsExecuted": 4,
+      "finalDispatches": 0,
+      "approvalAccepted": 0,
+      "approvalRefused": [
+        "artifact-digest-mismatch"
+      ],
+      "note": "The approval is signed and otherwise valid, but covers a different artifact digest. No irreversible dispatch occurs."
+    },
+    {
+      "id": "policy-read-ceiling",
+      "status": "failed",
+      "failureClass": "policy-denied",
+      "stepsExecuted": 3,
+      "finalDispatches": 0,
+      "approvalAccepted": 1,
+      "approvalRefused": [],
+      "note": "A valid approval is present, but policy maxEffect READ is a separate gate and refuses before the first write step dispatches."
+    },
+    {
+      "id": "idempotency-repeat",
+      "status": "ok",
+      "stepsExecuted": 5,
+      "finalDispatches": 1,
+      "approvalAccepted": 1,
+      "approvalRefused": [],
+      "deduplicated": true,
+      "note": "The first invocation commits once. The second invocation has the same idempotency key and returns the stored result without driving the surface again."
+    },
+    {
+      "id": "effect-in-doubt",
+      "status": "failed",
+      "failureClass": "effect-in-doubt",
+      "stepsExecuted": 4,
+      "finalDispatches": 1,
+      "approvalAccepted": 1,
+      "approvalRefused": [],
+      "note": "The irreversible action dispatches once, then perception times out. The result is effect-in-doubt and is not retryable."
+    }
+  ],
+  "canary": {
+    "forbiddenValue": "WRITE_MEMBER_ID",
+    "hits": []
+  }
+}

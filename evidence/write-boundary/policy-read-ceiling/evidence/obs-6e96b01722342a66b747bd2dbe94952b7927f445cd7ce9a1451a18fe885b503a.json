@@ -1,0 +1,104 @@
+{
+  "seq": 9,
+  "surface": {
+    "kind": "web-legacy",
+    "driver": "mock-surface@0.1.0"
+  },
+  "route": {
+    "originAlias": "corebank",
+    "path": "/results",
+    "query": {},
+    "frame": "content"
+  },
+  "nodes": [
+    {
+      "id": "link:open",
+      "rawRole": "link",
+      "ariaRole": "link",
+      "name": "Open",
+      "value": null,
+      "text": "Open",
+      "description": null,
+      "state": {
+        "disabled": false,
+        "focused": false,
+        "visible": true,
+        "checked": null,
+        "expanded": null,
+        "selected": null,
+        "required": null,
+        "invalid": false,
+        "readonly": false
+      },
+      "bounds": null,
+      "containerPath": [
+        {
+          "kind": "frame",
+          "name": "content"
+        },
+        {
+          "kind": "landmark",
+          "role": "form",
+          "name": "Member Search"
+        }
+      ],
+      "parent": null,
+      "children": [],
+      "labelledBy": [],
+      "tablePosition": null,
+      "capacity": null,
+      "confidence": 1,
+      "live": false,
+      "masked": false
+    },
+    {
+      "id": "status:ok",
+      "rawRole": "status",
+      "ariaRole": "status",
+      "name": "1 record",
+      "value": null,
+      "text": "1 record",
+      "description": null,
+      "state": {
+        "disabled": false,
+        "focused": false,
+        "visible": true,
+        "checked": null,
+        "expanded": null,
+        "selected": null,
+        "required": null,
+        "invalid": false,
+        "readonly": false
+      },
+      "bounds": null,
+      "containerPath": [
+        {
+          "kind": "frame",
+          "name": "content"
+        },
+        {
+          "kind": "landmark",
+          "role": "form",
+          "name": "Member Search"
+        }
+      ],
+      "parent": null,
+      "children": [],
+      "labelledBy": [],
+      "tablePosition": null,
+      "capacity": null,
+      "confidence": 1,
+      "live": false,
+      "masked": false
+    }
+  ],
+  "roots": [],
+  "skeletonDigest": "sha256:704a5b99f801622274f66b903c0315bc2b67df8d990912f40992a2c38aaa3612",
+  "stability": {
+    "settled": true,
+    "generation": 3,
+    "pendingReason": null
+  },
+  "nativeDialog": null,
+  "inputIntercepted": false
+}

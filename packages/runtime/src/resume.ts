@@ -28,6 +28,9 @@
 //     ignoring every other arm is the honest version.
 
 import {
+  APPROVAL_POLICY_VERSION,
+  type ApprovalDemand,
+  type ApprovalVerdict,
   type AttemptCounters,
   type ClassifierInput,
   type EvalContext,
@@ -39,12 +42,16 @@ import {
   type PerceiveFault,
   type ResolvedBindings,
   type ResolvedStep,
+  type Timestamp,
   type Verdict,
+  approvalArgsHash,
+  authorizeIrreversibleWrite,
   classify,
   evaluatePredicate,
+  irreversibleApprovalOf,
   renderVerdict,
 } from "@crr/core";
-import type { ApprovalGrant } from "./approval.js";
+import type { ApprovalGrant, InvocationApprovalGrant } from "./approval.js";
 
 /** One line of the re-check, as an operator and a journal both see it. */
 export interface ResumeCheck {
@@ -97,6 +104,12 @@ export interface ResumePrecheckInput {
    */
   readonly leaseState: LeaseState;
   readonly approval: ApprovalGrant | null;
+  readonly invocationApproval?: InvocationApprovalGrant | null;
+  readonly args: Readonly<Record<string, unknown>>;
+  readonly tenant: { readonly tenantId: string; readonly appInstanceId: string };
+  readonly approvalPolicyVersion?: string;
+  readonly now: Timestamp;
+  readonly idempotencyKey?: string | null;
   /**
    * True when an irreversible action was already authorized in this run, read off the journal's own
    * `policy.decided` events. SPEC section 7.4 step 6: "a token consumed before the handoff does not
@@ -266,20 +279,6 @@ export function resumePrecheck(input: ResumePrecheckInput): ResumePrecheckResult
 
   // ---- 6  EFFECT GATE ------------------------------------------------------------------------
   if (input.step.effect === "WRITE_IRREVERSIBLE") {
-    if (input.approval === null) {
-      return refuse(
-        6,
-        "approval-required",
-        "the step is irreversible and no approval token survives the handoff",
-      );
-    }
-    if (input.approval.digest !== input.program.artifact.digest) {
-      return refuse(
-        6,
-        "approval-required",
-        "the approval token was minted against a different artifact digest",
-      );
-    }
     if (input.approvalAlreadySpent) {
       return refuse(
         6,
@@ -287,7 +286,37 @@ export function resumePrecheck(input: ResumePrecheckInput): ResumePrecheckResult
         "this run already authorized an irreversible action; a consumed token does not survive a handoff",
       );
     }
-    pass(6, "the approval token is still valid for this artifact at the new epoch");
+    const invocationVerdict = invocationApprovalVerdict(input);
+    if (invocationVerdict !== null) {
+      if (!invocationVerdict.ok) {
+        return refuse(
+          6,
+          "approval-required",
+          invocationVerdict.detail,
+          [`approval refused: ${invocationVerdict.reason}`],
+        );
+      }
+      pass(
+        6,
+        `the invocation approval ${invocationVerdict.approvalId} is valid for this artifact at the new epoch`,
+      );
+    } else {
+      if (input.approval === null) {
+        return refuse(
+          6,
+          "approval-required",
+          "the step is irreversible and no approval token survives the handoff",
+        );
+      }
+      if (input.approval.digest !== input.program.artifact.digest) {
+        return refuse(
+          6,
+          "approval-required",
+          "the approval token was minted against a different artifact digest",
+        );
+      }
+      pass(6, "the legacy approval token is still valid for this artifact at the new epoch");
+    }
   } else {
     pass(6, `the step is ${input.step.effect}; no approval is required`);
   }
@@ -326,6 +355,38 @@ function classifierInput(
     gate: { lease: input.leaseState, policy: null, target: null },
     irreversibleDispatched: false,
   };
+}
+
+function invocationApprovalVerdict(input: ResumePrecheckInput): ApprovalVerdict | null {
+  const grant = input.invocationApproval ?? null;
+  if (grant === null) return null;
+
+  const narrowed = irreversibleApprovalOf(grant.approval);
+  if (!narrowed.ok) return narrowed.verdict;
+
+  const demand: ApprovalDemand & { readonly requiredAuthority: readonly [string, ...string[]] } = {
+    subject: "invocation",
+    capability: {
+      name: input.program.contract.name,
+      version: input.program.contract.version,
+    },
+    artifactDigest: input.program.artifact.digest,
+    contractDigest: input.program.contract.digest,
+    effect: input.step.effect,
+    artifactMaxEffect: input.program.effects.maxEffect,
+    tenantId: input.tenant.tenantId,
+    appInstanceId: input.tenant.appInstanceId,
+    policyVersion: input.approvalPolicyVersion ?? APPROVAL_POLICY_VERSION,
+    requiredAuthority: grant.requiredAuthority,
+    argsHash: approvalArgsHash(grant.approval.approvalId, input.args),
+    idempotencyKey: input.idempotencyKey ?? null,
+  };
+  return authorizeIrreversibleWrite({
+    approval: narrowed.approval,
+    demand,
+    trust: grant.trust,
+    now: input.now,
+  });
 }
 
 /** The clauses of a rendered predicate that did not hold - the half an operator actually needs. */

@@ -118,9 +118,9 @@ export type ApprovalScope = DeepReadonly<z.infer<typeof ApprovalScopeSchema>>;
  * with a fresh key is the exact mechanism by which a member gets two sub-accounts.
  *
  * `idempotencyKey` is nullable because a caller may legitimately have none - and an approval that
- * does not bind one says so in the document rather than being silently unbound. `verifyApproval`
- * treats `null` as "this approval does not constrain the key", and refuses a MISMATCH rather than
- * an absence.
+ * does not bind one says so in the document rather than being silently unbound. If the runtime
+ * presents a key, `verifyApproval` requires the approval to bind that same key: a write this system
+ * cannot take back is authorised once, for one de-duplication key.
  */
 export const ApprovalRequestBindingSchema = z.strictObject({
   argsHash: DigestSchema,
@@ -727,6 +727,12 @@ export function verifyApproval(input: {
       return refuse(
         "args-hash-mismatch",
         `approval ${id} binds argument hash ${binding.argsHash} and this invocation hashes to ${demand.argsHash ?? "nothing - no arguments were bound"}`,
+      );
+    }
+    if (demand.idempotencyKey !== null && binding.idempotencyKey === null) {
+      return refuse(
+        "idempotency-key-mismatch",
+        `approval ${id} binds no idempotency key and this invocation presented ${demand.idempotencyKey}; a write this system cannot take back is authorised once, for one key`,
       );
     }
     if (binding.idempotencyKey !== null && binding.idempotencyKey !== demand.idempotencyKey) {

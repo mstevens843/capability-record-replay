@@ -28,7 +28,7 @@
 // the internet, needs no credential, and makes no model call.
 
 import { describe, expect, it } from "vitest";
-import { approvalGrant, ed25519Trust } from "../src/approval.js";
+import { ed25519Trust } from "../src/approval.js";
 import { MemoryEvidenceSink } from "../src/evidence.js";
 import { sequentialIds } from "../src/ids.js";
 import { MemoryJournal } from "../src/journal.js";
@@ -49,12 +49,15 @@ import {
   chromiumAvailable,
   openCorebankSession,
 } from "./support/corebank.js";
+import { invocationApprovalFixture } from "./support/invocation-approval.js";
 import { eventsOf, journalText } from "./support/journal.js";
 
 const ROUTES = openSubAccountArtifact.flow.routes;
 const TRUST = () =>
   ed25519Trust([{ keyId: WRITE_APPROVER_KEY_ID, publicKey: writeApproverPublicKey }]);
 const ARGS = { memberId: WRITE_MEMBER_ID, openingDeposit: WRITE_DEPOSIT } as const;
+const TENANT = { tenantId: "riverbend", appInstanceId: "riverbend-corebank-fixture" };
+const IDEMPOTENCY_KEY = "browser-open-subaccount-1";
 
 /** How many sub-accounts the CORE holds for our member. The system of record, read outside the
  *  interpreter, which is the only thing that can tell a single post from a double one. */
@@ -63,14 +66,14 @@ async function accountsHeld(session: CorebankSession): Promise<number> {
   return state.members.find((m) => m.memberId === WRITE_MEMBER_ID)?.subAccounts ?? -1;
 }
 
-/** The approved production invocation: an approval token minted over THIS artifact's digest, and a
- *  trust store holding the public half of the key that signed it. */
+/** The approved production invocation: an invocation approval minted over THIS request, and a
+ *  trust store holding the public half of the key that signed the artifact. */
 function runOptions(session: CorebankSession): Parameters<typeof replay>[0] {
   return {
     contract: openSubAccountContract,
     artifact: openSubAccountArtifact,
     args: ARGS,
-    tenant: { tenantId: "riverbend", appInstanceId: "riverbend-corebank-fixture" },
+    tenant: TENANT,
     allowlist: openSubAccountAllowlist,
     broker: session.broker,
     trust: TRUST(),
@@ -79,7 +82,19 @@ function runOptions(session: CorebankSession): Parameters<typeof replay>[0] {
     journal: (runId, clock) => new MemoryJournal({ runId, clock }),
     perceiveDeadlineMs: 15_000,
     onIntervention: "fail",
-    approval: approvalGrant(openSubAccountArtifact.digest, "tok-open-subaccount"),
+    invocationApproval: invocationApprovalFixture({
+      approvalId: "approval-browser-open-subaccount",
+      artifact: openSubAccountArtifact,
+      contract: openSubAccountContract,
+      args: ARGS,
+      tenant: TENANT,
+      idempotencyKey: IDEMPOTENCY_KEY,
+      issuedAt: "2026-01-01T00:00:00.000Z",
+      expiresAt: "2099-01-01T00:00:00.000Z",
+      trustNotBefore: "2026-01-01T00:00:00.000Z",
+      trustNotAfter: "2099-01-01T00:00:00.000Z",
+    }).grant,
+    idempotencyKey: IDEMPOTENCY_KEY,
   };
 }
 
@@ -168,6 +183,8 @@ describeBrowser("opening a sub-account against corebank-web", () => {
       }[];
       expect(decisions).toHaveLength(5);
       expect(decisions.every((d) => d.decision.allow)).toBe(true);
+      expect(eventsOf(journal, "approval.accepted")).toHaveLength(1);
+      expect(eventsOf(journal, "approval.refused")).toHaveLength(0);
 
       // The taint model, end to end: the member number reaches the surface and appears in no
       // journal line and in no result document.

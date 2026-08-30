@@ -50,7 +50,7 @@ CLAUDE_CODE_OAUTH_TOKEN` prefixed, to prove it structurally rather than by inspe
 | **The fallback-chain mutant (`nearestMatch`) is killed by 6 scenarios and every one is a false success** — the mutant told a caller a business outcome for a broken run | **measured** | same command, kill-matrix row `nearestMatch  04,06,08,09,15,21` |
 | **Replay is deterministic over the corpus**: 25 scenarios × 20 runs, flake rate 0.0%, 0 result documents that were not byte-identical | **measured, on a fixture I wrote** | same command |
 | **4 of 9 mutants survive the terminal corpus** (`noAssert`, `noSettleGate`, `noContinuity`, `noProvenance`), each with a written reason asserted by the test | **limitation, reported not hidden** | `pnpm -F @crr/conformance exec vitest run test/terminal-conformance.test.ts` → 10 passed |
-| **The whole repository builds and tests with zero credentials.** 1,984 tests, 8 workspace members | **measured** | `env -u … pnpm test` → `Tasks: 14 successful, 14 total`, exit 0 |
+| **The whole repository builds and tests with zero credentials.** 2,027 tests, 8 workspace members | **measured** | `env -u … pnpm test` → `Tasks: 14 successful, 14 total`, exit 0 |
 | **`pnpm demo` produces the entire evidence bundle with no live service**, all three arms of the taxonomy exhibited, redaction canary clean on both passes | **measured** | `env -u … pnpm demo` → seven `PASS` lines, `whole-bundle canary pass: CLEAN - 144 files, 0 hits`, `DEMO OK`, exit 0 |
 | **The bundle `pnpm demo` produces is the same bundle every time**: three consecutive runs, 144 files each, the same paths once content-address digests are normalized. The count is no longer narrated — the run compares it against an independent walk of the finished directory, and fails on any blob no run in the bundle claims | **measured, verified by injection** | `env -u … pnpm demo` ×3 → `144 files`, `7 blob directories checked, every file accounted for`, `DEMO OK`, exit 0; planting one stray blob gives `BUNDLE INTEGRITY FAILED - 2 stray blob(s)`, `DEMO FAILED`, exit 1 |
 | **The engine cannot read a clock, do I/O, or import a driver, and no package above the drivers contains CSS vocabulary** — read off disk, not asserted | **measured, verified by injection** | `pnpm -F @crr/core exec vitest run test/purity.test.ts test/no-locator-vocabulary.test.ts test/policy-chokepoint.test.ts` → 44 passed |
@@ -122,9 +122,9 @@ pnpm -F @crr/surface-browser exec playwright install chromium
 From the repo root, `pnpm exec playwright …` fails with `Command "playwright" not found` and
 `npx playwright …` fails with `sh: playwright: command not found`. Use the scoped form above.
 
-**Without a Chromium build the test suite is still green, and that is a trap worth naming.** 46 of
-the 1,984 tests skip — including every test that has ever touched a real browser — and each guard
-prints a warning to stderr, but the board reads green:
+**Without a Chromium build the test suite is still green, and that is a trap worth naming.** In the
+2026-08-29 measurement, 46 of the then-1,984 tests skipped — including every test that had ever
+touched a real browser — and each guard printed a warning to stderr, but the board read green:
 
 ```text
 $ env -u … PLAYWRIGHT_BROWSERS_PATH=<an empty dir> pnpm test
@@ -134,7 +134,8 @@ $ env -u … PLAYWRIGHT_BROWSERS_PATH=<an empty dir> pnpm test
     Tasks: 14 successful, 14 total                                exit 0
 ```
 
-1,875 passing, green, and the browser replays never ran. Install Chromium.
+1,875 passing, green, and the browser replays never ran. Install Chromium. This no-Chromium board
+was not re-run in the 2026-08-30 write-boundary pass.
 
 ---
 
@@ -506,15 +507,15 @@ drawn on **purity**, not subject matter, because that is the boundary a contract
 
 | Member | One line | Tests |
 | --- | --- | ---: |
-| `packages/core` | The schema and validators, canonical JSON + SHA-256 digest, the 29-check linker, the classifier, the target resolver, the extractor, the overlay merge, the policy predicate, the **detector discrimination proof**, and the prose renderers. **Zero I/O, zero clock, zero randomness, zero driver imports — checked by a source-scanning test, verified by injecting a real violation.** | 819 |
-| `packages/runtime` | The impure half, all in one place: interpreter, settle loop, budget ledgers, control lease, journal writer, evidence sink, file-backed store, the catalog and `invoke` host, ed25519 approval verification, outcome promotion, the operator console, the redaction canary, the `crr` CLI and `pnpm demo`. | 367 |
+| `packages/core` | The schema and validators, canonical JSON + SHA-256 digest, the 29-check linker, the classifier, the target resolver, the extractor, the overlay merge, the policy predicate, the **detector discrimination proof**, and the prose renderers. **Zero I/O, zero clock, zero randomness, zero driver imports — checked by a source-scanning test, verified by injecting a real violation.** | 839 |
+| `packages/runtime` | The impure half, all in one place: interpreter, settle loop, budget ledgers, control lease, journal writer, evidence sink, file-backed store, the catalog and `invoke` host, ed25519 approval verification, outcome promotion, the operator console, the redaction canary, the `crr` CLI and `pnpm demo`. | 390 |
 | `packages/discovery` | The model provider port, the hand-written Anthropic tool-use loop, the OpenAI adapter, the VCR transcript recorder/replayer, deterministic synthesis, and the `preflight` / `discover` entry points. The only package that may import a model SDK. | 362 |
 | `packages/surface-browser` | Playwright + per-frame CDP `Accessibility.getFullAXTree` stitched into an `Observation`. Not `querySelector`. Owns dialogs, the `perceive` deadline and PNG region masking. | 107 |
 | `packages/surface-terminal` | `@xterm/headless` over a `TerminalTransport` port → an `Observation` built from an 80×24 character grid. **Exists to falsify the port**: if the abstraction only fits a browser, this is where that stops being aspirational. | 125 |
 | `packages/conformance` | 25 browser + 14 terminal fault scenarios × 10 engines (1 reference, 9 mutants), the meta-test that fails when the suite stops discriminating, and multi-run stability. Separate so the broken engines can never ship inside `@crr/core`. | 102 |
 | `fixtures/corebank-web` | The hostile proxy surface: frameset, nested layout tables, generated ids, `<font>` tags, no test ids, two confirmation channels (an in-page modal and a native `confirm()`), a real non-idempotent commit, **10 injectable faults**, 2 tenant variants of one vendor product. | 66 |
 | `fixtures/corebank-tui` | The 80×24 green screen: 4 fault modes in 2 families, 2 tenant variants, so `surface-terminal` has something hostile to drive. | 36 |
-| | **Total, all credentials unset** | **1,984** |
+| | **Total, all credentials unset** | **2,027** |
 
 All fixture data is obviously synthetic and marked so on the screens. No real PII and no real
 credential appears anywhere in this repository.

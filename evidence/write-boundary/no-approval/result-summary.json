@@ -1,0 +1,12 @@
+{
+  "id": "no-approval",
+  "status": "failed",
+  "failureClass": "approval-required",
+  "stepsExecuted": 4,
+  "finalDispatches": 0,
+  "approvalAccepted": 0,
+  "approvalRefused": [
+    "request-binding-missing"
+  ],
+  "note": "The runtime reaches the final boundary and refuses before the irreversible dispatch. Reversible setup happened, so sideEffects is conservative, but finalDispatches is zero."
+}

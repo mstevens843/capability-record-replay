@@ -56,6 +56,7 @@ import { type EvidenceSink, MemoryEvidenceSink } from "./evidence.js";
 import { type IdSource, evidenceRefOf, randomIds } from "./ids.js";
 import {
   type DecisionFunctions,
+  type DryRunBoundaryReport,
   type DryRunPolicy,
   Interpreter,
   type InterpreterResumeState,
@@ -164,6 +165,7 @@ export interface ReplayOutput {
   /** Where a `dryRun` stopped, or `null` when the program ran to its end (including every run that
    *  did not ask for a dry run at all). */
   readonly dryStoppedAt: { readonly stepId: string; readonly stepIndex: number } | null;
+  readonly dryBoundary: DryRunBoundaryReport | null;
 }
 
 export async function replay(options: ReplayOptions): Promise<ReplayOutput> {
@@ -215,6 +217,7 @@ export async function replay(options: ReplayOptions): Promise<ReplayOutput> {
       journal,
       evidence,
       dryStoppedAt: null,
+      dryBoundary: null,
       result: preFlightResult({
         runId,
         startedAt,
@@ -427,6 +430,7 @@ export async function replay(options: ReplayOptions): Promise<ReplayOutput> {
       journal,
       evidence,
       dryStoppedAt: finished.dryStoppedAt,
+      dryBoundary: finished.dryBoundary,
       result: armOf(finished.result, envelope, program, parked),
     };
   };
@@ -475,6 +479,11 @@ export async function replay(options: ReplayOptions): Promise<ReplayOutput> {
         allowlist: options.allowlist,
         approval: options.approval ?? null,
         invocationApproval: options.invocationApproval ?? null,
+        args: options.args,
+        tenant: options.tenant,
+        ...(options.approvalPolicyVersion === undefined
+          ? {}
+          : { approvalPolicyVersion: options.approvalPolicyVersion }),
         ...(options.idempotencyKey === undefined
           ? {}
           : { idempotencyKey: options.idempotencyKey }),

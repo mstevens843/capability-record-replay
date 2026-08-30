@@ -1,0 +1,9 @@
+{
+  "id": "valid-approval",
+  "status": "ok",
+  "stepsExecuted": 5,
+  "finalDispatches": 1,
+  "approvalAccepted": 1,
+  "approvalRefused": [],
+  "note": "A scoped invocation approval is accepted and the final irreversible action dispatches exactly once. The typed output value is withheld from this evidence summary because it contains the synthetic sensitive member id."
+}

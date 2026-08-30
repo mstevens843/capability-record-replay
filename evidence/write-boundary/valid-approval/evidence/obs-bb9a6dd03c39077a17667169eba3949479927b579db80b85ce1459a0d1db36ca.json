@@ -1,0 +1,64 @@
+{
+  "seq": 14,
+  "surface": {
+    "kind": "web-legacy",
+    "driver": "mock-surface@0.1.0"
+  },
+  "route": {
+    "originAlias": "corebank",
+    "path": "/subaccount/done",
+    "query": {},
+    "frame": "content"
+  },
+  "nodes": [
+    {
+      "id": "status:opened",
+      "rawRole": "status",
+      "ariaRole": "status",
+      "name": "Sub-account SA-77120 opened for member <taint:memberId-1>",
+      "value": null,
+      "text": "Sub-account SA-77120 opened for member <taint:memberId-1>",
+      "description": null,
+      "state": {
+        "disabled": false,
+        "focused": false,
+        "visible": true,
+        "checked": null,
+        "expanded": null,
+        "selected": null,
+        "required": null,
+        "invalid": false,
+        "readonly": false
+      },
+      "bounds": null,
+      "containerPath": [
+        {
+          "kind": "frame",
+          "name": "content"
+        },
+        {
+          "kind": "landmark",
+          "role": "form",
+          "name": "Member Search"
+        }
+      ],
+      "parent": null,
+      "children": [],
+      "labelledBy": [],
+      "tablePosition": null,
+      "capacity": null,
+      "confidence": 1,
+      "live": false,
+      "masked": false
+    }
+  ],
+  "roots": [],
+  "skeletonDigest": "sha256:21d9476d1ac7504efe2b64712de47db91ceb437cd8024a998ac68835cc925391",
+  "stability": {
+    "settled": true,
+    "generation": 5,
+    "pendingReason": null
+  },
+  "nativeDialog": null,
+  "inputIntercepted": false
+}

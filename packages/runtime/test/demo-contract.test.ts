@@ -137,6 +137,7 @@ describe("the demo", () => {
       "scenarios.ts",
       "surface-entry.mjs",
       "surface.ts",
+      "write-boundary.ts",
     ]);
     for (const path of demoFiles()) {
       expect(importsOf(path).length, path).toBeGreaterThan(0);

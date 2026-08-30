@@ -156,6 +156,9 @@ export interface ParkedRun {
   readonly allowlist: Allowlist;
   readonly approval: ApprovalGrant | null;
   readonly invocationApproval?: InvocationApprovalGrant | null;
+  readonly args: Readonly<Record<string, unknown>>;
+  readonly tenant: { readonly tenantId: string; readonly appInstanceId: string };
+  readonly approvalPolicyVersion?: string;
   readonly idempotencyKey?: string | null;
   readonly bindings: ResolvedBindings;
   readonly perceiveDeadlineMs: number;
@@ -612,6 +615,14 @@ export class ControlPlane {
       elapsedMs: parked.ledger.elapsedMs,
       leaseState,
       approval: parked.approval,
+      invocationApproval: parked.invocationApproval ?? null,
+      args: parked.args,
+      tenant: parked.tenant,
+      ...(parked.approvalPolicyVersion === undefined
+        ? {}
+        : { approvalPolicyVersion: parked.approvalPolicyVersion }),
+      now: parked.clock.now(),
+      idempotencyKey: parked.idempotencyKey ?? null,
       approvalAlreadySpent: irreversibleAlreadyAuthorized(parked.journal),
     });
 
