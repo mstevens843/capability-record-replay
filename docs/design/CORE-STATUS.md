@@ -1,14 +1,14 @@
-# `@crr/core` — status after integration
+# `@crr/core` - status after integration
 
 > **SUPERSEDED IN PART BY `docs/design/FINAL-STATUS.md`.** This file is the record of the pass that
-> integrated SPEC §11 units 1–8 and is kept as written. Three of §7's open items have since closed:
-> item 3/4 (the approved digest is compared and the signature verified — linker checks 26/27 plus
+> integrated SPEC §11 units 1-8 and is kept as written. Three of §7's open items have since closed:
+> item 3/4 (the approved digest is compared and the signature verified - linker checks 26/27 plus
 > `@crr/runtime`'s `ed25519Trust`), and item 6's `stableSamples` placeholder (measured at 3 and
 > applied; FINAL-STATUS §3.4). Item 7 (`@crr/conformance` cannot import `packages/core/test/*`) is
 > still true and is why a fifth copy of the barrel reader now exists. **Where the two disagree,
 > FINAL-STATUS is the one whose commands were re-run.**
 
-**Scope of this file.** Seven units (SPEC §11 build units 1–8) were built in parallel by separate
+**Scope of this file.** Seven units (SPEC §11 build units 1-8) were built in parallel by separate
 agents and then integrated. This records what exists, what is proved, what is *not* proved, and the
 things a later unit will trip over if it does not read them. Every number below came from a command
 that was run; the commands are printed next to the numbers.
@@ -46,7 +46,7 @@ $ pnpm lint                            # biome check . at the repo root
 green as well: `Tasks: 2 successful, 2 total` for each.
 
 **Nothing in this package makes a network call, and no test needs a credential.** That is asserted
-rather than asserted-in-prose — see §3.
+rather than asserted-in-prose - see §3.
 
 ~~One build fact a later unit should plan around: **`dist/index.d.ts` is 14.42 MB.**~~ **SUPERSEDED
 by the build-hygiene unit.** The declarations are now **283,141 bytes across 39 files** and the whole
@@ -87,7 +87,7 @@ $ /usr/bin/time -p pnpm -F @crr/core build   -> real 1.51
 |  |  | **33 files** | **742** |
 
 `extract` straddles units 4 and 6 (unit 4 wrote `readExtractSpec` because SPEC §4.2 row 26 needs it;
-unit 6 reworked it). `spec-10-rejections` and `check-msgs` straddle 2 and 7 for the same reason —
+unit 6 reworked it). `spec-10-rejections` and `check-msgs` straddle 2 and 7 for the same reason -
 the fixtures are the schema's, the checks are the linker's.
 
 ---
@@ -96,10 +96,10 @@ the fixtures are the schema's, the checks are the linker's.
 
 Both are new in this unit, both pass, and both are built the same way: **scan, then a discrimination
 suite that proves the scanner can fail, then an exemption ledger asserted empty.** The middle part is
-the point — a test that asserts a list is empty passes just as green when its matcher has stopped
+the point - a test that asserts a list is empty passes just as green when its matcher has stopped
 matching.
 
-### `test/purity.test.ts` — 15 tests
+### `test/purity.test.ts` - 15 tests
 
 Reads `packages/core/src/**` off disk and fails on `Date`, `Math.random`, `fetch(`, `node:`,
 `process.env`, `setTimeout`, `setInterval`, plus:
@@ -107,16 +107,16 @@ Reads `packages/core/src/**` off disk and fails on `Date`, `Math.random`, `fetch
 - **no driver import**, by any spelling of the specifier, including a relative path into
   `../surface-terminal/…`;
 - **a stronger form of the same rule**: every module specifier in `src/` must be relative or exactly
-  `zod`. That catches `playwright`, a bare `fs`, and `@crr/runtime` — the imports we did *not* think
+  `zod`. That catches `playwright`, a bare `fs`, and `@crr/runtime` - the imports we did *not* think
   of;
 - **`package.json` declares no dependency but `zod`**, so a purity breach cannot arrive as a one-line
   diff with no manifest change beside it.
 
-### `test/no-locator-vocabulary.test.ts` — 12 tests
+### `test/no-locator-vocabulary.test.ts` - 12 tests
 
 Reads the packages *above the drivers* and fails on `querySelector`, `css`, `xpath`,
 `getElementById`, `innerHTML`, `[data-` (case-insensitive). The package list is
-`["core", "runtime", "discovery"]` — the latter two are named now so they are covered on the day they
+`["core", "runtime", "discovery"]` - the latter two are named now so they are covered on the day they
 arrive rather than on the day somebody remembers. It also asserts the *other* half of the rule:
 `locatorShapeOf` refuses a selector and an XPath in a document, because a clean source tree does not
 make a clean artifact.
@@ -124,16 +124,16 @@ make a clean artifact.
 ### Three decisions inside the scanner you should know before you edit it
 
 1. **Comments are blanked; string bodies are not.** A comment cannot read a clock, and these sources
-   explain at length why they do not call `Date.now()` or `crypto.subtle.digest` — a scan that failed
+   explain at length why they do not call `Date.now()` or `crypto.subtle.digest` - a scan that failed
    on those sentences is a scan somebody deletes a paragraph to satisfy. A *string* can be a module
    specifier (`await import("node:fs")`) and is exactly where a stored selector would live, so
    strings stay in. Both directions are asserted in the discrimination suite.
-2. **`src/` only, not the whole package.** `test/` reads the repo off disk with `node:fs` — the
-   purity test itself does — so a rule forbidding that would forbid its own enforcement. `src/` is
+2. **`src/` only, not the whole package.** `test/` reads the repo off disk with `node:fs` - the
+   purity test itself does - so a rule forbidding that would forbid its own enforcement. `src/` is
    exactly what `tsup src/index.ts` ships, so it is exactly the set the claim is about.
 3. **The exemption ledger (`ARCHITECTURE_EXEMPTIONS`) is empty and a test says so.** Granting one is
    one line with an argument attached, and that test failing is what forces somebody to agree with
-   the argument in review. A second test rejects a *dead* exemption — one whose file no longer
+   the argument in review. A second test rejects a *dead* exemption - one whose file no longer
    contains the token.
 
 ### They were verified against the real package, not only against synthetic sources
@@ -159,13 +159,13 @@ The file was restored and the suite is green again (742/742).
 The shared scanner. It reuses `blankCommentsAndStrings` and `repoSources` from unit 8's
 `test/chokepoint-scan.ts` rather than growing a second reader. `@crr/conformance` will want both
 files; they are test-only by necessity (they do I/O) and will have to be copied or promoted to a tiny
-shared dev package — flagging it now because unit 17 will hit it.
+shared dev package - flagging it now because unit 17 will hit it.
 
 ---
 
 ## 4. Conflicts found during integration, and how they were resolved
 
-### 4.1 `TargetOutcome.kind` → `TargetOutcome.status` — **a real breakage, now fixed**
+### 4.1 `TargetOutcome.kind` → `TargetOutcome.status` - **a real breakage, now fixed**
 
 Unit 4 (classifier) and unit 5 (resolver) both reported in their deviation notes that the resolver's
 result could be handed to `GateFacts.target` "with no adapter". It could not. They agreed on the type
@@ -199,7 +199,7 @@ where it is defined. `test/barrel.test.ts` now refuses any name reachable by two
 
 ---
 
-## 5. `src/index.ts` — the public surface
+## 5. `src/index.ts` - the public surface
 
 334 runtime exports plus the type-only ones, ordered by **the order the pipeline runs in**, not
 alphabetically: primitives → the three documents → the port and the mock → what a run produces →
@@ -210,20 +210,20 @@ four for free:
 
 1. every module in `src/` is re-exported (a unit cannot ship invisibly);
 2. every specifier in `index.ts` names a module that exists;
-3. no name is exported by two modules — an ambiguous `export *` is silently **dropped**, not
+3. no name is exported by two modules - an ambiguous `export *` is silently **dropped**, not
    reported, so the symptom otherwise appears at the far end of the monorepo;
 4. every value the modules declare is really reachable through the barrel at runtime.
 
 ---
 
-## 6. What the integration test proves — and what it does not
+## 6. What the integration test proves - and what it does not
 
 `test/integration.test.ts` (5 tests) walks one turn of the SPEC §1.1 cycle over `MockSurface` using
 only the public barrel: **link → observe → resolve → policy → act → settle → classify**, for the
 first three steps of the member-lookup fixture. It ends on the assertion that matters:
 
 > the artifact declared a recovery for a native dialog; the mock raised one because that is what the
-> legacy app does; and the classifier — which has heard of neither — returned the declared remedy
+> legacy app does; and the classifier - which has heard of neither - returned the declared remedy
 > (`DISMISS_KEEPALIVE_DIALOG` / `dismiss-native-dialog`).
 
 It also proves `parseObservation` accepts what `MockSurface` emits, which is the obligation every
@@ -233,7 +233,7 @@ driver has and the reason the mock is usable as evidence by units that will neve
 remediation cycle. Where the interpreter would own a few lines (deriving an `Action` from an
 instruction, polling for quiescence, capturing the pre-act digest) this file writes them out in the
 open and says so. Unit 11 should treat those helpers as a specification sketch, not as code to
-import — in particular:
+import - in particular:
 
 - **the pre-act skeleton digest must be captured before every dispatch.** `classify` treats a missing
   one as "the change cannot be shown to have happened" and fails closed to `no-observable-effect`. A
@@ -254,13 +254,13 @@ Ordered by how much damage each does if it is forgotten.
    terminal environment condition is inferred: `reauthenticate` → `session-expired-unrecoverable`,
    `escalate` → `entitlement-denied`, anything else → `app-error`. This works and is tested, but it
    is an inference where the spec implies a declaration. If it is to become explicit, the change is
-   one optional `classifyAs` field on `RecoveryRule` — and `src/classify.ts` names the exact site.
+   one optional `classifyAs` field on `RecoveryRule` - and `src/classify.ts` names the exact site.
 2. **A step with `maxRemediationCycles: 0` can never recover**, and four of the five fixture steps
    declare exactly that. An ambient recovery firing there returns `recovery-exhausted` immediately,
    so the flow's ambient rules are inert on most steps. Unit 4 flagged this for a linker check ("an
    artifact declaring ambient recoveries has at least one step that can spend one"); **unit 7 did not
    add it** and the numbered check list is still 28. Deliberately left alone here rather than
-   silently growing SPEC §10's list — it needs a decision, not a patch.
+   silently growing SPEC §10's list - it needs a decision, not a patch.
 3. **Policy rule 8 is only half enforced.** `check` requires an approval token for any
    `WRITE_IRREVERSIBLE` and, in replay, requires `approvedDigest !== null` and
    `artifact.digestVerified`. It does **not** compare the approved digest to the artifact's, and it
@@ -289,22 +289,22 @@ Ordered by how much damage each does if it is forgotten.
 affects any test, the build, or `pnpm lint` (both are now excluded from biome via `.scratch` and the
 file is empty), but both should go:
 
-- **`/.exports.mjs`** — my own throwaway export-scanner, now truncated to zero bytes. **Delete it.**
+- **`/.exports.mjs`** - my own throwaway export-scanner, now truncated to zero bytes. **Delete it.**
   Its useful half became `test/barrel.test.ts`.
-- **`/packages/core/.scratch/probe.ts` and `probe2.ts`** — a unit agent's working files. `probe2.ts`
+- **`/packages/core/.scratch/probe.ts` and `probe2.ts`** - a unit agent's working files. `probe2.ts`
   is a zod-v4 API probe; **`probe.ts` contains Playwright/CDP spike code sitting inside the package
   whose entire claim is that it is pure.** The architecture tests scan `packages/*/src` and do not
-  see it, and that is the correct scope — but a reviewer opening the directory will see it. **Delete
+  see it, and that is the correct scope - but a reviewer opening the directory will see it. **Delete
   the directory.** `.scratch/` is now in `.gitignore` and in biome's ignore list so it cannot be
   committed or linted in the meantime.
 
 Two config edits were made to get `pnpm lint` to exit 0, both worth knowing about:
 
 - `biome.json` `files.ignore` gained `.scratch`, `spike-browser-surface`, `spike-terminal-surface`.
-  The spike directories are **recorded evidence of runs that happened** — reformatting them would
+  The spike directories are **recorded evidence of runs that happened** - reformatting them would
   edit the record, and two of their findings (`noControlCharactersInRegex` over a VT parser,
   `noAssignInExpressions`) are not auto-fixable and are correct as written. This is the same
   precedent `evidence` already sets in that list. Reverse it if you disagree; before the change,
-  `pnpm lint` reported **107 errors** and not one of them was in `packages/` or `fixtures/` source —
+  `pnpm lint` reported **107 errors** and not one of them was in `packages/` or `fixtures/` source -
   they were the 33 spike scripts, the two scratch files, and the root manifest.
 - root `package.json` was reformatted by biome (a four-line array onto one line). Whitespace only.

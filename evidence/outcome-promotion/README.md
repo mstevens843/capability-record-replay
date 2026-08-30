@@ -4,9 +4,8 @@
 
 `evidence/discovery-live/synthesized/contract.json` ships with `outcomes: []` and a `review`-severity
 note saying why: synthesis will not write a detector for a screen the run never observed, because a
-generated detector is how a false `MEMBER_NOT_FOUND` ships. This directory is the other half of that
-sentence — a person reading the note, capturing the screen, writing the detector, and being made to
-prove it before it can be shipped.
+generated detector can turn an unknown screen into a false `MEMBER_NOT_FOUND`. This directory is the
+review path: read the note, capture the screen, write the detector, and prove it before shipping.
 
 Nothing here was produced by a model. `crr` has no discovery verb and reaches no provider; every
 command below ran with `ANTHROPIC_API_KEY`, `ANTHROPIC_AUTH_TOKEN`, `OPENAI_API_KEY` and
@@ -25,23 +24,23 @@ re-derived.
 
 | Author | What they produced |
 |---|---|
-| **The discovery model** (`claude-opus-5`, live, 2026-08-28) | `before/contract.json` and `before/artifact.json` — byte-identical copies of `evidence/discovery-live/synthesized/`. **Nothing else in this directory.** The model proposed a candidate outcome named `MEMBER_FOUND_ACTIVE` and synthesis refused to write a detector for it; that refusal stands, and no part of it was used here. |
-| **The reviewer** | `review/promotion.template.json` — the outcome code, the caller-facing prose, the `stableUnderRetryBecause` judgement, the detector predicate, the vocabulary token, and the choice of step. Plus the decisions: which screen is the positive, which member numbers to probe, and which corpus bundles to prove against. |
+| **The discovery model** (`claude-opus-5`, live, 2026-08-28) | `before/contract.json` and `before/artifact.json` - byte-identical copies of `evidence/discovery-live/synthesized/`. **Nothing else in this directory.** The model proposed a candidate outcome named `MEMBER_FOUND_ACTIVE` and synthesis refused to write a detector for it; that refusal stands, and no part of it was used here. |
+| **The reviewer** | `review/promotion.template.json` - the outcome code, the caller-facing prose, the `stableUnderRetryBecause` judgement, the detector predicate, the vocabulary token, and the choice of step. Plus the decisions: which screen is the positive, which member numbers to probe, and which corpus bundles to prove against. |
 | **Deterministic code** | Everything else: every observation, journal, result document, console log, the promoted contract and artifact, the promotion receipt, the signatures, and the canary reports. |
 
 **The reviewer here was the coding agent that performed this exercise, working under the
 repository author's direction.** It is written into the documents as
 `reviewedBy: "reviewer:agent-acting-as-reviewer"` and `approver:agent-acting-as-approver` rather
-than as a person's name, because pretending a human signed this would be the one lie that makes the
-whole control worthless. A real deployment requires a named human in both roles, and the design says
-so: `promotion.ts`'s own header records that *"nothing here defends against the reviewer or the
+than as a person's name. Pretending a human signed this would weaken the control this directory is
+trying to prove. A real deployment requires a named human in both roles, and the design says so:
+`promotion.ts`'s own header records that *"nothing here defends against the reviewer or the
 approver: a person who can write the review, fabricate a consistent capture and sign the result is
 inside the trust boundary."* That sentence describes this exercise exactly.
 
 What is *not* claimed by that admission: none of the semantics here came out of a model in a
 decision loop, none of it was inferred from the recording, and none of it was copied from the
 model's candidate. The detector is a `text-present` predicate over one vocabulary token, written in
-the artifact's own language, and it had to survive a proof it could have failed — and did fail, the
+the artifact's own language, and it had to survive a proof it could have failed - and did fail, the
 first time (below).
 
 ---
@@ -52,7 +51,7 @@ Every line below is copied from the file named beside it.
 
 ### 0. Before: a legitimate answer, reported as a hard failure
 
-`invocation-before/` — `crr replay` of artifact v1 against a well-formed member number the core
+`invocation-before/` - `crr replay` of artifact v1 against a well-formed member number the core
 holds no record for.
 
 ```text
@@ -68,28 +67,28 @@ artifact shipped in.
 ### 1. Capture the outcome screen, honestly
 
 Six `crr probe --capture-every` runs plus the failing replay above. **These are real captures of
-real screens** — `Surface.perceive()` through the Playwright/CDP accessibility-tree driver, redacted
+real screens** - `Surface.perceive()` through the Playwright/CDP accessibility-tree driver, redacted
 by the taint model, content-addressed by the evidence sink. Nobody authored a byte of them.
 
 | bundle | how the screen was produced | frozen |
 |---|---|---|
 | `probe-green/` | a member the fixture holds (`GREEN_MEMBER=10043`, the member the live discovery run itself used). No fault. Run ends `ok`. | 4 |
-| `probe-absent/` | `ABSENT_MEMBER=10099` — five digits, **no record in the fixture's seed data**. No fault injected: this is the application's own empty-result path, `rows.length === 0` in `fixtures/corebank-web/src/server.js`. | 3 |
-| `probe-app-error/` | fixture fault `app-error` armed at the results screen — HTTP 500 and a vendor-style unhandled-exception page. | 2 |
+| `probe-absent/` | `ABSENT_MEMBER=10099` - five digits, **no record in the fixture's seed data**. No fault injected: this is the application's own empty-result path, `rows.length === 0` in `fixtures/corebank-web/src/server.js`. | 3 |
+| `probe-app-error/` | fixture fault `app-error` armed at the results screen - HTTP 500 and a vendor-style unhandled-exception page. | 2 |
 | `probe-session-expired/` | fixture fault `session-timeout` armed at the results screen. | 2 |
-| `probe-interstitial/` | fixture fault `interstitial` armed at the results screen — a blocking modal over the grid. | 2 |
-| `probe-validation-error/` | `MALFORMED_MEMBER=7777` — four digits. The application's own validation banner, no fault injected. | 2 |
+| `probe-interstitial/` | fixture fault `interstitial` armed at the results screen - a blocking modal over the grid. | 2 |
+| `probe-validation-error/` | `MALFORMED_MEMBER=7777` - four digits. The application's own validation banner, no fault injected. | 2 |
 | `invocation-before/` | the failing replay above. `captureOn: ["failure"]`, so it froze exactly one screen: the one the run failed on. **This is the positive.** | 1 |
 
 The four abnormal probes exist because the proof is only worth what its negatives are worth. A
 detector proven against "the happy path and the outcome" has been shown to tell an answer from a
 success and from nothing else. `crr probe` had no way to arm a fault, so
-`packages/runtime/demo/surface-entry.mjs` gained a `CRR_DEMO_FAULT` hook — see *Changes to shipped
+`packages/runtime/demo/surface-entry.mjs` gained a `CRR_DEMO_FAULT` hook - see *Changes to shipped
 code* below.
 
 ### 2. The reviewer's first attempt, and the prover's refusal
 
-The obvious step for the detector is `activate-search` — it is the step that submits the search, and
+The obvious step for the detector is `activate-search` - it is the step that submits the search, and
 it is where the hand-authored example artifact puts the same detector (`submit-search`). The prover
 refused (`review/promote-attempt-1-refused.txt`):
 
@@ -112,8 +111,8 @@ distinguishes them.
 Stated as a property of the tool: **a `--capture-every` probe of the run that produced the outcome
 screen cannot be its own corpus, whenever the flow continues past that screen.** The prover has no
 way to say "these two frozen observations are the same screen"; `corpusDigestOf` deduplicates by
-content address, and the addresses differ. This was not weakened around — it is left exactly as it
-is, and the reviewer moved instead.
+content address, and the addresses differ. The proof rule was left intact, and the reviewer moved
+the detector to the step where production replay actually stops.
 
 ### 3. The reviewer's second attempt
 
@@ -136,16 +135,16 @@ emitted   contract@2.0.0, artifact@2 sha256:8df36d28…
 `probe-absent/` is **deliberately not in this corpus**, and that is the one place a reader should be
 suspicious, so it is said plainly: including it makes the proof fail, for the reason in §2, and it
 would fail for a reason that is about the corpus rather than about the detector. The bundle is
-shipped here so anyone can put it back and watch the refusal happen —
+shipped here so anyone can put it back and watch the refusal happen -
 `--corpus evidence/outcome-promotion/probe-absent` added to the `crr promote` line in
 `reproduce.sh` step 7 is the whole change.
 
 `other-abnormal@step 0` is the honest weak spot in this proof, and it is **reported, not
-threshold-ed** — the design's rule from OPEN-QUESTIONS Q4, "measure it, ship no number". The reason
+threshold-ed** - the design's rule from OPEN-QUESTIONS Q4, "measure it, ship no number". The reason
 the number is zero is visible in the four abnormal probes: every one of them fails
 `activate-search`'s checkpoint and never reaches the read step, so no app-error, session-expiry,
 interstitial or validation screen exists at the step the detector guards. What that argument does
-**not** cover is a screen that passes `activate-search`'s checkpoint and is still abnormal — a torn
+**not** cover is a screen that passes `activate-search`'s checkpoint and is still abnormal - a torn
 repaint, or an interstitial that the accessibility tree still shows the grid behind. Neither was
 probed. The detector's claim is exactly "fires on this frozen screen, is silent on those eleven",
 and nothing larger.
@@ -195,23 +194,23 @@ after,  --tenant summit           link REFUSED
 |---|---|
 | `README.md` | the reviewer, by hand. |
 | `reproduce.sh` | the reviewer, by hand. Runs the whole chain; it is the only thing here that has to be trusted to read the rest. |
-| `allowlist.json` | the reviewer, by hand — transcribed from `packages/discovery/test/fixtures/corebank-web.ts`, the deployment allowlist the live discovery run was performed under. |
+| `allowlist.json` | the reviewer, by hand - transcribed from `packages/discovery/test/fixtures/corebank-web.ts`, the deployment allowlist the live discovery run was performed under. |
 | `before/contract.json`, `before/artifact.json` | **the live `claude-opus-5` discovery run**, via `@crr/discovery` synthesis. Byte-identical copies of `evidence/discovery-live/synthesized/`. |
 | `before/artifact-approved-for-probe.json`, `before/approve-console.txt` | `crr approve` (deterministic code), signed by the reviewer's throwaway key. |
 | `probe-*/journal.jsonl`, `probe-*/observations/**` | `crr probe --capture-every` over `@crr/surface-browser`. Real perception of a real browser; no model. |
 | `probe-*/console.txt` | the `crr probe` process's own stdout+stderr. |
 | `invocation-before/**`, `invocation-after-*/**`, `confirm/journal.jsonl`, `confirm/observations/**`, `confirm/result.json` | `crr replay`. No model. |
 | `review/promotion.template.json` | **the reviewer, by hand.** The only business semantics in this directory. |
-| `review/build-review.mjs` | the reviewer, by hand — a deterministic filler that substitutes the positive's content address, the run id and the step into the template, **reading all three off the run journal** rather than taking them from a person. |
+| `review/build-review.mjs` | the reviewer, by hand - a deterministic filler that substitutes the positive's content address, the run id and the step into the template, **reading all three off the run journal** rather than taking them from a person. |
 | `review/promotion.json`, `review/promotion-attempt-1-refused.json` | `build-review.mjs` (deterministic code) over the reviewer's template and the journals. |
 | `review/promote-attempt-1-refused.txt`, `promoted/console*.txt` | the `crr promote` process's own stdout. |
 | `promoted/contract.json`, `promoted/artifact.json`, `promoted/promotions/*.json` | `crr promote` (deterministic code), only after `proveDiscrimination` returned `discriminates`. |
-| `verified/**` | `crr verify` — a replay of the promoted artifact with the model out of the loop. |
+| `verified/**` | `crr verify` - a replay of the promoted artifact with the model out of the loop. |
 | `approved/**`, `confirm/artifact.json`, `confirm/artifact-approved.json`, `confirm/*console*.txt` | `crr approve` and `crr promote --confirm`. |
 | `keys/reviewer.spki.pem` | `node:crypto`, generated per run of `reproduce.sh`. The private half is written to a `mktemp -d` outside the repository and deleted on exit. |
 | `link.txt` | the `crr link` process's own stdout, three invocations. |
 | `canary/run-canary.mjs` | the reviewer, by hand. |
-| `canary/documents.json`, `canary/reproduction.json`, `canary/report.txt` | `runRedactionCanary()` from `@crr/runtime` — the same function `pnpm demo` runs over the whole bundle. |
+| `canary/documents.json`, `canary/reproduction.json`, `canary/report.txt` | `runRedactionCanary()` from `@crr/runtime` - the same function `pnpm demo` runs over the whole bundle. |
 
 ---
 
@@ -242,11 +241,11 @@ The gating pass covers every document and record this exercise wrote: no caller 
 in any of them, in any of fourteen encodings, because `memberId` is declared `sensitive` on the
 contract and the taint model substitutes a handle before a byte is written. The reporting pass
 covers `README.md` and `reproduce.sh`, where the argument appears because the **command** is the
-deliverable — BRIEF §0 requires the command next to the claim, and a command with its argument
+deliverable - BRIEF §0 requires the command next to the claim, and a command with its argument
 removed is not a command. That split is the one the live discovery bundle already uses.
 
-Two things the canary does not search for, said rather than left implicit. **Member data** —
-`CHEN, MIN (SYNTHETIC)`, `15,900.00` — is in `probe-green/`, `verified/` and
+Two things the canary does not search for, said rather than left implicit. **Member data** -
+`CHEN, MIN (SYNTHETIC)`, `15,900.00` - is in `probe-green/`, `verified/` and
 `invocation-after-green/`, legitimately: it was never an argument, so parameterization has nothing to
 substitute, and it is what the capability *returns*. And a byte scan cannot see through compression;
 there are no images in this directory, so that limit does not bite here.
@@ -262,8 +261,8 @@ Four defects, all of them found by doing this rather than by reading anything.
 **1. The observed route's query reached the journal in clear. Fixed.**
 `observedSummaryOf` redacted salient node names and the native dialog's message and passed
 `observation.route` straight through. The live artifact's route table declares `search-results` with
-a query key bound to `param.memberId` — the fixture's search form is a GET form, and that is what
-synthesis derived — so the member number travelled into the journal's `classified` line, into the
+a query key bound to `param.memberId` - the fixture's search form is a GET form, and that is what
+synthesis derived - so the member number travelled into the journal's `classified` line, into the
 result document's failure trace, and onto the operator console, **while the frozen observation
 beside it had the same field blanked to `<taint:memberId-1>`**. Five clean `pnpm demo` canary runs
 said nothing about it, because the hand-authored demo artifact declares no query on any route.
@@ -274,20 +273,20 @@ the value before asserting the summary does not.
 **2. `crr link` could not link a promoted artifact at all. Fixed.**
 The CLI parsed `--tenant` and never passed it to `link()`. Linker check 29 refuses a
 reviewer-authored outcome whose proof does not name *this* tenant, and a link naming no tenant can
-never satisfy it — so every artifact carrying a promotion was refused at every tenant, including the
+never satisfy it - so every artifact carrying a promotion was refused at every tenant, including the
 one it was proven at. One line in `packages/runtime/src/cli.ts`. `link.txt` is the before/after.
 
 **3. The artifact-derived allowlist cannot verify anything above `READ`. Not fixed.**
 `allowlistFromArtifact` hard-codes `discoveryMaxEffect: "READ"`, and `crr verify` runs the policy
 chokepoint in `discovery` mode. So `crr verify` on this `WRITE_REVERSIBLE` artifact fails at step
 one with `policy-denied … discovery may not exceed READ` unless an explicit `--allowlist` is passed.
-That is arguably correct — the CLI's own comment says *"a program that authorizes itself is not
-authorized"* — but the failure names the effect ceiling rather than the missing flag, and the
+That is arguably correct - the CLI's own comment says *"a program that authorizes itself is not
+authorized"* - but the failure names the effect ceiling rather than the missing flag, and the
 promotion path's second gate is unreachable without knowing that. `reproduce.sh` passes
 `--allowlist`, and this paragraph is the documentation.
 
 **4. `probeConfirmed` can only be stamped in one order, and the order is not obvious. Not fixed.**
-`confirmProbe` refuses an artifact that carries an approval — correctly, because stamping the
+`confirmProbe` refuses an artifact that carries an approval - correctly, because stamping the
 receipt moves the digest the signature covers. But the result document it needs can only come from
 `crr replay`, and linker check 27 refuses to replay anything that is not approved. So the sequence
 is necessarily: approve, replay, confirm the *pre-approval draft* with that result, re-approve. Both
@@ -303,9 +302,9 @@ the artifact's content address (`proposed sha256:8df36d28…` → `verified sha2
 
 ## Changes to shipped code that this evidence depends on
 
-- `packages/core/src/evaluate.ts` — the redaction fix above, plus its test.
-- `packages/runtime/src/cli.ts` — `crr link` now passes `--tenant`.
-- `packages/runtime/demo/surface-entry.mjs` — a `CRR_DEMO_FAULT` environment hook that arms one of
+- `packages/core/src/evaluate.ts` - the redaction fix above, plus its test.
+- `packages/runtime/src/cli.ts` - `crr link` now passes `--tenant`.
+- `packages/runtime/demo/surface-entry.mjs` - a `CRR_DEMO_FAULT` environment hook that arms one of
   the fixture's faults for the browser session before the surface is handed over. Unset, which is
   every `pnpm demo` run, it arms nothing and makes no request. It exists because a discrimination
   proof is only as good as its negatives, and the abnormal screens a real corpus needs are ones a

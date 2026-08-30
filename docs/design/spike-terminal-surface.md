@@ -9,7 +9,7 @@ so. Nothing here is a recollection of how these libraries behave.
 Surface driver should be `@xterm/headless` (pure JS, zero dependencies, 1.9 MB) reading from a
 **byte-stream transport port**, of which `child_process` pipes are the default implementation and
 `node-pty` is an optional one the reviewer never has to install. `node-pty` is not merely
-inconvenient here — on this exact platform, a fresh install of `node-pty@1.1.0` is **broken out of
+inconvenient here - on this exact platform, a fresh install of `node-pty@1.1.0` is **broken out of
 the box** (§1.3), and that is reproducible with two commands.
 
 ---
@@ -56,7 +56,7 @@ finished.
 | Runtime deps | **0** | 1 (`node-addon-api`) | 0 |
 | Installed size | **1.9 MB** | **62 MB** (58 MB of it Windows prebuilds) | 0 |
 | `pnpm add` wall time | **0.45 s** | 1.08 s (prebuild path) / 1.86 s (from source) | n/a |
-| Prebuilt platforms | n/a | darwin-arm64, darwin-x64, win32-arm64, win32-x64 — **no linux** | n/a |
+| Prebuilt platforms | n/a | darwin-arm64, darwin-x64, win32-arm64, win32-x64 - **no linux** | n/a |
 | Works after a plain `pnpm install` | **yes** | **no** (§1.3) | **no** (§1.4) |
 
 Install timings, verbatim:
@@ -79,7 +79,7 @@ real 1.08
 ```
 
 Both packages were published 2025-12-22, so this repo's `minimumReleaseAge: 10080` (7 days) does not
-block either — checked with `npm view <pkg> time --json`.
+block either - checked with `npm view <pkg> time --json`.
 
 ### 1.2 `@xterm/headless` is the right VT parser and has one packaging wart
 
@@ -96,7 +96,7 @@ is a CommonJS module, which may not support all module.exports as named exports.
 ```
 
 v6.0.0 ships **no `exports` map**, and its `module` field points at `lib/xterm.mjs`, which is not in
-the tarball — the installed package root holds only `lib-headless/`, `package.json`, `README.md` and
+the tarball - the installed package root holds only `lib-headless/`, `package.json`, `README.md` and
 `typings/`. So Node resolves the bare specifier through `main` to the CommonJS build and named ESM
 imports fail. Two things work:
 
@@ -113,7 +113,7 @@ const { Terminal } = xtermPkg;
 
 Use (a), with a one-line comment so nobody "fixes" it back.
 
-### 1.3 `node-pty` 1.1.0 is broken out of the box on darwin-arm64 — verified
+### 1.3 `node-pty` 1.1.0 is broken out of the box on darwin-arm64 - verified
 
 This is the finding that decides the spike.
 
@@ -150,14 +150,14 @@ $ ls -l node_modules/node-pty/prebuilds/darwin-arm64/spawn-helper
 ```
 
 `chmod +x` fixes it immediately (`SPAWN OK exit=0 data="hello-from-pty\r\n"`), which confirms the
-diagnosis — but a fix a user has to apply by hand is not a fix.
+diagnosis - but a fix a user has to apply by hand is not a fix.
 
 Three further facts, each of which independently would have been enough:
 
 1. **`pnpm approve-builds` does not help.** With `pnpm.onlyBuiltDependencies: ["node-pty"]` the
    install scripts *do* run, the prebuild path is taken, nothing is compiled, and `spawn-helper`
-   stays 0644. Only `npm_config_build_from_source=true` — which deletes the prebuilds and invokes
-   node-gyp — produces a working install (`-rwxr-xr-x`, `OK "built-from-source\r\n"`), and that
+   stays 0644. Only `npm_config_build_from_source=true` - which deletes the prebuilds and invokes
+   node-gyp - produces a working install (`-rwxr-xr-x`, `OK "built-from-source\r\n"`), and that
    requires the toolchain this machine happens to have.
 2. **The fix does not survive an unrelated install.** After `chmod +x`, running `pnpm add
    @xterm/headless` in the same project re-linked `node-pty` from the content-addressable store and
@@ -185,7 +185,7 @@ is graded partly on the reviewer being able to run the thing.
 
 ### 1.4 `child_process` + `script(1)` as a zero-dependency pty: does not work from Node
 
-The obvious trick — let the system's `script(1)` allocate the pty for you — works from a shell:
+The obvious trick - let the system's `script(1)` allocate the pty for you - works from a shell:
 
 ```console
 $ /usr/bin/script -q /dev/null /bin/sh -c 'stty rows 24 cols 80 -echo; echo SCRIPT_WORKS; tty; stty size' < /dev/null
@@ -215,14 +215,14 @@ all?"**
 A pty is only required when you must convince a *third-party binary* that it is talking to a
 terminal, because it gates its ANSI output on `isatty()`. Two observations:
 
-- **Real green screens are not local subprocesses.** Symitar Episys, AS/400 5250, mainframe 3270 —
+- **Real green screens are not local subprocesses.** Symitar Episys, AS/400 5250, mainframe 3270 -
   these are reached over **telnet / SSH / TN3270**, i.e. a **socket**. There is no pty on the client
   side at all. A driver whose only transport is a pty is modelling the *demo*, not the target.
 - **Our fixture is ours.** `fixtures/corebank-tui` can emit ANSI unconditionally, because we write
   it. It does not need to be lied to about `isatty()`.
 
-So the driver's lowest layer is a **`TerminalTransport` port** — "something that takes bytes and
-emits bytes" — and the emulator sits above it, unaware:
+So the driver's lowest layer is a **`TerminalTransport` port** - "something that takes bytes and
+emits bytes" - and the emulator sits above it, unaware:
 
 ```ts
 interface TerminalTransport {
@@ -235,7 +235,7 @@ interface TerminalTransport {
 Implementations: `pipe` (ships, zero deps), `socket` (the real-world one, trivial), `node-pty`
 (**optional peer dependency**, present only for driving a hostile third-party local binary).
 
-The claim that this is architecturally free rather than a compromise was measured, not asserted —
+The claim that this is architecturally free rather than a compromise was measured, not asserted -
 see §2.3.
 
 ---
@@ -301,7 +301,7 @@ classifier code as the browser driver against a completely different perception 
 ### 2.3 The transports produce byte-identical observations
 
 The same ten-step script was run through the `pipe` transport and through `node-pty` (after
-`chmod +x`), serialising all nine grids — every cell, every attribute, the cursor — to JSON:
+`chmod +x`), serialising all nine grids - every cell, every attribute, the cursor - to JSON:
 
 ```console
 $ shasum -a 256 grids-pipe.json grids-nodepty.json
@@ -319,14 +319,14 @@ identical: true | bytes: 1278449 1278449
 
 Getting node-pty to parity required both of these, neither of which is in node-pty's README:
 
-- **ECHO is on by default.** The first node-pty run put `12345` at row 0 col 0 — the pty line
+- **ECHO is on by default.** The first node-pty run put `12345` at row 0 col 0 - the pty line
   discipline echoed every keystroke back into the output stream, and it landed in the grid.
 - **ICANON is on by default.** After `stty -echo` alone, keystrokes were *line-buffered* and the app
-  received nothing until ENTER. `settle timeout (bytes=503 want>503)` — the app never repainted.
+  received nothing until ENTER. `settle timeout (bytes=503 want>503)` - the app never repainted.
 
 Both are cleared by spawning `sh -c 'stty raw -echo; exec <app>'`. On a socket transport to a real
 Episys the equivalent is telnet option negotiation (`WILL SGA`, `WILL ECHO`), which is the same class
-of problem in a different vocabulary — and another reason the transport deserves to be a port.
+of problem in a different vocabulary - and another reason the transport deserves to be a port.
 
 ---
 
@@ -341,7 +341,7 @@ interface Grid { cols: number; rows: number; cells: Cell[][]; cursor: { x: numbe
 // detect(grid) -> { screenId, cursor, nodes }
 ```
 
-`detect()` is a **pure function of a frozen `Grid`** — no I/O, no clock, no terminal handle. This is
+`detect()` is a **pure function of a frozen `Grid`** - no I/O, no clock, no terminal handle. This is
 the same property the browser driver's AX-tree normaliser has, and it is what makes the whole error
 taxonomy unit-testable from JSON fixtures with nothing running.
 
@@ -353,14 +353,14 @@ taxonomy unit-testable from JSON fixtures with nothing running.
 2. **Derive "plain", never hardcode it.** The attribute covering the most cells on the screen is the
    background convention. Everything else is *marked*. An app that marks fields with underline or a
    colour instead of reverse video needs no code change to be segmented correctly.
-3. **Attribute semantics — the one VT convention assumed, stated openly.**
+3. **Attribute semantics - the one VT convention assumed, stated openly.**
    `reverse video` ⇒ an operator-writable field, or the selected row of a list.
    `bold`/`underline` ⇒ emphasis: a column header, a screen title, a read-only value.
    An app that breaks this gets a **per-tenant overlay hint**, not a detector rewrite.
 4. **Label anchoring.** For each marked run, take the nearest text to its left on the same row within
    12 columns of whitespace; failing that, the text directly above spanning the same columns. Strip
    trailing `:`/`.`/`_`. That string becomes the node's accessible name.
-5. **Field vs. list row — structure, not width.** A wide reverse run is ambiguous: a 28-column input
+5. **Field vs. list row - structure, not width.** A wide reverse run is ambiguous: a 28-column input
    field and a 45-column selected list row look the same. Discriminate structurally: **a list row has
    no label to its left and has at least one sibling row of data at the same column extent.** Width
    alone gets `Name Search` wrong; this rule does not.
@@ -370,12 +370,12 @@ taxonomy unit-testable from JSON fixtures with nothing running.
 7. **Columns from the data, not the header.** Compute the columns that are blank in *every* row of
    the block (header included); runs of ≥2 such columns are gutters; the spans between them are the
    columns, named by the header text overlapping each span. Slicing by header width instead silently
-   truncates right-aligned numerics — this exact bug produced `BALANCE: "1,2"` before the fix and
+   truncates right-aligned numerics - this exact bug produced `BALANCE: "1,2"` before the fix and
    `BALANCE: "1,204.55"` after it.
 8. **F-key legend → activatable controls.** `F3=Exit`, `ENTER=Open Suffix` become
    `{ role: 'button', name: 'Exit', key: 'F3' }`. This is the whole reason the terminal surface can
    share an artifact schema with the browser: a step says *activate the control named "Open Suffix"*,
-   and the driver — not the artifact — decides that means sending `\r`.
+   and the driver - not the artifact - decides that means sending `\r`.
 9. **Screen identity.** The bottom band carries the screen name/number (`MEMBER INQUIRY 01`). This is
    this surface's equivalent of a URL and is what a checkpoint anchors on.
 10. **Status band is reported, never interpreted.** The detector emits
@@ -387,7 +387,7 @@ taxonomy unit-testable from JSON fixtures with nothing running.
     A grid coordinate is this surface's CSS selector, and BRIEF §3.7 forbids storing one. Coordinates
     live in `bounds` and are only ever the lowest-ranked descriptor at resolve time.
 
-### 3.3 It works — 31 assertions, 0 failures
+### 3.3 It works - 31 assertions, 0 failures
 
 ```console
 $ node test-detect.mjs
@@ -424,7 +424,7 @@ and on the detail screen:
     "state":{"selected":true,"focused":true}}, ...]}
 ```
 
-Note `capacity: 12` — the field's declared width falls straight out of the grid and becomes the
+Note `capacity: 12` - the field's declared width falls straight out of the grid and becomes the
 `maxLength` of the capability's typed parameter. The browser surface has to work to get that.
 
 ### 3.4 The multi-tenant result, which is better than expected
@@ -453,14 +453,14 @@ Three things fall out of this, all of them load-bearing for REPORT §4:
 - **`button:exit` is identical across tenants although the keystroke changed.** An artifact step that
   says *activate the control named "Exit"* replays unmodified on both tenants; the driver resolves
   `F3` vs `F12` from the legend at replay time. **That is a per-tenant difference that needs no
-  overlay at all** — which is exactly the argument the assignment asks for in §3.7.
+  overlay at all** - which is exactly the argument the assignment asks for in §3.7.
 - **The two label changes are precisely what an overlay is for**, and the divergence number is a real
   signal, not a slogan. It also shows that *what you fingerprint matters*: 63% if you include the
   branding band, 40% over interactive nodes only. The fingerprint should cover interactive nodes and
   the screen id, and deliberately exclude the branding band. Writing that down is worth more than the
   number.
 
-### 3.5 Where the heuristic is weak — stated plainly
+### 3.5 Where the heuristic is weak - stated plainly
 
 - **Unlabelled plain-text values are invisible.** On `Member:  12345   AVERY SYNTHETIC`, the detector
   emits `text:member = "12345"` and does **not** emit the name, because nothing anchors it. The
@@ -480,7 +480,7 @@ Three things fall out of this, all of them load-bearing for REPORT §4:
 ## 4. The one thing that would go wrong in production: readiness
 
 A character-cell surface has **no load event**. The only readiness signal the transport offers is
-quiescence — "no bytes for N ms". That is not sound, and the spike shows it failing rather than
+quiescence - "no bytes for N ms". That is not sound, and the spike shows it failing rather than
 asserting that it might:
 
 ```console
@@ -506,7 +506,7 @@ it is the same one the browser driver reaches by a different road:
 
 > **Quiescence proposes; the checkpoint disposes.** `settle()` is a *cheap trigger* for taking an
 > observation, never evidence that the screen is ready. Readiness is `screenId === expected` plus the
-> step's declared `expect` — and note that the torn snapshot **fails that test**, which is why it is
+> step's declared `expect` - and note that the torn snapshot **fails that test**, which is why it is
 > a detected condition rather than a silent misread. A `settle` that times out with no bytes is a
 > hard failure (`settle timeout (bytes=503 want>503)`), because a green screen that returns nothing
 > is indistinguishable from a hung one.
@@ -554,12 +554,12 @@ Honest, and calibrated against the 574 lines that already exist and run.
 The estimate assumes the `Surface` port, the artifact schema and the replay engine already exist. If
 the terminal driver is built *first*, it will be slower and the port will be better for it.
 
-### 5.3 The cheapest viable version — and it is genuinely cheap
+### 5.3 The cheapest viable version - and it is genuinely cheap
 
 If time runs short, cut in this order and stop wherever the budget runs out. Each rung is honest on
 its own.
 
-**Rung 1 — ~1.5 days, and this is the one I would defend.**
+**Rung 1 - ~1.5 days, and this is the one I would defend.**
 - Keep `fixtures/corebank-tui` at the two screens that already work (inquiry → account list), with
   the three status outcomes already implemented (`NO MEMBER ON FILE`, `SECURITY VIOLATION`,
   `INVALID ACCOUNT NUMBER`), plus a `--slow` flag and a `--session-timeout` flag. That is four fault
@@ -574,11 +574,11 @@ That yields the sentence the assignment is really asking for, and yields it as a
 **the same replay engine, the same artifact schema and the same error taxonomy drive a browser and a
 character grid, and the engine cannot tell which.**
 
-**Rung 2 — +1 day.** Frozen-grid fixtures committed as JSON, so the terminal branch of the
+**Rung 2 - +1 day.** Frozen-grid fixtures committed as JSON, so the terminal branch of the
 conformance suite runs with no child process at all. Cheap, and it makes the terminal surface *free*
 in CI.
 
-**Rung 3 — +1 day.** Second tenant variant (`TENANT=summit` already works) and a cross-tenant replay
+**Rung 3 - +1 day.** Second tenant variant (`TENANT=summit` already works) and a cross-tenant replay
 with an overlay carrying the two label aliases. This is the strongest single piece of evidence for
 REPORT §4, and it costs a day because the fixture variant already exists.
 
@@ -605,13 +605,13 @@ field detection, a TN3270/telnet transport, terminal resize handling, and any at
 The strongest reason to build it is not that it is cheap, although at ~1.5 days for rung 1 it is. It
 is that **the terminal surface is the falsification test for the `Surface` port.** A port that only
 ever had a Playwright implementation behind it is a claim; a port that has an 80x24 character grid
-behind it — no DOM, no accessibility tree, no selectors, focus expressed solely as a cursor position,
-readiness expressed solely as silence — is a demonstrated boundary. That is precisely the difference
+behind it - no DOM, no accessibility tree, no selectors, focus expressed solely as a cursor position,
+readiness expressed solely as silence - is a demonstrated boundary. That is precisely the difference
 the assignment is grading when it says "judgment and integration", and it is the difference between
 answering §3.7 with a paragraph and answering it with a running second driver.
 
 The one thing that would change this recommendation: if the terminal driver cannot be made to fit the
 `Surface` port **without widening the port**, the port is wrong and the finding is more valuable than
-the driver. That did not happen in this spike — `perceive()` returns the same `Observation` shape and
-`act()` needs no new action kinds beyond a `key` action the browser surface also wants — but it is
+the driver. That did not happen in this spike - `perceive()` returns the same `Observation` shape and
+`act()` needs no new action kinds beyond a `key` action the browser surface also wants - but it is
 the thing to watch for during the build.

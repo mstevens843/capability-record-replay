@@ -28,11 +28,11 @@
 | `verification-evidence/` | the observations that replay froze, with every bound value redacted. |
 | `provenance.json` | adapter, model id, prompt version, measured usage, measured cache hit rate, measured spend. |
 | `spend.json` | the per-turn cost ledger the budget guard decided on. |
-| `canary/` | the four redaction passes this run performed, and what each searched for. A fifth was added afterwards — see below. |
+| `canary/` | the four redaction passes this run performed, and what each searched for. A fifth was added afterwards - see below. |
 
 ## Where the member number is, and where it is not
 
-Every value here is synthetic — see `fixtures/corebank-web/src/data.js`. Member 10043
+Every value here is synthetic - see `fixtures/corebank-web/src/data.js`. Member 10043
 is deliberately **not** the member `pnpm demo` uses, so a canary hit anywhere under
 `evidence/` names the run that produced it without ambiguity.
 
@@ -43,7 +43,7 @@ recording that did not contain it would be a recording of a different conversati
 canary's fourth pass lists every one of those occurrences with its line number, so the claim
 is checkable rather than asserted.
 
-The number is **not** in `synthesized/`, because parameterization replaced it — including in
+The number is **not** in `synthesized/`, because parameterization replaced it - including in
 the model's own `why` prose, which becomes `Step.intent`. It is **not** in anything the
 verification replay wrote, because at replay time it is an argument the interpreter binds as a
 `TaintedValue` and SPEC §8.3's sink table applies in full. Those two are the canary's first and
@@ -55,16 +55,15 @@ and the first pass searches for them there too.
 
 ## A fifth canary pass, added after this run
 
-> Added by hand after the run, by the same convention as the section below it: the run cannot
-> describe a pass that did not exist when it executed, and a reviewer reading `canary/` should not
-> have to conclude from four reports that this directory's own metadata is ungated.
+> Added by hand after the run. The run cannot describe a pass that did not exist when it executed,
+> and a reviewer should not have to infer whether this directory's own metadata is gated.
 
 `canary/` holds four reports because this run was made with the four-pass runner. A **fifth gating
 pass** was added afterwards, in `packages/discovery/tools/canaries.ts`, and re-run over this bundle:
 **CLEAN**, 3 files, 27 needles, 0 hits, self-test 27/27.
 
-It covers `provenance.json`, `spend.json` and this `README.md` — everything the run writes *about*
-itself rather than as a record of it — and it searches for **recorded member data**: the values the
+It covers `provenance.json`, `spend.json` and this `README.md` - everything the run writes *about*
+itself rather than as a record of it - and it searches for **recorded member data**: the values the
 run read off the screen. Those are legitimate in the recording (the model was shown the screen) and
 in the replay result (they are the outputs the caller asked for), and in nothing else. It does
 **not** search for the member number, which the three files above state on purpose; gating on that
@@ -76,10 +75,10 @@ that every path in it is covered, and that planting a member's name in `provenan
 pass by file and by needle. The four reports in `canary/` were not re-emitted, because re-emitting
 them means another live run.
 
-## Two digests for one artifact — read this before you diff them
+## Two digests for one artifact - read this before you diff them
 
-> Added by hand after the run, because the run itself does not explain it and a reviewer who checks
-> the content addressing deserves the answer rather than a puzzle.
+> Added by hand after the run. The run itself does not explain this digest difference, and content
+> addressing should be checkable without guesswork.
 
 ```
 discovery.log:71                    artifact digest sha256:923ab02f…   (as synthesized, `proposed`)
@@ -96,7 +95,7 @@ synthesized/artifact.json:10                     sha256:7cde611d…      (as wri
 promoted it. So the digest recorded *during* the run is the digest of the document *before* that
 stamp, and the file on disk is the document *after* it.
 
-Nothing is broken: `artifact.json` re-digests to `32e56a6f…`, so it is self-consistent, and an
+The file is internally consistent: `artifact.json` re-digests to `32e56a6f…`, and an
 approval would sign that value, which is stable from then on. But `verification.runId` and
 `verification.at` are non-deterministic, which means **the shipped artifact's content address is not
 reproducible from the recording** even though synthesis itself is. By the same argument that excludes
@@ -107,21 +106,21 @@ limitations list.
 
 ## The one edit this directory has taken since the run
 
-`CapabilityArtifact` gained a required `promotions` field — the receipt an outcome promotion leaves
+`CapabilityArtifact` gained a required `promotions` field - the receipt an outcome promotion leaves
 behind (`docs/design/OUTCOME-PROMOTION.md`, `packages/core/src/promotion.ts`). Every field of an
 artifact is required and none has a parse-time default, deliberately, so adding one makes every
 document written before it fail to parse. This one did.
 
 **What was changed, exactly:** `"promotions": []` was inserted, and `digest` was recomputed. Nothing
-else. The value is empty and could not be anything else — this run declares no business outcome at
-all, which is the whole point the bundle exists to make — and the artifact is a `draft` carrying no
+else. The value is empty and could not be anything else. This run declares no business outcome at
+all, which is the point the bundle demonstrates, and the artifact is a `draft` carrying no
 approval, so no signature was invalidated.
 
 **What it cost:** the shipped document's content address moved from `sha256:32e56a6f…` to
 `sha256:7cde611d…`. The run's own record of what it produced is unchanged: `discovery.log`,
 `journal.jsonl` and `verification.json` still say `sha256:923ab02f…`, and the row above now names
-three values rather than two. That is worse than two and better than the alternative, which was
-shipping a document the validator in the same commit refuses to read.
+three values rather than two. The alternative was worse: shipping a document the validator in the
+same commit refuses to read.
 
 **What was NOT done:** the run was not re-run and synthesis was not re-emitted. A live model call
 costs the author money and is out of scope for any agent working here; and re-emitting from the

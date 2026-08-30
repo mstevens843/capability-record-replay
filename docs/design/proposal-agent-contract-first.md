@@ -13,19 +13,19 @@ that invokes a capability by name with typed arguments, exactly like a tool/func
 ## 1. Thesis
 
 **The capability is a typed function; the recorded flow is one implementation of it.** Most designs
-in this space grow the other way — a step list with some metadata bolted on — and the shape of that
+in this space grow the other way - a step list with some metadata bolted on - and the shape of that
 mistake is visible in the result contract, where "no such member" comes back as an exception because
 the exception was the only channel that existed. I invert the layering: a `CapabilityArtifact` is a
 `contract` plus an `impl`, the contract is separately versioned, separately hashed and separately
 approvable, and it can be published to an agent catalog without shipping a single step. Three things
 fall out of that inversion, and they are the whole design. First, the **closed set of named business
 outcomes lives in the contract**, so `MEMBER_NOT_FOUND` is a value of a declared union with its own
-typed payload and its own reviewed agent guidance — a caller cannot reach it from a `catch` block
+typed payload and its own reviewed agent guidance - a caller cannot reach it from a `catch` block
 because the engine never throws it, and a caller cannot forget it because the switch is exhaustive
 over `C["outcomes"][number]["name"]`. Second, the contract is **tenant-independent and
 surface-independent**: overlays and drivers may change how a step finds a control, never what the
 capability promises, so an agent written once works across hundreds of institutions or fails loudly,
-never differently. Third, the contract is the **only thing the model sees** — the catalog projection
+never differently. Third, the contract is the **only thing the model sees** - the catalog projection
 is a pure function of it, and the step list, the descriptors and the diagnostics are operator-facing
 and deliberately withheld from the model, because a model that can see the selector will try to fix
 the selector.
@@ -64,7 +64,7 @@ switch (r.status) {
 
   case "suspended":
     // NOT a failure. A human is finishing it. Say something true and come back.
-    return say("Let me check that with a specialist — I'll follow up shortly.")
+    return say("Let me check that with a specialist - I'll follow up shortly.")
 
   case "failed":
     // The only arm that means "the system is broken". r.expected / r.observed are for the operator.
@@ -155,7 +155,7 @@ export interface ReplayOk<C extends CapabilityContract> {
  *   - it carries `status: "outcome"`, and there is no `error` field anywhere on it to read;
  *   - the engine reaches it by a *return*, never a throw, so no catch block can ever observe it;
  *   - its name is a literal type from the contract, so the switch is exhaustive and adding an
- *     outcome to a capability is a compile error at every existing call site — which is correct,
+ *     outcome to a capability is a compile error at every existing call site - which is correct,
  *     because a new possible answer IS a breaking change for the caller.
  */
 export type ReplayOutcome<C extends CapabilityContract> =
@@ -322,7 +322,7 @@ What `renderForAgent` **removes**, and why:
 
 Redaction cuts the other way here, and the distinction is worth stating because it is routinely
 blurred: **taint controls persistence, not delivery.** A `sensitive` output is delivered to the
-caller — reading the balance is the entire point of the call — and is excluded from artifacts,
+caller - reading the balance is the entire point of the call - and is excluded from artifacts,
 journals, screenshots and traces.
 
 ---
@@ -357,7 +357,7 @@ export interface CatalogEntry {
   readonly requiresApproval: boolean
   readonly idempotent: boolean
   /**
-   * Joined at read time from a SEPARATE stats record — NOT part of the hashed artifact. If replay
+   * Joined at read time from a SEPARATE stats record - NOT part of the hashed artifact. If replay
    * statistics lived inside the contract, the digest would change on every run and an approval
    * signature would mean nothing. Sample size is always shown so the number can be disbelieved.
    */
@@ -372,8 +372,8 @@ Three opinions about the projection:
 1. **The outcome set goes into the `description` prose, not only into `returns`.** Models read a
    tool description reliably and read a nested `returns` schema unreliably. The generator emits, from
    the contract and nothing else: *"May instead return one of these expected outcomes, which are
-   answers and not errors: `MEMBER_NOT_FOUND` — no member matches that number; `ACCOUNT_RESTRICTED`
-   — the member exists but the account is restricted."* Written once, in the contract; rendered into
+   answers and not errors: `MEMBER_NOT_FOUND` - no member matches that number; `ACCOUNT_RESTRICTED`
+   - the member exists but the account is restricted."* Written once, in the contract; rendered into
    both places by code, so they cannot drift apart.
 2. **The catalog is rendered per caller, never globally.** An agent session for tenant `riverbend`
    is shown the capabilities that have an approved artifact bound to `riverbend`'s app instance.
@@ -441,8 +441,8 @@ export type EvidenceRef     = Branded<string, "EvidenceRef">      // content-add
  * Decimal-as-string. There is no IEEE-754 anywhere in this schema, at any depth, ever.
  * Two reasons, and both are load-bearing:
  *   1. The artifact is content-addressed with canonical JSON. Float serialisation is not
- *      canonical across languages, so a float would make the digest — and therefore the approval
- *      signature — platform-dependent.
+ *      canonical across languages, so a float would make the digest - and therefore the approval
+ *      signature - platform-dependent.
  *   2. This is money in a bank. 0.1 + 0.2 is a defect, not a rounding style.
  * Every other numeric field in this schema is an integer: milliseconds, counts, indices, pixels.
  */
@@ -504,7 +504,7 @@ round-trip through the canonicaliser byte-identically.
 ```ts
 export interface CapabilityContract {
   /**
-   * The invocation name. Namespaced `product.entity.verb`. Stable forever — this is the string an
+   * The invocation name. Namespaced `product.entity.verb`. Stable forever - this is the string an
    * agent's prompt, an eval, and a runbook all hard-code, so renaming it is a migration, not a
    * refactor. Lowercase snake within dot-separated segments; the catalog flattens dots to
    * underscores for providers whose tool names disallow them, deterministically.
@@ -567,7 +567,7 @@ export interface FieldSpec {
   readonly description: string
   /**
    * Taint label. `sensitive` values are delivered to the caller and never persisted: excluded
-   * from the artifact, the journal, traces, and — via `redaction.maskTargets` — from screenshots.
+   * from the artifact, the journal, traces, and - via `redaction.maskTargets` - from screenshots.
    */
   readonly sensitivity: Sensitivity
   /**
@@ -584,7 +584,7 @@ export interface ParamSpec extends FieldSpec {
    * parameterizer, never hand-written. Two jobs:
    *   1. it is how replay knows which step consumes which argument;
    *   2. it is what the policy engine reads to build screenshot mask regions for sensitive params.
-   * A validator asserts every binding site references a real step, and — the important one — that
+   * A validator asserts every binding site references a real step, and - the important one - that
    * NO string literal anywhere in the flow matches a `sensitive` param's shape. That is the
    * mechanical version of "the artifact stores shapes, never values".
    */
@@ -616,7 +616,7 @@ export type ValueShape =
   | { readonly match: "oneOf"; readonly values: readonly string[] }
 ```
 
-### 5.4 Outcomes — the crown jewel
+### 5.4 Outcomes - the crown jewel
 
 ```ts
 export interface OutcomeSpec {
@@ -659,7 +659,7 @@ export interface OutcomeSpec {
    * Which steps may produce it. Scoping is precision: "no such member" after the search step is a
    * business outcome; the same banner appearing on the confirmation screen means something has gone
    * badly wrong and should NOT be silently reported as a clean not-found. Empty array = ambient,
-   * evaluated at every step — for a genuinely any-step business answer such as MAINTENANCE_WINDOW.
+   * evaluated at every step - for a genuinely any-step business answer such as MAINTENANCE_WINDOW.
    * Session expiry does NOT belong here; see §6, note 5.
    */
   readonly scope: readonly StepId[]
@@ -690,7 +690,7 @@ export interface RecoverySpec {
 }
 ```
 
-### 5.6 Detectors — the whole error taxonomy is this one type
+### 5.6 Detectors - the whole error taxonomy is this one type
 
 ```ts
 /**
@@ -727,7 +727,7 @@ export interface NodeMatch {
   readonly container?: ContainerPath
   readonly state?: Partial<UIState>
   /**
-   * Row-and-column addressing for grid layouts, keyed by VALUES rather than indices — the same idea
+   * Row-and-column addressing for grid layouts, keyed by VALUES rather than indices - the same idea
    * as the `table_cell` descriptor (§5.8), made available to detectors and extractors so that
    * READING a cell is as precise as CLICKING one. Without this, extraction on a legacy accounts
    * grid degrades to "some cell in this table", which is how a checking balance gets reported as a
@@ -754,7 +754,7 @@ export type NameMatch =
   | { readonly kind: "token"; readonly token: LabelToken }
 ```
 
-### 5.7 The flow — an implementation detail of the contract
+### 5.7 The flow - an implementation detail of the contract
 
 ```ts
 export interface Flow {
@@ -804,7 +804,7 @@ export interface Step {
   readonly precondition: DetectorSpec | null
 
   /**
-   * NON-OPTIONAL. A step with no postcondition cannot be recorded — the recorder refuses and the
+   * NON-OPTIONAL. A step with no postcondition cannot be recorded - the recorder refuses and the
    * schema has no way to express it. This is the strongest single anti-"blindly proceeding"
    * mechanism available, and it costs one required field.
    */
@@ -930,7 +930,7 @@ export interface SurfaceBinding {
 
   /**
    * Surface features this flow REQUIRES. A driver that cannot report `table_position` refuses to
-   * load an artifact that uses `table_cell` descriptors, at load time, with a clear message —
+   * load an artifact that uses `table_cell` descriptors, at load time, with a clear message -
    * rather than mysteriously failing on step 4 in production. This is the concrete seam between
    * "how we perceive a surface" and "the recorded flow" that the brief asks about.
    */
@@ -949,7 +949,7 @@ export interface Provenance {
   /**
    * The natural-language goal, PARAMETERIZED. "look up member {{memberId}} and read their current
    * savings balance". The same mechanism that makes the capability reusable makes the provenance
-   * record safe to commit — the goal string is one of the easiest places to accidentally persist a
+   * record safe to commit - the goal string is one of the easiest places to accidentally persist a
    * real member number, and here it structurally cannot hold one.
    */
   readonly goalTemplate: string
@@ -999,7 +999,7 @@ export interface Lifecycle {
  * it may ADD recoveries. It may not add an outcome, because adding an outcome widens the union
  * every caller switches on, and a caller that compiled against `MEMBER_NOT_FOUND | ACCOUNT_RESTRICTED`
  * must not silently receive a third value at Summit Credit Union and not at Riverbend. If a tenant
- * genuinely has an extra business answer, that is a contract version bump for everyone — visible,
+ * genuinely has an extra business answer, that is a contract version bump for everyone - visible,
  * reviewed, and correct. The cost is real and I accept it (§13, risk 5).
  */
 export interface CapabilityOverlay {
@@ -1068,7 +1068,7 @@ A `pnpm codegen` step emits, from each approved contract, a `.d.ts` with the con
 ## 6. A filled-in artifact
 
 Credit-union member lookup on the `corebank-web` fixture: search → member detail → accounts tab →
-read the savings balance. Strict JSON (no comments — this is the canonical form the digest is taken
+read the savings balance. Strict JSON (no comments - this is the canonical form the digest is taken
 over). **The `sha256:` values below are placeholders and were not computed; this document contains
 no measurements.**
 
@@ -1438,8 +1438,8 @@ Five things to notice, because they are the design arguing for itself:
 4. **The vocabulary block is the entire multi-tenant story for this capability.** A tenant that
    says "Member #" and "Find" instead of "Member Number" and "Search" needs a nine-line overlay,
    not a re-recording.
-5. **`ambient.outcomes` is empty, deliberately.** Session expiry is not a business outcome — the
-   caller cannot do anything about it and the member should not hear about it — so it fails to
+5. **`ambient.outcomes` is empty, deliberately.** Session expiry is not a business outcome - the
+   caller cannot do anything about it and the member should not hear about it - so it fails to
    `SESSION_LOST` and raises an intervention. The keep-alive *dialog*, which is recoverable, is an
    ambient recovery. That distinction is the taxonomy doing its job.
 
@@ -1456,14 +1456,14 @@ export interface Surface {
   perceive(): Promise<Observation>
 
   /**
-   * Perform one action. Takes the lease token, so the DRIVER enforces the control model too —
+   * Perform one action. Takes the lease token, so the DRIVER enforces the control model too -
    * a stale automation lease cannot act on a session a human has taken, and that is a rejection
    * at the port rather than a convention upstairs.
    */
   act(action: Action, lease: LeaseToken): Promise<ActResult>
 
   /**
-   * Evidence only. A capture is NEVER read by the decision path — no detector, no descriptor and
+   * Evidence only. A capture is NEVER read by the decision path - no detector, no descriptor and
    * no checkpoint may consume pixels. Separating it from `perceive` is what keeps that honest, and
    * it is what lets the terminal surface be a real driver rather than a demo: its "screenshot" is
    * a text dump of the character grid and nothing upstream notices.
@@ -1481,7 +1481,7 @@ export interface Observation {
   readonly surface: "browser" | "terminal" | "desktop"
   /** Active frame / window / screen. Frameset survival lives here, not in a selector. */
   readonly container: ContainerPath
-  /** CANONICALISED. "/backoffice/members/:memberId" — an Observation never carries a member number. */
+  /** CANONICALISED. "/backoffice/members/:memberId" - an Observation never carries a member number. */
   readonly route: string | null
   readonly nodes: readonly UINode[]
   /** Whether the surface believes it is quiescent. The driver owns this; see the note below. */
@@ -1498,7 +1498,7 @@ export interface UINode {
    * once. The recorder rejects any artifact containing a NodeId-shaped value.
    */
   readonly id: NodeId
-  /** Normalised role vocabulary shared by every driver — the browser's AX roles are the base set. */
+  /** Normalised role vocabulary shared by every driver - the browser's AX roles are the base set. */
   readonly role: Role
   /** Accessible name. Often null on legacy markup; that is why §8 has five other descriptor kinds. */
   readonly name: string | null
@@ -1525,7 +1525,7 @@ export interface UIState {
   readonly visible: boolean
 }
 
-export type ContainerPath = string   // "frame:main>table:accounts" — a driver-normalised path, not a selector
+export type ContainerPath = string   // "frame:main>table:accounts" - a driver-normalised path, not a selector
 export interface Rect { readonly x: number; readonly y: number; readonly w: number; readonly h: number }
 
 export type Action =
@@ -1553,13 +1553,13 @@ export interface Capture { readonly ref: EvidenceRef; readonly digest: Digest; r
 
 **Trade-off, stated because it is arguable.** `act` returns the post-action Observation rather than
 requiring a separate `perceive()`. That couples the two operations, and a purist would separate
-them. I take the coupling because "settled" is surface-specific knowledge — network-idle plus
-animation-frame quiet on a browser, cursor-stable plus no pending escape sequence on a pty — and
+them. I take the coupling because "settled" is surface-specific knowledge - network-idle plus
+animation-frame quiet on a browser, cursor-stable plus no pending escape sequence on a pty - and
 only the driver can know it. Making the engine call `perceive()` in a loop would either push that
 knowledge upward (breaking the abstraction) or race (breaking determinism).
 
 **Two deliberate absences.** There is no `evaluate`/`script`/`exec` action, so there is no way to
-reach around the surface abstraction into a browser-only escape hatch — which would also be a hole
+reach around the surface abstraction into a browser-only escape hatch - which would also be a hole
 straight through the single policy chokepoint. And there is no `Surface.findByText`-style query: all
 node selection happens above the port, in the engine, from a full Observation, which is what makes
 the entire target-resolution and classification path unit-testable from frozen snapshots.
@@ -1568,7 +1568,7 @@ the entire target-resolution and classification path unit-testable from frozen s
 
 ## 8. How a step names the control it acts on
 
-The starting constraint is not "selectors drift" — the brief has removed that problem. It is
+The starting constraint is not "selectors drift" - the brief has removed that problem. It is
 **"assume no clean DOM, no test IDs, and possibly no DOM at all"**, and separately that the model
 must never author a locator. So:
 
@@ -1579,7 +1579,7 @@ rule is the important part:
 > **A descriptor is emitted only if it resolves to exactly one node in the recorded Observation.**
 > Uniqueness is a verified property at record time, not a hope at replay time.
 
-Descriptors are then scored for **independence** — the evidence they consume must be disjoint.
+Descriptors are then scored for **independence** - the evidence they consume must be disjoint.
 `role_name` on a `<button>Search</button>` and `label_anchored` on the same accessible name are the
 same opinion wearing two hats; two such descriptors agreeing proves nothing. The recorder computes
 an independence score from which node attributes each descriptor reads, and a target with fewer than
@@ -1592,9 +1592,9 @@ resulting `NodeFingerprint`s are compared.
 |---|---|
 | all agree | act |
 | all resolve nothing | `TARGET_NOT_FOUND` |
-| they resolve **different** nodes | `TARGET_AMBIGUOUS` — refuse to act |
+| they resolve **different** nodes | `TARGET_AMBIGUOUS` - refuse to act |
 | a subset resolves, `agreement: quorum`, step is `READ` | act on the majority, record the dissent as drift |
-| a subset resolves, step is a WRITE | `TARGET_AMBIGUOUS` — the validator forbids `quorum` here |
+| a subset resolves, step is a WRITE | `TARGET_AMBIGUOUS` - the validator forbids `quorum` here |
 
 **Disagreement is a detected condition, not a fallback chain.** A fallback chain is a machine for
 converting an ambiguity into a confident wrong click, and on a back-office banking screen the wrong
@@ -1621,7 +1621,7 @@ descriptor position that looks like a selector.
 **On the accessibility tree being thin.** On a `<font>`-tag frameset the AX tree does not lie, it
 just says very little: roles collapse toward `generic`/`text` and names go null. That is precisely
 why the six kinds exist and why the recorder's job is to find *two independent* ones rather than the
-best one. When it cannot, the honest answer is to say so on the artifact and make a human look —
+best one. When it cannot, the honest answer is to say so on the artifact and make a human look -
 not to invent a seventh strategy.
 
 ---
@@ -1631,10 +1631,10 @@ not to invent a seventh strategy.
 At every observation point, in this order, with the first match winning:
 
 ```
-1. lease check          — do I still hold the control lease?              -> LEASE_LOST
-2. policy pre-gate      — is this action permitted at all?                -> POLICY_DENIED / APPROVAL_REQUIRED
-3. step-scoped outcomes — declared order                                  -> return ReplayOutcome
-4. ambient outcomes     — declared order                                  -> return ReplayOutcome
+1. lease check          - do I still hold the control lease?              -> LEASE_LOST
+2. policy pre-gate      - is this action permitted at all?                -> POLICY_DENIED / APPROVAL_REQUIRED
+3. step-scoped outcomes - declared order                                  -> return ReplayOutcome
+4. ambient outcomes     - declared order                                  -> return ReplayOutcome
 5. step-scoped recoveries                                                 -> remedy, resume, count against budget
 6. ambient recoveries                                                     -> remedy, resume, count against budget
 7. checkpoint (step.expect)                                               -> proceed
@@ -1666,7 +1666,7 @@ patch. This is the loop that makes a closed outcome set survivable.
 
 **Drift, secondarily.** Each resolution records how many descriptors agreed and whether the selected
 node's fingerprint matched `recordedNode`. Per (capability, tenant, app instance) the host keeps a
-rolling divergence rate; above a threshold the resolution is flagged **`needs_specialization`** —
+rolling divergence rate; above a threshold the resolution is flagged **`needs_specialization`** -
 which is a ticket, not an outage, and the affected tenant keeps running on quorum-with-dissent for
 `READ` steps and stops for writes.
 
@@ -1680,7 +1680,7 @@ Seven, and I have argued each one down rather than up. Scope `@capability-record
 |---|---|
 | **`contract`** | Every type in §3, §5 and §7, the zod validators, canonical JSON + digest, the catalog projection. Zero dependencies, zero I/O, no driver, no model. It is what a caller imports to get types without importing a browser, and it is the file a reviewer should read first. |
 | **`engine`** | Replay executor, `classify`, target resolver, policy chokepoint, control lease. Pure over the `Surface` port. The contract test that it contains no CSS vocabulary and imports no driver is the reason this is not merged into `contract`. |
-| **`discovery`** | The LLM loop, descriptor derivation, parameterization, and the record-then-replay verifier. **The only package that knows a model exists** — which is exactly what lets `pnpm demo` replay with no API key and no network. |
+| **`discovery`** | The LLM loop, descriptor derivation, parameterization, and the record-then-replay verifier. **The only package that knows a model exists** - which is exactly what lets `pnpm demo` replay with no API key and no network. |
 | **`surface-browser`** | Playwright + CDP `Accessibility.getFullAXTree` merged with geometry. Separate because it pulls Playwright and nobody replaying a terminal flow should. |
 | **`surface-terminal`** | pty character-grid driver, Observation built from the VT screen buffer. It exists to prove the port is real rather than aspirational; if it were deleted the abstraction would become a claim. |
 | **`host`** | The running program: CLI, file-backed artifact store, the agent-facing catalog endpoint, and the operator console. One package, because splitting a CLI from a 200-line HTTP server would be exactly the architecture theatre the brief says it does not reward. |
@@ -1706,7 +1706,7 @@ the suite as a way to grade someone else's replay engine.
 | **Node ids from any Observation** | They are per-observation handles. Storing one produces a flow that replays perfectly exactly once. The validator rejects them. |
 | **The model transcript** | Referenced by digest + URI, never embedded. The brief requires the artifact be decoupled from the transcript; a reference is decoupling that is still auditable. |
 | **Screenshots and pixel data** | Evidence is content-addressed and out of band. Nothing in the decision path may read pixels, so nothing in the artifact needs them. |
-| **Conditionals, loops, expressions, arithmetic** | No `if`, no `for`, no `${}`. Branching exists only as a *terminal declared outcome*. A branch is a decision, and a decision the model did not make at record time is a decision nobody reviewed. If a flow genuinely needs to choose, that is two capabilities and the calling agent — already a general-purpose branching machine — chooses between them. |
+| **Conditionals, loops, expressions, arithmetic** | No `if`, no `for`, no `${}`. Branching exists only as a *terminal declared outcome*. A branch is a decision, and a decision the model did not make at record time is a decision nobody reviewed. If a flow genuinely needs to choose, that is two capabilities and the calling agent - already a general-purpose branching machine - chooses between them. |
 | **Iteration over rows** | The first thing I would add: a `forEachRow` step with a declared max iteration count and a per-iteration checkpoint. Left out of v1 because a bounded loop needs its own outcome scoping story and I would rather ship none than a half-specified one. Named here as a seam, not forgotten. |
 | **Retry policy at the capability level** | The contract declares `idempotent`; retrying is the caller's decision. An artifact that silently retries a WRITE is how a member gets two sub-accounts. Inside the artifact only *declared recoveries with budgets* exist. |
 | **Absolute times and wall-clock deadlines** | Every budget is relative and per-step. The only dates in the schema are in `provenance` and `lifecycle`, and no decision reads a clock. |
@@ -1729,8 +1729,8 @@ false claim, and I would rather say so now than defend it later.
 **§3.4, record-then-immediately-replay verification, is sound for reads and unsound for writes.**
 The verification replay runs against a surface whose state the discovery run just mutated. For
 `corebank.member.read_savings_balance` that is fine. For `corebank.member.open_sub_account` it is
-not: the immediate replay either opens a *second* sub-account — which is a real side effect nobody
-approved, on a flow specifically classified irreversible — or it hits a duplicate-detection screen
+not: the immediate replay either opens a *second* sub-account - which is a real side effect nobody
+approved, on a flow specifically classified irreversible - or it hits a duplicate-detection screen
 the base flow does not declare and fails, or worse, matches some over-broad detector and "verifies"
 against a state that will never occur again on a fresh member.
 
@@ -1740,13 +1740,13 @@ So I keep the rule and qualify it, which is why `Provenance.verification.mode` e
 |---|---|---|
 | `fresh_state` | replayed against a reset fixture or a sandbox tenant seeded to the pre-discovery state | yes |
 | `post_mutation` | replayed against the state discovery left behind | only if `contract.idempotent === true` |
-| `not_verified` | no replay was run | never — stays `proposed` |
+| `not_verified` | no replay was run | never - stays `proposed` |
 
 A non-idempotent capability whose only verification is `post_mutation` **stays `proposed`** and is
 never advertised to a production agent. The cost is that write capabilities need a resettable
 environment to reach `verified`, which is a real operational requirement I am choosing to name
-rather than to paper over. The alternative — letting an irreversible flow be marked verified on the
-strength of a replay that tested a different world — is the kind of quiet lie this whole design is
+rather than to paper over. The alternative - letting an irreversible flow be marked verified on the
+strength of a replay that tested a different world - is the kind of quiet lie this whole design is
 built to prevent.
 
 ---
@@ -1757,8 +1757,8 @@ built to prevent.
    design proposal and every number in the example artifact is a placeholder.
 2. **Contract-first only pays off if discovery can produce a good contract.** The model proposes
    outcome names; a bad or over-broad outcome set is baked into a caller-visible closed union, and
-   widening it later is a breaking change for every agent. The mitigation — human review at
-   approval, and `UNCLASSIFIED_STATE` rather than silent new outcomes — is a process control, not a
+   widening it later is a breaking change for every agent. The mitigation - human review at
+   approval, and `UNCLASSIFIED_STATE` rather than silent new outcomes - is a process control, not a
    technical one, and process controls decay.
 3. **A closed outcome set means low initial autonomy.** Real back-office apps have a long tail of
    states, and the first N replays of a new capability will produce a lot of `UNCLASSIFIED_STATE`
@@ -1770,12 +1770,12 @@ built to prevent.
    secretly-correlated descriptors is weaker evidence than the mechanism implies.
 5. **"Overlays cannot add outcomes" will hurt.** One tenant with a genuinely unique business answer
    forces a contract bump that ripples to every other tenant's callers. I accept it because the
-   alternative — a caller receiving an outcome it has never heard of, at one institution only — is
+   alternative - a caller receiving an outcome it has never heard of, at one institution only - is
    worse. It is still the constraint most likely to be relitigated in production.
 6. **`suspended` holds a live session across an agent turn.** That costs a browser or pty per parked
    run and adds a way to fail: the underlying session can expire while suspended. The lease TTL and
    `intervention.expiresAt` bound it, and resume re-verifies the step precondition rather than
-   continuing into a stale page — but a long human response time converts a suspension into a
+   continuing into a stale page - but a long human response time converts a suspension into a
    failure, and callers must be told that.
 7. **Digest-and-signature assumes a key custody story this design does not build.** Approval signing
    is only as good as the key management around it, which is out of scope here and would not be in

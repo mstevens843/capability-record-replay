@@ -12,7 +12,7 @@ if it finds one.
    that check; a report whose self-test failed is `clean: false` no matter how few hits it
    found. `packages/runtime/test/canary.test.ts` injects a real leak in each encoding.
 2. **The report never contains a value.** Hits carry a label and a context excerpt with every
-   known value blanked. This report is written into the bundle it just scanned — one that
+   known value blanked. This report is written into the bundle it just scanned - one that
    quoted its own finding would be the leak.
 3. **Nothing is silently dropped.** A coincidental match inside a 40+ character hexadecimal run
    (a sha256 digest) is listed under `suppressed` rather than deleted. That costs nothing: a
@@ -27,7 +27,7 @@ cannot see through compression or encryption, so a screenshot's pixel stream is 
 the defence there is the mask, verified at the pixel in
 `packages/surface-browser/test/browser-capture.test.ts`.
 
-It searches for **parameter values** — the caller's inputs, which the taint model says must
+It searches for **parameter values** - the caller's inputs, which the taint model says must
 never be persisted. It deliberately does **not** search for screen-read outputs such as the
 member's name: the result contract exists to deliver those to the caller, and a check that
 flagged them would be checking the wrong thing.

@@ -1,10 +1,10 @@
-# FINAL-STATUS — the true state of `capability-record-replay`
+# FINAL-STATUS - the true state of `capability-record-replay`
 
 **This document feeds `/REPORT.md`. Nothing in it is a claim; every number is followed by the command
-that produced it, and every command in it was run in this working tree** — on **2026-08-27** except
+that produced it, and every command in it was run in this working tree** - on **2026-08-27** except
 where a line says otherwise, in which case it says who ran it and when. **No live model API call was
 made by this pass, to any provider.** Where an earlier revision asserted something this pass could
-not reproduce, the discrepancy is stated rather than smoothed over — §11.
+not reproduce, the discrepancy is stated rather than smoothed over - §11.
 
 **Read §7 (what does not work) before §1 (the green board).** The board is green and the live
 discovery run happened; §7 is why neither of those is the same as "done".
@@ -14,16 +14,16 @@ discovery run happened; §7 is why neither of those is the same as "done".
 > 8 members with every credential variable unset, `pnpm build` 8/8, `pnpm typecheck` 14/14, `pnpm lint`
 > 317 files, `pnpm demo` 65 files three runs in a row. `docs/design/SUBMISSION-READY.md` is that
 > board with its commands, plus the list of limitations that are still true. **§11 is a dated ledger
-> of an earlier pass and is banner-marked as such** — read §1 and §2 for that pass's numbers, and the
+> of an earlier pass and is banner-marked as such** - read §1 and §2 for that pass's numbers, and the
 > paragraph below for what has moved since.
 
 > **THE 2026-08-29 OUTCOME-PROMOTION PASS MOVED THEM AGAIN, AND THIS DOCUMENT WAS NOT RE-TAKEN FOR
 > IT.** §1, §2 and §11 are the 2026-08-28 board and are kept exactly as they were written.
 > Re-measured after that pass with `npx turbo run test --force` and every credential variable unset:
 > **1,984 tests / 107 files / 8 members**, `Tasks: 14 successful, 14 total`, `Cached: 0/14`, exit 0.
-> Three members moved and the rest did not — `@crr/core` 788 → 819 (36 → 37 files), `@crr/runtime`
+> Three members moved and the rest did not - `@crr/core` 788 → 819 (36 → 37 files), `@crr/runtime`
 > 336 → 367 (22 → 23), `@crr/discovery` 361 → 362. **§2's table calls it a "28-check linker"; it is a
-> 29-check linker** — check 29 `outcome-unproven` landed with `docs/design/OUTCOME-PROMOTION.md`,
+> 29-check linker** - check 29 `outcome-unproven` landed with `docs/design/OUTCOME-PROMOTION.md`,
 > and so did `packages/core/test/promotion.test.ts` (28 passed) and
 > `packages/runtime/test/promote.test.ts` (28 passed), which are 56 of the 63 new tests. **Only the
 > test board was re-measured.** §1's `pnpm lint` `317 files` and `pnpm demo` `65 files` were not
@@ -34,7 +34,7 @@ discovery run happened; §7 is why neither of those is the same as "done".
 > historical status snapshot. The current reviewer entry point is `docs/FINAL-REVIEWER-GUIDE.md`;
 > the current traceability map is `docs/REQUIREMENT-TRACE.md`. The 2026-08-30 forced no-key run
 > measured **2,032 tests / 109 test files / 14 of 14 tasks**, `Cached: 0/14`, exit 0, and
-> `pnpm demo` produced **241 files** with a clean whole-bundle canary.
+> `pnpm demo` produced **278 files** with a clean whole-bundle canary.
 
 ---
 
@@ -70,7 +70,7 @@ $ env -u ANTHROPIC_API_KEY -u ANTHROPIC_AUTH_TOKEN -u OPENAI_API_KEY \
 ```
 
 **1,921 tests across 105 files in 8 workspace members. All pass with every credential variable
-unset.** `pnpm demo` needs no credential of any kind — one local Chromium and one free TCP port.
+unset.** `pnpm demo` needs no credential of any kind - one local Chromium and one free TCP port.
 
 > **`pnpm lint` moved 318 → 313 when the fix landed, and 313 → 317 since.** Five scratch files whose
 > first line was `// DELETE THIS FILE.` were tracked and lint-clean and would have shipped; they are
@@ -78,7 +78,7 @@ unset.** `pnpm demo` needs no credential of any kind — one local Chromium and 
 > files (`packages/discovery/test/canary-scopes.test.ts`, `packages/runtime/test/demo-integrity.test.ts`)
 > and two modules (`packages/discovery/tools/canaries.ts`, `packages/runtime/demo/integrity.ts`).
 
-### The live discovery run — it happened
+### The live discovery run - it happened
 
 ```
 $ pnpm discover --yes        (the author's command, run 2026-08-28T02:24:10.144Z)
@@ -97,7 +97,7 @@ Everything below is read out of `evidence/discovery-live/provenance.json`, `spen
 | outcome | `reached-goal`, 3 steps recorded, 3 outputs noted |
 | verification replay | `verified` / grade `full`, covered through the last step, arm `ok` |
 | lifecycle | `proposed → draft`, **because a replay succeeded, not because a field was set** |
-| redaction canary | passes 1–3 **CLEAN and gating**; pass 4 (the recording) **reported, 49 hits, all the member number**. The run was made with the four-pass runner; the fifth gating pass (§7.2) was added afterwards and re-run over this bundle, **CLEAN** |
+| redaction canary | passes 1-3 **CLEAN and gating**; pass 4 (the recording) **reported, 49 hits, all the member number**. The run was made with the four-pass runner; the fifth gating pass (§7.2) was added afterwards and re-run over this bundle, **CLEAN** |
 
 The **verification replay is the load-bearing half**: the same artifact synthesis had just emitted
 was executed with no model anywhere in the decision path, against the same live fixture, seconds
@@ -116,7 +116,7 @@ $ python3 <count events by type in verification-journal.jsonl>
 - **3 policy decisions, all `allow: true`**, each naming the allowlist rule it matched
   (`route:corebank/search`, `route:corebank/search/results`).
 - The one action carrying the caller's argument journals
-  `"valueRef": "taint:memberId-1", "valueLength": 5` — **a handle and a length, never the value.**
+  `"valueRef": "taint:memberId-1", "valueLength": 5` - **a handle and a length, never the value.**
 
 ---
 
@@ -124,7 +124,7 @@ $ python3 <count events by type in verification-journal.jsonl>
 
 | Package | Tests | Test files | `src` | What it establishes |
 |---|---:|---:|---|---|
-| `@crr/core` | 788 | 36 | 39 files / 15,293 lines | Schema, canonical JSON + digest, the **28-check linker**, the classifier, the target resolver, the extractor, overlay merge, the policy chokepoint, the prose renderers. Pure — no clock, no I/O, no randomness, no driver import, enforced by a source-scanning contract test verified by injection. |
+| `@crr/core` | 788 | 36 | 39 files / 15,293 lines | Schema, canonical JSON + digest, the **28-check linker**, the classifier, the target resolver, the extractor, overlay merge, the policy chokepoint, the prose renderers. Pure - no clock, no I/O, no randomness, no driver import, enforced by a source-scanning contract test verified by injection. |
 | `@crr/runtime` | 336 | 22 | 29 / 9,942 | Interpreter, settle loop, budget ledgers, control lease, journal writer, evidence sink, file store, catalog/`invoke`, ed25519 approval verification, operator console, the `crr` CLI, the redaction canary, `pnpm demo` and the bundle lock and blob audit that make its output reproducible. |
 | `@crr/discovery` | 361 | 16 | 20 / 7,953 | Provider port, manual Anthropic loop, OpenAI adapter, VCR transcript record/replay, synthesis, parameter naming, **prose withholding**. The only package that may import a model SDK. |
 | `@crr/surface-browser` | 107 | 12 | 11 / 2,501 | Per-frame CDP `Accessibility.getFullAXTree` stitch → `Observation`, dialog ownership, `perceive` deadline, PNG mask. |
@@ -140,7 +140,7 @@ Command for every count: `env -u … TURBO_FORCE=1 pnpm test` (per-member `Tests
 
 `@crr/discovery` moved **282 → 305 tests** and **7,468 → 7,953 `src` lines** in the revision that
 added `test/synthesis-prose.test.ts` (§3.4). Since then it has moved **305 → 361**, all 56 of them in
-`test/canary-scopes.test.ts` (§7.2), and `src` has not moved at all — the fifth canary pass lives in
+`test/canary-scopes.test.ts` (§7.2), and `src` has not moved at all - the fifth canary pass lives in
 `tools/canaries.ts`, which is outside `src/` for the same reason `bundle.ts` is. `@crr/runtime` moved
 **314 → 336** over `test/demo-integrity.test.ts`, which is not this pass's work and is not described
 in this document.
@@ -165,10 +165,10 @@ and biome reads the whole tree so `pnpm lint` covers them.
 
 | File | Lines | What it is |
 |---|---:|---|
-| `discover.ts` | 1,514 | `pnpm discover` — the runner that performed the live run. |
-| `preflight.ts` | 1,121 | `pnpm preflight` — the readiness check that makes no model call. |
+| `discover.ts` | 1,514 | `pnpm discover` - the runner that performed the live run. |
+| `preflight.ts` | 1,121 | `pnpm preflight` - the readiness check that makes no model call. |
 | `bundle.ts` | 360 | The four files a run must not lose, written by one function with no status check. |
-| `canaries.ts` | 439 | The five redaction scopes as **data** — which file each pass reads, which class of value it looks for there, and whether it gates. A module for the same reason `bundle.ts` is one: the runner cannot be imported, so nothing could assert its scopes. See §7.2. |
+| `canaries.ts` | 439 | The five redaction scopes as **data** - which file each pass reads, which class of value it looks for there, and whether it gates. A module for the same reason `bundle.ts` is one: the runner cannot be imported, so nothing could assert its scopes. See §7.2. |
 | `live-run.ts` | 291 | Goal, tenant, allowlist, `MODEL_RATES`, budgets, and the hand-authored capability prose. |
 
 Build output, `TURBO_FORCE=1 pnpm build`:
@@ -199,14 +199,14 @@ $ env -u ANTHROPIC_API_KEY … PLAYWRIGHT_BROWSERS_PATH=<empty dir> TURBO_FORCE=
 
 **A reviewer who runs `pnpm install && pnpm test` without `pnpm -F @crr/surface-browser exec playwright install chromium`
 gets 1,875 passing tests and a green board**, and every test that has ever touched a real browser is
-among the 46 skipped — including the four that execute a synthesized artifact (§7.3) and the four
+among the 46 skipped - including the four that execute a synthesized artifact (§7.3) and the four
 that open a real sub-account (§7.4). The guards print to stderr and the seam test prints a second,
 more specific line. That is still the only signal, and it is why `/README.md`'s setup section says
 `playwright install chromium` is not optional.
 
 ---
 
-## 3. The live run, in full — including the two attempts that failed
+## 3. The live run, in full - including the two attempts that failed
 
 This is the section that did not exist in the previous revision, whose §7.1 opened *"There is no
 live discovery run."*
@@ -215,9 +215,9 @@ live discovery run."*
 
 The runner writes into one `--out` directory, so **no bundle from either failed attempt survives on
 disk**. What survives is three source comments naming them and the regression pins that were added
-because of them — which is the right thing to have kept, and is checkable:
+because of them - which is the right thing to have kept, and is checkable:
 
-**Attempt 1 — the provider refused our tool schema, before a single token was billed.**
+**Attempt 1 - the provider refused our tool schema, before a single token was billed.**
 
 ```
 packages/discovery/src/tools.ts:170
@@ -228,24 +228,24 @@ packages/discovery/src/tools.ts:170
   // this shape is only ever judged by the provider.
 ```
 
-`act.key` was `{ type: ["string","null"], enum: [...KEYS, null] }` — valid JSON Schema, and refused
+`act.key` was `{ type: ["string","null"], enum: [...KEYS, null] }` - valid JSON Schema, and refused
 under `strict: true`. It is now
 `{ anyOf: [{ type: "string", enum: [...KEYS] }, { type: "null" }] }`. The tool-surface digest pin in
 `test/tool-schema.test.ts` **failed, which is what it is for**, and was updated with the reason
 written next to it:
 `sha256:0421eff6… → sha256:d8f50803…`.
 
-**Attempt 2 — we were strict-validating a schema we do not own.**
+**Attempt 2 - we were strict-validating a schema we do not own.**
 
 ```
 packages/discovery/src/transcript.ts:79
   // Found on the second live run: Anthropic returned a `tool_use` block carrying a `caller` key
   // (programmatic tool calling) and `z.strictObject` rejected it AFTER the turn had been paid for.
   // Strict-validating someone else's schema converts their additive, backwards-compatible change
-  // into our outage — and it fails on a path where the money is already spent.
+  // into our outage - and it fails on a path where the money is already spent.
 ```
 
-Four response block schemas — `text`, `thinking`, `redacted_thinking`, `tool_use` — moved from
+Four response block schemas - `text`, `thinking`, `redacted_thinking`, `tool_use` - moved from
 `z.strictObject` to `z.looseObject`. **The blocks we author stayed strict**, and the asymmetry is
 the point: we may forbid a stray key in our own documents and may not forbid the provider growing a
 field in theirs. The field is real and is in the committed evidence:
@@ -257,7 +257,7 @@ $ grep -c '"caller"' evidence/discovery-live/transcript.json
 
 **Be precise about what the two failures cost.** Attempt 1's request was rejected by the provider,
 so nothing was billed for it. Attempt 2's parse threw on a response the provider had already
-produced, so **the run's ledger recorded $0.00 while at least one turn had in fact been billed** —
+produced, so **the run's ledger recorded $0.00 while at least one turn had in fact been billed** -
 this repository's arithmetic cannot see a turn it failed to parse, and the authority on what was
 charged is the provider's console, not `spend.json`. Both attempts exited non-zero **and wrote their
 transcript, ledger, provenance and README anyway**, because the durability fix (§3.3) was built
@@ -266,7 +266,7 @@ before the money was spent rather than after.
 ### 3.2 The cost model met reality, and was wrong in the direction that matters
 
 `pnpm preflight` prices a run before it happens. Every input to that estimate is read from the
-shipping source; exactly one symbol is assumed — `U`, output tokens per turn,
+shipping source; exactly one symbol is assumed - `U`, output tokens per turn,
 `DEFAULT_ASSUMED_OUTPUT_TOKENS = 800` at `tools/preflight.ts:110`, overridable with
 `CRR_PREFLIGHT_OUTPUT_TOKENS`. The previous revision recorded that as "the only symbol in its model
 that is not measured". **It is measured now:**
@@ -278,11 +278,11 @@ $ python3 <sum outputTokens over the 9 turns in evidence/discovery-live/spend.js
 
 **171, against an assumed 800.** The assumption was 4.7× high, which is the safe direction for a
 guard and the wrong direction for a plan: it is why the printed "realistic expectation" of
-$0.30–$0.80 for an 8-turn opus-5 run overshot the actual **$0.14 for nine turns** by a factor of
+$0.30-$0.80 for an 8-turn opus-5 run overshot the actual **$0.14 for nine turns** by a factor of
 two to six. The estimate was a ceiling that read like a forecast.
 
 **And the cache prediction was wrong in the other direction.** The previous revision reported, from
-preflight's table, that *"prompt caching saves almost nothing on this loop"* — because only the
+preflight's table, that *"prompt caching saves almost nothing on this loop"* - because only the
 system prompt and the tool definitions carry a breakpoint, so the growing message history is
 re-billed at full input price every turn. **The structural half of that is confirmed by the run**:
 input tokens grew 180 → 423 → 900 → 1,995 → 2,147 → 2,272 → 2,399 → 3,464 → 4,440 across the nine
@@ -304,7 +304,7 @@ on the 24-turn full-budget run preflight was pricing, history dominates and the 
 it were general.**
 
 > **The honest caveat on 55.4%, and it is not small.** Every one of the nine turns reports
-> `cacheCreationInputTokens: 0` and `cacheReadInputTokens: 2512` — **including turn 1**. A cold
+> `cacheCreationInputTokens: 0` and `cacheReadInputTokens: 2512` - **including turn 1**. A cold
 > first turn would have *written* the prefix and read nothing. So the prefix was already warm when
 > this run started, paid for by an attempt inside the cache's TTL, and **a first-ever run of this
 > loop would show both a lower hit rate and a cache-creation charge.** The 55.4% is a real measured
@@ -317,19 +317,19 @@ This is the reason attempts 1 and 2 are a paragraph in this document rather than
 it was built **before** the money was spent.
 
 `runDiscoveryLoop` used not to catch a `DiscoveryModelError`. A rate limit, a 400 or a dropped
-connection propagated out to `discover.ts`'s outer `catch`, which printed `FAILED:` and exited 1 —
+connection propagated out to `discover.ts`'s outer `catch`, which printed `FAILED:` and exited 1 -
 at which point `transcript.json`, `spend.json`, `provenance.json`, `README.md` and `discovery.log`
 **had not been written**, because every one of them is written after the loop returns. The only
 durable record of a partly-paid run was `journal.jsonl`. The loop's own budget probe already stated
-the principle — *"a budget guard that throws away the transcript it was protecting has spent the
-money and kept nothing"* — and the budget path honoured it while the exception path did not.
+the principle - *"a budget guard that throws away the transcript it was protecting has spent the
+money and kept nothing"* - and the budget path honoured it while the exception path did not.
 
 `src/loop.ts` now wraps the turn cycle and ends the run with status **`failed`** carrying a
 `DiscoveryFailure { name, message, adapter, turn, stack }`. The catch is deliberately **not**
 narrowed to `DiscoveryModelError`: a dropped socket, a journal sink that could not write and a bug
 in the file are all *"the run ended and here is what it had"*. It is **opt-in**
 (`onUnexpectedError: "keep-the-run"`, `tools/discover.ts:1199`) because the VCR's strict digest check
-exists to be loud when a fixture stops matching the prompt — so only the caller that *paid* for the
+exists to be loud when a fixture stops matching the prompt - so only the caller that *paid* for the
 turns may say that keeping them beats failing loudly, and that caller says it at the call site. A
 test reads `discover.ts` off disk and fails if it ever stops saying it.
 
@@ -345,8 +345,8 @@ $ env -u … pnpm -F @crr/discovery exec vitest run test/loop-failure.test.ts
 ```
 
 It injects a `DiscoveryModelError` at turn 3 of a scripted run through the real recorder and the
-real loop, then writes the bundle through the same function the runner calls, and asserts — **in the
-order the money leaves** — that the run comes back `failed` naming the adapter and the turn; that
+real loop, then writes the bundle through the same function the runner calls, and asserts - **in the
+order the money leaves** - that the run comes back `failed` naming the adapter and the turn; that
 the step turn 2 recorded is still there; that `transcript.json` is **on disk** holding turns 1 and 2
 with the provider's per-turn usage; that `spend.json`'s `totalUsd` equals `costOf()` over exactly
 those two turns; that `provenance.json` says `"status": "failed"` and carries **no stack** (a stack
@@ -358,7 +358,7 @@ One accounting point those files make visible, and it is the same one §3.1 has 
 **the transcript holds the turns the provider *answered*.** A request that raised returns no
 response and no `usage`, so the failing turn is in `run.turns` and in `provenance.run.failure.turn`
 but **not** in `transcript.turns` and not in the ledger. `provenance.json` carries both numbers side
-by side so the gap is something you can read rather than infer — which is exactly why attempt 2's
+by side so the gap is something you can read rather than infer - which is exactly why attempt 2's
 `$0.00` is a statement about our ledger and not about the invoice.
 
 ### 3.4 The canary caught a third leak, and `artifact.json` and `contract.json` were clean
@@ -376,7 +376,7 @@ packages/discovery/src/synthesis/prose.ts  (header)
 ```
 
 **Parameterization is structurally incapable of catching this**, and that is the point worth
-carrying into `/REPORT.md` §6. `values.ts` replaces values that were **bound** — the member number
+carrying into `/REPORT.md` §6. `values.ts` replaces values that were **bound** - the member number
 came from the goal, so it was bound, and a substitution would have found it. **The member's name and
 their balance were never arguments.** `inferParameters` never saw them; `parameterizeText` walks
 straight past them. That is the boundary of what a substitution can do, and it is only visible in
@@ -385,20 +385,20 @@ prose the model wrote about what it *saw*.
 `packages/discovery/src/synthesis/prose.ts` (263 lines, 23 tests) is the answer, and its rule is
 **withhold, never edit**:
 
-1. `parameterizeText` first, with the run's bindings — exact, and it handles every caller argument.
+1. `parameterizeText` first, with the run's bindings - exact, and it handles every caller argument.
 2. Then test the result against **every value the run declared as an output**. A `note_output` call
    is the model saying "the caller needs this back"; it is member data by definition.
 3. If anything survives, replace the **whole field** with a marker naming which output *class* it
    carried and never the value.
 
-There is no honest third option. Replacing the spans you can find leaves the ones you cannot — a
-paraphrase, a partial quote, `15,900.00` reformatted to `15900` — and produces a sentence that
+There is no honest third option. Replacing the spans you can find leaves the ones you cannot - a
+paraphrase, a partial quote, `15,900.00` reformatted to `15900` - and produces a sentence that
 *looks* scrubbed, which is worse than one that is visibly incomplete, because a reviewer stops
 reading it.
 
 It is applied at four sites, and the type system enforces the fourth:
 `SynthesisReport.outcomeCandidates` is now `ReportedOutcomeCandidate[]`, structurally **not** an
-`OutcomeCandidate`, because `withheld` is required — so
+`OutcomeCandidate`, because `withheld` is required - so
 `report: { outcomeCandidates: run.outcomeCandidates }`, which is exactly the assignment that
 shipped the defect, no longer compiles.
 
@@ -422,7 +422,7 @@ handled differently, and the reasoning is at the site: a **bound** value spelled
 substituted into anything that is still a legal outcome code, so it is kept and flagged.
 
 `provenance.json`'s `run.summary` gets the same treatment, from `tools/bundle.ts`, and the live
-bundle shows it working — that file's `summary` field is a `WITHHELD:` marker. **It used to be the
+bundle shows it working - that file's `summary` field is a `WITHHELD:` marker. **It used to be the
 one file no gating canary pass searched for values. A fifth gating pass now covers it; see §7.2 for
 the pass, and for the injection that proves it fails on the sentence the writer used to persist.**
 
@@ -432,7 +432,7 @@ The spend ledger recorded `turnUsd: this.spentUsd - before`. That is IEEE-754 su
 like `5/1e6`, and it produces values like **`0.014200999999999998`**.
 
 That is not a rounding nit. `pnpm demo`'s whole-bundle canary greps `evidence/` for the fixture's
-`ABSENT_MEMBER_ID`, `"99999"` — and `0.0142009999999999_98` contains it. **A run of nines from float
+`ABSENT_MEMBER_ID`, `"99999"` - and `0.0142009999999999_98` contains it. **A run of nines from float
 representation was reported as a leak of a member id, 14 times.** A redaction check that cries wolf
 gets ignored, and an ignored canary is worse than none.
 
@@ -485,7 +485,7 @@ and 3 times in `verification-journal.jsonl`, once per dispatch on each side.
 `packages/core/src/linker.ts:86` read `LINK_CHECK_COUNT = 28` when this pass ran, and the live
 verification replay journals `link.completed { checksRun: 28, errors: [] }`. **The constant is `29`
 today**: check 29 (`outcome-unproven`) landed with `docs/design/OUTCOME-PROMOTION.md`. The live run's
-journal keeps its `28` and must — it is a record of what executed on 2026-08-28, not a statement
+journal keeps its `28` and must - it is a record of what executed on 2026-08-28, not a statement
 about the tree, and `evidence/discovery-live/verification-journal.jsonl` still reads `checksRun: 28`
 while every bundle written since reads `29`.
 
@@ -493,7 +493,7 @@ while every bundle written since reads `29`.
 because the runner is the file that drove the browser. `packageSources` filters to
 `packages/<p>/src/`. Two consequences: the **chokepoint** test does cover it (it uses `repoSources`,
 which walks every non-test `.ts` under `packages/`, `apps/`, `examples/`, `fixtures/`); and the
-runner keeps the `src/` scan's claim true by **depending on nothing** — `@crr/discovery` declares
+runner keeps the `src/` scan's claim true by **depending on nothing** - `@crr/discovery` declares
 neither `playwright` nor `@crr/surface-browser` nor `@crr/runtime`, so `tools/discover.ts` resolves
 all four by path at runtime. The cost of that is named at §7.13.
 
@@ -503,7 +503,7 @@ all four by path at runtime. The cost of that is named at §7.13.
 
 Everything in this section was re-run this pass with the shipped command.
 
-### 5.1 The browser corpus — the headline claim
+### 5.1 The browser corpus - the headline claim
 
 ```
 $ env -u ANTHROPIC_API_KEY -u ANTHROPIC_AUTH_TOKEN -u OPENAI_API_KEY \
@@ -526,13 +526,13 @@ every mutant was killed by at least one scenario                              ex
 ```
 
 **25 scenarios, 0 failures, 0 false successes for the reference engine. 9 mutants, 0 survivors.**
-17 kills, **13 of them false successes** — the mutant told a caller `ok`, or told it a business
-outcome, for a run that was broken — and 4 misclassifications. **Eight of the nine mutants are
+17 kills, **13 of them false successes** - the mutant told a caller `ok`, or told it a business
+outcome, for a run that was broken - and 4 misclassifications. **Eight of the nine mutants are
 caught by at least one false success**; only `noAssert` is caught purely by the class it reported.
 (The previous revision said six. It was wrong; see §11.4.)
 
-`nearestMatch` — the "fallback chain" mutant, the one that converts an ambiguity into a confident
-wrong click — is killed by six scenarios and **every one of the six is a false success**. That is
+`nearestMatch` - the "fallback chain" mutant, the one that converts an ambiguity into a confident
+wrong click - is killed by six scenarios and **every one of the six is a false success**. That is
 the single most load-bearing row in the table, because a fallback chain is what most locator stacks
 ship by default.
 
@@ -540,7 +540,7 @@ The CLI's exit code is gated on
 `report.passed && matrix.survivors.length === 0 && flakeRate === 0 && nonDeterministic === [] &&
 unstableDescriptors === []`, so `exit 0` above **is** the zero-survivors assertion.
 
-The mutants are the **real** `replay()` — same linker, lease, budgets, journal, session broker —
+The mutants are the **real** `replay()` - same linker, lease, budgets, journal, session broker -
 with exactly one pure decision function replaced through an injection seam. A meta-test enforces
 that by function identity: each mutant must weaken exactly one of `classify` / `resolveTarget` and
 share `@crr/core`'s own function object for the other. Without that seam they would be stubs, and a
@@ -558,7 +558,7 @@ kills `noContinuity`) produced `SURVIVORS (a gap in the suite): noContinuity` an
 **That injection was not re-run this pass** and stands on the unit that ran it; the tests it
 describes are the 16 that just passed.
 
-### 5.2 The terminal corpus — four mutants survive, and that is reported, not hidden
+### 5.2 The terminal corpus - four mutants survive, and that is reported, not hidden
 
 ```
 $ cd packages/conformance && pnpm exec tsx <runConformance + buildKillMatrix over TERMINAL_SCENARIOS>
@@ -582,7 +582,7 @@ SURVIVORS (a gap in the suite): noAssert, noSettleGate, noContinuity, noProvenan
 number *in both directions* with a written reason (>60 characters, asserted) for each survivor.
 Forcing all nine would have meant a fixture that lies.
 
-- **`noSettleGate` — the one that matters.** It classifies against a screen the driver called
+- **`noSettleGate` - the one that matters.** It classifies against a screen the driver called
   unsettled. A green screen's readiness signal is *silence*, and a torn repaint is silent: the
   driver reports `settled: true` on a half-painted frame. There is no observation where the settle
   flag is false and a verdict hangs on it, so the mutant is **indistinguishable from the reference
@@ -597,7 +597,7 @@ Forcing all nine would have meant a fixture that lies.
   literal; this flow fills exactly one field and it is the caller's.
 
 **The browser corpus alone kills all nine (§5.1); the union does too, and this pass ran the union
-rather than asserting it. What the terminal corpus adds is not coverage of the nine — it is a second
+rather than asserting it. What the terminal corpus adds is not coverage of the nine - it is a second
 independent surface on which five of them still die:**
 
 ```
@@ -634,7 +634,7 @@ $ env -u … pnpm -F @crr/conformance stability
   no descriptor changed its verdict between runs of the same scenario
 ```
 
-- **Flake rate 0.0%** — the proportion of scenarios that were *inconsistent* across runs, not the
+- **Flake rate 0.0%** - the proportion of scenarios that were *inconsistent* across runs, not the
   proportion that passed.
 - **Result determinism, stricter:** 0 of 25 scenarios produced a `ReplayResultDocument` that was not
   byte-identical across all 20 runs (digest of the whole document, not just the arm).
@@ -668,7 +668,7 @@ AND THE LIMIT: `tear-persistent` is caught at EVERY value, by the CHECKPOINT rat
      step; it does not turn quiescence into a readiness signal, and no value of it would.
 ```
 
-This constant has been silently reverted once already — a concurrent rewrite of `artifact.ts`
+This constant has been silently reverted once already - a concurrent rewrite of `artifact.ts`
 restored the placeholder `2` and **nothing failed**, because the constant is applied by a *recorder*
 at emission and never by a validator, so no digest moved. The guard that was missing now exists:
 three tests pin **the agreement between the shipped constant and whatever the matrix currently
@@ -723,11 +723,11 @@ exceptional state and shows how it was classified") answered four times over.
 worked. `discoverySlot()` used to write `PENDING.md` (*"This directory holds nothing."*)
 unconditionally, on top of a real run, while the runner's own closing message tells you to run
 `pnpm demo` next; it is now behind `liveRunPresent()`, and `test/demo-contract.test.ts` (12 tests)
-reads `demo/main.ts` off disk and fails if the call is ever unguarded — plus runs the same scanner
+reads `demo/main.ts` off disk and fails if the call is ever unguarded - plus runs the same scanner
 against three sources that *do* break the rule, so it is a scanner that can fail.
 
-The canary was verified against planted leaks — plain UTF-8 in a log, percent-encoded bytes in a
-JSON result, UTF-16LE appended to a PNG, and a value in a **file name** — 4/4 caught, then reverted.
+The canary was verified against planted leaks - plain UTF-8 in a log, percent-encoded bytes in a
+JSON result, UTF-16LE appended to a PNG, and a value in a **file name** - 4/4 caught, then reverted.
 The `self-test PASSED - 26/26` line is the standing version: it plants every needle in a scratch
 corpus on every run and fails if it cannot find them, so the scanner cannot pass by scanning
 nothing.
@@ -745,11 +745,11 @@ is `synthesized/`, and pass 1 searches there for all three.
 
 Ordered by how much it costs the submission.
 
-### 7.1 The fixture is our own construction, and that is the main threat to every robustness number here
+### 7.1 The fixture is our own construction, and that is the main threat to every reliability number here
 
 `fixtures/corebank-web` is a hostile surface *we* wrote: framesets, nested layout tables, generated
 ids, `<font>` tags, no test IDs, a modal confirm, eight injectable faults, two tenant variants. The
-brief explicitly permits it, and there is a real argument for it — a public demo site **cannot** be
+brief explicitly permits it, and there is a real argument for it - a public demo site **cannot** be
 made to time out a session or deny permission on cue, which would make half of assignment §3.3
 undemonstrable.
 
@@ -765,31 +765,31 @@ The honest generalisation claim is narrower than the numbers look: **the engine 
 conditions it was shown, the abstraction survived a second surface that is not a browser, and the
 suite can tell a good replay engine from nine bad ones.** Not: this will hold on Symitar.
 
-### 7.2 `provenance.json` — CLOSED. There is now a fifth gating pass, and it was tested against the live bundle
+### 7.2 `provenance.json` - CLOSED. There is now a fifth gating pass, and it was tested against the live bundle
 
 **This section used to open *"`provenance.json` is covered by no gating canary pass that searches
-for values"*. It is no longer true, and the finding is that nothing was leaking — the writer fix
+for values"*. It is no longer true, and the finding is that nothing was leaking - the writer fix
 held, and the gate that says so now exists.**
 
 The runner runs **five** canary passes, **four of which gate**. Their scopes are declared as data in
 `packages/discovery/tools/canaries.ts` rather than as `skip` closures inside the runner, which is
-what made the gap findable in the first place — the four closures could not be imported, so
+what made the gap findable in the first place - the four closures could not be imported, so
 answering *"which gating pass covers this file?"* meant reading them with the bundle's file list
 held in your head. The byte counts below were re-measured this pass by pointing the shipping scopes
 and the real `@crr/runtime` scanner at `evidence/discovery-live` as it stands:
 
 | pass | scope | searches for | gates |
 |---|---|---|---|
-| 1 documents | `synthesized/` (4 files, 71,114 B) | the caller's argument **and every observed output value above the floor** — 3 values × 14 encodings = 34 needles (§7.3) | **yes** |
-| 2 replay | `verification*` (3 files, 53,798 B) | the caller's argument — 1 value, 7 needles | **yes** |
+| 1 documents | `synthesized/` (4 files, 71,114 B) | the caller's argument **and every observed output value above the floor** - 3 values × 14 encodings = 34 needles (§7.3) | **yes** |
+| 2 replay | `verification*` (3 files, 53,798 B) | the caller's argument - 1 value, 7 needles | **yes** |
 | 3 credentials | the whole bundle (18 files, 232,871 B) | credential *shapes* only, 0 value needles | **yes** |
-| 4 recording | `transcript.json`, `journal.jsonl`, `discovery.log` (3 files, 64,873 B) | the caller's argument — 49 hits, every one listed with its line number | no — reported |
-| **5 metadata** | **everything else — `provenance.json`, `spend.json`, `README.md` (3 files, 10,131 B)** | **recorded member data — 2 values × 14 encodings = 27 needles** | **yes** |
+| 4 recording | `transcript.json`, `journal.jsonl`, `discovery.log` (3 files, 64,873 B) | the caller's argument - 49 hits, every one listed with its line number | no - reported |
+| **5 metadata** | **everything else - `provenance.json`, `spend.json`, `README.md` (3 files, 10,131 B)** | **recorded member data - 2 values × 14 encodings = 27 needles** | **yes** |
 
 > Passes 2, 3 and 4 differ from the numbers the live run's own `canary/report.txt` prints (5 files /
 > 105,632 B, 20 files / 276,609 B, 3 files / 58,713 B). That is the bundle on disk having changed
-> since the run — two stale journal blobs were removed from `verification-evidence/` by hand and the
-> bundle README was rewritten — not the scopes having moved. The pass-1 and pass-4 needle and hit
+> since the run - two stale journal blobs were removed from `verification-evidence/` by hand and the
+> bundle README was rewritten - not the scopes having moved. The pass-1 and pass-4 needle and hit
 > counts are unchanged.
 >
 > **And one caveat that is worth having in writing, because it moved these very numbers mid-pass.**
@@ -804,10 +804,10 @@ and the real `@crr/runtime` scanner at `evidence/discovery-live` as it stands:
 
 **The needle classes are the whole design, and pass 5 uses exactly one of them.** There are two
 classes of value in play. The **caller's argument** is legitimately in the recording *and* is
-printed by `provenance.json` as `memberId` and inside `goal`, and named in the bundle README — so
+printed by `provenance.json` as `memberId` and inside `goal`, and named in the bundle README - so
 pass 5 does **not** search for it, for the same reason pass 4 does not gate: a check that fails on
 three files that state a value on purpose is a check somebody switches off. **Recorded member
-data** — the name, the balance, the status the run read *off the screen* — was never an argument, so
+data** - the name, the balance, the status the run read *off the screen* - was never an argument, so
 parameterization has nothing to substitute and the taint model has no opinion about it. It is
 legitimate in exactly two places, both of which the bundle README already names: the **recording**,
 because the model was shown the screen, and the **replay result**, because those are the outputs the
@@ -817,13 +817,13 @@ run, and that is what pass 5 gates.
 **The scope is a complement, not a list**, and that is the point rather than an implementation
 detail. Pass 5 covers everything that is not the recording, not `verification*`, not `synthesized/`
 and not `canary/`. A list would have to be extended by whoever adds the next file the runner writes,
-and the failure mode of forgetting is silence — which is precisely the failure mode this section
+and the failure mode of forgetting is silence - which is precisely the failure mode this section
 used to describe. With a complement, forgetting means the new file is **scanned**, and exempting one
 means writing the reason into `KNOWN_UNSCANNED`.
 
 `canary/` is the single entry on that list, and the argument is not symmetry: those files do not
-exist when the passes run — the runner writes them afterwards, out of the reports the passes
-returned — so scoping a pass at them would be vacuous on a live run; and what they contain is
+exist when the passes run - the runner writes them afterwards, out of the reports the passes
+returned - so scoping a pass at them would be vacuous on a live run; and what they contain is
 context excerpts of the files pass 4 covers, so they inherit pass 4's scope and pass 4's argument.
 See §7.16 for what that costs.
 
@@ -856,18 +856,18 @@ RESTORED
 
 The planted sentence is not invented: it is the wording `journal.jsonl:42` and `discovery.log:60`
 still carry, which is what `run.summary` held before `scrubProse` was put in front of it. Note the
-second half of the design holding as well — **the hit's context excerpt has the value blanked**
+second half of the design holding as well - **the hit's context excerpt has the value blanked**
 (`<21 REDACTED BYTES>`), because the report is written into the bundle it just scanned.
 
 **Run against the committed bundle, pass 5 is CLEAN, and that is a result rather than a formality.**
 `provenance.json`, `spend.json` and `README.md` contain the caller's argument and no recorded member
-datum at all — measured with a whole-bundle map, not asserted. The writer fix (`tools/bundle.ts`
+datum at all - measured with a whole-bundle map, not asserted. The writer fix (`tools/bundle.ts`
 passing `run.summary` through `scrubProse`) is what makes that true, and this pass is what would
 notice if it ever stopped being true.
 
 #### What keeps it covering those files
 
-`packages/discovery/test/canary-scopes.test.ts` — **56 tests**. It reads `evidence/discovery-live`
+`packages/discovery/test/canary-scopes.test.ts` - **56 tests**. It reads `evidence/discovery-live`
 off disk and asserts, for every path in it, that a gating pass reads it and that a gating pass
 searching for *recorded member data* reads it or an exemption is written down with a reason; that
 `provenance.json`, `spend.json` and `README.md` resolve to pass 5 **and only** pass 5; that a file
@@ -875,13 +875,13 @@ name this repository has never written (`notes.json`, `run-metadata/summary.json
 too, which is the complement being a complement; that `canary/` is the only hole; and that
 `tools/discover.ts` still hands `runCanaryPasses` the runtime scanner. It then writes a bundle with
 the real `writeCoreBundle`, plants a member's name in `provenance.json`, and asserts the pass fails
-naming the file and the needle, and passes again once the bytes are restored — and asserts the same
+naming the file and the needle, and passes again once the bytes are restored - and asserts the same
 datum in `transcript.json`, `journal.jsonl` and `verification.json` fails nothing.
 
 The scanner that test injects is a **stand-in**, and the file says so at the top: `@crr/discovery`
 declares no dependency on `@crr/runtime` and must not, so the runner resolves the real one by path
 and hands it in, and that seam is why `CanaryScan` is a parameter. The stand-in proves it can fail
-before it is trusted. What the test establishes is **routing** — that the right needles reach the
+before it is trusted. What the test establishes is **routing** - that the right needles reach the
 right files. That the scanner finds a value in fourteen encodings, in a PNG chunk and in a file
 *name*, is `@crr/runtime`'s own suite and the per-run self-test. The two claims are stated
 separately because neither covers the other.
@@ -902,18 +902,18 @@ evidence/discovery-live/canary/report.txt
     membershipStatus: 6 characters, under the 8-character floor for a distinctive needle
 ```
 
-`ACTIVE` was below the canary's floor. It happens that synthesis's own withholding covered it — both
-`title` and `why` were withheld naming `membershipStatus` — so nothing leaked. But the belt is 4 and
+`ACTIVE` was below the canary's floor. It happens that synthesis's own withholding covered it - both
+`title` and `why` were withheld naming `membershipStatus` - so nothing leaked. But the belt is 4 and
 the braces are 8, and **a short observed value in a document synthesis did not scrub would ship
 CLEAN.** That half of this section stands.
 
-**The other half — "they should be the same number" — was an assumption, and it has since been
+**The other half - "they should be the same number" - was an assumption, and it has since been
 measured to be wrong.** Re-running the five passes over `evidence/discovery-live` with
 `MIN_NEEDLE_LENGTH` at 4 and nothing else changed:
 
 ```
   pass 1 documents  FAILED  4 hits, all synthesized/report.json, all `membershipStatus`
-                            lines 63, 68, 73, 83 — the three review notes and the candidate's
+                            lines 63, 68, 73, 83 - the three review notes and the candidate's
                             own `code`, every one of them the string MEMBER_FOUND_ACTIVE
   pass 5 metadata   CLEAN   0 hits
 ```
@@ -952,13 +952,13 @@ $ node <artifactDigestOf() over the file on disk>
   recomputed sha256:32e56a6f…      intact: true      parses: … lifecycle draft
 ```
 
-**Nothing is broken** — the file on disk is self-consistent, it parses, and an approval would sign
+**Nothing is broken** - the file on disk is self-consistent, it parses, and an approval would sign
 `32e56a6f…`, which is stable thereafter. But two things follow that are worth writing down:
 
 1. A reviewer comparing the run log to the shipped file sees two content addresses for one artifact
    and nothing in the bundle explains it.
 2. `verification.runId` and `verification.at` are **non-deterministic**, so the shipped artifact's
-   content address is not reproducible from the recording — even though
+   content address is not reproducible from the recording - even though
    `synthesized/README.md` correctly says synthesis is. By the same argument that excludes
    `lifecycle`, `verification` is mutable state *about* the program rather than the program, and
    belongs on the excluded list. That is a one-line change plus a re-emit, and it was not made here
@@ -993,13 +993,13 @@ discovery tests do not touch.
 
 It is verified by running it, which earlier passes did in three configurations. What keeps it from
 drifting is not a test but its inputs: every budget, model id, prompt, tool schema, allowlist and
-route it prints is **read from the shipping source** — `DEFAULT_LIMITS`, `DEFAULT_MAX_TOKENS`,
+route it prints is **read from the shipping source** - `DEFAULT_LIMITS`, `DEFAULT_MAX_TOKENS`,
 `DEFAULT_MODEL_ID`, `DISCOVERY_SYSTEM_PROMPT`, `DISCOVERY_TOOLS`, `ALLOWLIST`, `ENTRY_ROUTE`, `GOAL`
-— not copied into it. The only hand-written numbers are the published rates and the cache
+- not copied into it. The only hand-written numbers are the published rates and the cache
 multipliers.
 
 Its one assumed symbol, `U = 800` output tokens per turn, is now measured at **171** (§3.2). The
-table it prints was never re-derived against that, and **this pass did not run `pnpm preflight`** —
+table it prints was never re-derived against that, and **this pass did not run `pnpm preflight`** -
 BRIEF §11 makes every command in that family the author's, and its cost projections are in any case
 superseded by a measured run. Its structural findings still stand and one of them is now confirmed
 from the other side: the cacheable prefix clears both models' minimum (a previous pass measured it
@@ -1007,14 +1007,14 @@ locally at 2,034 tokens; the provider billed **2,512 cache-read tokens on every 
 turns**, so the breakpoint is doing work rather than silently doing nothing), and the message
 history carries no breakpoint.
 
-### 7.7 `resume: "continue"` — a known gap, pinned by a scenario that says so
+### 7.7 `resume: "continue"` - a known gap, pinned by a scenario that says so
 
 There is no recovery mode that re-verifies without re-dispatching. Measured consequence: **an
 interstitial that appears AFTER a step has acted cannot be recovered.** `retry-step` re-resolves a
 target the action already navigated away from, and the engine reports `target-not-found` for a run
 that in fact recovered. **Conformance scenario 25 deliberately pins the wrong behaviour** and its
-title says so — `KNOWN GAP: an interstitial that appears AFTER the step acted cannot be resumed
-today`, `PASS 4/4` in this pass's run — so that the day the mode exists, a test fails and somebody
+title says so - `KNOWN GAP: an interstitial that appears AFTER the step acted cannot be resumed
+today`, `PASS 4/4` in this pass's run - so that the day the mode exists, a test fails and somebody
 comes back to it.
 
 `Checkpoint.dialog` (§7.8) did not close this, deliberately: that field is about a dialog a step
@@ -1023,10 +1023,10 @@ They look alike and they are opposites. A single mechanism serving both would ha
 runtime which it was looking at, and the whole point of the taxonomy is that a declaration decides
 that.
 
-### 7.8 The confirmation dialog — closed, and the argument is worth keeping
+### 7.8 The confirmation dialog - closed, and the argument is worth keeping
 
 **A real sub-account is opened, through the real interpreter, against the real fixture, in a real
-browser — and the modal confirmation is what authorizes it.**
+browser - and the modal confirmation is what authorizes it.**
 
 ```
 $ env -u … pnpm -F @crr/runtime exec vitest run test/browser-write.test.ts
@@ -1047,7 +1047,7 @@ asserts) in one field, so a step cannot claim the first without paying the secon
 The stand-down is **four refusals, not a permission**: a step that declared nothing gets none; a
 native dialog vetoes it outright; an interception no visible dialog node explains is refused; and
 **every** open dialog must be the declared one, not one of them. Refusal 2 is a property of the
-channel rather than a cut corner — a native dialog blocks the renderer, so there is no post-act
+channel rather than a cut corner - a native dialog blocks the renderer, so there is no post-act
 `Observation` to check a postcondition against, and a postcondition that cannot be checked is not a
 postcondition. Measured, not assumed: `surface-browser/test/browser-act.test.ts` drives the
 fixture's `?dialog=native` mode and records `perceive` returning `perceive-timeout`.
@@ -1055,8 +1055,8 @@ fixture's `?dialog=native` mode and records `perceive` returning `perceive-timeo
 Closing it uncovered a second real defect that nothing else could have found, because it needs a
 dialog to be a *postcondition* before it does any harm: **18 ms after the click that raises the
 panel, one `perceive` returned the accessibility tree of the NEW document stitched to the frame tree
-of the OLD one** — the driver reads `Page.getFrameTree` before `Accessibility.getFullAXTree` and the
-navigation committed in between — so `route` said `/subaccount/new` on the `/subaccount/confirm`
+of the OLD one** - the driver reads `Page.getFrameTree` before `Accessibility.getFullAXTree` and the
+navigation committed in between - so `route` said `/subaccount/new` on the `/subaccount/confirm`
 screen and the checkpoint failed a step that had succeeded. `settle()` now short-circuits for a
 **native** dialog only; an in-page modal goes through the ordinary quiescence loop where
 `stableSamples` catches the tear. Guarded hermetically as well as against the browser
@@ -1071,12 +1071,12 @@ posting reference as unlabelled `<font>` runs inside a LAYOUT table; measured th
 `@crr/surface-browser`, every one of those nodes comes back `ariaRole: null` with no `tablePosition`,
 so no `NodeQuery` can name them. Returning nothing is the honest answer; inventing an ordinal into a
 layout table would be a locator, which is the one thing this design refuses. It is the same driver
-gap §7.10 records on the green screen: **two surfaces, one fix — an unlabelled run of body text
-should become a `text` node** — and doing it changes node counts that `browser-overlay.test.ts`
+gap §7.10 records on the green screen: **two surfaces, one fix - an unlabelled run of body text
+should become a `text` node** - and doing it changes node counts that `browser-overlay.test.ts`
 asserts, so it is a decision with a blast radius rather than a one-liner. Written down twice, made
 nowhere.
 
-### 7.9 The discovery → replay seam — closed, and here is exactly how far it goes
+### 7.9 The discovery → replay seam - closed, and here is exactly how far it goes
 
 ```
 $ env -u … pnpm -F @crr/runtime exec vitest run test/synthesized-replay.test.ts
@@ -1108,29 +1108,29 @@ what this was always about.
 linked the document.** All three are fixed and guarded:
 
 1. **Recorded member data reached a signed document.** `deriveOutputs` folded a cell's accessible
-   name into the query it derived — and on a legacy grid a cell's accessible name **is the value
+   name into the query it derived - and on a legacy grid a cell's accessible name **is the value
    being read**. The emitted artifact carried `"ALVAREZ, DANA (SYNTHETIC)"` and `"1,204.55"` in
    `flow.vocabulary`: a member's name and balance in the one document that is committed, diffed and
-   **signed**. Parameterization could not catch it — the name was never in the goal, so it was never
+   **signed**. Parameterization could not catch it - the name was never in the goal, so it was never
    bound to anything. Fixed in `synthesis/outputs.ts`: when row-and-column addressing is available
    it is used **alone**. Re-checked here:
    `grep -c 'ALVAREZ\|1,204.55' packages/discovery/test/fixtures/corebank-web.capability.json` → `0`.
 2. **Every delivered string output was case-folded.** `readingOf` returned `normalize: "std.text@1"`,
-   which lowercases — right for matching a label against a screen, wrong for a value handed to a
+   which lowercases - right for matching a label against a screen, wrong for a value handed to a
    caller, who would have been read their own name back as `alvarez, dana (synthetic)`. Fixed:
    `std.identity@1` is the default on the delivery path.
 3. **The parameter was called `value1`.** Closed before the live run; see §7.11 and §11.1.
 
 **Drift is a red test, not a surprise.** `synthesis-corebank-web.test.ts` rebuilds the committed
-capability in process, from the same function the emit script calls, and compares the **bytes** — so
+capability in process, from the same function the emit script calls, and compares the **bytes** - so
 any change under `src/synthesis/` fails the build naming the command that fixes it. There is no path
 from "synthesis emits something the interpreter cannot run" to a green board.
 
 **The one honest caveat.** The four executing tests are among the 46 that skip silently without a
-Chromium build. Without one, the synthesized artifact is still parsed, digest-checked and linked —
+Chromium build. Without one, the synthesized artifact is still parsed, digest-checked and linked -
 and the file prints a stderr line saying exactly that.
 
-### 7.10 One artifact, two tenants — proved. One contract, two surfaces — **not** proved
+### 7.10 One artifact, two tenants - proved. One contract, two surfaces - **not** proved
 
 ```
 $ env -u … pnpm -F @crr/runtime exec vitest run test/browser-overlay.test.ts
@@ -1151,7 +1151,7 @@ needsSpecialization: null (no threshold ships; see OPEN-QUESTIONS-RESOLVED Q4)
 ```
 
 One artifact replays green on both tenants through a 12-token vocabulary overlay (of 21 declared),
-4 `routeBasePath` entries, 2 `stripTokens`, 2 `settle` overrides — and **no step override, no
+4 `routeBasePath` entries, 2 `stripTokens`, 2 `settle` overrides - and **no step override, no
 detector, no instruction, no outcome**. Without the overlay's vocabulary the run fails
 `target-underdetermined` and the drift signal names the exact descriptor that abstained. The metric
 is **Jaccard** distance (1 − shared/union), not the terminal spike's 1 − shared/|left|, because the
@@ -1161,7 +1161,7 @@ pinned by a test that computes the spike's worked example both ways.
 **The cross-surface claim is weaker than "one contract, two programs".** The browser contract
 declares a required `memberName` output. The green screen prints the member's name as an unlabelled
 plain run (`Member:  12345   AVERY SYNTHETIC`), and `detect()` emits nodes for headings, labelled
-fields, legend controls, status bands and tables — **not for prose**. There is nothing for an
+fields, legend controls, status bands and tables - **not for prose**. There is nothing for an
 `ExtractSpec` to name. Rather than publish a contract the terminal program cannot satisfy, the
 terminal declares its own, and `conformance/test/heterogeneity.test.ts` (14 tests, green this pass)
 compares the two `activate` steps field by field instead. They are identical: both
@@ -1179,14 +1179,14 @@ a routeless surface; linker check 21 short-circuited → the `GATE TWO` test fai
 strings are quoted from the previous revision and were not re-printed by this pass**; the 14 tests
 that assert them are the ones that just passed.
 
-### 7.11 Parameter naming — closed before the live run, and the live run is the proof
+### 7.11 Parameter naming - closed before the live run, and the live run is the proof
 
 The capability once offered a calling agent an argument named **`value1`**, described as *"The value
 to use for `value1`"*, because `inferParameters` named a parameter after the accessible name of the
-field it was typed into and **this product's search inputs have no accessible name at all** — which
+field it was typed into and **this product's search inputs have no accessible name at all** - which
 is the legacy reality the whole project is about, so the `value${n}` fallback fired.
 
-Naming is now a deterministic five-rung chain over evidence the system already had —
+Naming is now a deterministic five-rung chain over evidence the system already had -
 `accessible-name` → `labelled-by` → `adjacent-label` → `taint-handle` → `positional`. No model is
 asked; nothing is inferred from the *shape* of the value, because a name derived from a value would
 put a member number in the caller's public API. Rungs 2 and 3 walk `labelAnchorsOf`, the same
@@ -1220,8 +1220,8 @@ const event = <T extends z.core.$ZodShape>(type: string, shape: T) =>
 ```
 
 `type` is typed `string`, so `z.literal(type)` infers `ZodLiteral<string>` and every union member's
-discriminant widens. **The wire format is fine** — it really is a `z.discriminatedUnion` and every
-event is parsed before it is written — but `event.type === "resolved"` narrows nothing. Knock-on:
+discriminant widens. **The wire format is fine** - it really is a `z.discriminatedUnion` and every
+event is parsed before it is written - but `event.type === "resolved"` narrows nothing. Knock-on:
 `@crr/runtime`'s `JournalEventInput` collapses to a string index signature, and `@crr/conformance`
 works around it in one commented place with a test driving a real run so the workaround cannot go
 stale silently. The fix is to make the helper generic over the literal (`<const N extends string>`),
@@ -1233,13 +1233,13 @@ and it will surface real errors across `@crr/runtime`.
 `playwright`, `@crr/surface-browser`, the fixture and `@crr/runtime` **by path** at runtime and
 hand-types the slice of `@crr/runtime` it uses. `tsc` therefore checks that slice against nothing.
 **The only thing that catches a drift between the slice and the real package is running the
-runner** — which is what `pnpm discover --dry-run` is for, and why it is worth running before a paid
-one. The reasoning is written at the site (`discover.ts:48–56`).
+runner** - which is what `pnpm discover --dry-run` is for, and why it is worth running before a paid
+one. The reasoning is written at the site (`discover.ts:48-56`).
 
 ### 7.14 A dry run aimed at `evidence/` is refused, but not before it litters
 
 `assertRealRecording` fires on the destination, so `--dry-run --out evidence/discovery-live` is
-correctly refused — but `journal.jsonl` is created in the destination *before* the loop runs and the
+correctly refused - but `journal.jsonl` is created in the destination *before* the loop runs and the
 refusal happens *after* it returns, so a refused rehearsal leaves a `journal.jsonl` inside the
 protected directory. Don't aim a dry run at `evidence/`.
 
@@ -1254,26 +1254,26 @@ protected directory. Don't aim a dry run at `evidence/`.
   `RecoveryRuleSchema` has no field naming one. Works, tested, but an inference where the spec
   implies a declaration. One optional `classifyAs` field fixes it; `src/classify.ts` names the site.
 - **`maxRemediationCycles: 0` makes ambient recoveries inert**, and four of the five fixture steps
-  declare exactly that. The linker check an earlier unit asked for — "an artifact declaring ambient
-  recoveries has at least one step that can spend one" — **was never added**; the list is still 28.
+  declare exactly that. The linker check an earlier unit asked for - "an artifact declaring ambient
+  recoveries has at least one step that can spend one" - **was never added**; the list is still 28.
   Synthesis works around it from the recorder side by deriving non-zero step budgets when it lifts a
   dialog into an ambient rule, so the hazard is **half-mitigated and still unchecked**. The live
   run's artifact has `flow.ambient: []` and a matching `remediations {used: 0, limit: 0}`, which is
   the consistent case rather than the dangerous one.
 - **A `fill` bound to a sensitive parameter has no read-back postcondition.** The driver blanks
   `value` for a masked field, so the truncation defence SPEC §3 asks for does not exist for
-  sensitive fills. Resolved in favour of the taint model: the check passes and emits a warning — and
+  sensitive fills. Resolved in favour of the taint model: the check passes and emits a warning - and
   because `RunWarningSchema`'s enum is closed, that warning rides on the `checkpoint` journal event's
   trace rather than on `RunEnvelope.warnings`, **where a caller would actually see it**. The fix is
   one field on the port: a driver reporting the masked field's *length*.
 - **`slow-repaint` outside the budget classifies as `no-observable-effect`, not `did-not-settle`.**
-  The terminal surface genuinely does settle — it is perfectly quiet — it just settles on the screen
+  The terminal surface genuinely does settle - it is perfectly quiet - it just settles on the screen
   that was already there.
 - **`@crr/runtime` lists `@crr/surface-browser` in `dependencies` and `src/` never imports it.**
   Re-checked this pass: the manifest still carries it, and the only three matches for
   `@crr/surface-browser` under `packages/runtime/src/` are prose in comments. The *code* is clean
   (the contract test enforces it); the *manifest* contradicts the design claim `cli.ts` makes in its
-  own header. It belongs in `devDependencies` — a one-line change plus a `pnpm install`, which no
+  own header. It belongs in `devDependencies` - a one-line change plus a `pnpm install`, which no
   pass has been permitted to run.
 - **`evidence/MANIFEST.json` excludes three things and names two.** Its note says it excludes itself
   and `redaction-canary/`; it also excludes `README.md`. 60 rows against 65 files on disk. Harmless,
@@ -1314,7 +1314,7 @@ ledgered in code with the argument rather than expressed as one more `!path.star
 is also a mechanical reason it could not simply be covered: those files do not exist when the passes
 run, so on a live run the scope would be empty and the gate vacuous.
 
-**The fix is a `blank` list separate from the `needles` list** — `scanView` should blank every value
+**The fix is a `blank` list separate from the `needles` list** - `scanView` should blank every value
 *any* pass knows about when it renders a context, while still only reporting hits for its own. That
 is a `@crr/runtime` API change plus a re-emit of the committed `canary/` reports, and a re-emit means
 another live discovery run, which BRIEF §11 forbids any agent from starting. So it is written down
@@ -1331,9 +1331,9 @@ this pass.
 |---|---|---|
 | **`agent-sdk` adapter** | named in `DISCOVERY_ADAPTERS` (`src/model-port.ts:33`), no implementation | Dev-only by design and must never produce evidence. It runs Claude Code's loop, not ours, so it validates none of our prompt shape, tool schemas, observation serialization or stopping conditions. The live run proves the point from the other side: the two defects that mattered were in our schemas, and only the real API found them. |
 | **`openai` model id has no default** | `adapters/openai.ts` | Deliberate. BRIEF §9 forbids writing a model id from memory and there is no OpenAI counterpart to the `claude-api` skill, so `createOpenAIModel` throws unless `modelId` or `CRR_OPENAI_MODEL` is supplied, with an error that says why. The adapter itself is real and has 26 tests. **No live OpenAI run was made**, so provider independence is a structural claim, not a measured one. |
-| **No outcome detectors are synthesized** | `synthesis/emit.ts` | SPEC §0.2 forbids inferring one. `contract.outcomes` comes out `[]` — including on the live run — and the model's `finish` candidates ride in `SynthesisReport` with an `outcome-candidate-needs-detector` note at `review`. A generated `detect` predicate for a screen the run never observed is exactly how a false `MEMBER_NOT_FOUND` gets emitted. |
+| **No outcome detectors are synthesized** | `synthesis/emit.ts` | SPEC §0.2 forbids inferring one. `contract.outcomes` comes out `[]` - including on the live run - and the model's `finish` candidates ride in `SynthesisReport` with an `outcome-candidate-needs-detector` note at `review`. A generated `detect` predicate for a screen the run never observed is exactly how a false `MEMBER_NOT_FOUND` gets emitted. |
 | **`whenToUse` / `whenNotToUse` / `title` / `summary` are not generated** | `synthesis/emit.ts:1253` | Synthesis never writes routing prose; it accepts prose a **person** wrote and otherwise stamps `"NEEDS AN AUTHOR: …"` plus a `prose-needs-author` note. **The live bundle's contract carries real prose because `tools/live-run.ts`'s `LIVE_CAPABILITY` passed hand-written lines in.** Models mis-route far more often than they mis-fill arguments, so a generated line there is a generated routing decision. |
-| **`effect-in-doubt` escalates and journals but is not parked** | `interpreter.ts` | It does not appear in the operator console queue; the arm stays `failed`, which is correct (the caller must not retry). Wiring it needs a second kind of parked entry — a live session a human may look at and may never hand back. Seam named in a comment at the site. |
+| **`effect-in-doubt` escalates and journals but is not parked** | `interpreter.ts` | It does not appear in the operator console queue; the arm stays `failed`, which is correct (the caller must not retry). Wiring it needs a second kind of parked entry - a live session a human may look at and may never hand back. Seam named in a comment at the site. |
 | **Approval key custody does not exist** | `runtime/approval.ts` | Deliberately out of scope. `ApprovalSigner` is a port so a KMS or HSM substitutes cleanly; `ed25519Signer` holds a private key in process memory with **no approver identity, no expiry and no revocation**. Signature *verification* is real (`ed25519Trust`), and the linker compares `approval.over` to the artifact's digest and refuses an unverifiable approval (checks 26/27). **Approval signs a digest and stops.** |
 | **No branching in the artifact language** | `artifact.ts` | The flow is a straight line. An optional interstitial is modelled as a *recovery*, not as a branch. That is right for the flows here and it is a real ceiling: a capability whose path genuinely forks on what the application shows cannot be expressed. |
 | **`examples/` does not exist** | `pnpm-workspace.yaml:12` lists it | Creating a workspace member needs a `pnpm install`. The demo lives in `packages/runtime/demo/` instead, covered by `test/demo-contract.test.ts` (12 tests). |
@@ -1341,7 +1341,7 @@ this pass.
 
 ---
 
-## 9. Repository hygiene — no secrets, and five files that must not ship
+## 9. Repository hygiene - no secrets, and five files that must not ship
 
 **`.env` and `.private/` are gitignored, verified rather than assumed:**
 
@@ -1374,7 +1374,7 @@ $ git log --oneline                       (as this section was first written)
   7d8f052 delete stray file export.mjs
   3d8a5c4 first commit
 
-$ git log --oneline                       (the tree today — two more have landed since)
+$ git log --oneline                       (the tree today - two more have landed since)
   60367a9 computer-use capability record/replay for legacy back-office apps
   9048027 docs: README, REPORT and evidence bundle for submission
   0cd98f9 LLM-discovered UI capabilities that replay without a model
@@ -1393,7 +1393,7 @@ source change of §3. Two things it got wrong, and both are still true of the tr
 
 This document, `/README.md` and `/REPORT.md` are modified on top of that commit.
 
-### Files that had to be deleted — **done**
+### Files that had to be deleted - **done**
 
 All five scratch files whose first line was `// DELETE THIS FILE.` were tracked and would have
 shipped. They are now removed from the index and from disk:
@@ -1408,7 +1408,7 @@ git rm packages/conformance/.corpora.mts         #    430 B, a throwaway kill-ma
 git rm packages/runtime/.ovcount.mts             #    398 B, a throwaway overlay-count driver.
 ```
 
-`pnpm lint` reads **313** files as a result — 318 minus the five.
+`pnpm lint` reads **313** files as a result - 318 minus the five.
 
 Gitignored, so they will not ship, but they are on disk:
 
@@ -1419,7 +1419,7 @@ rm -rf packages/core/.scratch/           # probe.ts (1,326 B) + probe2.ts (798 B
 rm -rf .scratch/ packages/conformance/.scratch/   # 107 + 1 working files, read by no test, lint or
                                          # contract scan. Includes three `pnpm discover --dry-run`
                                          # bundles, all `adapter: "replay"`, `synthetic: true`,
-                                         # `$0.00` — none of them a live call.
+                                         # `$0.00` - none of them a live call.
 ```
 
 `/.exports.mjs`, the fifth entry on the previous revision's list, was removed by commit `7d8f052`
@@ -1432,14 +1432,14 @@ are all gitignored and none is tracked.
 because those files are named by the digest of a journal carrying that run's own timestamps. That is
 expected; `git status` after a clean run shows 8 of each.
 
-**What was not expected — and is now enforced rather than asked for.** The previous revision of this
+**What was not expected - and is now enforced rather than asked for.** The previous revision of this
 section ended *"Run the demo once, alone, immediately before committing, and check that number"*,
 after two concurrent `pnpm demo` processes produced a bundle that reported 73 files, then 75, with
 up to four journals in a directory that should hold one. That mitigation was a sentence in a design
 document. It is now a lock and an audit, and both defects behind the moving number were reproduced
 before they were fixed.
 
-**Defect 1 — two demos at once.** `clearOwned()` runs once, at the start, and every blob is named by
+**Defect 1 - two demos at once.** `clearOwned()` runs once, at the start, and every blob is named by
 the digest of its own contents, so a second process deletes nothing of the first's and adds a second
 journal blob to every scenario directory. Reproduced deliberately, against a scratch bundle:
 
@@ -1453,10 +1453,10 @@ $ two `pnpm demo` processes against one bundle, started 0.2s apart
 **Both processes printed `DEMO OK` and exited 0 over a bundle that describes neither run.** The
 count was the symptom; the disease was a self-check that could not see the other writer.
 
-**Defect 2 — a run pointed somewhere else still wrote here.** `cliReplay()` passed the shipped
+**Defect 2 - a run pointed somewhere else still wrote here.** `cliReplay()` passed the shipped
 binary seven repo-relative `evidence/…` paths while every other writer in the demo honoured
-`CRR_DEMO_EVIDENCE_DIR`. So a demo run against a scratch directory — the documented way to exercise
-the `discovery-live` guard, `docs/design/LIVE-RUN-READINESS.md` §5.1 — wrote its journal blob into
+`CRR_DEMO_EVIDENCE_DIR`. So a demo run against a scratch directory - the documented way to exercise
+the `discovery-live` guard, `docs/design/LIVE-RUN-READINESS.md` §5.1 - wrote its journal blob into
 the **committed** bundle. The two scratch runs above left `evidence/cli-replay/observations/` holding
 **three** journal blobs and the tracked bundle at **67 files**, which is very likely where one of the
 numbers in the previous revision came from. Fixed by deriving every one of those paths from the
@@ -1467,7 +1467,7 @@ bundle directory; `relative(REPO, …)` reproduces the old strings exactly when 
 `runtime/test/demo-integrity.test.ts`, plus 3 source scans added to `test/demo-contract.test.ts`).**
 
 - **A lock**, `O_CREAT | O_EXCL` on a file in the system temp directory named by the digest of the
-  bundle's absolute path — *outside* the bundle, because a file count that depends on whether a lock
+  bundle's absolute path - *outside* the bundle, because a file count that depends on whether a lock
   file was present is the bug this removes. A second demo refuses to start and names the pid holding
   it; a lock left by a killed run is taken over after checking the pid is gone.
 - **An audit**, which is the half that catches the class rather than the cause: every blob directory
@@ -1496,11 +1496,11 @@ $ a stray blob planted in discovery-live/verification-evidence/
 **What is still not reproducible, and is reported rather than fixed.** The bundle's *file set* is now
 stable; its *bytes* are not, and two of the reasons are structural. A journal blob is named by the
 digest of a journal carrying that run's own timestamps, so its name changes every run by
-construction — a journal is a time series of one run and content-addressing it is correct. The
+construction - a journal is a time series of one run and content-addressing it is correct. The
 frozen `Observation` blobs churn too, and that one is a finding: across five runs, the app-error
 screen produced four different digests, differing only in a node id (`structure:f2-3` against
 `structure:f2-4`). The id is `<role>:f<frame>-<AX nodeId>` and a CDP AX node id is a per-document
-counter the browser owns, which `normalize.ts` already says out loud — *"emphatically NOT an
+counter the browser owns, which `normalize.ts` already says out loud - *"emphatically NOT an
 identity"*. The consequence is worth writing down because `evidence.ts`'s own header claims the
 opposite benefit: *"two runs that failed on the same screen write one file, and a conformance corpus
 assembled from real failures deduplicates itself."* **Between browser sessions, they do not
@@ -1509,7 +1509,7 @@ correlation with the blob it names, so the honest answer is the one taken here: 
 
 Two files in the live bundle were from the same class of accident and are now **removed**:
 `evidence/discovery-live/verification-evidence/journal-a3351e3f….json` and `journal-f43258ec….json`
-were left over from earlier attempts of the run — `verification.json` references only
+were left over from earlier attempts of the run - `verification.json` references only
 `journal-e95e0286….json`. They were clean (canary pass 2 scanned all five files, 0 hits) and inert,
 but they were two observation dumps nothing in the bundle pointed at, in the directory a reviewer
 reads most carefully. `git rm` plus a re-run of `pnpm demo` rewrote `MANIFEST.json`; the bundle is
@@ -1524,15 +1524,15 @@ than asserted: `git ls-files README.md REPORT.md | wc -l` → 2, `git ls-files e
 (An earlier revision of this line said `/README.md` was untracked. It was committed by `9048027`,
 and §9 already recorded that; this line had not been updated to match.)
 
-- **`/README.md` — PRESENT** and committed. Must cover setup, config/keys, how to run without
+- **`/README.md` - PRESENT** and committed. Must cover setup, config/keys, how to run without
   live services, and a demo path. Non-negotiable content from this pass:
-  `pnpm install` → `pnpm -F @crr/surface-browser exec playwright install chromium` (**once, and not optional — §1: 46 tests
+  `pnpm install` → `pnpm -F @crr/surface-browser exec playwright install chromium` (**once, and not optional - §1: 46 tests
   silently skip without it**) → `pnpm demo`, which produces all of `/evidence/` with no live service
   and exits non-zero if any scenario misses its declared arm or the canary finds a parameter value.
   Plus the `agent-sdk`-is-dev-only warning, and the two commands that bracket the one that costs
   money: `pnpm preflight`, then `pnpm discover --dry-run`, and only then `pnpm discover --yes`.
-- **`/REPORT.md` — PRESENT** and committed. Seven headings, exactly.
-- **`/evidence/` — PRESENT** and committed, 65 files (~1.17 MB; see §6 on why the byte total is
+- **`/REPORT.md` - PRESENT** and committed. Seven headings, exactly.
+- **`/evidence/` - PRESENT** and committed, 65 files (~1.17 MB; see §6 on why the byte total is
   not a fixed number), **including the live discovery run**.
 
 ---
@@ -1543,7 +1543,7 @@ Where a claim in the previous revision of this document could not be reproduced,
 found instead.
 
 > **READ THIS AS A DATED LEDGER, NOT AS THE CURRENT BOARD.** Every item below records what one pass
-> measured on the day it ran, and three of the figures have moved since — which is the point of
+> measured on the day it ran, and three of the figures have moved since - which is the point of
 > keeping the ledger rather than overwriting it. Items 7, 8, 10 and 15 quote **1,843 tests / 103
 > files**, **`pnpm lint` 313**, and **1,797 without a browser**. The tree today measures **1,921 /
 > 105**, **317**, and **1,875**; §1, §2 and §7.2 carry those numbers with the commands that produced
@@ -1562,7 +1562,7 @@ found instead.
    this pass's brief as a live gap.** It was closed before the live run. The live contract offers
    `memberId`, and `report.json` records `"namedFrom": "adjacent-label"`. §7.11.
 3. **"`U` is assumed rather than measured" is closed.** 171 output tokens per turn, measured. And
-   the assumption it replaces was 800 — 4.7× high. §3.2.
+   the assumption it replaces was 800 - 4.7× high. §3.2.
 4. **"Six of the nine mutants are caught by at least one false success" is wrong; it is eight of
    nine.** Recounted off this pass's matrix: only `noAssert` is caught purely by a
    misclassification. The 17/13 split is unchanged.
@@ -1595,20 +1595,20 @@ found instead.
     is twice synthesis's (4) and it is the canary that gates (§7.3); two concurrent `pnpm demo`
     runs interleave `clearOwned()` and leave both runs' observation files behind (§9);
     `MANIFEST.json` names two of its three exclusions (§7.15).
-14. **The tree was committed underneath this pass**, at 20:06:55, by a concurrent agent —
+14. **The tree was committed underneath this pass**, at 20:06:55, by a concurrent agent -
     `0cd98f9`, 71 files. It captured the live run and every source change of §3; it also captured
     one of this pass's throwaway drivers and missed `/README.md`. Both are §9's first two items. A
     consequence for anyone reading the numbers here: `pnpm lint` reported 318 rather than 313, and
     the demo bundle briefly reported 73 and 75 files before a clean single run settled it at 67.
     Every number in this document was taken from a command run in this tree; where a concurrent
     process moved one, the discrepancy is named at the site rather than averaged away.
-15. **Everything else in §§1–8 that this pass re-ran, reproduced cell for cell.** 1,843 tests green
+15. **Everything else in §§1-8 that this pass re-ran, reproduced cell for cell.** 1,843 tests green
     with the four credential variables unset; `pnpm build` 8/8; `pnpm typecheck` 14/14; `pnpm demo`
     7/7 with both canary passes CLEAN; the browser kill matrix, the terminal kill matrix, the
     combined matrix, the flake rate, the per-descriptor table, the settle sweep and the cross-tenant
     divergence table all identical to the previous revision's. What this pass did **not** re-verify
-    is the injection experiments §§4–7 describe — the mutant-deletion meta-test, the four-way dialog
-    matrix, the three heterogeneity injections, the `stableSamples` revert — nor `pnpm preflight`
+    is the injection experiments §§4-7 describe - the mutant-deletion meta-test, the four-way dialog
+    matrix, the three heterogeneity injections, the `stableSamples` revert - nor `pnpm preflight`
     and `pnpm discover --dry-run`, which are the author's commands. Where a section leans on one, it
     says so.
 
@@ -1634,20 +1634,20 @@ three typed outputs. That artifact **replayed itself with no model in the decisi
 descriptor sets agreeing on every target, four checkpoints holding, three policy decisions granted,
 and the caller's argument reaching the surface as `taint:memberId-1` with a length and no value.
 Only then did it become a `draft`. **The promotion is the result of a replay, not a field somebody
-set** — that one sentence is the whole design.
+set** - that one sentence is the whole design.
 
 **And the things that only reality could teach.** Two of the three live attempts failed, and both
 failures were in code the entire local suite declared correct: a tool schema that is valid JSON Schema
 and refused under `strict: true`, and our own `z.strictObject` applied to a schema we do not own, on
-a path where the money was already spent. A third defect — the model's prose about a member's name
-and balance landing in a committed report — was caught by the canary, and its fix
+a path where the money was already spent. A third defect - the model's prose about a member's name
+and balance landing in a committed report - was caught by the canary, and its fix
 (`withhold, never edit`) is the most interesting piece of data handling in the repository, because
 it marks the exact boundary where parameterization stops working. A fourth was a redaction check
 crying wolf fourteen times over `0.014200999999999998`.
 
 **Not proved, and it is the honest headline:** any of this on an application we did not write. The
 fixture is ours, the faults are the ones we thought to inject, and the flake rate is measured
-against a clock we control. The provider is the one thing in the loop that was not — and it broke us
+against a clock we control. The provider is the one thing in the loop that was not - and it broke us
 twice.
 
 **Do not read the green board as completeness.** 46 tests are browser-conditional and skip

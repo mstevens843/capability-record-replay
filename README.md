@@ -5,30 +5,31 @@ a typed, versioned, parameterized capability. From then on the capability replay
 the decision path, and an AI agent invokes it by name with typed arguments.**
 
 The target environment is the long tail of core-banking screens, servicing tools and admin consoles
-at US banks and credit unions that expose no API at all — server-rendered framesets, nested layout
+at US banks and credit unions that expose no API at all - server-rendered framesets, nested layout
 tables, generated element ids, no test ids, and a green-screen teller app behind some of them. The
-UI is stable; the *runtime* is not. A capability that only works on the happy path is useless there,
-so the load-bearing part of this system is not the step list — it is the declared mapping from what
-the screen shows to what the caller is told: `MEMBER_NOT_FOUND` is a **typed answer**, a maintenance
+UI is stable; the *runtime* is not. A capability that only works on the happy path is not enough.
+The important part is not the step list. It is the declared mapping from what the screen shows to
+what the caller is told: `MEMBER_NOT_FOUND` is a **typed answer**, a maintenance
 interstitial is a **bounded remedy**, and an application error page is a **stop** that names the
 step, the expectation and the observation. The design write-up is [REPORT.md](./REPORT.md); this
 file is how to run it.
 
 For review, start with [docs/FINAL-REVIEWER-GUIDE.md](./docs/FINAL-REVIEWER-GUIDE.md). The
 assignment-to-evidence map is [docs/REQUIREMENT-TRACE.md](./docs/REQUIREMENT-TRACE.md), and
-[`scripts/reviewer-check.sh`](./scripts/reviewer-check.sh) runs the no-provider verification path.
+[`scripts/reviewer-check.sh`](./scripts/reviewer-check.sh) runs the no-provider verification path,
+including the build step a clean clone needs before package-level typechecks.
 
 ---
 
 > [!WARNING]
 > **What is not proven, first.**
 >
-> - **Every robustness number in this repository was measured against a fixture I wrote myself.**
+> - **Every reliability number in this repository was measured against a fixture I wrote myself.**
 >   `fixtures/corebank-web` and `fixtures/corebank-tui` are deliberately hostile, but they are mine,
 >   and a fixture you control cannot surprise you the way a real vendor app does. Zero flake over
 >   20 runs bounds hidden state in the engine; it is not a reliability claim about production.
 > - **One live discovery run, one goal, one application, one model.** Nine turns and $0.14. It is
->   real and its full recording is committed — it is not a sample size.
+>   real and its full recording is committed - it is not a sample size.
 > - **Four of the nine mutant replay engines survive the green-screen corpus**, each for a reason
 >   that is a property of that surface and is written down in the test. The 25-scenario browser
 >   corpus kills all nine on its own; the 14-scenario green-screen corpus kills five.
@@ -48,16 +49,16 @@ CLAUDE_CODE_OAUTH_TOKEN` prefixed, to prove it structurally rather than by inspe
 | Claim | Verdict | Command / receipt |
 | --- | --- | --- |
 | **A model really drove a real UI to a goal.** `claude-opus-5`, adapter `anthropic`, 9 turns, `reached-goal`, **42,368 billed tokens**, **$0.140904** | **measured, once** | `cat evidence/discovery-live/provenance.json` · full transcript in `evidence/discovery-live/transcript.json` |
-| **The 55.4% cache hit rate on that run is a warm-start figure, not a cold-start one.** All nine turns report `cacheCreationInputTokens: 0` and read a 2,512-token prefix, so the prefix was already warm from the attempt before it. A first run would show a lower rate and a cache-write charge | **measured, and flattered — read it as an upper bound** | `python3 -c "import json;[print(t['response']['usage']) for t in json.load(open('evidence/discovery-live/transcript.json'))['turns']]"` |
+| **The 55.4% cache hit rate on that run is a warm-start figure, not a cold-start one.** All nine turns report `cacheCreationInputTokens: 0` and read a 2,512-token prefix, so the prefix was already warm from the attempt before it. A first run would show a lower rate and a cache-write charge | **measured, upper bound** | `python3 -c "import json;[print(t['response']['usage']) for t in json.load(open('evidence/discovery-live/transcript.json'))['turns']]"` |
 | **The artifact synthesized from that run replayed with the model out of the decision loop**, graded `full`, and only then became a `draft` | **measured** | `cat evidence/discovery-live/verification.json` → `"modelInTheLoop": false`, `"status": "verified"`, `"grade": "full"` |
-| **Replay separates `ok` / business outcome / recoverable / hard failure with zero false successes**, and **9 of 9 deliberately weakened engines are killed** — 17 kills, **13 of them false successes** | **measured** | `pnpm -F @crr/conformance stability` → `25 scenarios: 25 passed, 0 failed, 0 FALSE SUCCESSES`, `every mutant was killed by at least one scenario`, exit 0 |
-| **The fallback-chain mutant (`nearestMatch`) is killed by 6 scenarios and every one is a false success** — the mutant told a caller a business outcome for a broken run | **measured** | same command, kill-matrix row `nearestMatch  04,06,08,09,15,21` |
+| **Replay separates `ok` / business outcome / recoverable / hard failure with zero false successes**, and **9 of 9 deliberately weakened engines are killed** - 17 kills, **13 of them false successes** | **measured** | `pnpm -F @crr/conformance stability` → `25 scenarios: 25 passed, 0 failed, 0 FALSE SUCCESSES`, `every mutant was killed by at least one scenario`, exit 0 |
+| **The fallback-chain mutant (`nearestMatch`) is killed by 6 scenarios and every one is a false success** - the mutant told a caller a business outcome for a broken run | **measured** | same command, kill-matrix row `nearestMatch  04,06,08,09,15,21` |
 | **Replay is deterministic over the corpus**: 25 scenarios × 20 runs, flake rate 0.0%, 0 result documents that were not byte-identical | **measured, on a fixture I wrote** | same command |
 | **4 of 9 mutants survive the terminal corpus** (`noAssert`, `noSettleGate`, `noContinuity`, `noProvenance`), each with a written reason asserted by the test | **limitation, reported not hidden** | `pnpm -F @crr/conformance exec vitest run test/terminal-conformance.test.ts` → 10 passed |
 | **The whole repository builds and tests with zero credentials.** 2,032 tests, 8 workspace members | **measured** | `env -u … TURBO_FORCE=1 pnpm test` → `Tasks: 14 successful, 14 total`, exit 0 |
 | **`pnpm demo` produces the main replay evidence bundle with no live service**, all three arms of the taxonomy exhibited, redaction canary clean on both passes | **measured** | `env -u … pnpm demo` → seven `PASS` lines, `whole-bundle canary pass: CLEAN - 278 files, 0 hits`, `DEMO OK`, exit 0 |
-| **The bundle `pnpm demo` produces is integrity-audited every run.** The count is no longer narrated — the run compares it against an independent walk of the finished directory, and fails on any blob no run in the bundle claims | **measured, verified by injection** | latest `env -u … pnpm demo` → `278 files`, `7 blob directories checked, every file accounted for`, `DEMO OK`, exit 0; planting one stray blob gives `BUNDLE INTEGRITY FAILED - 2 stray blob(s)`, `DEMO FAILED`, exit 1 |
-| **The engine cannot read a clock, do I/O, or import a driver, and no package above the drivers contains CSS vocabulary** — read off disk, not asserted | **measured, verified by injection** | `pnpm -F @crr/core exec vitest run test/purity.test.ts test/no-locator-vocabulary.test.ts test/policy-chokepoint.test.ts` → 44 passed |
+| **The bundle `pnpm demo` produces is integrity-audited every run.** The run checks its printed count against an independent walk of the finished directory, and fails on any blob no run in the bundle claims | **measured, verified by injection** | latest `env -u … pnpm demo` → `278 files`, `7 blob directories checked, every file accounted for`, `DEMO OK`, exit 0; planting one stray blob gives `BUNDLE INTEGRITY FAILED - 2 stray blob(s)`, `DEMO FAILED`, exit 1 |
+| **The engine cannot read a clock, do I/O, or import a driver, and no package above the drivers contains CSS vocabulary** - read off disk, not asserted | **measured, verified by injection** | `pnpm -F @crr/core exec vitest run test/purity.test.ts test/no-locator-vocabulary.test.ts test/policy-chokepoint.test.ts` → 44 passed |
 | **The spend cap stops a run before it starts. It has never bound *mid-run*.** The between-turns guard fires on the projection, demonstrated free at the turn-0 boundary; it has no unit test and no run has ever crossed it at turn *n* | **partially proven** | `pnpm discover --dry-run --force --max-usd 0.02` → `status budget-exhausted`, `$0.0000 has been billed and turn 1 projects to at most $0.06 … which would cross the $0.02 ceiling`, exit 1 |
 | **Every file in the live bundle is covered by a gating canary pass, and the files that describe the run rather than record it are grepped for member data.** A fifth gating pass (`5 metadata`) takes its scope as the complement of the other four, so `provenance.json`, `spend.json` and the bundle README are covered and a file added later is covered by default | **measured, verified by injection** | `pnpm -F @crr/discovery exec vitest run test/canary-scopes.test.ts` → 56 passed; injecting the pre-fix `finish.summary` into a copy of `provenance.json` fails the pass naming the file and both needles, and restoring the bytes passes it |
 | **`contract.outcomes` on the live artifact is `[]`.** Synthesis will not invent a detector for a screen the run never observed, so the model's proposed outcome rides in the report as a review item instead | **deliberate, and a real gap in the shipped capability** | `python3 -c "import json;print(json.load(open('evidence/discovery-live/synthesized/contract.json'))['outcomes'])"` |
@@ -70,7 +71,7 @@ Node 22 (`engines: >=20 <25`), pnpm 10. Verified on `node v22.22.1` / `pnpm 10.3
 
 ```bash
 pnpm install
-pnpm -F @crr/surface-browser exec playwright install chromium   # once — see the note below
+pnpm -F @crr/surface-browser exec playwright install chromium   # once - see the note below
 pnpm demo
 ```
 
@@ -127,8 +128,8 @@ From the repo root, `pnpm exec playwright …` fails with `Command "playwright" 
 `npx playwright …` fails with `sh: playwright: command not found`. Use the scoped form above.
 
 **Without a Chromium build the test suite is still green, and that is a trap worth naming.** In the
-2026-08-29 measurement, 46 tests in the then-current suite skipped — including every test that had
-ever touched a real browser — and each guard printed a warning to stderr, but the board read green:
+2026-08-29 measurement, 46 tests in the then-current suite skipped - including every test that had
+ever touched a real browser - and each guard printed a warning to stderr, but the board read green:
 
 ```text
 $ env -u … PLAYWRIGHT_BROWSERS_PATH=<an empty dir> pnpm test
@@ -145,7 +146,7 @@ was not re-run in the 2026-08-30 write-boundary pass.
 
 ## The demo path
 
-### 1. Replay a capability — no model, no key, no credentials
+### 1. Replay a capability - no model, no key, no credentials
 
 This is the production path. `pnpm demo` leaves a signed, approved capability in
 [`evidence/artifact/`](./evidence/artifact); replay it yourself with the shipped CLI:
@@ -171,8 +172,8 @@ OK  run run-65efdee2-…  9/9 steps  1776ms
 exit 0
 ```
 
-Now run the **same command** with one argument changed to a member the core does not hold —
-`--args '{"memberId":"19999"}'` — and nothing else touched:
+Now run the **same command** with one argument changed to a member the core does not hold -
+`--args '{"memberId":"19999"}'` - and nothing else touched:
 
 ```text
 OUTCOME  run run-f4763909-…  2/9 steps  513ms
@@ -182,8 +183,8 @@ OUTCOME  run run-f4763909-…  2/9 steps  513ms
 exit 2
 ```
 
-**Exit `2` is the point of the whole system.** That is not an error. It is a typed business outcome
-the calling agent is expected to act on, and it is reported as one — the run stopped at step 2 of 9,
+**Exit `2` is the important distinction.** That is not an error. It is a typed business outcome
+the calling agent is expected to act on, and it is reported as one - the run stopped at step 2 of 9,
 nothing else was attempted, and the caller got prose it can say out loud. `0` is `ok`, `2` is a
 declared business outcome, `1` is anything else; a shell script has to be able to tell those apart.
 
@@ -203,7 +204,7 @@ exit 1
 ```
 
 That is fail-closed working, not a bug: a capability that guessed `MEMBER_NOT_FOUND` from a screen it
-had never been taught would be the single worst failure mode in this system (REPORT §3). `10046` is
+had never been taught would be a dangerous failure mode in this system (REPORT §3). `10046` is
 RESTRICTED and still returns `ok`, because the record-scoped denial the fixture can produce is
 likewise not in this artifact's declared outcome set. Both are the same rule as the verdict-table row
 about the live artifact's empty `contract.outcomes`: an outcome exists only where a person declared a
@@ -217,7 +218,7 @@ All fixture data is synthetic and marked `(SYNTHETIC)` on the screens themselves
 anywhere in `src/`, and a contract test in `@crr/core` fails if it ever does, so a green-screen
 factory drops into that flag unchanged.
 
-### 2. Run the agent on a goal — free, with the model's turns served from a VCR recording
+### 2. Run the agent on a goal - free, with the model's turns served from a VCR recording
 
 ```bash
 pnpm discover --dry-run
@@ -225,11 +226,11 @@ pnpm discover --dry-run
 
 This is the entire runner: the observe → decide → act loop, the policy chokepoint on every tool
 call, deterministic synthesis, the verification replay with the model out of the loop, and all five
-redaction canary passes (the committed live run predates the fifth — see the verdict table). The only substitution is the provider — turns come from a recorded
+redaction canary passes (the committed live run predates the fifth - see the verdict table). The only substitution is the provider - turns come from a recorded
 transcript instead of the Messages API. **`createAnthropicModel` is never constructed on this path,
 so no key is used and `$0.0000` is spent.** (`pnpm discover` loads `.env` in either mode and prints
 the variable *names* it set; in `--dry-run` nothing consumes them.) Output lands in
-`.scratch/discovery-dry-run/`, never in `evidence/` — `assertRealRecording` refuses to write a
+`.scratch/discovery-dry-run/`, never in `evidence/` - `assertRealRecording` refuses to write a
 synthetic transcript there even if you point `--out` at it.
 
 ```text
@@ -249,7 +250,7 @@ transcript is the one file in this repository that cannot be regenerated for fre
 ### 3. The parts the main `pnpm demo` bundle does not exhibit
 
 Core requirements below are real but not in the main demo bundle. `pnpm demo` keeps to one surface, one tenant
-and one READ capability on purpose — and the write flow specifically stays out because an
+and one READ capability on purpose - and the write flow specifically stays out because an
 irreversible capability's arguments include an amount the application prints back on its own
 confirmation screen, and the canary greps every byte of `evidence/` for parameter values. Loosening
 the canary to publish a nicer exhibit is the wrong trade. They have commands and supplemental
@@ -257,17 +258,17 @@ evidence generators instead:
 
 | Requirement | Command | Result |
 | --- | --- | ---: |
-| **Escalation & handoff** — detect stuck, raise an intervention with context, transfer the live session under a lease the executor enforces, re-verify on hand-back | `pnpm -F @crr/runtime exec vitest run test/escalation.test.ts` · `pnpm -F @crr/runtime exec tsx demo/handoff.ts` | 31 passed · 2 evidence scenarios |
-| **Multi-tenant reuse** — *one* artifact replayed green against two tenant variants of the same vendor product through a vocabulary overlay, with a cross-tenant divergence report | `pnpm -F @crr/runtime exec vitest run test/browser-overlay.test.ts` · `pnpm -F @crr/runtime exec tsx demo/multi-tenant-overlay.ts` | 4 passed · 3 evidence scenarios |
-| **Heterogeneity** — the same `activate` step lowered to `F3` on one tenant's green screen and `F12` on the other's, from an artifact that contains no key and no escape byte | `pnpm -F @crr/conformance exec vitest run test/heterogeneity.test.ts` | 14 passed |
-| **The irreversible boundary** — a real sub-account opened against the fixture in a real browser, the modal confirmation as the postcondition, committed exactly once; plus a dry run that stops at the boundary and does not perform it | `pnpm -F @crr/runtime exec vitest run test/browser-write.test.ts` | 10 passed |
-| **Approval write-boundary negatives** — absent, stale, wrong-scope and insufficient approvals stop before the irreversible dispatch; valid approval commits once; post-dispatch uncertainty is `effect-in-doubt` | `pnpm -F @crr/runtime exec vitest run test/write-boundary.test.ts` · `pnpm -F @crr/runtime exec tsx demo/write-boundary.ts` | 23 passed · 18 evidence scenarios |
-| **Role-vs-record denial split** — record denial is `MEMBER_RESTRICTED`, role denial is `entitlement-denied`, and an over-broad `Request Refused` detector is rejected | `pnpm -F @crr/runtime exec tsx test/evidence/semantic-denials.ts` | 3 evidence scenarios |
-| **Outcome promotion** — the path from a `needs-detector` review note to a business outcome a caller can act on: a human writes a detector, a pure proof over frozen screens refuses it unless it fires on the outcome screen and is silent on every other one, and the revision has to replay its happy path again | `pnpm -F @crr/core exec vitest run test/promotion.test.ts` · `pnpm -F @crr/runtime exec vitest run test/promote.test.ts` | 28 + 28 passed |
+| **Escalation & handoff** - detect stuck, raise an intervention with context, transfer the live session under a lease the executor enforces, re-verify on hand-back | `pnpm -F @crr/runtime exec vitest run test/escalation.test.ts` · `pnpm -F @crr/runtime exec tsx demo/handoff.ts` | 31 passed · 2 evidence scenarios |
+| **Multi-tenant reuse** - *one* artifact replayed green against two tenant variants of the same vendor product through a vocabulary overlay, with a cross-tenant divergence report | `pnpm -F @crr/runtime exec vitest run test/browser-overlay.test.ts` · `pnpm -F @crr/runtime exec tsx demo/multi-tenant-overlay.ts` | 4 passed · 3 evidence scenarios |
+| **Heterogeneity** - the same `activate` step lowered to `F3` on one tenant's green screen and `F12` on the other's, from an artifact that contains no key and no escape byte | `pnpm -F @crr/conformance exec vitest run test/heterogeneity.test.ts` | 14 passed |
+| **The irreversible boundary** - a real sub-account opened against the fixture in a real browser, the modal confirmation as the postcondition, committed exactly once; plus a dry run that stops at the boundary and does not perform it | `pnpm -F @crr/runtime exec vitest run test/browser-write.test.ts` | 10 passed |
+| **Approval write-boundary negatives** - absent, stale, wrong-scope and insufficient approvals stop before the irreversible dispatch; valid approval commits once; post-dispatch uncertainty is `effect-in-doubt` | `pnpm -F @crr/runtime exec vitest run test/write-boundary.test.ts` · `pnpm -F @crr/runtime exec tsx demo/write-boundary.ts` | 23 passed · 18 evidence scenarios |
+| **Role-vs-record denial split** - record denial is `MEMBER_RESTRICTED`, role denial is `entitlement-denied`, and an over-broad `Request Refused` detector is rejected | `pnpm -F @crr/runtime exec tsx test/evidence/semantic-denials.ts` | 3 evidence scenarios |
+| **Outcome promotion** - the path from a `needs-detector` review note to a business outcome a caller can act on: a human writes a detector, a pure proof over frozen screens refuses it unless it fires on the outcome screen and is silent on every other one, and the revision has to replay its happy path again | `pnpm -F @crr/core exec vitest run test/promotion.test.ts` · `pnpm -F @crr/runtime exec vitest run test/promote.test.ts` | 28 + 28 passed |
 
 #### Promoting an outcome, in the order a person does it
 
-Synthesis emits `contract.outcomes: []` and refuses to invent a detector — a detector for a screen
+Synthesis emits `contract.outcomes: []` and refuses to invent a detector - a detector for a screen
 the run never observed is exactly how a false `MEMBER_NOT_FOUND` ships. `crr promote` is the other
 half: the reviewer writes the detector, and the machine makes them prove it. **Nothing in this path
 reaches a model**, and no step of it spends a credential.
@@ -308,7 +309,7 @@ crr approve v2/artifact.json --sign-key ops-key-1:approver.pem --approver ops-ap
 against the browser fixture, a detector a reviewer wrote, a proof that **refused the reviewer's first
 attempt**, `contract@2.0.0` + `artifact@2`, the re-verification replay, and the invocation that comes
 back `OUTCOME MEMBER_NOT_FOUND` (exit 2) where v1 came back `failed / checkpoint-failed`. Its
-`README.md` names a producer for every file — model, reviewer, or deterministic code — and the four
+`README.md` names a producer for every file - model, reviewer, or deterministic code - and the four
 defects the exercise found in this repository's own code. `evidence/artifact/` is untouched and its
 outcome is still `origin: "hand-authored"`, which `crr show` and `crr link` print as `UNPROVEN`. See
 `REPORT.md` §7 and `docs/design/OUTCOME-PROMOTION.md`.
@@ -335,7 +336,7 @@ pnpm codegen --store .scratch/store --out .scratch/generated
 ## The live discovery run
 
 **It already happened, and the whole recording is committed.** You do not need to repeat it to grade
-this submission — read [`evidence/discovery-live/`](./evidence/discovery-live). If you want to
+this submission - read [`evidence/discovery-live/`](./evidence/discovery-live). If you want to
 repeat it, it costs about fifteen cents.
 
 | | |
@@ -345,8 +346,8 @@ repeat it, it costs about fifteen cents.
 | turns | 9, status `reached-goal` |
 | usage | 18,220 input · 1,540 output · 22,608 cache-read · **0 cache-write** |
 | spend | **$0.140904**, 42,368 billed tokens, against a `--max-usd` cap of $2.00 |
-| cache | 55.4% hit rate — **warm-start.** Every turn reports `cacheCreationInputTokens: 0`, so the prefix was populated by the failed attempt before this one. A cold run pays the write and reads a lower rate. |
-| outcome | synthesized artifact **replayed with the model out of the loop**, graded `full`, saved as `draft`; canary passes 1–3 clean, pass 4 reported and not gated. The run predates the fifth pass, which was added afterwards and re-run over this bundle: **CLEAN**, 3 files, 27 needles, 0 hits |
+| cache | 55.4% hit rate - **warm-start.** Every turn reports `cacheCreationInputTokens: 0`, so the prefix was populated by the failed attempt before this one. A cold run pays the write and reads a lower rate. |
+| outcome | synthesized artifact **replayed with the model out of the loop**, graded `full`, saved as `draft`; canary passes 1-3 clean, pass 4 reported and not gated. The run predates the fifth pass, which was added afterwards and re-run over this bundle: **CLEAN**, 3 files, 27 needles, 0 hits |
 
 `measuredUsd` is this repository's arithmetic over the token counts the provider returned, at the
 rates in `packages/discovery/tools/live-run.ts`. It is not an invoice; the provider's console is the
@@ -354,11 +355,11 @@ authority.
 
 **It took three attempts, and only one of the two failures was free:**
 
-1. **$0.00.** The provider rejected the tool schema under `strict: true` —
+1. **$0.00.** The provider rejected the tool schema under `strict: true` -
    `Enum value 'Enter' does not match declared type '["string","null"]'`. Valid JSON Schema; a union
    `type` array combined with an `enum` is refused. The request never reached the model. Fixed with
    `anyOf`.
-2. **Billed, and this repository cannot say how much.** `ZodError: unrecognized_keys: ["caller"]` —
+2. **Billed, and this repository cannot say how much.** `ZodError: unrecognized_keys: ["caller"]` -
    we were strict-validating the provider's *response* schema, which we do not own, and a field had
    been added upstream. A parse error on a response means the response existed and was paid for, but
    the ledger only records turns it managed to parse, so **that run's `spend.json` says $0.00 while
@@ -371,7 +372,7 @@ Both attempts wrote their transcript and spend ledger and exited non-zero, becau
 path was built before the run.
 
 Neither failed attempt survives in `evidence/`: the successful run wrote over the same destination.
-What survives is the property that made them cheap — a run that dies mid-flight still writes its
+What survives is the property that made them cheap - a run that dies mid-flight still writes its
 transcript, its spend ledger and its provenance, and still exits non-zero. That is pinned by
 `pnpm -F @crr/discovery exec vitest run test/loop-failure.test.ts` → 18 passed, including *"writes a
 transcript with no turns, but with the prompt, when turn 1 itself failed"*.
@@ -389,7 +390,7 @@ request the runner will send without sending it, prices it on two models, prints
 allowlist, exercises the chokepoint against an off-allowlist route, and says where the recording
 would land. It never constructs `createAnthropicModel`, reads `ANTHROPIC_API_KEY` only to check its
 *shape*, and counts tokens locally rather than calling `messages.countTokens`, which would itself be
-a request to the provider. **It has no automated test** — it is exercised by hand, and the output
+a request to the provider. **It has no automated test** - it is exercised by hand, and the output
 below is a transcript of that, not a fixture. Both halves were re-run after the live discovery run
 landed, which is why both now carry the `transcript.json already exists` warning: the recorder will
 not silently overwrite a committed run, and it says so before you spend anything.
@@ -422,7 +423,7 @@ ANTHROPIC_API_KEY=sk-ant-...
 CRR_MODEL=claude-opus-5        # optional; this is the default
 ```
 
-**`.env` is read by exactly one file in the repository** — `loadDotEnv` in
+**`.env` is read by exactly one file in the repository** - `loadDotEnv` in
 `packages/discovery/tools/discover.ts`. It is on no barrel, imported by no library module, and it
 announces the variable *names* it set and never a value. An already-set shell variable always wins.
 Nothing under `packages/` or `fixtures/` loads it. `pnpm preflight` does not read it at all.
@@ -434,18 +435,18 @@ and spend ledger on every exit path including the failing ones.
 
 ### Providers
 
-- **`anthropic` — ships.** A hand-written tool-use loop against the Messages API, not the SDK's
+- **`anthropic` - ships.** A hand-written tool-use loop against the Messages API, not the SDK's
   `toolRunner`: every tool call has to pass the policy chokepoint and be journaled, and
   `disable_parallel_tool_use` is set because a computer-use loop must observe the consequence of one
   action before choosing the next.
-- **`openai` — real adapter, 26 tests, not wired to the CLI.** `pnpm discover` is Anthropic-only.
+- **`openai` - real adapter, 26 tests, not wired to the CLI.** `pnpm discover` is Anthropic-only.
   `createOpenAIModel` throws unless a model id is supplied, on purpose. So "the loop is not
-  provider-coupled" is a claim about the port, tested at the port — **not a measured second live run.**
-- **`agent-sdk` — a name in the adapter enum with no implementation.** It was considered as a
+  provider-coupled" is a claim about the port, tested at the port - **not a measured second live run.**
+- **`agent-sdk` - a name in the adapter enum with no implementation.** It was considered as a
   zero-marginal-cost development path and dropped: it would run Claude Code's loop rather than ours,
   so it validates none of our prompt shape, tool schemas, observation serialization or stopping
   conditions. Nothing in `evidence/` could have come from it.
-- **`replay` (VCR) — how the loop is tested with no key at all.** Every discovery run through any
+- **`replay` (VCR) - how the loop is tested with no key at all.** Every discovery run through any
   adapter records its full transcript; the replay adapter serves it back deterministically. That is
   why `pnpm test` passes with zero credentials and why `pnpm discover --dry-run` exists.
 
@@ -453,13 +454,13 @@ and spend ledger on every exit path including the failing ones.
 
 ## What is in `evidence/`
 
-Start with [`evidence/README.md`](./evidence/README.md) — it is generated by the run that produces
+Start with [`evidence/README.md`](./evidence/README.md) - it is generated by the run that produces
 the bundle, and it names which adapter produced every directory.
 
 | Directory | What it is | Model in the loop? |
 | --- | --- | --- |
-| [`discovery-live/`](./evidence/discovery-live) | The real discovery run: transcript, journal, spend ledger, provenance, the synthesized documents, the self-verification replay, and the four canary passes the run itself performed | **yes** — the only thing in the bundle a model produced |
-| [`artifact/`](./evidence/artifact) | The capability under replay: `contract.json`, `artifact.json`, the allowlist, the approver's public key | no — hand-authored, and it says so |
+| [`discovery-live/`](./evidence/discovery-live) | The real discovery run: transcript, journal, spend ledger, provenance, the synthesized documents, the self-verification replay, and the four canary passes the run itself performed | **yes** - the only thing in the bundle a model produced |
+| [`artifact/`](./evidence/artifact) | The capability under replay: `contract.json`, `artifact.json`, the allowlist, the approver's public key | no - hand-authored, and it says so |
 | `replay-01-green/` | The nine-step flow, no fault armed → `ok` with typed outputs | no |
 | `replay-02-outcome-member-not-found/` | The core holds no such member → `outcome MEMBER_NOT_FOUND` | no |
 | `replay-03-recovered-interstitial/` | A declared maintenance modal, dismissed inside its budget → `ok` | no |
@@ -468,7 +469,7 @@ the bundle, and it names which adapter produced every directory.
 | [`masked-capture/`](./evidence/masked-capture) | A screenshot with three regions bound to sensitive fields blanked *before the bytes left the driver* | no |
 | [`cli-replay/`](./evidence/cli-replay) | The same replay through the shipped CLI, so one transcript is reproducible verbatim | no |
 | [`redaction-canary/`](./evidence/redaction-canary) | What the canary searched for, in what encodings, and what it could not search for | no |
-| [`outcome-promotion/`](./evidence/outcome-promotion) | A reviewer walking the live run's artifact from `outcomes: []` to a proven `MEMBER_NOT_FOUND`: the probes, the refused first attempt, the proof, `contract@2.0.0`, the re-verification, and the invocation that returns the typed arm | no — it starts from two documents the live run produced and nothing else in it came from a model |
+| [`outcome-promotion/`](./evidence/outcome-promotion) | A reviewer walking the live run's artifact from `outcomes: []` to a proven `MEMBER_NOT_FOUND`: the probes, the refused first attempt, the proof, `contract@2.0.0`, the re-verification, and the invocation that returns the typed arm | no - it starts from two documents the live run produced and nothing else in it came from a model |
 | [`write-boundary/`](./evidence/write-boundary) | No approval, dry run, valid approval, rejected approvals, policy refusal, idempotency repeat, and effect-in-doubt at the irreversible boundary | no |
 | [`semantic-denials/`](./evidence/semantic-denials) | Record-scoped denial as `MEMBER_RESTRICTED`, role-scoped denial as `entitlement-denied`, and a rejected over-broad detector | no |
 | [`handoff/`](./evidence/handoff) | Same-session human handoff: intervention context, lease claim, stale automation refusal before dispatch, policy-checked human action, safe resume and refused handback | no |
@@ -486,26 +487,26 @@ no reproduction step attached to it.
 `verification.json` for the replay that promoted the artifact to `draft` with `modelInTheLoop:
 false`; `synthesized/` for the three documents synthesis emitted, and `synthesized/report.json` for
 everything synthesis refused to decide without a person. `canary/report.txt` is worth two minutes on
-its own: passes 1–3 gate the exit code, pass 4 is **reported and not gated** and lists, with line
-numbers, every place the member number legitimately appears in the recording — the model was told
+its own: passes 1-3 gate the exit code, pass 4 is **reported and not gated** and lists, with line
+numbers, every place the member number legitimately appears in the recording - the model was told
 the number, typed it, and was shown it echoed back. A recording that did not contain it would be a
 recording of a different conversation.
 
-That report has **four** passes because the run that wrote it predates the fifth. `5 metadata` —
+That report has **four** passes because the run that wrote it predates the fifth. `5 metadata` -
 `provenance.json`, `spend.json` and the bundle README grepped for member data, gated, with its scope
-taken as the complement of the other four — was added afterwards and re-run over this bundle:
+taken as the complement of the other four - was added afterwards and re-run over this bundle:
 **CLEAN**, 3 files, 10,131 bytes, 27 needles, 0 hits, self-test 27/27. The scopes live in
 `packages/discovery/tools/canaries.ts` as data rather than as closures inside the runner, which is
 what lets `packages/discovery/test/canary-scopes.test.ts` ask, of every path in this bundle, which
 gating pass reads it.
 
 **Three real leaks were caught by tooling rather than by review**, and they are the reason the canary
-gates the build: two in synthesis (a table cell's accessible name folded into `flow.vocabulary` — on
-a legacy grid the cell's name *is* the value — and `std.text@1` lowercasing delivered values), and
+gates the build: two in synthesis (a table cell's accessible name folded into `flow.vocabulary` - on
+a legacy grid the cell's name *is* the value - and `std.text@1` lowercasing delivered values), and
 one in the synthesis *report*, where the model's own prose about what it saw carried member data.
 `artifact.json` and `contract.json` were clean throughout: parameterization held on the documents
 that get committed, diffed and signed. The canary also produced one instructive false positive that
-turned out to be a real bug — 14 reported "leaks" in `spend.json` were IEEE-754 noise
+turned out to be a real bug - 14 reported "leaks" in `spend.json` were IEEE-754 noise
 (`"turnUsd": 0.014200999999999998`). Money was being serialized as a float artifact; it is rounded
 to the microdollar at record time now.
 
@@ -518,7 +519,7 @@ drawn on **purity**, not subject matter, because that is the boundary a contract
 
 | Member | One line | Tests |
 | --- | --- | ---: |
-| `packages/core` | The schema and validators, canonical JSON + SHA-256 digest, the 29-check linker, the classifier, the target resolver, the extractor, the overlay merge, the policy predicate, the **detector discrimination proof**, and the prose renderers. **Zero I/O, zero clock, zero randomness, zero driver imports — checked by a source-scanning test, verified by injecting a real violation.** | 840 |
+| `packages/core` | The schema and validators, canonical JSON + SHA-256 digest, the 29-check linker, the classifier, the target resolver, the extractor, the overlay merge, the policy predicate, the **detector discrimination proof**, and the prose renderers. **Zero I/O, zero clock, zero randomness, zero driver imports - checked by a source-scanning test, verified by injecting a real violation.** | 840 |
 | `packages/runtime` | The impure half, all in one place: interpreter, settle loop, budget ledgers, control lease, journal writer, evidence sink, file-backed store, the catalog and `invoke` host, ed25519 approval verification, outcome promotion, the operator console, the redaction canary, the `crr` CLI and `pnpm demo`. | 394 |
 | `packages/discovery` | The model provider port, the hand-written Anthropic tool-use loop, the OpenAI adapter, the VCR transcript recorder/replayer, deterministic synthesis, and the `preflight` / `discover` entry points. The only package that may import a model SDK. | 362 |
 | `packages/surface-browser` | Playwright + per-frame CDP `Accessibility.getFullAXTree` stitched into an `Observation`. Not `querySelector`. Owns dialogs, the `perceive` deadline and PNG region masking. | 107 |
@@ -531,8 +532,8 @@ drawn on **purity**, not subject matter, because that is the boundary a contract
 All fixture data is obviously synthetic and marked so on the screens. No real PII and no real
 credential appears anywhere in this repository.
 
-The mutants in `packages/conformance` are the **real** `replay()` — same linker, lease, budgets,
-journal, session broker — with exactly one pure decision function swapped through an injection seam.
+The mutants in `packages/conformance` are the **real** `replay()` - same linker, lease, budgets,
+journal, session broker - with exactly one pure decision function swapped through an injection seam.
 A meta-test enforces that by function identity. Without it they would be stubs, and a suite that can
 only tell a real engine from a stub proves nothing.
 
@@ -545,20 +546,20 @@ The honest list, short version. [REPORT.md §7](./REPORT.md) is the full cut lis
 sites.
 
 - **The fixture is my own construction.** This is the single biggest threat to the validity of every
-  robustness number here, and no amount of scenario count fixes it. A real vendor app fails in ways
+  reliability number here, and no amount of scenario count fixes it. A real vendor app fails in ways
   I did not think to script.
 - **One live run.** Nine turns, one goal, one tenant, one model. **No live model has ever been
-  refused by the policy gate, got stuck, or raised an intervention** — the escalation path, the
+  refused by the policy gate, got stuck, or raised an intervention** - the escalation path, the
   refusal path and the `stuck` path are covered by hermetic tests and the conformance corpus, and by
   nothing a model has actually done.
 - **The spend cap has never bound mid-run.** `stopBeforeTurn` is called between every pair of turns
   and refuses on the *projection*, which is demonstrable for free at the turn-0 boundary
   (`pnpm discover --dry-run --force --max-usd 0.02` → `budget-exhausted`, exit 1). It cannot be
   demonstrated at turn *n* by a rehearsal, because a VCR transcript reports zero usage so the
-  accumulated total never grows — and the live run finished at $0.14 under a $2.00 cap. The hook
+  accumulated total never grows - and the live run finished at $0.14 under a $2.00 cap. The hook
   also has no unit test of its own; it is only reachable through `pnpm discover`.
 - **The canary's own published report republishes what it quoted.** `canary.ts`'s second design
-  rule is that every context excerpt has all *known* values blanked before it is stored — and "known"
+  rule is that every context excerpt has all *known* values blanked before it is stored - and "known"
   means known to that pass. The recording pass searches for the caller's argument alone, so a hit
   whose excerpt straddles the results row prints the member's name and balance into
   `evidence/discovery-live/canary/report.txt` and `canary/recording.json`. Every byte is a quotation
@@ -571,11 +572,11 @@ sites.
   `MIN_NEEDLE_LENGTH = 8` in `packages/discovery/tools/canaries.ts`;
   `MIN_OBSERVED_NEEDLE_LENGTH = 4` in `packages/discovery/src/synthesis/prose.ts`. On the live run this was live: `membershipStatus` was `ACTIVE`, six
   characters, and `evidence/discovery-live/canary/report.txt` says so under `NOT SEARCHED, and why`.
-  Nothing leaked, because synthesis's own 4-character rule withheld the prose that carried it — but
+  Nothing leaked, because synthesis's own 4-character rule withheld the prose that carried it - but
   the belt is 4 and the braces are 8, so a short observed value in a document synthesis failed to
   scrub would ship CLEAN. **Making them one number is not the fix, and that is now measured:**
   re-running the passes over the live bundle at a floor of 4 fails the gating document pass with 4
-  hits, every one of them the string `MEMBER_FOUND_ACTIVE` — the symbolic outcome code the report
+  hits, every one of them the string `MEMBER_FOUND_ACTIVE` - the symbolic outcome code the report
   deliberately keeps and flags at `review` severity, because an observed value cannot be substituted
   into a code and leave a legal code. The real fix is teaching that pass to exempt a
   `SCREAMING_SNAKE` token the report already flagged.
@@ -583,22 +584,22 @@ sites.
   explain it.** `verification` is not on `ARTIFACT_DIGEST_EXCLUDED_FIELDS`, so writing the
   verification stamp moves the digest: `discovery.log` and `verification.json` say
   `sha256:923ab02f…`, while the shipped `synthesized/artifact.json` says `sha256:32e56a6f…`. The file
-  on disk is self-consistent — it re-digests to `32e56a6f…` and an approval would sign that — but
+  on disk is self-consistent - it re-digests to `32e56a6f…` and an approval would sign that - but
   `verification.runId` and `verification.at` are non-deterministic, so the shipped artifact's content
   address is **not reproducible from the recording**. `verification` belongs on the excluded list
   beside `lifecycle`; that one-line change moves every committed artifact's digest and was not made.
 - **`contract.outcomes` on the live artifact is `[]`.** Synthesis will not write a detector for a
-  screen the run never observed — that is exactly how a false `MEMBER_NOT_FOUND` gets emitted — so
+  screen the run never observed - that is exactly how a false `MEMBER_NOT_FOUND` gets emitted - so
   the model's proposed outcome is carried in `synthesized/report.json` as a review item for a person.
   It means the shipped capability from that run is thinner than the committed hand-authored one.
 - **Four of nine mutants survive the green-screen corpus.** The interesting one is `noSettleGate`: a
   green screen's readiness signal is *silence*, and a torn repaint is silent, so the driver reports
   `settled: true` on a half-painted frame. **On that surface quiescence cannot be the gate, which is
-  why the checkpoint has to be.** That is a result about the design, not a hole in the effort — and
+  why the checkpoint has to be.** That is a result about the design, not a hole in the effort - and
   it is asserted in both directions by the test, with a written reason per survivor.
 - **No branching in the artifact language.** The flow is straight-line; an optional interstitial is
   modelled as a declared recovery, not as a branch. There is also no recovery mode that re-verifies
-  without re-dispatching, so an interstitial arriving *after* a step has acted cannot be recovered —
+  without re-dispatching, so an interstitial arriving *after* a step has acted cannot be recovered -
   conformance scenario 25 deliberately pins the wrong behaviour so the day the mode exists a test
   fails and somebody comes back to it.
 - **External approval custody is still not implemented.** Artifact approval is the older lifecycle
@@ -615,7 +616,7 @@ sites.
   driver is the evidence that they are not browser-shaped.
 - **"One artifact, two tenants" is proved; "one contract, two surfaces" is not.** The green screen
   prints a member's name as unlabelled prose, and `detect()` emits nodes for headings, labelled
-  fields, legend controls, status bands and tables — not for prose — so there is nothing for the
+  fields, legend controls, status bands and tables - not for prose - so there is nothing for the
   browser contract's required `memberName` output to name. Rather than publish a contract the
   terminal program cannot satisfy, the terminal declares its own, and `heterogeneity.test.ts`
   compares the two `activate` steps field by field instead. That is a real weakening of the

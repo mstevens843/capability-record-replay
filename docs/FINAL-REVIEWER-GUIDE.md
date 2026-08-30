@@ -4,9 +4,9 @@ Open this first. It is the shortest path to judge the project without trusting n
 
 ## 60-Second Summary
 
-This is not "an LLM clicks a website." A model performed one live discovery run against a hostile
-legacy banking fixture. The recording became typed capability data. Production replay then runs that
-artifact through a deterministic interpreter with no model in the decision path.
+This project is not just an LLM clicking a website. A model performed one live discovery run against
+a hostile legacy banking fixture. The recording became typed capability data. Production replay then
+runs that artifact through a deterministic interpreter with no model in the decision path.
 
 The runtime returns a typed result: `ok`, declared business `outcome`, `suspended`, or `failed`.
 Business outcomes are not guessed from similar-looking text; a reviewer declares detectors and the
@@ -17,9 +17,9 @@ policy allowlist/effect ceilings, and scoped invocation approval verified immedi
 ## Business Problem
 
 Banks and credit unions often need agents to operate back-office systems with no API: framesets,
-layout tables, green screens, native apps, generated ids, no test ids. The useful product is not a
-happy-path macro. It is a reusable, reviewable capability that can be invoked cheaply and safely,
-reports business answers distinctly from failures, and refuses to improvise around risky states.
+layout tables, green screens, native apps, generated ids, no test ids. A happy-path macro is not
+enough. The useful product is a reusable, reviewable capability that reports business answers
+separately from failures and refuses to improvise around risky states.
 
 ## Architectural Thesis
 
@@ -39,9 +39,13 @@ Run from the repository root. These commands do not call live model providers.
 scripts/reviewer-check.sh
 ```
 
+The script unsets model-provider credentials, builds the workspace first so a clean clone has
+`dist/*.d.ts`, then runs the focused checks and evidence generators below.
+
 Or run the same path manually:
 
 ```sh
+pnpm build
 env -u ANTHROPIC_API_KEY -u ANTHROPIC_AUTH_TOKEN -u OPENAI_API_KEY -u CLAUDE_CODE_OAUTH_TOKEN TURBO_FORCE=1 pnpm test
 env -u ANTHROPIC_API_KEY -u ANTHROPIC_AUTH_TOKEN -u OPENAI_API_KEY -u CLAUDE_CODE_OAUTH_TOKEN pnpm demo
 pnpm -F @crr/runtime exec tsx demo/write-boundary.ts
@@ -57,6 +61,7 @@ Expected current receipts:
 
 | Command | Proves | Current receipt |
 |---|---|---|
+| `pnpm build` | Package `dist` output exists before package-level typechecks and CLI bins are used | 8/8 workspace build tasks on the latest board |
 | `pnpm test` with provider env vars unset and `TURBO_FORCE=1` | Full workspace still passes without credentials or cached logs | 2,032 tests, 14/14 tasks, 0 cached |
 | `pnpm demo` with provider env vars unset | Main replay bundle runs without a model, evidence integrity passes, whole-bundle canary passes | 278 files, seven PASS lines, `DEMO OK` |
 | `demo/write-boundary.ts` | Irreversible boundary and approval negatives | 18 scenarios, canary clean |
@@ -71,6 +76,7 @@ Expected current receipts:
 ## Thirty-Minute Deep Path
 
 ```sh
+pnpm build
 pnpm -F @crr/core typecheck
 pnpm -F @crr/runtime typecheck
 pnpm -F @crr/conformance typecheck

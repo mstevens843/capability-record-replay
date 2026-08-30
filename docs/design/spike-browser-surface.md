@@ -4,18 +4,18 @@
 error string and every coordinate in this document came out of a command that executed in
 `/private/tmp/crr-browser-spike` on the machine described in §0, against a locally served frameset
 fixture. Where something was *not* measured, it says so. Nothing here is a recollection of how
-Playwright or CDP behave — the recollection I started with was wrong twice, and both times the
+Playwright or CDP behave - the recollection I started with was wrong twice, and both times the
 correction is the most useful paragraph in the section.
 
 **Recommendation, up front.** Build the Observation from **raw CDP `Accessibility.getFullAXTree`,
-called once per frame and stitched by us** — not from Playwright's accessibility helpers. Three
+called once per frame and stitched by us** - not from Playwright's accessibility helpers. Three
 findings force that, all reproducible:
 
 1. **`page.accessibility.snapshot()` no longer exists.** It was deprecated through 1.56.0 and is
    **absent from the public API in 1.57.0 onwards**; on 1.62.1 `typeof page.accessibility` is
    `undefined`. The internal `page._snapshotForAI()` is gone too. Their replacement,
    `page.ariaSnapshot({ mode: 'ai' })`, is public and good (§1.2).
-2. **`getFullAXTree()` does not cross a frameset.** On our fixture it returns **7 nodes** — the
+2. **`getFullAXTree()` does not cross a frameset.** On our fixture it returns **7 nodes** - the
    frameset document and nothing else. Child frames are `Iframe` leaves with empty `childIds`. The
    whole tree is 205 nodes. This is the single biggest thing the spike was meant to find, and it is
    real. It is also fixable in about 20 lines (§2.2).
@@ -23,7 +23,7 @@ findings force that, all reproducible:
    distinguishes `LayoutTable` / `LayoutTableRow` / `LayoutTableCell` from `table` / `row` / `cell`
    via `AXValue.type === 'internalRole'` vs `'role'`. Playwright's ARIA computation collapses both to
    `table/row/cell`, because that is what HTML-AAM says. On a page of nested layout tables that
-   collapse makes "the row whose Member ID is X" **ambiguous** — measured: two matching ancestor rows
+   collapse makes "the row whose Member ID is X" **ambiguous** - measured: two matching ancestor rows
    for one data cell, and Playwright strict mode refusing with *"resolved to 3 elements"* (§1.4).
    CDP keeps the distinction and the ambiguity disappears.
 
@@ -34,7 +34,7 @@ machine that tells a layout table from a data grid is the raw CDP tree.
 **But the honest caveat that belongs next to the recommendation:** this is a **Chromium-only**
 design. `browserContext.newCDPSession()` is documented *"CDP sessions are only supported on
 Chromium-based browsers."* Firefox and WebKit have no CDP at all. We are choosing depth of
-perception over browser breadth, and for a fleet of internal bank apps that is the right trade — but
+perception over browser breadth, and for a fleet of internal bank apps that is the right trade - but
 it is a trade, not a free lunch, and REPORT §4 should say so.
 
 ---
@@ -81,7 +81,7 @@ synthetic (`ALVAREZ, DANA (SYNTHETIC)`).
 
 ---
 
-## 1. Which API — and why the obvious answer is the wrong one
+## 1. Which API - and why the obvious answer is the wrong one
 
 ### 1.1 `page.accessibility.snapshot()` is gone, not merely deprecated
 
@@ -107,11 +107,11 @@ Bisected across published tarballs (`npm pack playwright-core@X && grep types/ty
 
 | playwright-core | `page.accessibility` | `ariaSnapshot({mode:"ai"})` | internal `_snapshotForAI` |
 |---|---|---|---|
-| 1.49.1, 1.53.0, 1.55.0, 1.56.0 | present (`@deprecated` in 1.56.0) | — | present (checked in 1.55.0) |
-| **1.57.0** | **removed** | — | — |
-| 1.58.0 | removed | — | — |
-| **1.59.0** – 1.62.1 | removed | **present** | — |
-| 1.63.0-alpha-2026-08-05 | removed | present | — |
+| 1.49.1, 1.53.0, 1.55.0, 1.56.0 | present (`@deprecated` in 1.56.0) | - | present (checked in 1.55.0) |
+| **1.57.0** | **removed** | - | - |
+| 1.58.0 | removed | - | - |
+| **1.59.0** - 1.62.1 | removed | **present** | - |
+| 1.63.0-alpha-2026-08-05 | removed | present | - |
 
 The 1.56.0 deprecation text was:
 
@@ -168,7 +168,7 @@ discovery prompt. If the fixture were a modern app I would stop here and ship it
 | | `page.accessibility.snapshot()` | `page.ariaSnapshot({mode:'ai'})` | CDP `Accessibility.getFullAXTree` |
 |---|---|---|---|
 | Exists in 1.62.1 | **no** | yes, public | yes |
-| Crosses a frameset | n/a | **yes**, automatically | **no** — 7 nodes; one call per frame needed |
+| Crosses a frameset | n/a | **yes**, automatically | **no** - 7 nodes; one call per frame needed |
 | Output form | object tree | **YAML text** | typed `AXNode[]` |
 | Stable node handle | n/a | `ref=f3e32`, session-scoped | `nodeId` + `backendDOMNodeId` |
 | Distinguishes layout tables | n/a | **no** | **yes** (`role.type`) |
@@ -176,7 +176,7 @@ discovery prompt. If the fixture were a modern app I would stop here and ship it
 | Geometry | n/a | `boxes:true`, **frame-local** | `DOM.getBoxModel`, **main-frame** |
 | Geometry cost | n/a | **free** (same pass) | one round trip per node |
 | Back to a Playwright `Locator` | n/a | **yes**, `aria-ref=` | no public bridge (§3.1) |
-| Typed in TypeScript | n/a | `Promise<string>` | fully — `CDPSession.send` is typed against `Protocol.CommandParameters` |
+| Typed in TypeScript | n/a | `Promise<string>` | fully - `CDPSession.send` is typed against `Protocol.CommandParameters` |
 
 The last CDP row matters for this repo's house style: `send<T extends keyof Protocol.CommandParameters>(method: T, params?: Protocol.CommandParameters[T]): Promise<Protocol.CommandReturnValues[T]>`.
 The CDP path is not a stringly-typed escape hatch; it type-checks.
@@ -204,7 +204,7 @@ role=columnheader    type=role         chromeRole=19   name="Member ID"
 ```
 
 Playwright's snapshot of the same DOM calls **all** of them `table` / `row` / `cell`. That is not a
-Playwright bug — HTML-AAM maps `<table>` to `role=table` and Playwright is implementing the spec.
+Playwright bug - HTML-AAM maps `<table>` to `role=table` and Playwright is implementing the spec.
 It is simply the wrong resolution for our problem.
 
 The consequence, measured (`exp8d-route-d.mjs`), doing exactly what a "row-anchored locator" would do:
@@ -248,7 +248,7 @@ Two things to carry into the design:
 
 ---
 
-## 2. Framesets — the biggest risk. It is real, and it is bounded.
+## 2. Framesets - the biggest risk. It is real, and it is bounded.
 
 ### 2.1 `getFullAXTree()` returns seven nodes
 
@@ -273,7 +273,7 @@ Accessibility.getFullAXTree -> nodes: 7
 ```
 
 Every `Iframe` node has `childIds: []`. Nothing from any child document is present. Same-origin,
-same-process — it makes no difference. The CDP docstring says so if you read it closely:
+same-process - it makes no difference. The CDP docstring says so if you read it closely:
 *"Fetches the entire accessibility tree for the root Document."* **Root Document**, singular.
 
 Also worth recording: **only frame root nodes carry `frameId`.** Six of the seven nodes have none. A
@@ -322,18 +322,18 @@ Two facts that make the stitch safe, both measured on 205 nodes across 5 frames:
   (root) nodeIds 1 .. 13 | banner 2 .. -1000000004 | content 3 .. -1000000035
 ```
 
-`backendDOMNodeId` is **globally unique across the page** — that is the identity to key geometry and
+`backendDOMNodeId` is **globally unique across the page** - that is the identity to key geometry and
 actions on. AX `nodeId` happens not to collide either (Chromium hands out negative ids to non-main
 frames), but that is an implementation detail; `perceive.mjs` namespaces ids as `f{frameIndex}:{nodeId}`
 rather than relying on it.
 
-`Accessibility.enable` turns out not to be required — `getFullAXTree` enables the domain implicitly
+`Accessibility.enable` turns out not to be required - `getFullAXTree` enables the domain implicitly
 (`exp15-edges.mjs`). We send it anyway, because `getRootAXNode` *does* document a requirement and
 being explicit costs nothing.
 
 ### 2.3 Which frame a node lives in
 
-`containerPath` falls out of the frame walk for free — the chain of frame **names**, which in a
+`containerPath` falls out of the frame walk for free - the chain of frame **names**, which in a
 frameset are author-assigned and stable, with an ordinal fallback for unnamed frames:
 
 ```console
@@ -358,15 +358,15 @@ name path, never the ordinal**, and treat every node id as valid only within one
 
 One friction worth knowing before writing driver code: **`ariaSnapshot` is on `Page` and `Locator`,
 not on `Frame`**, and **`locator.filter({ has })` requires the inner locator to be built from the
-same `Frame` object** — `page.getByRole(...)` used as `has` on a frame locator throws
+same `Frame` object** - `page.getByRole(...)` used as `has` on a frame locator throws
 *"Inner \"has\" locator must belong to the same frame."* A cross-frame observation model has to
 carry the owning `Frame` around, not just a path string.
 
-### 2.4 Cross-origin iframes — where it actually breaks
+### 2.4 Cross-origin iframes - where it actually breaks
 
 Tested with `xorigin.html` on `127.0.0.1:8731` embedding `localhost:8732` (different origins).
 
-**Default Chromium as Playwright launches it** — no OOPIF. Playwright passes no site-isolation flags
+**Default Chromium as Playwright launches it** - no OOPIF. Playwright passes no site-isolation flags
 (grepped: no `--site-per-process`, no `IsolateOrigins`, no `--disable-site-isolation-trials` in
 `playwright-core/lib`), and Chromium did not put this cross-origin iframe in its own process:
 
@@ -378,7 +378,7 @@ Tested with `xorigin.html` on `127.0.0.1:8731` embedding `localhost:8732` (diffe
    click CDP border-quad centre at (249.4,72.5) -> hit button = true
 ```
 
-**Forced with `--site-per-process`** — a genuine OOPIF, and three things change at once:
+**Forced with `--site-per-process`** - a genuine OOPIF, and three things change at once:
 
 ```console
  Page.getFrameTree (page session) sees: [ 'http://127.0.0.1:8731/xorigin.html' ]   # <- child missing
@@ -392,13 +392,13 @@ Tested with `xorigin.html` on `127.0.0.1:8731` embedding `localhost:8732` (diffe
 
 So for a real OOPIF: `Page.getFrameTree` from the page session **does not see it** (use
 `page.frames()`), it needs its **own CDP session**, and `DOM.getBoxModel` from that session returns
-**frame-local** coordinates, so a coordinate click computed from them **misses** — verified, not
+**frame-local** coordinates, so a coordinate click computed from them **misses** - verified, not
 inferred.
 
 **Decision: handle OOPIFs by detection, not by composition.** `perceive()` enumerates frames from
 `Page.getFrameTree` and silently skips what it cannot reach; that is wrong, so it should instead
 compare against `page.frames()` and **raise a typed "unperceivable frame" condition** when the two
-disagree. Composing OOPIF offsets is doable — get the owner element's box in the parent and add it —
+disagree. Composing OOPIF offsets is doable - get the owner element's box in the parent and add it -
 but it is unnecessary for our fixture (same-origin frameset) and untested code in a safety-critical
 path is worse than a loud limitation. This is a documented seam, listed in §8.
 
@@ -439,13 +439,13 @@ Route B is the coordinate fallback, and it works well:
   detail frame url after coordinate click: http://127.0.0.1:8731/detail.html?m=10041
 ```
 
-Route C — `callFunctionOn` to `setAttribute`, `waitForSelector`, act, `removeAttribute` — gives a
+Route C - `callFunctionOn` to `setAttribute`, `waitForSelector`, act, `removeAttribute` - gives a
 genuine `ElementHandle` with actionability checks. It also **writes to the page under test**, which
 on a legacy app with attribute-driven behaviour is a real if small risk, and it is philosophically
 wrong for a system whose whole claim is that it perceives rather than injects. Available, not default.
 
 Route D re-resolves by role + accessible name and is the one the artifact should describe, because it
-is the only row in the table that is **durable across sessions** — which is exactly what BRIEF §3.2
+is the only row in the table that is **durable across sessions** - which is exactly what BRIEF §3.2
 means by a descriptor.
 
 ### 3.2 The recommendation
@@ -463,7 +463,7 @@ CDP AX node ──► UINode { backendDOMNodeId, ariaRole, name, state, containe
 ```
 
 `backendDOMNodeId` is the within-session identity that ties a resolved descriptor back to the node the
-Observation showed — cheap to compare, and a disagreement between two descriptors is exactly
+Observation showed - cheap to compare, and a disagreement between two descriptors is exactly
 "they resolved to different `backendDOMNodeId`s", which is a one-line check rather than a heuristic.
 
 There is one more bridge that turned out to be more useful than expected: **`page.locator('aria-ref=…')`**.
@@ -478,7 +478,7 @@ locator, across frames, with no manual frame descent (`exp3-ariaref-act.mjs`):
 ```
 
 It fills, clicks and selects across all four documents. Its lifecycle is in §7.2 and it is **not**
-in `types.d.ts` — an undocumented selector engine — so it is not load-bearing here. But it is the
+in `types.d.ts` - an undocumented selector engine - so it is not load-bearing here. But it is the
 cheapest way to hand a Playwright `Locator` to `page.screenshot({ mask: [...] })`, which §4.4 needs.
 
 ---
@@ -496,7 +496,7 @@ CDP DOM.getBoxModel                                   ->        625.7, 153.0   M
 Playwright locator.boundingBox()                      ->        625.7, 153.0   (identical)
 ```
 
-`ariaSnapshot`'s boxes are `getBoundingClientRect()` **within the owning frame** — the doc says so,
+`ariaSnapshot`'s boxes are `getBoundingClientRect()` **within the owning frame** - the doc says so,
 and on a single-document page nobody notices. On a frameset the two spaces differ by the frame's
 offset (here 177, 65) and a click at the frame-local point lands somewhere else entirely. Verified
 directly in the OOPIF test: `click frame-LOCAL rect centre -> hit button = false`.
@@ -515,8 +515,8 @@ directly in the OOPIF test: `click frame-LOCAL rect centre -> hit button = false
 ```
 
 `model.border` is what `boundingBox()` returns. Both centres happened to hit the button here, but the
-content quad excludes border and padding, and on a control that is mostly padding — a legacy toolbar
-button — the difference is the difference between hitting it and hitting its container.
+content quad excludes border and padding, and on a control that is mostly padding - a legacy toolbar
+button - the difference is the difference between hitting it and hitting its container.
 
 ### 4.3 Hidden, zero-size and off-screen
 
@@ -532,13 +532,13 @@ button — the difference is the difference between hitting it and hitting its c
 
 Four separate behaviours, and three of them are traps:
 
-- `display:none` — absent from the AX tree **and** `getBoxModel` throws. Clean, unambiguous.
-- `visibility:hidden` — absent from the AX tree but **`getBoxModel` returns a perfectly ordinary
+- `display:none` - absent from the AX tree **and** `getBoxModel` throws. Clean, unambiguous.
+- `visibility:hidden` - absent from the AX tree but **`getBoxModel` returns a perfectly ordinary
   box**. *Having a box is not evidence of being visible.* If we ever build a node list from the DOM
   rather than the AX tree, this is where a phantom target comes from.
-- Zero-size — **present and not ignored** in the AX tree, `0×0`. A coordinate click is impossible.
+- Zero-size - **present and not ignored** in the AX tree, `0×0`. A coordinate click is impossible.
   `perceive()` must record `bounds` as `{w:0,h:0}` and a geometric descriptor must refuse it.
-- Off-screen — box `y=4065` against an 800px viewport. `DOM.scrollIntoViewIfNeeded({backendNodeId})`
+- Off-screen - box `y=4065` against an 800px viewport. `DOM.scrollIntoViewIfNeeded({backendNodeId})`
   fixes it: `y=4065 → y=782`, one call, no evaluation in the page.
 
 Scrolling a frame moves boxes and they can go **negative**, tracking exactly:
@@ -552,7 +552,7 @@ Scrolling a frame moves boxes and they can go **negative**, tracking exactly:
 So the rule for the coordinate fallback is: `scrollIntoViewIfNeeded` → **re-read** the box → validate
 `w>0 && h>0` and that the centre is inside the viewport → click. Not: read the box once and click it.
 
-### 4.4 Screenshot region masking works — verified at the pixel
+### 4.4 Screenshot region masking works - verified at the pixel
 
 BRIEF §3.7 requires masking screenshot regions bound to sensitive parameters. It works, and it was
 verified by decoding the PNG rather than by eyeballing it (`png.mjs`, ~30 lines, `zlib` only):
@@ -578,7 +578,7 @@ Clipping to a CDP box also lands correctly in the deepest frame:
 
 One API constraint to design around: **`mask` takes `Locator[]`, not rectangles.** There is no
 coordinate-only masking. So the driver needs a `UINode → Locator` bridge purely for redaction, and
-`aria-ref` is the cheapest one — at the cost of calling `ariaSnapshot()` alongside the CDP tree
+`aria-ref` is the cheapest one - at the cost of calling `ariaSnapshot()` alongside the CDP tree
 whenever a masked screenshot is taken. The alternative is compositing the mask ourselves, which
 means an image dependency for a problem Playwright already solved.
 
@@ -588,7 +588,7 @@ means an image dependency for a problem Playwright already solved.
 
 ### 5.1 What the legacy grid actually gives us
 
-The grid has **no `<th>`, no `scope=`, no `<caption>`, no `summary`, no test ids** — header cells are
+The grid has **no `<th>`, no `scope=`, no `<caption>`, no `summary`, no test ids** - header cells are
 `<td><font face="Arial" size="2"><b>Member ID</b></font></td>`. Chromium still classified it as a
 **data table**:
 
@@ -601,15 +601,15 @@ role=table        chromeRole=167
 Better than expected. The structure survives. What does **not** survive is header semantics: every
 cell in row 0 is `role=cell`, not `role=columnheader`. The semantic control table in the same
 document, with `<th scope="col">`, does yield `columnheader`. So we get **structure for free and
-headers only by heuristic** — and the heuristic (row 0 of the table) worked on this fixture.
+headers only by heuristic** - and the heuristic (row 0 of the table) worked on this fixture.
 
 ### 5.2 "the cell in the row whose Member ID is X"
 
-The strategy is a pure function over the Observation — no locators, no CSS, no Playwright:
+The strategy is a pure function over the Observation - no locators, no CSS, no Playwright:
 
 1. find nodes with `ariaRole === 'cell'` and `name === keyValue`;
 2. **0 matches → `NOT_FOUND`** (a business outcome), **>1 → `AMBIGUOUS`** (refuse, per BRIEF §3.2);
-3. walk `parentId` to the **nearest** ancestor with `ariaRole === 'row'` — nearest, not any;
+3. walk `parentId` to the **nearest** ancestor with `ariaRole === 'row'` - nearest, not any;
 4. collect that row's cells in document order;
 5. take row 0 of the enclosing `ariaRole === 'table'` as the header row, and record **how** the
    headers were obtained.
@@ -650,12 +650,12 @@ anywhere in the content frame:
   editable, focusable, invalid, multiline, readonly, required, settable, url
 ```
 
-Column position is **positional only** — index within the row's cell list. Consequences:
+Column position is **positional only** - index within the row's cell list. Consequences:
 
 - A `colspan`/`rowspan` in the header row would desynchronise header index from cell index. Our
   fixture has none; a real one might. **Untested, and a known gap** (§8).
 - The nearest-ancestor-row walk is load-bearing. Using *any* ancestor row is the §1.4 bug.
-- The key column is not privileged — `keyColumnIndex` came back `0` here, but the algorithm does not
+- The key column is not privileged - `keyColumnIndex` came back `0` here, but the algorithm does not
   assume it, which matters for a grid where the account number is the third column.
 
 ### 5.4 State properties, which are complete enough
@@ -676,7 +676,7 @@ Everything `UINode.state` needs is present (`exp10-roles-and-state.mjs`, over a 
 ```
 
 `disabled`, `checked`, `selected`, `expanded`, `focused`, `readonly`, `required`, `invalid`,
-`hasPopup` — all structured, all typed. Note `checked` is a **string** `"true"`/`"false"` (it is a
+`hasPopup` - all structured, all typed. Note `checked` is a **string** `"true"`/`"false"` (it is a
 tristate), so it must be normalised rather than truth-tested.
 
 One gap: **`aria-modal` is not surfaced.** A `<div role="dialog" aria-modal="true">` yields
@@ -711,7 +711,7 @@ export async function perceive(cdp, { geometry = 'actionable' } = {}) {
   for (let fi = 0; fi < frames.length; fi++) {
     let axNodes;
     try { ({ nodes: axNodes } = await cdp.send('Accessibility.getFullAXTree', { frameId: frames[fi].id })); }
-    catch { continue; }                          // OOPIF: unreachable from this session — see §2.4
+    catch { continue; }                          // OOPIF: unreachable from this session - see §2.4
     for (const n of axNodes) {
       if (!n.role?.value) continue;
       const isAria = n.role.type === 'role';     // <-- the §1.4 distinction, kept
@@ -758,7 +758,7 @@ export async function perceive(cdp, { geometry = 'actionable' } = {}) {
 }
 ```
 
-Not one CSS selector, and nothing above it knows what a browser is — which is the point of BRIEF §3.1.
+Not one CSS selector, and nothing above it knows what a browser is - which is the point of BRIEF §3.1.
 
 ### 6.2 Cost
 
@@ -780,7 +780,7 @@ Reading these:
   costs ten times more.
 - Geometry is **one round trip per node, ~0.19 ms each**. `geometry:'actionable'` (44 of 205 nodes)
   is the right default; `'all'` triples the cost for nodes nothing will ever click.
-- `ariaSnapshot` gets **all 205 boxes for free** in the same pass — 3.9 ms with boxes vs 4.2 ms
+- `ariaSnapshot` gets **all 205 boxes for free** in the same pass - 3.9 ms with boxes vs 4.2 ms
   without. If bulk geometry is ever needed, the cheap route is `ariaSnapshot(boxes:true)` **plus
   frame-offset composition** (§4.1), not 205 CDP calls. Not built; it needs an alignment between two
   node sets and the payoff is 25 ms.
@@ -801,13 +801,13 @@ The worst finding in the spike, because it fails by hanging rather than by throw
   TIMEOUT after 4000ms: perceive
 ```
 
-A `confirm()` blocks the renderer, so `Accessibility.getFullAXTree` **never returns** — no CDP error,
+A `confirm()` blocks the renderer, so `Accessibility.getFullAXTree` **never returns** - no CDP error,
 no timeout of its own. My first attempt at this experiment deadlocked and was killed at 2 minutes.
 
 Two consequences for the driver, both non-negotiable:
 
 - **The Surface driver must own `page.on('dialog')`.** With **no** handler registered Playwright
-  dismisses the dialog for you, which silently cancels a confirmation the flow depended on —
+  dismisses the dialog for you, which silently cancels a confirmation the flow depended on -
   `exp18-dialog-default.mjs`:
 
   ```console
@@ -819,7 +819,7 @@ Two consequences for the driver, both non-negotiable:
   upstream. Registering a handler that does not act is worse: the dialog stays open forever.
 - **`perceive()` needs its own deadline.** A CDP call with no timeout is a hang, not an error.
 
-Native dialogs are also **invisible to the accessibility tree** — they are a separate channel and
+Native dialogs are also **invisible to the accessibility tree** - they are a separate channel and
 must be modelled as a distinct `Observation` field, not as a node. With a handler that accepts:
 
 ```console
@@ -828,7 +828,7 @@ must be modelled as a distinct `Observation` field, not as a node. With a handle
   AX nodes after dismissal: 12 | any node named "Post this transaction?": false
 ```
 
-In-page modals are the opposite — fully perceivable, which is what BRIEF §3.3's "unexpected
+In-page modals are the opposite - fully perceivable, which is what BRIEF §3.3's "unexpected
 interstitial" recovery needs:
 
 ```console
@@ -842,14 +842,14 @@ Both containment tests agree, so a detector can use AX parentage and does not ne
 because `aria-modal` is absent, "is this modal" has to be inferred from `role=dialog` plus focus
 containment, not read off a property.
 
-### 7.2 `aria-ref` lifecycle — better than expected, still not storable
+### 7.2 `aria-ref` lifecycle - better than expected, still not storable
 
 Refs are keyed to **element identity within a document**, not to position (`exp4-ref-lifecycle.mjs`):
 
 ```console
-B) DOM mutation without navigation — old refs survive
+B) DOM mutation without navigation - old refs survive
    f3e32 (was "10041") -> 10041
-C) RE-SNAPSHOT after inserting a row at index 1 — no renumbering
+C) RE-SNAPSHOT after inserting a row at index 1 - no renumbering
       - cell "99999" [ref=f3e67]      <- the new row got a NEW ref
       - cell "10041" [ref=f3e32]      <- existing refs unchanged
 D) after a frame NAVIGATION
@@ -858,18 +858,18 @@ E) refs in OTHER frames still valid
    f1e9 (banner "Sign Off") -> Sign Off
 ```
 
-So a ref is **never silently reassigned to a different element** — the failure mode is a clean
+So a ref is **never silently reassigned to a different element** - the failure mode is a clean
 timeout, not a wrong click. That is much safer than I assumed, and it makes `aria-ref` fine as a
 within-turn handle for the discovery loop and for `screenshot({mask})`. It remains useless as a
 stored locator: it dies on navigation, dies with the session, and is **absent from `types.d.ts`**
-(present only in `lib/coreBundle.js`) — an undocumented selector engine with no stability guarantee.
+(present only in `lib/coreBundle.js`) - an undocumented selector engine with no stability guarantee.
 
 This lines up with BRIEF §3.2 rather than fighting it: the model picks a node id from the Observation
 it was shown, deterministic code derives durable descriptors, and **no ref ever reaches the artifact**.
 
 ### 7.3 Smaller ones
 
-- **`page.mainFrame().ariaSnapshot` is `undefined`** — `ariaSnapshot` is on `Page` and `Locator` only.
+- **`page.mainFrame().ariaSnapshot` is `undefined`** - `ariaSnapshot` is on `Page` and `Locator` only.
 - **`filter({ has })` is frame-scoped**: *"Inner \"has\" locator must belong to the same frame."*
 - **`checked` is `"true"` / `"false"` as strings** (tristate), not booleans.
 - **`page.screenshot({ clip })` takes `{x,y,width,height}`**, not `{x,y,w,h}`; a wrong key gives
@@ -886,14 +886,14 @@ Listed so nobody mistakes silence for coverage.
 - **OOPIF coordinate composition.** Measured that it is broken (§2.4); did not implement the fix.
 - **`colspan` / `rowspan` in a header row.** §5.2's column mapping is positional and would
   desynchronise. Our fixture has none. This is the most likely place §5 breaks on a real app.
-- **Shadow DOM.** `getFullAXTree` should pierce it — one document — but it was not exercised. No
+- **Shadow DOM.** `getFullAXTree` should pierce it - one document - but it was not exercised. No
   legacy frameset has it; a modern-web tenant might.
 - **A frameset with cross-origin frames.** Our frameset is same-origin; the cross-origin test used a
   separate `<iframe>` page.
 - **Scale.** 205 nodes. Nothing says how a 5,000-node screen behaves, and §6.2's per-node geometry
   cost is linear.
 - **Mid-load races.** Every measurement took a settled snapshot after an explicit wait. Perceiving
-  during a navigation is where readiness bugs live, and it is untouched here — the terminal spike's
+  during a navigation is where readiness bugs live, and it is untouched here - the terminal spike's
   §4 conclusion ("readiness is the checkpoint, not quiescence") probably transfers, but that is an
   expectation, not a result.
 - **Windows and Linux.** darwin/arm64 only, one Chromium build (151.0.7922.34).
@@ -923,14 +923,14 @@ Listed so nobody mistakes silence for coverage.
    careful perception code would have caught.
 
 Two things to watch during the build. First, §2.4: `perceive()` currently *skips* frames it cannot
-reach, which would silently under-report an OOPIF — that must become a typed condition before the
+reach, which would silently under-report an OOPIF - that must become a typed condition before the
 driver is trusted. Second, §5.3: column mapping is positional, so the first real grid with a
 `colspan` header will break it, and the fix belongs in the per-tenant overlay (BRIEF §3.8) rather
 than in the locator.
 
 The strongest reason to be confident in this approach is not that the accessibility tree is elegant.
-It is that the fixture was built to be hostile — frameset, four documents deep, layout tables inside
-layout tables, `<font>` tags, `ctl00_ctl32_g_9a1` ids, no test IDs, no `<th>` — and after routing
+It is that the fixture was built to be hostile - frameset, four documents deep, layout tables inside
+layout tables, `<font>` tags, `ctl00_ctl32_g_9a1` ids, no test IDs, no `<th>` - and after routing
 around three concrete traps, `perceive()` returns 205 typed nodes in 3 ms and
 `"the Share Balance cell in the row whose Member ID is 10042"` resolves to `88.10`, with
 `NOT_FOUND`, `AMBIGUOUS` and `NO_SUCH_COLUMN` as distinct typed answers rather than as exceptions.

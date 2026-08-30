@@ -14,9 +14,9 @@ A blocking dialog the artifact DECLARED is remedied, the flow re-walked, and the
 
 ## Files
 
-- `result.json` — the result document the calling agent receives.
-- `journal.jsonl` — the structured journal, one event per line, written as the run happened.
-- `run.log` — this scenario's section of the demo console output.
-- `observations/` — content-addressed frozen `Observation`s. Each one turns this run into a
+- `result.json` - the result document the calling agent receives.
+- `journal.jsonl` - the structured journal, one event per line, written as the run happened.
+- `run.log` - this scenario's section of the demo console output.
+- `observations/` - content-addressed frozen `Observation`s. Each one turns this run into a
   `classify()` unit test with no reproduction step, and each has been through
   `redactObservation` before a byte was written.

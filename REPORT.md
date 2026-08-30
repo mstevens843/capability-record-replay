@@ -6,7 +6,7 @@ The system uses an LLM once, during discovery, to operate a legacy back-office U
 recording. Production execution is a deterministic interpreter over a typed capability artifact; no
 model is in the replay decision path.
 
-The load-bearing seam is `Surface`: drivers expose `perceive(): Observation` and
+The central boundary is `Surface`: drivers expose `perceive(): Observation` and
 `act(Action, lease)`. Everything above that seam sees normalized `UINode`s, typed actions, a lease,
 an allowlist, and a journal. Browser and terminal drivers are surface-specific, but replay results
 share one contract: `ok | outcome | suspended | failed`.
@@ -48,8 +48,8 @@ limit where four mutants are observationally indistinguishable on that surface.
 
 ## 4. Heterogeneity & multi-tenant
 
-The final claim is not browser-terminal parity. It is narrower and stronger: one deterministic
-runtime supports surface-specific artifacts under a shared typed result model.
+The final claim is not browser-terminal parity. It is narrower: one deterministic runtime supports
+surface-specific artifacts under a shared typed result model.
 
 Browser support is exercised against a frameset-era fixture with hostile markup. Terminal support is
 exercised through a green-screen fixture and terminal conformance corpus. Desktop automation is

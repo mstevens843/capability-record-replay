@@ -1,4 +1,4 @@
-# LIVE-RUN-READINESS — what `pnpm discover --yes` will do, and what it will cost
+# LIVE-RUN-READINESS - what `pnpm discover --yes` will do, and what it will cost
 
 > **THE RUN HAS SINCE HAPPENED. This is the dated document that authorised it, kept as written.**
 >
@@ -44,7 +44,7 @@ and is current.)
 The runner exists, it has been rehearsed end to end against the VCR adapter, both spend guards have
 been observed to fire, and the `--yes` gate has been observed to refuse a run **with a real funded
 credential already loaded into the process**. The only thing in this document that was not executed
-is the model call itself — and §5.4, which is read off the source rather than rehearsed, for the
+is the model call itself - and §5.4, which is read off the source rather than rehearsed, for the
 reason it gives.
 
 ---
@@ -58,7 +58,7 @@ pnpm discover --yes   # this one spends money.
 
 `pnpm preflight` reads `ANTHROPIC_API_KEY` **from your shell only** and checks its shape; it never
 prints it and never uses it. `pnpm discover` additionally reads `<repo>/.env` for you and announces
-which variable *names* it set — never a value, never a prefix, never a length. An already-set shell
+which variable *names* it set - never a value, never a prefix, never a length. An already-set shell
 variable always beats the file. So if your key lives in `.env`, preflight will say
 
 ```
@@ -86,11 +86,11 @@ and `pnpm discover` will still find it. To make preflight agree: `set -a; . ./.e
 All five stages ran in the rehearsal. The output quoted is the rehearsal's, from
 `.scratch/discovery-dry-run/discovery.log`; the live run differs only in who answers the turns.
 
-**0 — the confirmation screen.** Prints mode, adapter, model, rates, the goal verbatim, the member,
+**0 - the confirmation screen.** Prints mode, adapter, model, rates, the goal verbatim, the member,
 the tenant, the loopback origin, the full policy allowlist, every budget, and the destination. Then,
 without `--yes`, it stops.
 
-**1 — discovery.** Boots `fixtures/corebank-web` on an ephemeral loopback port, opens Chromium,
+**1 - discovery.** Boots `fixtures/corebank-web` on an ephemeral loopback port, opens Chromium,
 perceives through `@crr/surface-browser` (CDP accessibility tree), and runs the observe → decide →
 act loop. Every tool call passes `PolicyEngine.check` and is journaled. Per-turn usage and running
 spend are printed as they arrive:
@@ -105,9 +105,9 @@ spend are printed as they arrive:
 ```
 
 (The zeros are the rehearsal: `createScriptedModel` reports `ZERO_USAGE` by design. On a live run
-these columns carry the provider's own numbers — see §6.)
+these columns carry the provider's own numbers - see §6.)
 
-**2 — synthesis.** The recording becomes a typed, parameterized, content-addressed contract +
+**2 - synthesis.** The recording becomes a typed, parameterized, content-addressed contract +
 artifact. Rehearsed output:
 
 ```
@@ -127,9 +127,9 @@ thing a rehearsal transcript may never do. Since §5.5 the `parameters` line car
 and no longer says `value1`; the contract digest and the note count move with it. The rehearsal was
 **not** re-run to refresh them, because `.private/BRIEF.md` §11 names `pnpm discover` as a command no
 agent runs. What *was* re-derived, from the same synthesis over the same committed observation
-corpus, is `packages/discovery/test/fixtures/corebank-web.capability.json` — see §5.5.
+corpus, is `packages/discovery/test/fixtures/corebank-web.capability.json` - see §5.5.
 
-**3 — verification (BRIEF §3.4).** The same artifact is replayed against the same application in a
+**3 - verification (BRIEF §3.4).** The same artifact is replayed against the same application in a
 **fresh browser session** with the model out of the loop. Only if that passes is the document saved
 as `draft`:
 
@@ -141,12 +141,12 @@ as `draft`:
       proposed -> draft   verification verified/full
 ```
 
-**4 — the bundle.** 19 files, ~250 KB, into `evidence/discovery-live/`: `transcript.json`,
+**4 - the bundle.** 19 files, ~250 KB, into `evidence/discovery-live/`: `transcript.json`,
 `discovery.log`, `journal.jsonl`, `provenance.json`, `spend.json`, `README.md`, `synthesized/`
 (contract, artifact, report, README), `verification.json`, `verification-journal.jsonl`,
 `verification-evidence/`, `canary/`.
 
-**5 — the redaction canary.** Four scoped passes; three gate the exit code. Rehearsed:
+**5 - the redaction canary.** Four scoped passes; three gate the exit code. Rehearsed:
 
 ```
       pass 1 documents    CLEAN    4 files,  68,854 bytes, 34 needles, 0 hits, 0 credential shapes
@@ -159,7 +159,7 @@ Pass 4 is **reported, not gated, and that is the honest design**: the member num
 the goal, so the model is told it, types it, and is shown it in the application's own output. A
 discovery recording that did not contain it would be a recording of a different conversation. Pass 4
 lists all 19 occurrences with file and line so the claim is checkable rather than asserted; passes 1
-and 2 gate on the two places the number genuinely must not be — the synthesized documents, and
+and 2 gate on the two places the number genuinely must not be - the synthesized documents, and
 everything the verification replay wrote.
 
 **Then, on success only:** `evidence/discovery-live/PENDING.md` is deleted and the runner prints
@@ -172,8 +172,8 @@ a model, canary clean.
 
 ### The measured half
 
-`pnpm preflight` builds the exact turn-1 request the runner sends — same system prompt, same five
-tool definitions, same `max_tokens`, same effort — and sizes it. These are **local character-count
+`pnpm preflight` builds the exact turn-1 request the runner sends - same system prompt, same five
+tool definitions, same `max_tokens`, same effort - and sizes it. These are **local character-count
 estimates**, not tokenizer output, because `messages.countTokens` is itself a billed round trip.
 Treat each as ±20%.
 
@@ -210,23 +210,23 @@ before it; the history is re-sent every turn, which is why input grows quadratic
 `claude-sonnet-5` ($2 / $10) is the same table at roughly 40%: $0.13 / $0.72 / $1.67 in the same
 three rows.
 
-**The absolute worst one run of `pnpm discover --yes` can cost on `claude-opus-5` is $4.18** — every
-one of 24 turns emitting the full 2,000-token ceiling — and `--max-usd 2.00` stops it well before
+**The absolute worst one run of `pnpm discover --yes` can cost on `claude-opus-5` is $4.18** - every
+one of 24 turns emitting the full 2,000-token ceiling - and `--max-usd 2.00` stops it well before
 that. The adapter's own default `max_tokens` of 16,000 would have made that worst case **$31.90**,
 three times the project cap; `DISCOVER_MAX_OUTPUT_TOKENS` lowers it to 2,000 for exactly that reason.
 
-**Realistic expectation: $0.30 – $0.80.** The hand-authored script reaches this goal in 8 turns; a
+**Realistic expectation: $0.30 - $0.80.** The hand-authored script reaches this goal in 8 turns; a
 real model has to explore, so budget for more than 8 and fewer than 24.
 
 **One closeness worth knowing.** At the assumed `U = 800`, a full 24-turn run lands at $1.80 against
-a $2.00 cap — a $0.20 margin. So on a typical run the *turn* budget ends it and the money cap never
+a $2.00 cap - a $0.20 margin. So on a typical run the *turn* budget ends it and the money cap never
 fires; if `U` is even modestly higher than assumed, the *money* cap fires first, mid-run, somewhere
-around turn 15–20. Both endings are clean (§4). Neither is a failure.
+around turn 15-20. Both endings are clean (§4). Neither is a failure.
 
 **Caching saves almost nothing here, and the report says so.** Only the system prompt and the tool
 definitions carry a breakpoint; the message history does not. Measured from the same table: caching
 saves **$0.21** on a full-budget 24-turn opus run. BRIEF §9 asks for the cache hit rate as reported
-evidence — this is the number that will make it look small, and that is a real finding about the
+evidence - this is the number that will make it look small, and that is a real finding about the
 shape of an agent loop rather than a defect.
 
 **The arithmetic is this repository's, not an invoice.** `provenance.json` and `spend.json` say so in
@@ -236,7 +236,7 @@ their own text. The authority is the Anthropic console.
 
 ## 4. What the guards will do if it goes wrong
 
-### The `--yes` gate — **observed**
+### The `--yes` gate - **observed**
 
 ```
 $ pnpm discover                       # .env holding the real, funded key; no --yes
@@ -248,7 +248,7 @@ $ pnpm discover                       # .env holding the real, funded key; no --
 `createAnthropicModel` is constructed inside the branch the gate guards, so the refusal happens
 before a client object exists. There is no flag combination that reaches the provider by accident.
 
-### The spend cap — **observed firing**
+### The spend cap - **observed firing**
 
 ```
 $ pnpm discover --dry-run --max-usd 0.05 --out .scratch/budget-usd
@@ -261,7 +261,7 @@ $ pnpm discover --dry-run --max-usd 0.05 --out .scratch/budget-usd
                                                                                         exit 1
 ```
 
-### The price-independent token backstop — **observed firing**
+### The price-independent token backstop - **observed firing**
 
 ```
 $ pnpm discover --dry-run --max-total-tokens 100 --out .scratch/budget-tokens
@@ -288,7 +288,7 @@ input rate ignoring the cache discount that will actually apply; the next output
 `max_tokens` rather than at what the model has been emitting; the next tool result is charged at the
 largest growth measured so far. So `--max-usd` is a **ceiling a run cannot overshoot**, not a target.
 
-### The safety gate while the model drives — **exercised by preflight, just now**
+### The safety gate while the model drives - **exercised by preflight, just now**
 
 ```
   on-allowlist   corebank/search           ALLOW  (rule route:corebank/search)
@@ -304,7 +304,7 @@ loop is given `approval: null`. The model cannot reach anything but the local fi
 ### If the run does not reach the goal
 
 Synthesis is skipped, the verification replay does not happen, the artifact stays `proposed`,
-`PENDING.md` is **not** deleted, and the exit code is 1 — but the bundle is still written, because a
+`PENDING.md` is **not** deleted, and the exit code is 1 - but the bundle is still written, because a
 guard that destroys the evidence of firing is worse than no guard. Rehearsed: the budget-stopped runs
 above still produced `provenance.json`, `spend.json`, `journal.jsonl`, `README.md`, `discovery.log`
 and all four canary reports.
@@ -315,7 +315,7 @@ and `failed` all write the same files through the same function; what differs be
 
 ---
 
-## 5. What can still go wrong — read this before you spend
+## 5. What can still go wrong - read this before you spend
 
 **Where this section stands after the pass that regenerated `docs/design/FINAL-STATUS.md`:**
 
@@ -327,7 +327,7 @@ and `failed` all write the same files through the same function; what differs be
 | §5.4 | a refused dry run litters `evidence/` first | **still true.** Read off the source; not exercised, because exercising it means aiming a dry run at `evidence/` |
 | §5.5 | the contract offered `value1` | **fixed**, and re-verified: 67 tests green, the committed fixture re-emitted byte-identical, and the rehearsal prints `memberId:sensitive (named from adjacent-label)` |
 | §5.6 | the transcript's provenance note was wrong | **fixed** in the pass that wrote this document; not re-derived here beyond `pnpm typecheck` / `pnpm lint` being green |
-| §5.7 | FINAL-STATUS §7.1 was factually wrong | **fixed** — that document was regenerated |
+| §5.7 | FINAL-STATUS §7.1 was factually wrong | **fixed** - that document was regenerated |
 | §5.8 | leave-behinds | one file that must be deleted is still not deletable; `evidence/` moved when the demo was re-run |
 
 The whole board was re-run for that pass. Nothing regressed:
@@ -349,18 +349,18 @@ $ pnpm discover --dry-run --force   reached-goal / verified / draft / canary cle
 three `pnpm discover --dry-run` invocations were run with the three credential variables **shadowed
 by obviously fake values**, so that `loadDotEnv` could not lift the real key out of `.env` and a bug
 could not have authenticated even in principle. **No live model API call was made at any point in
-that pass, to any provider.** A bare `pnpm discover` — the `--yes` gate demonstration in §4 — was
+that pass, to any provider.** A bare `pnpm discover` - the `--yes` gate demonstration in §4 - was
 **not** re-run: it is the author's command, and the gate was re-verified by reading the branch order
 off the source instead (refusal at `discover.ts:1078`, fixture boot at `:1092`, client construction
 at `:1102`).
 
-### 5.1 `pnpm demo` re-created `PENDING.md` on top of a live run — **fixed**
+### 5.1 `pnpm demo` re-created `PENDING.md` on top of a live run - **fixed**
 
 `packages/runtime/demo/main.ts` defines `discoverySlot()`, which writes
 `evidence/discovery-live/PENDING.md` with the words *"This directory holds nothing. That is the
 honest state of this deliverable today."* It was called unconditionally. The runner deletes
 `PENDING.md` on success precisely to avoid *"a bundle that contains both a transcript and a note
-saying there is no transcript"* — and the runner's own closing message tells you to run `pnpm demo`
+saying there is no transcript"* - and the runner's own closing message tells you to run `pnpm demo`
 next, so the note came straight back.
 
 It is now behind the `liveRunPresent()` helper that already guarded the MANIFEST row and the
@@ -376,8 +376,8 @@ generated `evidence/README.md`:
 ```
 
 **Verified by running the demo, not by reading it.** Writing a fake transcript into
-`evidence/discovery-live/` is the one thing that directory forbids, so `main.ts` grew one seam —
-`CRR_DEMO_EVIDENCE_DIR`, defaulting to `<repo>/evidence` — and the guard was exercised against a
+`evidence/discovery-live/` is the one thing that directory forbids, so `main.ts` grew one seam -
+`CRR_DEMO_EVIDENCE_DIR`, defaulting to `<repo>/evidence` - and the guard was exercised against a
 `mkdtemp` directory holding an obviously fake `transcript.json`. Three runs, all exit 0:
 
 ```
@@ -401,8 +401,8 @@ finds one, rather than silently tidying up a file the runner deliberately left i
 
 `packages/runtime/test/demo-contract.test.ts` grew two tests: one that reads `demo/main.ts` off disk
 and fails if the call is ever unguarded, and one that runs the same scanner against three sources
-that *do* break the rule — no guard, a guard in another function, and a guard with the sense
-inverted — so it is a scanner that can fail rather than one that passes because it looked at
+that *do* break the rule - no guard, a guard in another function, and a guard with the sense
+inverted - so it is a scanner that can fail rather than one that passes because it looked at
 nothing.
 
 > **CORRECTION, and it was measured rather than reasoned about.** This paragraph used to end
@@ -418,27 +418,27 @@ nothing.
 > regenerate after the live run.
 
 **Re-verified in the regeneration pass, from the direction that matters most.** That pass ran
-`pnpm demo` for real, against the real `evidence/` — the situation this section is about — and
+`pnpm demo` for real, against the real `evidence/` - the situation this section is about - and
 afterwards `evidence/discovery-live/` still held `PENDING.md` and nothing else, with the demo
 reporting `discovery-live/  EMPTY - a live model run, pending the author's approval`. The rest of
 the bundle was rewritten, which is what the command is for; the protected directory was not. **After
 the live run, that same line is what tells you the guard worked**: it should read
 `── discovery-live ─ a live run is present; PENDING.md not written`.
 
-### 5.2 A mid-run API error lost the transcript you had already paid for — **fixed**
+### 5.2 A mid-run API error lost the transcript you had already paid for - **fixed**
 
 `runDiscoveryLoop` did not catch a `DiscoveryModelError`. A rate limit, a 400 or a dropped
 connection propagated out of the loop to `discover.ts`'s outer `catch`, which printed `FAILED: …`
-and exited 1 — at which point **`transcript.json`, `spend.json`, `provenance.json`, `README.md` and
+and exited 1 - at which point **`transcript.json`, `spend.json`, `provenance.json`, `README.md` and
 `discovery.log` had not been written**, because every one of them is written after the loop returns.
 The only durable record of a partly-paid run was `journal.jsonl`. The loop's own `TurnBudgetProbe`
-comment already stated the principle — *"a budget guard that throws away the transcript it was
-protecting has spent the money and kept nothing"* — and the budget path honoured it while the
+comment already stated the principle - *"a budget guard that throws away the transcript it was
+protecting has spent the money and kept nothing"* - and the budget path honoured it while the
 exception path did not.
 
 Three changes, in the three places the failure passed through:
 
-1. **`packages/discovery/src/loop.ts`** — the turn cycle is wrapped, and a caught throwable ends the
+1. **`packages/discovery/src/loop.ts`** - the turn cycle is wrapped, and a caught throwable ends the
    run with the new status **`failed`** and a `DiscoveryFailure { name, message, adapter, turn,
    stack }`. Every recorded step, every journal event and the measured usage come back on the
    `DiscoveryRun` exactly as they do when the budget guard stops the run. The catch is *not*
@@ -447,21 +447,21 @@ Three changes, in the three places the failure passed through:
    journaled before `loop.finished`, and both terminal events are emitted through a sink wrapper
    that cannot itself lose the run.
 
-   It is **opt-in** — `onUnexpectedError: "keep-the-run"` — and `pnpm discover` is the caller that
+   It is **opt-in** - `onUnexpectedError: "keep-the-run"` - and `pnpm discover` is the caller that
    opts in. The default is still to throw, because the VCR's strict digest check exists to be loud
    when a fixture stops matching the prompt, and three tests in `test/vcr.test.ts` assert that
    loudness. Only the caller that *paid* for the turns can say that keeping them beats failing
    loudly, so that caller says it, at the call site. A test reads `tools/discover.ts` off disk and
    fails if it ever stops saying it.
 
-2. **`packages/discovery/tools/bundle.ts`** (new) — the four files a run must not lose are written
+2. **`packages/discovery/tools/bundle.ts`** (new) - the four files a run must not lose are written
    by one named function, `writeCoreBundle()`, with no status check and no early return anywhere in
    it. They were forty lines of `writeJson` in the middle of the `try` a provider error jumped
    straight out of; a script with top-level `await` and `process.exit` in it cannot be imported, so
    nothing could assert that the bytes reached the disk. `discoveryExitCode()` moved there with
    them, so "only `reached-goal` is a success" is a function rather than three `&&`s.
 
-3. **`packages/discovery/tools/discover.ts`** — passes the option, prints the failure and its turn,
+3. **`packages/discovery/tools/discover.ts`** - passes the option, prints the failure and its turn,
    sends the stack to **stderr only** (`discovery.log` is committed and a stack carries absolute
    paths), and no longer lets `model.transcript()` throw on the recovery path: the recorder refuses
    to hand back an empty transcript and is right to, but that refusal happens *after* the loop
@@ -484,7 +484,7 @@ $ pnpm -F @crr/discovery exec vitest run test/loop-failure.test.ts
 What it asserts, in the order the money leaves:
 
 - the run comes back `failed`, naming `DiscoveryModelError`, adapter `anthropic`, turn 3;
-- the step turn 2 recorded is still there — that is the thing the old path threw away;
+- the step turn 2 recorded is still there - that is the thing the old path threw away;
 - `transcript.json` is **on disk** holding turns **1 and 2**, with the provider's per-turn usage;
 - `spend.json` is on disk, its `totalUsd` equal to `costOf()` over exactly those two turns;
 - `provenance.json` says `"status": "failed"` with the error's name, message and turn, and carries
@@ -497,7 +497,7 @@ What it asserts, in the order the money leaves:
 **One accounting point worth being precise about, because the difference is visible in the files.**
 The transcript holds the turns the provider *answered*. A request that raised returns no response
 and no `usage`, so turn 3 is in `run.turns` and in `provenance.run.failure.turn` but not in
-`transcript.turns` and not in the ledger — you were not billed for it. `provenance.json` carries both
+`transcript.turns` and not in the ledger - you were not billed for it. `provenance.json` carries both
 numbers side by side (`run.turns: 3`, `transcript: { present: true, turns: 2 }`) so the gap is
 something you can read rather than something you have to infer.
 
@@ -527,7 +527,7 @@ $ python3 <read the loop.* events out of both journals>
 Under `--dry-run` the scripted model reports `ZERO_USAGE`, so the ledger's inputs never move:
 `spent` stays $0 and `projectNext()` returns the same constant every turn. The guard can therefore
 only be observed at the turn-0 → turn-1 boundary, which is where every rehearsal has caught it.
-**The mid-run boundary — spend accumulating across turns and the cap binding at turn *n* — has never
+**The mid-run boundary - spend accumulating across turns and the cap binding at turn *n* - has never
 executed.** Neither has the ledger's `record()` path over non-zero provider numbers, its measured
 tool-result growth, or its cache accounting. That will happen for the first time on the run this
 document exists to authorise, which is exactly why §6.6 says to check `spend.json` against the
@@ -547,7 +547,7 @@ That last row is the useful one: `costOf()` and preflight's own independent cost
 cent on the 24-turn figure. The pricing arithmetic is right; the *ledger that feeds it* is what has
 not run against real numbers.
 
-There is still no unit test for `stopBeforeTurn` — `packages/discovery/test/loop.test.ts` covers
+There is still no unit test for `stopBeforeTurn` - `packages/discovery/test/loop.test.ts` covers
 `maxTurns`, `maxActions` and `maxConsecutiveRefusals` exhaustion, not the hook. Re-grepped in the
 regeneration pass: the only caller anywhere in the tree is `tools/discover.ts:1191`. The hook is the
 one addition to `packages/discovery/src/loop.ts` that the **282** discovery tests do not touch.
@@ -556,35 +556,35 @@ one addition to `packages/discovery/src/loop.ts` that the **282** discovery test
 
 `assertRealRecording` fires on the **destination**, so `--dry-run --out evidence/discovery-live` is
 correctly refused. But `journal.jsonl` is created in the destination directory *before* the loop
-runs, and the refusal happens *after* it returns — so a refused rehearsal still leaves a
+runs, and the refusal happens *after* it returns - so a refused rehearsal still leaves a
 `journal.jsonl` inside the protected directory. Don't aim a dry run at `evidence/`.
 
-### 5.5 The contract offered a parameter called `value1` — **fixed**
+### 5.5 The contract offered a parameter called `value1` - **fixed**
 
 `inferParameters` named a parameter after the accessible name of the field it was typed into. This
-product's search inputs have **no accessible name at all** — which is the legacy-app reality the
-whole project is about — so the fallback fired and the synthesized contract offered a calling agent
+product's search inputs have **no accessible name at all** - which is the legacy-app reality the
+whole project is about - so the fallback fired and the synthesized contract offered a calling agent
 an argument called `value1`, described as *"The value to use for `value1`"*. The artifact was
 perfectly executable; the *name* was the defect. The assignment's §3.2 asks for typed input
 parameters and its first stretch goal is a catalog of capabilities *"an AI agent could discover and
-invoke by name with typed args"* — `value1` fails that on sight, and this run was about to bake it
+invoke by name with typed args"* - `value1` fails that on sight, and this run was about to bake it
 into the headline evidence artifact.
 
 **Naming is now a deterministic chain over evidence the system already had.** No model is asked,
-nothing is inferred from the shape of the value — a name derived from a value would put a member
-number in the caller's public API — and nothing about this fixture is special-cased:
+nothing is inferred from the shape of the value - a name derived from a value would put a member
+number in the caller's public API - and nothing about this fixture is special-cased:
 
 | rung | what it reads | where it comes from |
 |---|---|---|
 | 1 `accessible-name` | the control's own accessible name | the frozen observation |
 | 2 `labelled-by` | the wording the **markup** associates with the control | `labelAnchorsOf` |
-| 3 `adjacent-label` | the nearest adjacent label text, inside the same eight-control-height reach a `label-anchored` descriptor uses | `labelAnchorsOf` — same function, same node, same anchor |
+| 3 `adjacent-label` | the nearest adjacent label text, inside the same eight-control-height reach a `label-anchored` descriptor uses | `labelAnchorsOf` - same function, same node, same anchor |
 | 4 `taint-handle` | for an operator-supplied secret, the parameter name the **host** chose | the taint handle, which names a binding and never a value |
-| 5 `positional` | nothing. `value1` — **and a flag** | — |
+| 5 `positional` | nothing. `value1` - **and a flag** | - |
 
 Rungs 2 and 3 are literally the anchor the locator uses. `labelAnchoredOf` was refactored to walk
 `labelAnchorsOf`, and the parameter namer calls that same function, so a parameter cannot be named
-after a label the locator does not use — the failure mode a second, private "what is this field
+after a label the locator does not use - the failure mode a second, private "what is this field
 called?" implementation would have shipped the first time the two disagreed. A rung is **skipped**,
 not taken, when its wording carries a recorded value or a regulated shape (the same
 `unsafeTextReason` guard `Vocabulary.matcher` applies to a label before it becomes a vocabulary
@@ -593,8 +593,8 @@ result distinct from every other parameter and from the holes route canonicaliza
 
 **Rung 5 is no longer silent, and that was the real defect.** `value1` on a field with no name
 anywhere is the *correct* answer; shipping it quietly is not. Reaching rung 5 now emits a
-`parameter-name-underived` note at **`review`** severity — the severity that means "this artifact
-cannot be approved until a person has read this" — and the contract's own parameter description
+`parameter-name-underived` note at **`review`** severity - the severity that means "this artifact
+cannot be approved until a person has read this" - and the contract's own parameter description
 carries `NEEDS A NAME: …`, the convention `PROSE_PLACEHOLDER` already established. `pnpm discover`
 prints every note, and its `parameters` line now names the rung each argument was named from:
 
@@ -632,7 +632,7 @@ $ env -u ANTHROPIC_API_KEY … pnpm demo                  7/7, 48 files, canary 
 $ pnpm typecheck && pnpm lint                           315 files, no findings           exit 0
 ```
 
-**Re-run in the regeneration pass, and all of it still holds** — with one number moved and not
+**Re-run in the regeneration pass, and all of it still holds** - with one number moved and not
 edited above, because rewriting recorded output is the one thing this document may not do:
 `pnpm lint` now reports **`Checked 314 files`**, not 315, because `/.exports.mjs` was deleted by a
 commit between the two passes. The tests, the demo and the fixture re-emit are unchanged:
@@ -641,13 +641,13 @@ commit between the two passes. The tests, the demo and the fixture re-emit are u
 byte-identical file (same md5 before and after).
 
 **Both halves are tested, and so is the stopping.** The labelled cases name the parameter and raise
-no flag — one test per rung, plus a precedence test proving rung 1 beats rungs 2 and 3. The
+no flag - one test per rung, plus a precedence test proving rung 1 beats rungs 2 and 3. The
 genuinely-unlabelled case produces `value1` **and** the `review` note **and** the `NEEDS A NAME`
 description. Three more assert what a derived name may never be: spelled from a recorded value (a
 field labelled "Member 50001" falls through and flags rather than minting `member50001`), an illegal
 identifier, or a collision. And there is a discrimination case whose *only* difference from the
 passing rung-3 test is a surface that reports no `boundsUnit`: adjacency is a geometric claim, so the
-chain stops one rung early rather than guessing a unit — the same condition under which
+chain stops one rung early rather than guessing a unit - the same condition under which
 `labelAnchoredOf` declines to emit a spatial descriptor.
 
 ### 5.6 The transcript's own provenance note was wrong, and was corrected this pass
@@ -660,7 +660,7 @@ provenance claim inside the one committed evidence file BRIEF §10 governs is a 
 the note (`discover.ts:1128`) and the stale file header (`:37`) were rewritten to describe what the
 runner actually does. No logic changed; `pnpm typecheck` and `pnpm lint` are green.
 
-### 5.7 `docs/design/FINAL-STATUS.md` §7.1 was factually wrong — **fixed**
+### 5.7 `docs/design/FINAL-STATUS.md` §7.1 was factually wrong - **fixed**
 
 It said *"THE COMMAND IS THE THING THAT IS MISSING"*, quoted a `grep` showing `createAnthropicModel`
 has no caller, and reproduced a preflight verdict with a `[recorder] BLOCK  no runner exists` line
@@ -668,7 +668,7 @@ and two cost warnings. All four claims were false once the runner landed. The do
 **regenerated end to end** rather than patched at §7.1, because §7.1 could not be rewritten in
 isolation without contradicting §1, §6, §10 and §12.
 
-Every number in it was re-derived by re-running the command that produces it — the browser and
+Every number in it was re-derived by re-running the command that produces it - the browser and
 terminal kill matrices, the flake rate and per-descriptor table, the settle sweep, the cross-tenant
 divergence table, the demo bundle, the no-Chromium skip count, the build sizes and every per-package
 test count. **Every limitation the old §7.1 recorded that is still true was kept**, and they are
@@ -691,7 +691,7 @@ From the verification pass that regenerated FINAL-STATUS.md, which re-ran all th
 
 - The same three directories were overwritten again with `--force`. `.scratch/` holds 99 files.
 - **`pnpm demo` rewrote `evidence/`**, which is what that command is for. Count and verdict are
-  unchanged — 48 files, 934,441 bytes, canary CLEAN on both passes, exit 0 — but `git status` shows
+  unchanged - 48 files, 934,441 bytes, canary CLEAN on both passes, exit 0 - but `git status` shows
   8 deletions and 8 additions under `evidence/<scenario>/observations/`, because those files are
   named by the digest of a journal carrying that run's own timestamps. **`evidence/discovery-live/`
   was not touched**: it still holds `PENDING.md` and nothing else, and §5.1's guard is why.
@@ -701,11 +701,11 @@ From the verification pass that regenerated FINAL-STATUS.md, which re-ran all th
 
 Still to be deleted, and still not deletable:
 
-- **`packages/discovery/.cost-check.scratch.ts`** — `rm packages/discovery/.cost-check.scratch.ts`.
+- **`packages/discovery/.cost-check.scratch.ts`** - `rm packages/discovery/.cost-check.scratch.ts`.
   It is the §5.3 arithmetic check. **It is tracked by git, so it would ship.** Every agent session in
   this tree has had `rm` denied, re-confirmed in the regeneration pass:
   `Permission to use Bash with command 'rm -f …' has been denied.` It is lint-clean and outside
-  `tsconfig`'s `include`, so it breaks nothing — it is simply not part of the deliverable. Biome now
+  `tsconfig`'s `include`, so it breaks nothing - it is simply not part of the deliverable. Biome now
   reads **314** files; deleting it takes that to 313. `packages/conformance/probe.ts` and
   `packages/conformance/src/__probe.ts` are in the same position; see FINAL-STATUS §9 for the full
   list, which is one entry shorter than it was because `/.exports.mjs` has since been removed by a
@@ -720,7 +720,7 @@ In order. Stop at the first one that fails.
 1. **Exit code 0.** Anything else means one of *reached the goal / verified without a model / canary
    clean* did not hold, and the VERDICT block says which.
 
-2. **The VERDICT block in `evidence/discovery-live/discovery.log`** — four `yes` and a dollar figure:
+2. **The VERDICT block in `evidence/discovery-live/discovery.log`** - four `yes` and a dollar figure:
 
    ```
          discovery reached the goal    yes
@@ -734,7 +734,7 @@ In order. Stop at the first one that fails.
    be `transcript.json`, `discovery.log` or `journal.jsonl`, and every needle should be the member
    number. A hit on any other file is a real leak that pass 4 does not gate on.
 
-4. **`PENDING.md` is gone.** If it is still there, the run did not fully succeed — do not commit the
+4. **`PENDING.md` is gone.** If it is still there, the run did not fully succeed - do not commit the
    bundle as evidence of a discovery run until you understand why.
 
 5. **`provenance.json`** reads `"adapter": "anthropic"`, `"synthetic": false`,
@@ -750,10 +750,10 @@ In order. Stop at the first one that fails.
 
 8. **Truncation.** If any turn hit `max_tokens` the runner prints a `WARNING: n turn(s) hit
    max_tokens` block naming the turns. A `tool_use` block cut off mid-JSON is refused by the loop's
-   schema and the model reads that as its own mistake — re-run with `--max-output-tokens 4000`.
+   schema and the model reads that as its own mistake - re-run with `--max-output-tokens 4000`.
 
 9. **Before `pnpm demo`:** §5.1 is fixed, so the demo will leave `PENDING.md` alone. Still run
-   `grep -rn '10041\|99999\|1337\.42' evidence/discovery-live/`. It should return nothing — the live
+   `grep -rn '10041\|99999\|1337\.42' evidence/discovery-live/`. It should return nothing - the live
    run is deliberately on member **10043** so that a canary hit anywhere under `evidence/` names the
    run that produced it. If the model happened to try `99999` while exploring, `pnpm demo`'s
    whole-bundle canary will fail on a value that is not a leak, and the right answer is to say so in
@@ -771,21 +771,21 @@ recorder, VCR round-trip under *strict* digest checking, synthesis, verification
 session, bundle writer, four canary passes, verdict, exit code. That both spend guards halt the loop
 cleanly at the pre-turn-1 boundary and keep everything they have. That `--yes` refuses with a funded
 credential in the process. That a `DiscoveryModelError` mid-run now does the same thing the budget
-guard does — §5.2, and the eighteen tests behind it. That a synthesized capability offers a calling
+guard does - §5.2, and the eighteen tests behind it. That a synthesized capability offers a calling
 agent an argument named after what the screen calls the field rather than `value1`, and says so out
-loud when it cannot — §5.5, and the fifteen tests behind that. The suite stands at 1,820,
+loud when it cannot - §5.5, and the fifteen tests behind that. The suite stands at 1,820,
 thirty-five of them added by §5.1, §5.2 and §5.5 and none of them removed or weakened; `pnpm demo`
 was re-run after §5.5 at 7/7, 48 files, canary CLEAN.
 
 It also proves one thing nobody set out to test. The rehearsal records a transcript against a live
 browser and replays it through `createReplayModel` with **strict message-digest checking on**, in a
-second browser session — and it passes. The projection the model is shown is byte-stable across two
+second browser session - and it passes. The projection the model is shown is byte-stable across two
 independent browser sessions of the same application.
 
 **Does not prove.** That a real model can do this task. That is the entire reason the live run is
 worth paying for, and no amount of rehearsal substitutes for it. It also does not exercise the
-Anthropic adapter's request body or its error mapping — those are hermetic unit tests in
-`packages/discovery/test/anthropic-adapter.test.ts` — nor, per §5.3, the spend ledger against real
+Anthropic adapter's request body or its error mapping - those are hermetic unit tests in
+`packages/discovery/test/anthropic-adapter.test.ts` - nor, per §5.3, the spend ledger against real
 provider numbers.
 
 **No live model API call was made at any point in producing this document, to any provider.** For the

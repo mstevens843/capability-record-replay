@@ -1,10 +1,10 @@
 # COMMIT-PLAN
 
-> **SUPERSEDED — HISTORICAL. Read this banner before any number below it.**
+> **SUPERSEDED - HISTORICAL. Read this banner before any number below it.**
 >
 > This was a plan for commits that have since been made: `9048027` (*docs: README, REPORT and
 > evidence bundle for submission*) and `60367a9` (*computer-use capability record/replay for legacy
-> back-office apps*). Its opening sentence — *"Nothing here has been committed"* — was true when it
+> back-office apps*). Its opening sentence - *"Nothing here has been committed"* - was true when it
 > was written and is false now.
 >
 > **Several numbers in it are stale and are not corrected in place, because the draft commit messages
@@ -12,17 +12,17 @@
 > fabrication.** As measured on 2026-08-30 (`docs/FINAL-REVIEWER-GUIDE.md` and
 > `docs/design/SUBMISSION-READY.md` carry the commands): `pnpm lint` reads **317** files, not 313;
 > `pnpm test` is **2,032** tests / **109** test files, not 1,843 or 1,921; and the generated demo
-> bundle is **241 files**, not 65.
+> bundle is **278 files**, not 65.
 >
 > What is still true and still worth reading: the deletion list, the ordering rule (generated
-> content before the documents that quote it), and the closing rule — **do not run `pnpm discover`
+> content before the documents that quote it), and the closing rule - **do not run `pnpm discover`
 > in any form** while preparing the push.
 >
 > §6 below says *"nothing references it"* and offers `rm docs/design/COMMIT-PLAN.md`. That is still
 > the cleanest option if the internal design notes are not part of what ships.
 
 A suggested sequence for committing the submission-readiness pass by hand. Nothing here has been
-committed — the working tree carries every change and `git status` matches the groups below.
+committed - the working tree carries every change and `git status` matches the groups below.
 
 **Run these yourself.** They are ordered so that every commit leaves the tree green, and so that the
 one commit whose content is *generated* (§4) lands before the two documents that quote its numbers.
@@ -31,7 +31,7 @@ one commit whose content is *generated* (§4) lands before the two documents tha
 
 ## Before the first commit
 
-### Already deleted in the working tree — nothing to do but commit it
+### Already deleted in the working tree - nothing to do but commit it
 
 Five files whose first line was `// DELETE THIS FILE.` were tracked and would have shipped. They are
 already `git rm`'d and gone from disk:
@@ -53,7 +53,7 @@ evidence/discovery-live/verification-evidence/journal-a3351e3f….json
 evidence/discovery-live/verification-evidence/journal-f43258ec….json
 ```
 
-### Still on disk, gitignored, safe to remove — your call
+### Still on disk, gitignored, safe to remove - your call
 
 None of these can ship; `git check-ignore` confirms every one. Removing them just makes the tree
 match what a reviewer clones.
@@ -145,7 +145,7 @@ git commit
 ## 4. `evidence: drop two orphan journals and regenerate the bundle`
 
 **Run `pnpm demo` once, alone, immediately before this commit.** Two concurrent demo runs interleave
-`clearOwned()` and leave both runs' observation files behind — that is how a bundle once reported 73
+`clearOwned()` and leave both runs' observation files behind - that is how a bundle once reported 73
 files. A clean single run reports **65**, and `find evidence -type f | wc -l` must agree.
 
 ```bash
@@ -234,7 +234,7 @@ git commit
 > ```
 
 If you would rather not ship the plan, `rm docs/design/COMMIT-PLAN.md` before this
-commit — nothing references it.
+commit - nothing references it.
 
 ---
 

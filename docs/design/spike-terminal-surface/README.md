@@ -1,4 +1,4 @@
-# Spike code — terminal surface
+# Spike code - terminal surface
 
 Working scratch code from `docs/design/spike-terminal-surface.md`. **Not part of the build.** It is
 kept because every number and grid dump in that document came out of these files, and `/private/tmp`

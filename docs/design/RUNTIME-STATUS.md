@@ -1,21 +1,21 @@
-# `@crr/runtime`, `@crr/discovery`, `@crr/surface-browser` — status after integration
+# `@crr/runtime`, `@crr/discovery`, `@crr/surface-browser` - status after integration
 
 > **SUPERSEDED IN PART BY `docs/design/FINAL-STATUS.md`.** This file is the record of the pass that
-> integrated SPEC §11 units 10–16 and is kept as written. Units 17–24 have landed since, so some
-> statements here are no longer true — most visibly §7.5's "`@crr/surface-terminal` and
+> integrated SPEC §11 units 10-16 and is kept as written. Units 17-24 have landed since, so some
+> statements here are no longer true - most visibly §7.5's "`@crr/surface-terminal` and
 > `@crr/conformance` do not exist" (both exist and ship tests), §7.6's `stableSamples` placeholder
 > (measured and applied; FINAL-STATUS §3.4), §7.7's unconnected adapter vocabularies (now pinned by
-> tests; FINAL-STATUS §3.1), and §8 items 2–3 (the manifests were fixed). **Where the two disagree,
+> tests; FINAL-STATUS §3.1), and §8 items 2-3 (the manifests were fixed). **Where the two disagree,
 > FINAL-STATUS is the one whose commands were re-run.** §7.1 (the discovery→replay seam) and §7.2
 > (the confirmation-dialog encoding) are both still open, unchanged.
 
-**Scope of this file.** SPEC §11 build units **10–16** were built in parallel by seven agents that
+**Scope of this file.** SPEC §11 build units **10-16** were built in parallel by seven agents that
 could not see each other's work, and then integrated. This is the companion to
 `docs/design/CORE-STATUS.md` and follows the same rule: every number below came from a command that
 was actually run, the command is printed next to the number, and what is *not* proved is stated as
 plainly as what is.
 
-Last integrated: the units 10–16 integration pass (barrels, cross-package conflict resolution, the
+Last integrated: the units 10-16 integration pass (barrels, cross-package conflict resolution, the
 architecture contract tests extended above the drivers, a barrel test per package).
 
 ---
@@ -73,10 +73,10 @@ files it had just written (`npx biome check --fix` on those files by name).
 | `@crr/surface-browser` | 10 | 11 | 12 | **107** | 4 files, 29 tests |
 | `@crr/runtime` | 11, 12, 15, 16 | 28 | 15 | **239** | 1 file, 4 tests |
 | `@crr/discovery` | 13, 14 | 18 | 11 | **196** | none |
-| `@crr/core` | 1–9 | 37 | 33 | **744** | none |
+| `@crr/core` | 1-9 | 37 | 33 | **744** | none |
 | `fixtures/corebank-web` | 9 | 6 | 1 | **66** | (it *is* the app) |
 
-**1319 of the 1352 tests are hermetic** — no browser, no socket, no clock, no credential. The other
+**1319 of the 1352 tests are hermetic** - no browser, no socket, no clock, no credential. The other
 33 launch Chromium against the local `corebank-web` fixture server, never the public internet, and
 they live in files named `browser-*.test.ts` so the split is visible from a directory listing.
 
@@ -85,42 +85,42 @@ in the same package inherited and extended the suite):
 
 | Unit | Subject | Package | Tests at delivery |
 |---|---|---|---|
-| 10 | CDP AX stitch, frames, geometry, dialogs, masked capture, driver rules D1–D7 | `surface-browser` | 101 |
+| 10 | CDP AX stitch, frames, geometry, dialogs, masked capture, driver rules D1-D7 | `surface-browser` | 101 |
 | 11 | the §3.1 interpreter cycle, settle, budgets, lease, journal, evidence, store, `crr replay` | `runtime` | 81 |
 | 12 | result contract, catalog, `renderForAgent`, the digest pin, codegen | `runtime` | 162 |
 | 13 | discovery loop, five tools, projection, VCR record/replay, Anthropic adapter | `discovery` | 113 |
 | 14 | synthesis: descriptors, parameterization, routes, outputs, fingerprint, emit | `discovery` | 190 |
 | 15 | verification replay (`full`/`dry`/`reset`), grade, ed25519 signing, `approve` | `runtime` | 204 |
 | 16 | escalation, intervention desk, the seven-step resume re-check, operator console | `runtime` | 235 |
-| — | **this integration pass** | all four | **+18** |
+| - | **this integration pass** | all four | **+18** |
 
 The 18 added here are 6 + 6 barrel tests (`discovery`, `surface-browser`), 4 cross-package tests in
 `runtime`'s existing barrel test, and 2 contract tests in `core`. **`@crr/core`'s 742 all still
 pass**; the file it grew to 744 is `test/no-locator-vocabulary.test.ts`, and §4 says what the two
 new ones are for.
 
-### Every SPEC §11 acceptance test for units 10–16 exists and passes
+### Every SPEC §11 acceptance test for units 10-16 exists and passes
 
 Checked one by one against the table in SPEC §11, because a unit report saying "passing" and the
 spec's stated acceptance criterion are two different claims:
 
-- **10** — `browser-perceive.test.ts` (frameset node counts, roles, advertised capabilities),
+- **10** - `browser-perceive.test.ts` (frameset node counts, roles, advertised capabilities),
   `browser-act.test.ts` ("holds the dialog open, times perception out, and answers it on request"),
   `browser-capture.test.ts` ("blanks the sensitive field's pixels, and only those").
-- **11** — `browser-replay.test.ts`: the nine-step flow returns `ok` with typed outputs, plus three
+- **11** - `browser-replay.test.ts`: the nine-step flow returns `ok` with typed outputs, plus three
   fault scenarios (`MEMBER_NOT_FOUND` outcome, declared interstitial recovered, app-error page as a
   hard failure once the restart budget is spent). **Against the real fixture, in a browser.**
-- **12** — `typed-outcomes.test.ts` compiles the generated call site and then *refuses to compile*
+- **12** - `typed-outcomes.test.ts` compiles the generated call site and then *refuses to compile*
   it once a third `OutcomeDecl` is declared; `invoke.test.ts` covers the stale-digest pin;
   `agent-view.test.ts` covers `renderForAgent`.
-- **13** — `vcr.test.ts` "reaches the goal with every credential removed from the environment";
+- **13** - `vcr.test.ts` "reaches the goal with every credential removed from the environment";
   `tool-schema.test.ts` is the schema regression suite.
-- **14** — `synthesis-descriptors.test.ts` (frozen-observation derivation),
+- **14** - `synthesis-descriptors.test.ts` (frozen-observation derivation),
   `synthesis-parameterization.test.ts` (the recorded value appears nowhere in the emitted artifact),
   `synthesis-emit.test.ts` (byte-equal across two independent runs; the documents *link*).
-- **15** — `verify.test.ts` "DOES NOT PERFORM THE WRITE TWICE: one run wrote, the verification that
+- **15** - `verify.test.ts` "DOES NOT PERFORM THE WRITE TWICE: one run wrote, the verification that
   follows does not"; `approval.test.ts` for the edited-artifact digest check.
-- **16** — `escalation.test.ts` "REFUSES when the human navigated away — the acceptance case", and
+- **16** - `escalation.test.ts` "REFUSES when the human navigated away - the acceptance case", and
   "drives suspend -> claim -> act -> hand-back -> resume over its six routes".
 
 ---
@@ -129,13 +129,13 @@ spec's stated acceptance criterion are two different claims:
 
 All three `src/index.ts` files already existed and were already complete. Verified rather than
 assumed: **every module in every package is re-exported, and no name is exported by two modules in
-the same package** — see §5.
+the same package** - see §5.
 
 ### 3.1 `ReplayOptions` was declared twice, in two packages, meaning two different things
 
-`@crr/runtime`'s `ReplayOptions` is the argument to `replay()` — the artifact interpreter, the
+`@crr/runtime`'s `ReplayOptions` is the argument to `replay()` - the artifact interpreter, the
 centre of the whole system, twenty-odd fields. `@crr/discovery`'s `ReplayOptions` was the argument
-to `createReplayModel()` — the VCR transcript adapter, one optional `strict` boolean.
+to `createReplayModel()` - the VCR transcript adapter, one optional `strict` boolean.
 
 Each read correctly in its own file. Neither package's tests could see the other, because
 **neither package imports the other and nothing in the workspace imports both.** The first consumer
@@ -170,8 +170,8 @@ and the resolver (`TargetOutcome.kind` vs `.status`), one package boundary furth
 `import.meta.url` guard and are built as their own bundles; re-exporting them would put `parseArgs`
 and `process.stdout` in the import graph of every consumer that only wanted `invoke`. The barrel
 test asserts both the exclusion and the reason (`ENTRY_POINTS`, "keeps the two commands out of the
-library graph"). They are also the only two modules in the workspace that collide on a name — both
-declare `main` — which is precisely why they must not both be starred into one namespace.
+library graph"). They are also the only two modules in the workspace that collide on a name - both
+declare `main` - which is precisely why they must not both be starred into one namespace.
 
 ---
 
@@ -179,11 +179,11 @@ declare `main` — which is precisely why they must not both be starred into one
 
 SPEC §1.3 names two contract tests. Both live in `@crr/core/test` and both read the repo off disk.
 
-### 4.1 CSS vocabulary — the package list was already right; the *coverage* was unproved
+### 4.1 CSS vocabulary - the package list was already right; the *coverage* was unproved
 
 `test/no-locator-vocabulary.test.ts` already listed `["core", "runtime", "discovery"]`, written
 before the latter two existed. They exist now, and the scan passes over all 46 of their `src/`
-modules (28 + 18) — but the suite would have passed identically if `packageSources` had silently returned
+modules (28 + 18) - but the suite would have passed identically if `packageSources` had silently returned
 nothing for them, which is exactly the state it had been in for the whole build.
 
 Two strengthenings, both inside the existing tests (so `@crr/core`'s count did not move for these):
@@ -191,7 +191,7 @@ Two strengthenings, both inside the existing tests (so `@crr/core`'s count did n
 1. **"were actually read" now counts per package**, not in aggregate, with a floor for each. A total
    of sixty files proves nothing about `@crr/discovery` if all sixty came from `@crr/core`.
 2. **The package list is now checked against the workspace**, not against itself: every directory
-   under `packages/` is either a `surface-*` driver (exempt — a driver is precisely the layer
+   under `packages/` is either a `surface-*` driver (exempt - a driver is precisely the layer
    allowed to know what a stylesheet is) or it must be on the list. `@crr/conformance` will fail
    this test on the day it is created, which is the day the decision should be made.
 
@@ -208,7 +208,7 @@ into two real modules and the suite was run:
 
 Both files were restored and the suite is green again.
 
-### 4.2 New: the other half of BRIEF §3.1 — **no import of any driver**
+### 4.2 New: the other half of BRIEF §3.1 - **no import of any driver**
 
 BRIEF §3.1 reads: *"the engine packages must contain no CSS-selector vocabulary **and no import of
 any driver**."* Only the first half was enforced above `@crr/core`. `@crr/core` gets the stronger
@@ -218,7 +218,7 @@ held to an allowlist, so they had no version of it at all.
 
 `scanForDriverImports` (new, in `test/architecture-scan.ts`) catches two shapes:
 
-- **the driver package**, by any spelling — `@crr/surface-browser`, or a relative path into
+- **the driver package**, by any spelling - `@crr/surface-browser`, or a relative path into
   `../surface-terminal/`;
 - **the libraries a driver is made of** (`DRIVER_LIBRARIES`: playwright, playwright-core,
   @playwright/test, @xterm/headless, xterm-headless, node-pty, puppeteer, puppeteer-core,
@@ -230,7 +230,7 @@ The concrete failure it exists to catch: **`crr`'s central claim is that the dri
 convenience import in `cli.ts` would end that claim and break no test at all.
 
 Two tests, `+2` on `@crr/core`'s count (742 → 744): the enforcement, and a discrimination suite that
-proves the scanner can fail — including the near misses that would make it unusable (`@crr/core`,
+proves the scanner can fail - including the near misses that would make it unusable (`@crr/core`,
 `node:fs`, `@anthropic-ai/sdk`, and a comment mentioning the driver by name).
 
 Verified the same way, against real modules:
@@ -246,7 +246,7 @@ Verified the same way, against real modules:
 
 **Today the rule holds: `@crr/runtime/src` and `@crr/discovery/src` contain zero driver imports.**
 Every mention of `@crr/surface-browser` in either `src/` tree is inside a comment. The manifest is a
-separate question and is *not* clean — see §8.1.
+separate question and is *not* clean - see §8.1.
 
 ### 4.3 The policy chokepoint already covered both packages, and it is doing real work
 
@@ -272,7 +272,7 @@ and a human's action through the operator console pass the same gate as the inte
 ## 5. A barrel test per package
 
 `export *` hides exactly two failures, and the second one is the dangerous one: under the ES module
-semantics `export *` follows, **an ambiguous star export is not an error — the binding is silently
+semantics `export *` follows, **an ambiguous star export is not an error - the binding is silently
 absent from the barrel**, and the symptom surfaces at the far end of the monorepo with nothing
 pointing back at the cause. Unit 12 hit it for real: `export type { Digest }` in `invoke.ts` beside
 the identical line in `replay.ts` quietly removed `Digest` from `@crr/runtime`'s public surface and
@@ -283,16 +283,16 @@ too. Each reads its own `src/` off disk, extracts export names **from the TypeSc
 is quietly wrong about `export type { X }` and `export { x as y }`, and both appear here), and holds
 the same four invariants:
 
-1. every module in `src/` is re-exported — a unit cannot ship invisibly;
+1. every module in `src/` is re-exported - a unit cannot ship invisibly;
 2. every specifier in `index.ts` names a module that exists, and the counts match;
 3. no name is exported by two modules;
-4. every *value* is really reachable through the barrel at runtime, not merely in the types — which
+4. every *value* is really reachable through the barrel at runtime, not merely in the types - which
    is exactly what an ambiguous star export looks like from the outside.
 
 Package-specific additions:
 
 - **`@crr/discovery`** asserts the two subdirectories (`adapters/`, `synthesis/`) are actually being
-  walked, because they are where a name collision is most likely — eight `synthesis/` modules all
+  walked, because they are where a name collision is most likely - eight `synthesis/` modules all
   speaking about parameters, routes and values. It also asserts the barrel imports cleanly **with no
   credential in the environment**: the Anthropic adapter is on the barrel, so importing
   `@crr/discovery` loads the SDK, and it must not construct a client or read a key at module scope.
@@ -302,7 +302,7 @@ Package-specific additions:
   `import type`, and the test fails on any value import. Without it, the day a consumer with no
   browsers installed imported `@crr/runtime` they would get an error from a transitive dependency
   they never named.
-- **`@crr/runtime`** gained the cross-package ledger described in §3.1–3.2: it reads `core`,
+- **`@crr/runtime`** gained the cross-package ledger described in §3.1-3.2: it reads `core`,
   `runtime` and `discovery` off disk (no import, so no dependency edge is created) and fails on any
   name exported by two of them that is not on `INTENTIONAL_OVERLAPS`.
 
@@ -318,7 +318,7 @@ package it is describing. `CORE-STATUS.md` §7 item 7 already records this as th
 
 ---
 
-## 6. The no-credentials requirement — verified, and how
+## 6. The no-credentials requirement - verified, and how
 
 BRIEF §11 is a hard rule and a submission requirement, not a nicety. **No live model API call was
 made at any point in this pass.**
@@ -341,11 +341,11 @@ Four independent reasons this holds, rather than one:
 2. **The only adapter that can call a provider takes an injectable client.** Every test in
    `@crr/discovery` constructs it as `createAnthropicModel({ env: {}, client: fakeClient(...) })`.
    With no key and no injected client, construction *throws* a `DiscoveryModelError` naming
-   `createReplayModel()` as the alternative — the failure a reviewer will actually hit is answered
+   `createReplayModel()` as the alternative - the failure a reviewer will actually hit is answered
    with instructions rather than a 401.
 3. **The loop's own acceptance test unsets the credentials itself** and asserts they are gone before
    running (`vcr.test.ts`, "reaches the goal with every credential removed from the environment").
-   This pass added `CLAUDE_CODE_OAUTH_TOKEN` to that list — the `agent-sdk` adapter draws on a Claude
+   This pass added `CLAUDE_CODE_OAUTH_TOKEN` to that list - the `agent-sdk` adapter draws on a Claude
    Code subscription rather than an API key, so a suite that only unset the two API keys would still
    have a live path to a provider if that adapter were ever wired in.
 4. **`crr` has no discovery verb.** Its five verbs are `show`, `link`, `verify`, `approve`, `replay`.
@@ -365,8 +365,8 @@ edge in either direction, and the only place either package names the other outs
 disk-scanning ledger in `@crr/runtime`'s barrel test, which reads files and imports nothing.
 Consequently:
 
-- ✅ **A synthesized artifact links.** `synthesis-emit.test.ts` runs `@crr/core`'s `link` — all 28
-  checks — over the emitted contract + artifact against `MOCK_SURFACE_CAPABILITIES`, in both
+- ✅ **A synthesized artifact links.** `synthesis-emit.test.ts` runs `@crr/core`'s `link` - all 28
+  checks - over the emitted contract + artifact against `MOCK_SURFACE_CAPABILITIES`, in both
   `verification` and `replay` modes.
 - ✅ **A hand-authored artifact replays,** through the real interpreter, the real browser driver and
   the real hostile fixture (`browser-replay.test.ts`, 4 tests).
@@ -375,43 +375,43 @@ Consequently:
 
 **Why the risk is bounded, and where it is not.** It is not a *type* risk: `synthesizeCapability`
 returns `@crr/core`'s `CapabilityContract` and `CapabilityArtifact`, and `replay()` consumes the same
-two types, so the structural-incompatibility failure mode that bit units 4/5 cannot occur here — both
+two types, so the structural-incompatibility failure mode that bit units 4/5 cannot occur here - both
 halves speak core's schema by construction. The risk is **semantic**: nothing has demonstrated that
 the descriptors, checkpoints, budgets and effect summary synthesis emits are ones the interpreter can
 actually execute. SPEC §11 puts unit 15's verification replay exactly here for exactly this reason,
-and `verifyAndDraft` is implemented and tested — but tested against hand-written flows, never against
+and `verifyAndDraft` is implemented and tested - but tested against hand-written flows, never against
 synthesis output.
 
 **What closing it needs.** `@crr/conformance` (unit 17) depends on both by design and is the right
-home. Failing that, `@crr/discovery` as a devDependency of `@crr/runtime` — a lockfile change (§8).
+home. Failing that, `@crr/discovery` as a devDependency of `@crr/runtime` - a lockfile change (§8).
 A third option needs no dependency at all and may be the fastest: have `@crr/discovery` emit its
 synthesized contract + artifact to a committed JSON fixture, and have a `@crr/runtime` test *read*
 that JSON and replay it. The artifact is data, not code; reading it as data is the whole design.
 Note the synthesis fixture's recorded run is over `MockSurface`, so such a test replays over
-`MockSurface` too — it would prove the interpreter can execute what synthesis emits, not that the
+`MockSurface` too - it would prove the interpreter can execute what synthesis emits, not that the
 browser driver can.
 
-### 7.2 The write path — the irreversible boundary — is proved against `MockSurface`, never a browser
+### 7.2 The write path - the irreversible boundary - is proved against `MockSurface`, never a browser
 
 `verify.test.ts` (21 tests) and `escalation.test.ts` (31 tests) drive `test/fixtures/write-flow.ts`
-and `escalation-flow.ts` over `@crr/core`'s `MockSurface` — a frozen corpus of `Observation`s, no
+and `escalation-flow.ts` over `@crr/core`'s `MockSurface` - a frozen corpus of `Observation`s, no
 browser, no network, no credential; `verify.test.ts`'s own header says so in its first line. They are strong tests and they cover the claims SPEC §11
 asks for, including "DOES NOT PERFORM THE WRITE TWICE" and "REFUSES when the human navigated away".
 
 But `fixtures/corebank-web` has a modal confirm and a real sub-account commit, and **the browser
 suite never touches it.** Unit 11 explains why and the reason is legitimate rather than an oversight:
 SPEC §4.4 runs band B2 (interception) before B5 (checkpoint), so a confirmation dialog cannot be a
-step's expected postcondition, and the only expressible shape — an interception recovery whose remedy
-performs the irreversible commit — is forbidden by SPEC §3.5. Unit 11 could not find a legal
+step's expected postcondition, and the only expressible shape - an interception recovery whose remedy
+performs the irreversible commit - is forbidden by SPEC §3.5. Unit 11 could not find a legal
 encoding and says so, recommending either an `expectDialog` clause on `Checkpoint` or a
 `resume: "continue"` recovery mode that re-verifies without re-dispatching. **That is a spec decision
 the next phase has to make**, and until it is made the fixture's headline write flow is not
 replayable at all.
 
 The corebank acceptance flow is therefore nine READ steps ending on a *prepared* open-sub-account
-form — an honest automation-prepares / human-completes hand-off, and it does exercise approval and
-ed25519 — but a purely read-only capability would naturally be seven steps, and unit 11 says steps
-8–9 exist partly to reach nine.
+form - an honest automation-prepares / human-completes hand-off, and it does exercise approval and
+ed25519 - but a purely read-only capability would naturally be seven steps, and unit 11 says steps
+8-9 exist partly to reach nine.
 
 ### 7.3 Two one-line changes `@crr/core` needs, deliberately not made
 
@@ -421,7 +421,7 @@ and an integration pass should not edit it silently.
 1. **`JournalEvent` is not narrowable by `type`.** `packages/core/src/journal.ts`'s `event()` helper
    takes `type: string` rather than a generic literal, so `z.literal(type)` infers
    `ZodLiteral<string>` and every union member's discriminant widens to `string`. *Runtime validation
-   is unaffected* — the schema holds the real literal and `parse` still refuses a wrong `type` — but
+   is unaffected* - the schema holds the real literal and `parse` still refuses a wrong `type` - but
    `event.type === "acted"` narrows nothing. Fix:
    `const event = <K extends string, T extends z.core.$ZodShape>(type: K, shape: T) => …`. Until
    then the one unavoidable cast lives once, named, in
@@ -461,7 +461,7 @@ The real fix is one field on the port: a driver reporting the masked field's **l
   more often than they mis-fill arguments, so a generated line there is a generated routing decision.
 - **`effect-in-doubt` escalates and journals, but is not parked on the control plane.** It does not
   appear in the operator console queue and the arm stays `failed` (correct: the caller must not
-  retry). Wiring it needs a second kind of parked entry — a live session a human may look at and may
+  retry). Wiring it needs a second kind of parked entry - a live session a human may look at and may
   never hand back, because there is nothing to resume into. The seam is named in a comment at the
   site in `interpreter.ts`.
 - **Approval key custody does not exist** (OPEN-QUESTIONS-RESOLVED Q5, deliberately out of scope).
@@ -486,9 +486,9 @@ Carried forward from `CORE-STATUS.md` §7 and still true:
   has no field naming one. One optional `classifyAs` field fixes it.
 - **The linker still has 28 checks.** *(Count superseded on 2026-08-29: it has **29**, because
   `docs/design/OUTCOME-PROMOTION.md` added check 29 `outcome-unproven`. The bullet's point survives
-  intact — check 29 is not the check unit 4 asked for, and that one is still missing.)* The check
-  unit 4 asked for — "an artifact declaring ambient
-  recoveries has at least one step that can spend one" — was not added, and
+  intact - check 29 is not the check unit 4 asked for, and that one is still missing.)* The check
+  unit 4 asked for - "an artifact declaring ambient
+  recoveries has at least one step that can spend one" - was not added, and
   `maxRemediationCycles: 0` still makes ambient rules inert. Unit 14 works around this from the
   recorder side by deriving non-zero step budgets when it lifts a dialog into an ambient rule, which
   means **the hazard is now half-mitigated and still not checked.**
@@ -503,7 +503,7 @@ used to build VCR fixtures. **A scripted run therefore has no honest spelling in
 
 `synthesizeCapability` currently *refuses* a scripted run (`SynthesisError`, "debugging aid, not a
 discovery run") rather than mislabelling it `"replay"`, which is the right failure direction. But the
-mismatch should be resolved deliberately — add `"scripted"` to core's enum, or keep the refusal and
+mismatch should be resolved deliberately - add `"scripted"` to core's enum, or keep the refusal and
 say so in the schema's doc comment. Right now the two vocabularies simply disagree and nothing but a
 thrown error connects them.
 
@@ -516,7 +516,7 @@ the lockfile. None of the following was made. All four are one line each plus on
 
 1. **`@crr/runtime` lists `@crr/surface-browser` in `dependencies`, and `src/` never imports it.**
    Only `test/support/corebank.ts` does. It belongs in `devDependencies`. As it stands the manifest
-   contradicts the design claim that `cli.ts` makes in its own header — the *code* is clean (§4.2
+   contradicts the design claim that `cli.ts` makes in its own header - the *code* is clean (§4.2
    now enforces that) and the *package* is not.
 2. **`@crr/runtime` needs `playwright` as a devDependency.** `test/support/corebank.ts` currently
    resolves it with `createRequire` from `packages/surface-browser/package.json` and declares two
@@ -537,18 +537,18 @@ the lockfile. None of the following was made. All four are one line each plus on
 these affects any test, the build, `pnpm typecheck` or `pnpm lint`. Checked by name at the end of
 this pass:
 
-- **`/.exports.mjs`** — PRESENT, 0 bytes. Unit 9's throwaway export scanner. **Not gitignored: it
+- **`/.exports.mjs`** - PRESENT, 0 bytes. Unit 9's throwaway export scanner. **Not gitignored: it
   would be committed. Delete it.** Its useful half is now four barrel tests.
-- **`/packages/core/.scratch/probe.ts` (1326 bytes) and `probe2.ts` (798 bytes)** — PRESENT.
+- **`/packages/core/.scratch/probe.ts` (1326 bytes) and `probe2.ts` (798 bytes)** - PRESENT.
   Gitignored and biome-ignored, so they cannot be committed or linted, but `probe.ts` contains
   Playwright/CDP spike code sitting inside the package whose entire claim is that it is pure. The
   architecture tests scan `packages/*/src` and correctly do not see it; a reviewer opening the
   directory will. **Delete the directory.**
-- **`/packages/surface-browser/pw-smoke.mjs` and `probe-eval.tmp.mjs`** — **ABSENT.** Unit 10 flagged
+- **`/packages/surface-browser/pw-smoke.mjs` and `probe-eval.tmp.mjs`** - **ABSENT.** Unit 10 flagged
   both as needing deletion; they are gone, and so is `packages/surface-browser/.scratch/`. Nothing in
   this pass removed them (`rm` was denied here too), so they were cleared by someone else between
   unit 10 and now. Recorded rather than explained.
-- **`/.scratch/` (root) and `/packages/runtime/.scratch/` (empty)** — gitignored and biome-ignored.
+- **`/.scratch/` (root) and `/packages/runtime/.scratch/` (empty)** - gitignored and biome-ignored.
   `/.scratch/` holds this pass's working files: three probe scripts (`probe-exports.mts`,
   `probe-cross.mts`, `probe-act.mts`), five `.bak` files used to restore the modules that the
   injected-violation probes in §4 temporarily broke, and five run logs. All disposable.
@@ -579,7 +579,7 @@ No configuration was changed in this pass. `biome.json`, `turbo.json`, `pnpm-wor
    chokepoint (the whole repo). All four are scan-then-discrimination-then-ledger, all four have had
    their file selection verified by injecting a violation into a real module, and all four have an
    exemption ledger asserted empty. Adding a package above the drivers now *fails* the CSS test until
-   somebody adds it to the list — that is deliberate.
+   somebody adds it to the list - that is deliberate.
 5. **FIXED, and unit 11's missing-`index.d.ts` report is now diagnosed rather than folklore.** Two
    independent defects, both reproduced deterministically before being fixed.
 
@@ -587,7 +587,7 @@ No configuration was changed in this pass. `biome.json`, `turbo.json`, `pnpm-wor
    cancels every sibling. `@crr/core:test` and `@crr/core:build` run concurrently (`test` depends on
    `^build`, its DEPENDENCIES' build, and core has none), and `tsup --clean` deletes `dist/` up
    front, writes `index.js` in ~25ms, then spends the next nine seconds inside rollup-dts. A cancel
-   landing in that window leaves `dist/index.d.ts` absent — which is exactly what unit 11 saw.
+   landing in that window leaves `dist/index.d.ts` absent - which is exactly what unit 11 saw.
    Reproduced by adding one failing test to `packages/core/test/`:
 
    ```
@@ -597,7 +597,7 @@ No configuration was changed in this pass. `biome.json`, `turbo.json`, `pnpm-wor
    $ ls packages/core/dist                       # index.d.ts MISSING; index.js present
    ```
 
-   Fixed with `--continue=dependencies-successful` in the root `build`/`test`/`typecheck` scripts —
+   Fixed with `--continue=dependencies-successful` in the root `build`/`test`/`typecheck` scripts -
    a failing task no longer cancels a sibling whose own dependencies succeeded, and a package whose
    dependency genuinely failed is still skipped rather than run against a broken build. Same probe,
    after:
@@ -611,7 +611,7 @@ No configuration was changed in this pass. `biome.json`, `turbo.json`, `pnpm-wor
    ```
 
    *The 14.42 MB.* Not caused by rollup-dts: emitting the same declarations per-file with `tsc`
-   measured 15,146,902 bytes against the rollup's 15,144,529 — within 0.02%. The cause is that an
+   measured 15,146,902 bytes against the rollup's 15,144,529 - within 0.02%. The cause is that an
    exported `const XSchema = z.strictObject({...})` carries no type annotation, so TypeScript prints
    the whole inferred `z.ZodObject<{...}>` tree, and every parent schema re-prints its children's
    trees inside its own. `ReplayResultSchema` alone was 2,239,487 bytes. Fixed by giving the composed
@@ -634,5 +634,5 @@ No configuration was changed in this pass. `biome.json`, `turbo.json`, `pnpm-wor
    it was verified by injection in both directions: reverting one module trips the per-file budget
    (64,521 bytes), reverting three trips the total budget (566,417 bytes).
 6. **Nothing above the drivers reads a clock, a socket or a selector, and nothing dispatches an
-   action without a policy decision — and all four of those are now facts a test will lose sleep
+   action without a policy decision - and all four of those are now facts a test will lose sleep
    over rather than sentences in a README.**

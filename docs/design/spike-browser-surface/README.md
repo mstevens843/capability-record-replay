@@ -1,4 +1,4 @@
-# Spike code — browser surface
+# Spike code - browser surface
 
 Working scratch code from `docs/design/spike-browser-surface.md`. **Not part of the build.** It is
 kept because every number, role histogram and error string in that document came out of these files,

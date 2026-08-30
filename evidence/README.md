@@ -1,10 +1,10 @@
-# `/evidence` — what was actually run, and what was not
+# `/evidence` - what was actually run, and what was not
 
 This directory now has two kinds of evidence. The main replay bundle is produced by `pnpm demo`,
 on a laptop, with no live service of any kind. Supplemental exhibits are produced by their own
-commands and describe themselves in their own `README.md` files. `discovery-live/` is the one
-model-produced directory when present;
-everything else is deterministic replay, verification, conformance, or promotion work.
+commands and describe themselves in their own `README.md` files. `discovery-live/` is the only
+model-produced directory when present. Everything else is deterministic replay, verification,
+conformance, or promotion work.
 
 **All data is synthetic.** `fixtures/corebank-web` is a purpose-built hostile back office; the
 members, balances and account numbers in it exist nowhere else and are marked `(SYNTHETIC)` on
@@ -18,44 +18,42 @@ It is the only thing in this bundle a model produced; read its own `README.md` a
 spend. Everything else below is a **replay**, which is the half that runs in production
 with no model in the decision path.
 
-## Provenance — which adapter produced what
+## Provenance - which adapter produced what
 
 | Directory | Produced by | Model |
 |---|---|---|
 | [`artifact/`](artifact/) | hand-authored for build unit 11's acceptance test | **none** |
-| `replay-0*/` | `@crr/runtime` `replay()` over `@crr/surface-browser` | **none — no model is in the decision path of a replay, by design** |
+| `replay-0*/` | `@crr/runtime` `replay()` over `@crr/surface-browser` | **none - no model is in the decision path of a replay, by design** |
 | [`cli-replay/`](cli-replay/) | the shipped `crr` binary | **none** |
 | [`masked-capture/`](masked-capture/) | `@crr/surface-browser` `capture()` | **none** |
 | [`redaction-canary/`](redaction-canary/) | `@crr/runtime` `runRedactionCanary()` | **none** |
-| [`outcome-promotion/`](outcome-promotion/) | a reviewer walking the live artifact through `crr probe` / `crr promote` / `crr verify` | **none — the two documents it starts from came from the live run; nothing else here did** |
+| [`outcome-promotion/`](outcome-promotion/) | a reviewer walking the live artifact through `crr probe` / `crr promote` / `crr verify` | **none - the two documents it starts from came from the live run; nothing else here did** |
 | [`write-boundary/`](write-boundary/) | `pnpm -F @crr/runtime exec tsx demo/write-boundary.ts` | **none** |
 | [`semantic-denials/`](semantic-denials/) | `pnpm -F @crr/runtime exec tsx test/evidence/semantic-denials.ts` | **none** |
 | [`handoff/`](handoff/) | `pnpm -F @crr/runtime exec tsx demo/handoff.ts` | **none** |
 | [`multi-tenant-overlay/`](multi-tenant-overlay/) | `pnpm -F @crr/runtime exec tsx demo/multi-tenant-overlay.ts` | **none** |
 | [`terminal-survivors/`](terminal-survivors/) | `pnpm -F @crr/conformance exec tsx test/evidence/terminal-survivors.ts` | **none** |
-| [`discovery-live/`](discovery-live/) | `pnpm discover` — the `anthropic` adapter against the Messages API | see `discovery-live/provenance.json` |
+| [`discovery-live/`](discovery-live/) | `pnpm discover` - the `anthropic` adapter against the Messages API | see `discovery-live/provenance.json` |
 
 ### About `artifact/`
 
 `artifact/artifact.json` was **hand-authored**, not synthesized from a discovery run, and its
 `provenance.model.adapter` says `replay` with a model id of `none:hand-authored-for-unit-11`
 because that enum has no honest value for "a person wrote this". Every matcher in it was derived
-from a real `perceive()` over the fixture through `@crr/surface-browser` — none of it was written
-by reading the fixture's HTML — but a model did not produce it and this bundle does not pretend
+from a real `perceive()` over the fixture through `@crr/surface-browser` - none of it was written
+by reading the fixture's HTML - but a model did not produce it and this bundle does not pretend
 one did.
 
-This paragraph used to end by predicting its own deletion — *when the live discovery run
-happens, the artifact synthesis emits replaces this one*. The run has happened and it did
-not replace it, on purpose. A synthesized artifact is the **output** of a run and moves
-whenever the run is repeated; the suite that polices this bundle needs an input it can pin.
-So there are two synthesized artifacts and neither is presented as this one. The live run's
-is committed beside its recording at
+The live run did not replace this pinned artifact, on purpose. A synthesized artifact is the
+**output** of a run and moves whenever the run is repeated. The suite that polices this bundle needs
+an input it can pin. There are two synthesized artifacts, and neither is presented as this one. The
+live run's artifact is committed beside its recording at
 [`discovery-live/synthesized/artifact.json`](discovery-live/synthesized/artifact.json) and
 was replayed by that run itself, with the model out of the loop, at
 [`discovery-live/verification.json`](discovery-live/verification.json). A second, frozen one
 lives at `packages/discovery/test/fixtures/corebank-web.capability.json`, and
 `packages/runtime/test/synthesized-replay.test.ts` reads it off disk as data and replays it
-against this same fixture on every `pnpm test` — which is the claim a reviewer can rerun.
+against this same fixture on every `pnpm test` - which is the claim a reviewer can rerun.
 
 The ed25519 approval key pair is generated per process, so `approver.spki.pem` and the signature
 inside `artifact.json` differ on every demo run. The **digest** they sign does not: it is over
@@ -74,15 +72,15 @@ uneditable.
 | [`masked-capture/`](masked-capture/) | safety | masked | a screenshot region bound to a sensitive parameter, blanked before the bytes left the driver |
 | [`cli-replay/`](cli-replay/) | reproducibility | exit 0 | the same replay through the shipped `crr` command, so a reviewer can run it verbatim |
 
-Four of the five replays hit an exceptional state, and they are exceptional in three different
-ways — an expected business outcome, a recoverable condition, and two hard failures. That split
-is the product: `MEMBER_NOT_FOUND` is a typed **answer** the caller acts on, an interstitial is a
+Four of the five replays hit an exceptional state, and they fall into three different categories:
+an expected business outcome, a recoverable condition, and two hard failures. That split matters:
+`MEMBER_NOT_FOUND` is a typed **answer** the caller acts on, an interstitial is a
 **bounded, budgeted, reported** remedy, and an application error page is a **stop** that names the
 step, the expectation and the observation.
 
 Each scenario directory holds `result.json` (what the calling agent receives), `journal.jsonl`
 (the structured journal, written as the run happened), `run.log` (that scenario's console
-output) and `observations/` — the run's evidence sink, holding content-addressed frozen
+output) and `observations/` - the run's evidence sink, holding content-addressed frozen
 `Observation`s (each already through `redactObservation`) plus the journal blob the run's
 `journalRef` points at. A green run freezes no observation, because these steps declare
 `captureOn: ["failure"]`; the two hard failures each freeze the screen that failed, and that
@@ -109,17 +107,17 @@ above regenerate them explicitly.
 ## The redaction canary
 
 `pnpm demo` finishes by grepping this entire directory for **every parameter value the runs
-were given**, in fourteen encodings — the literal, UTF-16LE, JSON `\uXXXX`, percent-encoded,
-HTML entities, hex, and base64 at all three byte alignments — plus the inflated text chunks of
+were given**, in fourteen encodings - the literal, UTF-16LE, JSON `\uXXXX`, percent-encoded,
+HTML entities, hex, and base64 at all three byte alignments - plus the inflated text chunks of
 any PNG, and every file NAME.
 
-Where a needle could not be built it says so rather than omitting it: a five-digit member number
+Where a needle could not be built, the report says so rather than omitting it: a five-digit member number
 is eight base64 characters, of which only three to five are independent of the value's byte
 alignment, which is too few to tell from noise. Those pairs are listed under `not searched` in
 [`redaction-canary/report.txt`](redaction-canary/report.txt). An encoding that was never searched
 for is not coverage, and a report that quietly dropped it would be claiming more than it checked.
 
-Result of the run that produced the main demo bundle: **CLEAN** — 274 files, 6000007 bytes, 26 distinct needles, 0 hits, 0 credential-shaped strings, self-test passed (26/26).
+Result of the run that produced the main demo bundle: **CLEAN** - 274 files, 6000007 bytes, 26 distinct needles, 0 hits, 0 credential-shaped strings, self-test passed (26/26).
 
 The supplemental write, semantic-denial, handoff and multi-tenant overlay exhibits also write
 canary summaries for the sensitive values they use. `terminal-survivors/` contains only
@@ -129,7 +127,7 @@ That report covers every file that existed when it ran. This `README.md`, the re
 the finished `demo.log` are written afterwards, so a **second whole-bundle pass** runs once every
 byte is on disk and **its** verdict is `pnpm demo`'s exit code. Its output is on the console and
 in no file, because a report of a scan that included the report is a file the scan did not
-include — the recursion has to stop somewhere, and it stops with the whole bundle covered.
+include - the recursion has to stop somewhere, and it stops with the whole bundle covered.
 
 A committed bundle is therefore one where both passes were clean. See
 [`redaction-canary/`](redaction-canary/) for how the canary proves it can fail, and for the two

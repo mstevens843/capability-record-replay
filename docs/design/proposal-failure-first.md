@@ -15,17 +15,17 @@ and what I would change.
 ## 1. Thesis
 
 A replay engine is not an automation script with error handling bolted on; it is **a classifier with
-an actuator attached**. The valuable, hard-to-get-right artifact is not the step list — with a stable
-UI, the step list is close to trivial — it is the declared, reviewable mapping from *what the screen
+an actuator attached**. The valuable, hard-to-get-right artifact is not the step list - with a stable
+UI, the step list is close to trivial - it is the declared, reviewable mapping from *what the screen
 shows* to *what the caller is told*, and the code that evaluates that mapping is a pure total
 function from a frozen `Observation` to a `Verdict`. So the schema is designed backwards from that
 function: every field exists because the classifier, the pre-act target assertion, or the human
 reviewing the artifact needs it, and anything the classifier cannot read is not in the artifact.
 Three consequences fall straight out and drive the rest of this document. First, **the taxonomy is
-declared data with a fail-closed default** — an unrecognized screen is a hard failure, never an
+declared data with a fail-closed default** - an unrecognized screen is a hard failure, never an
 inferred business outcome, because a false `MEMBER_NOT_FOUND` is the single worst thing this system
 can emit: it launders a broken automation into a confident answer a member hears. Second, **"not
-yet" is not "not so"** — no negative outcome may be classified against a surface that has not
+yet" is not "not so"** - no negative outcome may be classified against a surface that has not
 demonstrably settled, which is the same conflation error the brief warns about, running in the
 opposite direction. Third, **acting on the wrong target is a targeting problem to be prevented, not
 a failure to be detected**, so identity is re-derived from the caller's own input at the moment of
@@ -46,7 +46,7 @@ means the artifact author declared it, `engine` means it is built in and not con
 
 | # | What happened | Disposition | Band | Code / class | Decided by |
 |---|---|---|---|---|---|
-| 1 | Caller's argument fails a declared param constraint | **outcome** `INVALID_INPUT` | — | `callerAction: retry-different-input` | pre-flight |
+| 1 | Caller's argument fails a declared param constraint | **outcome** `INVALID_INPUT` | - | `callerAction: retry-different-input` | pre-flight |
 | 2 | App shows a validation error, and the offending value is **param-bound** | **outcome** e.g. `INVALID_MEMBER_ID` | B3 | `callerAction: retry-different-input` | schema |
 | 3 | App shows a validation error, and the offending value is **artifact-literal-bound** | **hard failure** | B6 | `checkpoint-failed` | engine |
 | 4 | Record not found | **outcome** `MEMBER_NOT_FOUND` | B3 | `callerAction: inform-user` | schema |
@@ -80,7 +80,7 @@ are the rows a happy-path design silently gets wrong.
 
 ### 2.2 Four things the table asserts that are not obvious
 
-**Row 2 vs row 3 — the same red banner means two different things.** "Member ID must be 5 digits" is
+**Row 2 vs row 3 - the same red banner means two different things.** "Member ID must be 5 digits" is
 a legitimate business answer when the value the app rejected came from the *caller's* argument: the
 agent supplied a bad member id and needs to be told so it can ask the member again. The identical
 banner is a hard failure when the rejected value was a literal baked into the artifact, because then
@@ -89,13 +89,13 @@ binding provenance is an input to it (`ResolvedBindings`), which is a second, un
 the parameterization decision in `BRIEF §3.6`: parameterization is what makes validation errors
 classifiable at all.
 
-**Row 1 — the cheapest classification touches no surface.** Declared param constraints
+**Row 1 - the cheapest classification touches no surface.** Declared param constraints
 (`charset`, length, `enum`) are evaluated before `perceive()` is ever called. Driving four steps of a
 legacy UI to learn that `"abc"` is not a member id is slower, flakier, and produces a worse error
 message than rejecting it in a nanosecond. `INVALID_INPUT` is a first-class outcome with no step
 attached.
 
-**Rows 5 vs 6 — permission denial is polymorphic and must be declared.** A denial that is a property
+**Rows 5 vs 6 - permission denial is polymorphic and must be declared.** A denial that is a property
 of *the record* is an answer ("this member's account is flagged; a supervisor must service it"). A
 denial that is a property of *the session's role* is an environment fault: it will fail identically
 for every input forever, retrying is pointless, and the fix is a person changing an entitlement.
@@ -103,7 +103,7 @@ These render as almost the same screen. The artifact author declares which detec
 **an undeclared denial defaults to row 6, the failure**, never to row 5. That is the fail-closed rule
 in its most consequential instance.
 
-**Row 26 — the row the brief does not list.** If an irreversible action is dispatched and the session
+**Row 26 - the row the brief does not list.** If an irreversible action is dispatched and the session
 dies before its effect is observed, there is no honest classification available locally. It did not
 "fail" and it did not succeed. The only correct behavior is to stop, return `effect-in-doubt` with
 `retriable: 'no'`, raise an intervention, and let a person reconcile against the system of record. A
@@ -114,7 +114,7 @@ than a comment.
 ### 2.3 Three dispositions, and why not four
 
 The result contract has exactly three top-level statuses: `ok`, `outcome`, `failed`. Rows 5, 6, 22
-and 26 all argue for a fourth — `blocked` or `escalated` — and I am rejecting it, on the grounds that
+and 26 all argue for a fourth - `blocked` or `escalated` - and I am rejecting it, on the grounds that
 the caller is an AI agent and the union should be shaped by **the branches the caller actually
 takes**, not by our internal categories:
 
@@ -123,7 +123,7 @@ takes**, not by our internal categories:
 - `failed` → tell the user nothing about the domain, and raise an incident.
 
 A fourth status would subdivide the third without changing what the agent does. What the *operator*
-needs — is this a bad artifact, a bad environment, or an in-doubt write — is carried inside
+needs - is this a bad artifact, a bad environment, or an in-doubt write - is carried inside
 `failed` as `class`, `retriable`, and `escalation`, where it can be exhaustive without inflating the
 contract every caller must switch on. Adding a status is a breaking change to every caller; adding a
 `FailureClass` member is not. That asymmetry is the whole argument.
@@ -131,7 +131,7 @@ contract every caller must switch on. Adding a status is a breaking change to ev
 ### 2.4 The two rules that do most of the work
 
 1. **Fail closed toward `failed`.** Promotion to `outcome` requires an explicit declared detector.
-   Nothing is inferred into an outcome — not by string similarity, not by an LLM, not by "the page
+   Nothing is inferred into an outcome - not by string similarity, not by an LLM, not by "the page
    looks empty." The cost of this rule is that a new legitimate business outcome shows up as a hard
    failure the first time and needs a human to add a detector and cut a new artifact version. That is
    the correct cost: it is a one-time review, and the alternative is a wrong answer at scale.
@@ -221,7 +221,7 @@ export type Verdict =
 ```
 
 Note `advance` carries outputs. **Output extraction is a pure read from the same Observation the
-checkpoint validated** — it is not a surface operation. That makes extraction, including its type
+checkpoint validated** - it is not a surface operation. That makes extraction, including its type
 coercions and its `output-extraction-failed` path, testable from the same frozen snapshot with no
 browser. It also removes a race that is otherwise very hard to see: extracting from a *later*
 observation than the one you verified means you can verify the right page and read the next one.
@@ -248,13 +248,13 @@ that makes a replay engine untrustworthy while looking like it works. Quiescence
 §3.5.
 
 **B1 before B3 (environment beats declared outcomes).** A logged-out page and an error page both
-render text that trips content detectors — a session-expiry screen often has an empty content region
+render text that trips content detectors - a session-expiry screen often has an empty content region
 that looks exactly like "no results." Environment truth is a fact about whether the surface is
 showing us the application at all; a declared outcome is a claim about what the application said.
 The first has to win, or a session timeout becomes `MEMBER_NOT_FOUND`.
 
 **B2 before B3 (interception beats declared outcomes).** When a modal is up, what is visible behind
-it is stale by construction — it is the state *before* whatever prompted the modal. Reading an
+it is stale by construction - it is the state *before* whatever prompted the modal. Reading an
 outcome off it is reading history. Equally important, a blocking overlay makes every subsequent
 locator resolution suspect, which is why B2 is also a *pre-act* guard (band G consults it) and not
 only a post-act classification.
@@ -263,7 +263,7 @@ only a post-act classification.
 relative to each other. Outcomes win because an outcome is terminal and already true: burning a
 recovery budget on a page that has given you the final answer wastes attempts and, worse, risks a
 remedy navigating away from it. Concretely: a search result page showing both "No member found for
-12345" and a "Your session will expire in 2 minutes — click to extend" nudge should return
+12345" and a "Your session will expire in 2 minutes - click to extend" nudge should return
 `MEMBER_NOT_FOUND`, not dismiss the nudge and re-search. The nudge is a real recovery for a step that
 has not finished; this step has.
 
@@ -282,8 +282,8 @@ screen the corpus never saw; when it happens, first-declared wins **and the run 
 snapshot added. Order is therefore defined, never relied upon, and violations are observable.
 
 The complementary lint is **coverage**: every fault the fixture can inject must be matched by exactly
-one detector or must land on B6. A fault that lands on B6 is not a lint failure — hard failure is a
-legitimate answer — but the lint reports it, so "we never declared a detector for permission denial"
+one detector or must land on B6. A fault that lands on B6 is not a lint failure - hard failure is a
+legitimate answer - but the lint reports it, so "we never declared a detector for permission denial"
 is visible at review time rather than discovered in production.
 
 ### 3.4 Attempt budgets
@@ -322,7 +322,7 @@ Exhaustion is a classification, not a timeout: `recovery-exhausted` carries whic
 attempt count, and the Observation digest at each attempt, so the debug question "why did dismissing
 this dialog not work" is answerable from the journal without a reproduction.
 
-**Interaction with `effectClass`** — a schema invariant, checked at save time:
+**Interaction with `effectClass`** - a schema invariant, checked at save time:
 
 - `effectClass: 'WRITE_IRREVERSIBLE'` forces `retryPolicy: 'never'` on the step.
 - Recoveries on such a step may only carry remedies of kind `wait` or `dismiss`, and only in the
@@ -345,8 +345,8 @@ export interface SettlePolicy {
 }
 ```
 
-The digest is over the **structural skeleton** of the Observation — `role`, accessible name,
-`containerPath`, and the enabled/checked/expanded state of every node — deliberately excluding
+The digest is over the **structural skeleton** of the Observation - `role`, accessible name,
+`containerPath`, and the enabled/checked/expanded state of every node - deliberately excluding
 geometry and excluding the text of nodes marked live-updating, so a clock in the page header does not
 make the surface permanently unsettled. `busyWhen` exists because a legacy app that swaps a frame's
 contents can be digest-stable for one poll interval mid-swap.
@@ -360,12 +360,12 @@ it), and if nothing matches it returns `fail(did-not-settle)` carrying the last 
 
 The loop closes on itself, which is the point:
 
-1. The fixture (`fixtures/corebank-web`) injects a fault per session — validation error, not found,
+1. The fixture (`fixtures/corebank-web`) injects a fault per session - validation error, not found,
    permission denied, interstitial, session timeout, slow load, app 500.
 2. The executor journals **every** `perceive()` result, redacted per taint, to
    `evidence/observations/<runId>/<seq>.json`.
 3. Those files are the conformance corpus. A classifier test is
-   `expect(classify(load(snapshot), fixtures.step, fixtures.counters)).toEqual(expectedVerdict)` —
+   `expect(classify(load(snapshot), fixtures.step, fixtures.counters)).toEqual(expectedVerdict)` -
    no Playwright, no fixture server, milliseconds.
 4. The conformance package runs each scenario against **deliberately weakened engines**: one with no
    quiescence gate (must fail the slow-load scenario by returning `MEMBER_NOT_FOUND`), one that
@@ -373,7 +373,7 @@ The loop closes on itself, which is the point:
    that takes the first matching locator instead of requiring descriptor agreement (must fail the
    duplicate-name scenario), one with no `targetAssert`, one with no continuity assertion, one that
    promotes unmatched screens to a nearest-string-match outcome (must produce a false success).
-5. A **meta-test fails if every mutant passes** — i.e. if the suite has stopped discriminating.
+5. A **meta-test fails if every mutant passes** - i.e. if the suite has stopped discriminating.
 
 That last step is what turns "my replay handles errors" into a claim with a receipt. The specific
 assertion the whole suite exists to make is **zero false successes**: no scenario may return `ok` or
@@ -388,17 +388,17 @@ are in the schema. Decompose it, because "wrong target" is seven different bugs:
 
 | | Sub-case | Caught by | Verdict |
 |---|---|---|---|
-| **W1** | Right control kind, wrong row — two members named *J. Alvarez*, we clicked the second | C1 `rowKeyEquals` bound to the caller's param; C2 continuity | `target-assert-failed` (pre-act) |
-| **W2** | Right row, wrong column — "Close" sits where "Select" used to | C1 `targetAssert.role` + `name` | `target-assert-failed` (pre-act) |
-| **W3** | Right label, wrong frame — a "Search" button exists in the nav frame and the content frame | C3 `scope` container + C4 descriptor agreement | `target-not-found` or `target-ambiguous` |
-| **W4** | Stale geometry after a re-layout — coordinates now land on a neighbour | C4 descriptor agreement (geometric disagrees with role-name) | `target-ambiguous` |
+| **W1** | Right control kind, wrong row - two members named *J. Alvarez*, we clicked the second | C1 `rowKeyEquals` bound to the caller's param; C2 continuity | `target-assert-failed` (pre-act) |
+| **W2** | Right row, wrong column - "Close" sits where "Select" used to | C1 `targetAssert.role` + `name` | `target-assert-failed` (pre-act) |
+| **W3** | Right label, wrong frame - a "Search" button exists in the nav frame and the content frame | C3 `scope` container + C4 descriptor agreement | `target-not-found` or `target-ambiguous` |
+| **W4** | Stale geometry after a re-layout - coordinates now land on a neighbour | C4 descriptor agreement (geometric disagrees with role-name) | `target-ambiguous` |
 | **W5** | Click landed on a transparent overlay | B2 interception guard, pre-act; C5 effect delta | `undeclared-dialog` / `no-observable-effect` |
 | **W6** | Action dispatched, nothing happened (control disabled but not marked disabled) | C5 effect delta | `no-observable-effect` |
-| **W7** | Everything on screen is correct and the backend acted on a different record | **nothing here** | — see below |
+| **W7** | Everything on screen is correct and the backend acted on a different record | **nothing here** | - see below |
 
 ### 4.1 The five controls
 
-**C1 — pre-act target assertion. The strongest one.** Before dispatch, assert invariants about the
+**C1 - pre-act target assertion. The strongest one.** Before dispatch, assert invariants about the
 *resolved node itself*: its role, its accessible name against a `TextMatcher`, its enabled state, and
 for row-scoped targets `rowKeyEquals: { columnHeader: "Member ID", value: { from: 'param',
 param: 'memberId' } }`. The principle: **the identity of the thing we act on is re-derived from data
@@ -406,27 +406,27 @@ we already know, not from where it sits.** You cannot click the wrong member's r
 selected by the member id the caller asked about. This converts W1 and W2 from silent to loud, and it
 costs one predicate evaluation.
 
-**C2 — continuity assertions.** A named value flows through the run and must be re-observed at
+**C2 - continuity assertions.** A named value flows through the run and must be re-observed at
 declared waypoints. `subjectMember` is bound from the `memberId` parameter and must appear inside the
 member-detail region at the detail step and again at the balance step. The checkpoint therefore is
 not "a member detail page loaded" but "*the* member detail page for the member we were asked about."
-This catches the landing-on-the-wrong-record class even when the click itself was unambiguous — for
+This catches the landing-on-the-wrong-record class even when the click itself was unambiguous - for
 example when the app's own search silently corrected the id.
 
-**C3 — scoped resolution.** Every `TargetRef` carries a `scope: ContainerMatcher`. Resolution never
+**C3 - scoped resolution.** Every `TargetRef` carries a `scope: ContainerMatcher`. Resolution never
 searches the whole Observation. On a frameset app this is the difference between finding the right
 "Search" button and finding a "Search" button.
 
-**C4 — descriptor agreement, per `BRIEF §3.2`.** At least two independently computed descriptors must
+**C4 - descriptor agreement, per `BRIEF §3.2`.** At least two independently computed descriptors must
 resolve, and they must resolve to the **same node id**. Disagreement is `target-ambiguous`, a hard
 failure. This is not a fallback chain and the difference is the whole point: a fallback chain
 *silences* the disagreement, which is exactly the signal. `AgreementPolicy.requireIdentical` is typed
 as the literal `true` so nobody can configure it away.
 
-**C5 — effect delta.** At record time we capture a structural summary of the change the action caused
+**C5 - effect delta.** At record time we capture a structural summary of the change the action caused
 (did navigation occur, which containers changed, where focus went). At replay, the checkpoint asserts
-the delta matches. The default is deliberately the weakest useful form — `{ mustChange: true }`,
-*something observable must have changed* — because a strict delta assertion overfits to the recording
+the delta matches. The default is deliberately the weakest useful form - `{ mustChange: true }`,
+*something observable must have changed* - because a strict delta assertion overfits to the recording
 and turns benign rendering differences into failures. Weak as it is, it catches W6, which is
 otherwise indistinguishable from success on a page that looks similar before and after.
 
@@ -439,7 +439,7 @@ things follow, and they are the actual mitigation:
 
 1. `WRITE_IRREVERSIBLE` requires an approved artifact plus a per-invocation approval token. The
    residual undetectable-wrong-target risk is precisely why that gate exists, and this is the
-   argument for it — not a generic "writes are scary."
+   argument for it - not a generic "writes are scary."
 2. Continuity assertions should be declared on the **confirmation** screen of a write flow, because a
    confirmation screen is usually where the app finally prints the identity of what it did. If the
    confirmation names the record, W7 collapses into W1 and becomes detectable.
@@ -475,7 +475,7 @@ export type Role =
   | 'status' | 'form' | 'region' | 'navigation' | 'main' | 'group' | 'text' | 'image' | 'unknown';
 
 /**
- * Text comparison. NO REGEX ANYWHERE — see §9. `template` holes are parameter names, which
+ * Text comparison. NO REGEX ANYWHERE - see §9. `template` holes are parameter names, which
  * is also what keeps PII out of detector literals: you write "No member found for {memberId}",
  * never the id itself.
  */
@@ -529,7 +529,7 @@ export interface RoutePattern {
 }
 ```
 
-### 5.1 Containers — how a region of the surface is named
+### 5.1 Containers - how a region of the surface is named
 
 ```ts
 /**
@@ -552,7 +552,7 @@ export type ContainerSegment =
   | { kind: 'table'; caption?: TextMatcher; headers: TextMatcher[] };
 ```
 
-### 5.2 Target and descriptors — §9 argues for these
+### 5.2 Target and descriptors - §9 argues for these
 
 ```ts
 export interface TargetRef {
@@ -570,9 +570,9 @@ export type Descriptor =
   | { kind: 'role-name'; role: Role; name: TextMatcher }
   /** Rank 2. "the field whose label is X", incl. spatial label association for legacy tables. */
   | { kind: 'label-anchored'; label: TextMatcher; relation: 'labelled-by' | 'right-of' | 'below'; role?: Role }
-  /** Rank 3. "the Select link on the row whose Member ID cell is :memberId" — how a human does it. */
+  /** Rank 3. "the Select link on the row whose Member ID cell is :memberId" - how a human does it. */
   | { kind: 'table-cell'; table: ContainerMatcher; columnHeader: TextMatcher; rowKey: RowKey; cellRole?: Role }
-  /** Rank 4. Positional. NEVER permitted as the only descriptor — see §9 and invariant 2. */
+  /** Rank 4. Positional. NEVER permitted as the only descriptor - see §9 and invariant 2. */
   | { kind: 'ordinal-in-container'; container: ContainerMatcher; role: Role; index: number }
   /** Rank 5. Last resort, always anchored to visible text, always scoped, never absolute. */
   | { kind: 'geometric'; container: ContainerMatcher; anchor: TextMatcher; direction: 'right' | 'below' | 'left' | 'above'; maxDistance: number };
@@ -601,7 +601,7 @@ export interface TargetAssertion {
 }
 ```
 
-### 5.3 The predicate DSL — the only thing a detector can say
+### 5.3 The predicate DSL - the only thing a detector can say
 
 ```ts
 /**
@@ -627,7 +627,7 @@ export type Predicate =
 export interface NodeQuery { scope?: ContainerMatcher; role?: Role; name?: TextMatcher; state?: Partial<NodeState> }
 ```
 
-### 5.4 Contract — the agent-facing half
+### 5.4 Contract - the agent-facing half
 
 ```ts
 export interface CapabilityContract {
@@ -683,7 +683,7 @@ export interface OutcomeDef {
   /** What the CALLER should do. This is the field that makes the three-way split actionable
    *  rather than merely descriptive. */
   callerAction: 'inform-user' | 'retry-different-input' | 'escalate-human';
-  /** Literal `true`: not configurable. Rule 2 of §2.4 — no negative outcome on an unsettled surface. */
+  /** Literal `true`: not configurable. Rule 2 of §2.4 - no negative outcome on an unsettled surface. */
   requiresSettled: true;
 }
 ```
@@ -700,7 +700,7 @@ export interface Flow {
    * from replaying a write.
    */
   resumePoints: StepId[];
-  steps: Step[];                       // a straight line. No branching — see §11.
+  steps: Step[];                       // a straight line. No branching - see §11.
 }
 
 export type EffectClass = 'READ' | 'WRITE_REVERSIBLE' | 'WRITE_IRREVERSIBLE';
@@ -734,7 +734,7 @@ export interface Checkpoint {
 }
 
 export interface DeltaAssertion {
-  /** Default true, and deliberately the weakest useful assertion — see §4.1 C5. */
+  /** Default true, and deliberately the weakest useful assertion - see §4.1 C5. */
   mustChange: boolean;
   navigatedTo?: RoutePattern;
   changedContainers?: ContainerMatcher[];
@@ -1301,7 +1301,7 @@ showing because it is where the safety model and the taxonomy meet:
   "expect": {
     "predicate": { "kind": "node-exists", "where": { "role": "heading", "name": { "mode": "exact", "value": "Sub-account Opened", "normalize": { "trim": true, "collapseWhitespace": true, "caseFold": true, "stripPunctuation": false } } } },
     "delta": { "mustChange": true },
-    // (2) continuity on the CONFIRMATION screen — this is where W7 collapses into W1 (§4.2)
+    // (2) continuity on the CONFIRMATION screen - this is where W7 collapses into W1 (§4.2)
     "continuity": ["subjectMember", "subjectAccountType"],
     "describes": "The confirmation screen names the member and the account type we asked for."
   },
@@ -1311,7 +1311,7 @@ showing because it is where the safety model and the taxonomy meet:
 
 and at the envelope: `policy.requiresApprovalToken: true`, and
 `verification: { mode: "replay-dry", grade: "partial-up-to-irreversible", coveredThroughStep: "review-subaccount" }`
-— **(4)**, which is §12.
+- **(4)**, which is §12.
 
 ### 6.2 Four details in that JSON I would expect to be asked about
 
@@ -1341,7 +1341,7 @@ step is the search field and not the balance cell.
 
 ## 7. The replay result contract
 
-This is the type an AI agent — or the operator console, or a test — receives. Three statuses, for the
+This is the type an AI agent - or the operator console, or a test - receives. Three statuses, for the
 reason in §2.3.
 
 ```ts
@@ -1391,7 +1391,7 @@ export interface ReplayOutcome extends ReplayEnvelope {
     data: Record<string, unknown>;
     /** The instruction to the calling agent. This is the field that makes the split useful. */
     callerAction: 'inform-user' | 'retry-different-input' | 'escalate-human';
-    /** Which step produced it and which detector matched — so a wrong outcome is debuggable. */
+    /** Which step produced it and which detector matched - so a wrong outcome is debuggable. */
     atStep: StepId;
     detectorId: string;
   };
@@ -1458,7 +1458,7 @@ visible before it becomes an incident.
 
 **`observationRef` closes the loop from production to test.** A failure in production hands you the
 exact JSON input to `classify` that produced the verdict. Reproducing it requires no browser, no
-fixture, and no session — which is the practical payoff of §3.1 and the reason purity was worth
+fixture, and no session - which is the practical payoff of §3.1 and the reason purity was worth
 designing for rather than merely claiming.
 
 ---
@@ -1483,7 +1483,7 @@ export interface SurfaceCapture { capture(kind: 'image' | 'grid'): Promise<Uint8
 
 ```ts
 export interface Observation {
-  /** Monotonic within a session. Not a timestamp — the classifier gets no clock. */
+  /** Monotonic within a session. Not a timestamp - the classifier gets no clock. */
   seq: number;
   /** Canonicalized. NEVER the raw URL; the driver applies the tenant's route canonicalization. */
   route: { originAlias: string; path: string; query: Record<string, string>; frame?: string };
@@ -1593,7 +1593,7 @@ all: the label text is still there on the character grid, and `surface-terminal`
 label detection in the VT buffer. A CSS selector has no meaning on that surface. An accessible name
 does. That is the test of whether the abstraction is real.
 
-**Why not one descriptor.** Accessible name alone is not unique — a results table has ten "Select"
+**Why not one descriptor.** Accessible name alone is not unique - a results table has ten "Select"
 links with identical names, and that is exactly the W1 wrong-row case. So:
 
 | Rank | Descriptor | What it encodes | Fails when |
@@ -1604,7 +1604,7 @@ links with identical names, and that is exactly the W1 wrong-row case. So:
 | 4 | `ordinal-in-container` | position | anything is inserted |
 | 5 | `geometric` | scoped offset from an anchor's text | re-layout, theming |
 
-Rank is a property of the kind and lives in `core`, never in the artifact — otherwise a tenant
+Rank is a property of the kind and lives in `core`, never in the artifact - otherwise a tenant
 overlay could promote `ordinal` and quietly reintroduce positional targeting. **`ordinal` may never
 be the only or highest-ranked descriptor** (invariant 2), because it is the descriptor that hits the
 wrong target without complaining. It earns its place as a *second opinion*: when `role-name` and
@@ -1613,8 +1613,8 @@ wrong target without complaining. It earns its place as a *second opinion*: when
 
 **Why `table-cell` is the important one for this domain.** Back-office banking screens are
 search-result tables, and the human's actual algorithm is "find the row where Member ID is 12345,
-then click Select on that row." Encoding *that* — header text plus a row key bound to the caller's
-own parameter — is both the most robust descriptor and the strongest wrong-target control (§4.1 C1).
+then click Select on that row." Encoding *that* - header text plus a row key bound to the caller's
+own parameter - is both the most stable descriptor and the strongest wrong-target control (§4.1 C1).
 The two goals turn out to be the same goal, which is the nicest thing about this design.
 
 **Why agreement rather than fallback.** A fallback chain converts a disagreement into a silent
@@ -1622,14 +1622,14 @@ choice, and the disagreement is the only evidence we will ever get that the surf
 underneath us. `requireIdentical: true` is typed as a literal so it cannot be configured away, and
 `onUnderQuorum: 'fail'` likewise. The cost is real and I will state it: on a genuinely drifted screen
 this design **stops** where a fallback chain would have carried on and probably done the right thing.
-That is the trade I want in a bank, and it is the trade the brief's "stable UIs" premise makes cheap —
+That is the trade I want in a bank, and it is the trade the brief's "stable UIs" premise makes cheap -
 if drift were constant, this would be the wrong call.
 
 **Why no regex, anywhere.** `TextMatcher` has `exact`, `template`, `oneOf` and nothing else. Three
 reasons: a regex in an artifact is not reviewable by the operations person who has to approve it; it
 is a denial-of-service surface (catastrophic backtracking) in a file that crosses a trust boundary
-from a discovery run; and the one thing people reach for regex to do here — "the message with the id
-in it" — is better served by `template` holes, which additionally keep the id out of the file
+from a discovery run; and the one thing people reach for regex to do here - "the message with the id
+in it" - is better served by `template` holes, which additionally keep the id out of the file
 (§5.7 invariant 8). Matching is a linear pass over normalized text with named holes.
 
 **Multi-tenant.** Label variation between two tenants running the same vendor product is handled by
@@ -1650,7 +1650,7 @@ considered, I merged.
 
 | Package | One-line justification |
 |---|---|
-| `packages/core` | Schema, ports, resolver, classifier, extractor, policy predicate — **zero I/O, zero clock, zero driver imports, checked by contract test**. This is the package the conformance suite grades and the one the whole thesis rests on. |
+| `packages/core` | Schema, ports, resolver, classifier, extractor, policy predicate - **zero I/O, zero clock, zero driver imports, checked by contract test**. This is the package the conformance suite grades and the one the whole thesis rests on. |
 | `packages/runtime` | The impure half: session, control lease, quiescence polling, budgets, evidence sink, file-backed artifact store, operator console, and the `crr` CLI. One place where time, disk and sockets live, so "core is pure" is a statement about a directory. |
 | `packages/surface-browser` | Playwright + CDP `Accessibility.getFullAXTree` → `Observation`; the only package that may know what a frame or a pixel is. |
 | `packages/surface-terminal` | pty character-grid driver. Exists **to falsify the abstraction**: if the ports only fit a browser, this package is where that becomes obvious rather than aspirational. |
@@ -1662,7 +1662,7 @@ considered, I merged.
 **What I deliberately did not make a package**, and why, because the assignment says architecture
 theatre is not rewarded:
 
-- **No `@crr/schema`.** The schema and the classifier change together — every new field exists for the
+- **No `@crr/schema`.** The schema and the classifier change together - every new field exists for the
   classifier. Splitting them creates a version skew between a validator and its only consumer, and
   buys a dependency arrow nobody reads.
 - **No `@crr/policy`.** The policy engine is one pure `check(action, ctx)` chokepoint. It is ~200
@@ -1687,13 +1687,13 @@ Each of these was considered and cut. The cut is the design.
    is a terminal outcome. This is the single biggest scope cut in the document and it is deliberate:
    branching turns the artifact into a program, destroys the reviewability that justifies "data, not
    code," and makes the classifier's totality argument much harder. If a flow genuinely needs a
-   branch, that is **two capabilities** and the calling agent composes them — which is also the
+   branch, that is **two capabilities** and the calling agent composes them - which is also the
    honest answer, because a branch is a decision and decisions belong to the agent.
 3. **No timings observed during discovery, used as replay budgets.** Recording that the page took
    840ms and setting an 840ms timeout is the classic way to manufacture flake. Budgets are declared
    policy with round numbers, tuned against the conformance corpus, and overridable per tenant.
 4. **No raw model transcript, and no model-authored prose the engine reads.** `provenance.transcriptRef`
-   is a pointer. `Step.label` exists for humans and a contract test asserts the engine never reads it —
+   is a pointer. `Step.label` exists for humans and a contract test asserts the engine never reads it -
    because an engine that reads prose has put the model back in the decision loop through a side door.
 5. **No credentials, session tokens, cookies, or storage state.** Re-authentication resolves
    `{ from: 'credential' }` through a broker at act time, tainted, never stored, never logged.
@@ -1706,7 +1706,7 @@ Each of these was considered and cut. The cut is the design.
    not values" that parameterization alone does not close: a detector that says
    `"No member found for 12345"` has stored a member number just as surely as a step value would.
 9. **No whole-page expected-text snapshots.** They embed PII, they break on branding, and they turn
-   every cosmetic change into a hard failure — which trains people to ignore hard failures.
+   every cosmetic change into a hard failure - which trains people to ignore hard failures.
 10. **No confidence scores or thresholds on locator matches.** A score invites a threshold, a
     threshold invites tuning, and tuning a match threshold is how a wrong-target click becomes
     policy. Matching is boolean; disagreement is a named failure.
@@ -1717,41 +1717,41 @@ Each of these was considered and cut. The cut is the design.
 12. **No per-artifact retry counts learned from the model.** Budgets are authored and reviewed.
 13. **No `expectedScreenshot` / visual diff checkpoint.** Tempting for the wrong-target problem, and
     rejected: it is the least stable signal on a multi-tenant, multi-theme surface, and it would make
-    the classifier impure (it needs pixels, not an Observation) — which would cost the frozen-snapshot
+    the classifier impure (it needs pixels, not an Observation) - which would cost the frozen-snapshot
     testability that this whole design is organized around.
 
 ---
 
 ## 12. Where I think the brief is wrong
 
-`BRIEF §3.4` — "recording is not a claim until it replays" — is right in intent and unsound as
+`BRIEF §3.4` - "recording is not a claim until it replays" - is right in intent and unsound as
 written for exactly the flows that matter most.
 
 The problem: the immediate verification replay runs against a surface the discovery run just mutated.
 For a read-only capability that is fine. For `corebank.member.open-subaccount`, **verification opens a
 second sub-account.** The mechanism that proves the artifact is faithful is itself an unapproved,
-unattended, duplicated irreversible write against a bank system — which is the thing the entire safety
+unattended, duplicated irreversible write against a bank system - which is the thing the entire safety
 model in `§3.7` exists to prevent. Nothing in the brief notices that §3.4 and §3.7 are in direct
 conflict for write flows.
 
 The fix is small and it improves the design rather than weakening it. Verification gets a declared
 mode, and the artifact records which one it got:
 
-- **`replay-live`** — the whole flow, for capabilities whose net `effectClass` is `READ`. Grade `full`.
-- **`replay-dry`** — for write flows. Replay every step up to the first `WRITE_IRREVERSIBLE`, then at
+- **`replay-live`** - the whole flow, for capabilities whose net `effectClass` is `READ`. Grade `full`.
+- **`replay-dry`** - for write flows. Replay every step up to the first `WRITE_IRREVERSIBLE`, then at
   that step do everything except dispatch: resolve the descriptors, require agreement, run
-  `targetAssert`, evaluate the precondition — and stop. Grade `partial-up-to-irreversible`, with
+  `targetAssert`, evaluate the precondition - and stop. Grade `partial-up-to-irreversible`, with
   `coveredThroughStep` naming exactly where it stopped. This still verifies the part of the artifact
   most likely to be wrong (locators, checkpoints, parameter binding) without performing the write a
   second time.
-- **`replay-reset`** — the whole flow, when the environment exposes a reset hook. Our fixture does.
+- **`replay-reset`** - the whole flow, when the environment exposes a reset hook. Our fixture does.
   Real core banking does not, and pretending otherwise in the design would be the kind of thing that
   reads fine in a document and fails in the first customer deployment.
 
 Two things follow that are worth more than the fix itself. `Verification.grade` becomes a field a
 human approver *must* read: a `partial-up-to-irreversible` draft is a different claim from a `full`
 one, and flattening them into a boolean `verified` would hide precisely the risk the approval gate
-exists to weigh. And "resolve-but-do-not-dispatch" turns out to be independently useful — it is a
+exists to weigh. And "resolve-but-do-not-dispatch" turns out to be independently useful - it is a
 dry-run mode for production, a way to check an artifact against a tenant after an upgrade without
 touching their data.
 
@@ -1780,7 +1780,7 @@ uncomfortable defending this design, listed before anyone has to find them.
 3. **Continuity assertions require the identifying value to be visible.** Many back-office screens
    show a name and not an id, or an internal key the caller never supplied. Where the identity is not
    on screen, C2 is unavailable and W7 is unmitigated. This is a per-capability property, and the
-   schema should probably surface it — a capability with zero continuity assertions on a write flow
+   schema should probably surface it - a capability with zero continuity assertions on a write flow
    is a review finding, not a valid artifact. I have not added that invariant because I am not sure
    it is always achievable.
 4. **`replay-dry` is a weaker claim than `replay-live` and the grade is doing real work.** If an
@@ -1817,12 +1817,12 @@ uncomfortable defending this design, listed before anyone has to find them.
    `TypeError`-shaped rejection is defensible and simpler.
 2. **Is B3-before-B4 right in every case?** I argued outcomes beat recoveries because outcomes are
    terminal truth. The counter-case is an outcome detector that matches on a page which *also* has a
-   dismissible overlay covering part of it — B2 catches most of those, but not one where the overlay
+   dismissible overlay covering part of it - B2 catches most of those, but not one where the overlay
    is non-blocking.
 3. **Should `Step.outcomes` be per-step at all,** or should every declared outcome be evaluated at
    every step? Per-step is tighter and catches "MEMBER_NOT_FOUND appeared at a step where it is
    impossible," which is a genuine artifact bug. It is also more to maintain and more to get wrong.
 4. **Is the no-branching cut too aggressive?** It is the cut I am least certain about. It forces
-   composition into the calling agent, which is where I think decisions belong — but a flow with an
+   composition into the calling agent, which is where I think decisions belong - but a flow with an
    optional "accept terms" screen is not really a decision, and modelling it as a recovery is a
    slight abuse of the recovery concept.

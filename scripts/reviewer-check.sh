@@ -6,6 +6,9 @@ unset ANTHROPIC_AUTH_TOKEN
 unset OPENAI_API_KEY
 unset CLAUDE_CODE_OAUTH_TOKEN
 
+echo "== build =="
+pnpm build
+
 echo "== typecheck =="
 pnpm -F @crr/core typecheck
 pnpm -F @crr/runtime typecheck

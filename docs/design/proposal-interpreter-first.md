@@ -20,8 +20,8 @@ uncomfortable answer, the answer is kept and the discomfort is documented rather
 | 5 | Locator / target representation and its reasoning | [§5](#5-targets-how-a-step-names-a-control) |
 | 6 | Workspace package layout | [§10](#10-workspace-layout) |
 | 7 | What was deliberately left out of the schema, and why | [§11](#11-refusals-what-is-not-in-the-language) |
-| — | Where I think a settled decision needs amending | [§12](#12-one-settled-decision-i-would-amend) |
-| — | Risks and honest limits | [§13](#13-risks-and-limits) |
+| - | Where I think a settled decision needs amending | [§12](#12-one-settled-decision-i-would-amend) |
+| - | Risks and honest limits | [§13](#13-risks-and-limits) |
 
 ---
 
@@ -29,11 +29,11 @@ uncomfortable answer, the answer is kept and the discomfort is documented rather
 
 **Determinism is a property you get by refusing to express nondeterminism, not a property you get by
 writing careful engine code.** So design the interpreter first and let the artifact schema be exactly
-the serialized form of what that interpreter can execute — no more. The artifact is a program in
+the serialized form of what that interpreter can execute - no more. The artifact is a program in
 `CRR/1`: a straight-line, total, single-assignment, effect-annotated instruction sequence with no
 loops, no conditionals, no expression language, no regexes, no selectors, no sleeps, and no clock.
-Every place where a real-world UI automation system would normally reach for a runtime decision —
-"which selector wins", "how long to wait", "is this an error or an answer", "should I retry" — is
+Every place where a real-world UI automation system would normally reach for a runtime decision -
+"which selector wins", "how long to wait", "is this an error or an answer", "should I retry" - is
 pushed into *declared data* that the interpreter evaluates by one fixed rule, or is removed from the
 language entirely. The payoff is not aesthetic: because the language is straight-line and every step
 declares its effect class, **the complete set of side effects a capability can perform is computable
@@ -97,7 +97,7 @@ function decide(state: MachineState, obs: Observation, nowMs: number): Decision;
 
 `nowMs` is an argument, not a call to `Date.now()`. `Math.random` does not appear. There is no
 `fetch`, no `setTimeout`, no filesystem access anywhere in the decision module, and that is meant to
-be enforced by a source-scanning contract test rather than asserted in a README — the same move as
+be enforced by a source-scanning contract test rather than asserted in a README - the same move as
 `durable-agent-outbox`'s `test_engine_has_no_web_or_llm_imports`.
 
 ### 2.2 The cycle
@@ -136,7 +136,7 @@ be enforced by a source-scanning contract test rather than asserted in a README 
                                           pc ← pc + 1
 ```
 
-Steps 5–8 are skipped for the instructions that do not act (`assert`, `read`, `readTable`); those
+Steps 5-8 are skipped for the instructions that do not act (`assert`, `read`, `readTable`); those
 steps go straight from the precondition to the settle loop and then to binding. `navigate` resolves a
 route rather than a node. Everything else in the cycle runs for every instruction, including the
 lease check and the pre-action classification.
@@ -181,7 +181,7 @@ next step would fail with a confusing target error instead of returning the answ
 
 **Multiple matches are an error, not a race.** `classify` evaluates every rule at the step and
 collects all matches. If more than one matches, it consults the declared `priority` (lower wins). If
-the matched rules do not form a total order — a tie — the interpreter returns
+the matched rules do not form a total order - a tie - the interpreter returns
 `AMBIGUOUS_CLASSIFICATION` and stops. It never resolves ambiguity by array order. This is the same
 principle §3.2 of the build brief applies to locators, applied to detectors: **disagreement is a
 signal, not something to silently break.**
@@ -190,7 +190,7 @@ signal, not something to silently break.**
 
 | Mechanism | Bound | What exhaustion produces |
 |---|---|---|
-| Straight-line program | `steps.length`, fixed at link time | — (program simply ends) |
+| Straight-line program | `steps.length`, fixed at link time | - (program simply ends) |
 | Checkpoint settling | `expect.settleMs` per step, polled at engine cadence | `CHECKPOINT_UNMET{timeout}` |
 | Recovery excursion | `maxAttempts` per (step, rule) | `RECOVERY_EXHAUSTED` |
 | Recovery remedy body | ≤ 4 instructions, non-recursive, no `read`, no nested recoveries | link error if violated |
@@ -210,13 +210,13 @@ is no code path in the interpreter that hangs.**
 ### 2.5 The one backward edge, and why it is not in the language
 
 Session timeout is the case that tempts every designer into a jump. You are at step 7, the session
-dies, you log back in, and now you are on the dashboard, not on step 7's screen. You need steps 1–6
+dies, you log back in, and now you are on the dashboard, not on step 7's screen. You need steps 1-6
 again.
 
 The design refuses to give the *interpreter* a backward edge. Instead, a recovery rule may declare
 `remedy: { kind: 'restart', scope: 'program' }`. That is not a jump; it is the interpreter returning
 `RestartRequested` to its supervisor, which **discards the machine entirely and constructs a new one
-at `pc = 0`** with the same arguments, a fresh session, and `attempt + 1` — subject to two gates:
+at `pc = 0`** with the same arguments, a fresh session, and `attempt + 1` - subject to two gates:
 
 1. `budgets.maxProgramAttempts` has room, and
 2. **a static, pc-indexed effect check**: `steps[0 .. pc-1].every(s => s.effect !== 'WRITE_IRREVERSIBLE')`.
@@ -224,7 +224,7 @@ at `pc = 0`** with the same arguments, a fresh session, and `attempt + 1` — su
 Gate 2 is only possible because effects are declared statically and the program is straight-line. A
 program that has already opened a sub-account cannot be restarted, and the linker can tell you which
 steps make that true before you ever run it. If the gate fails, the recovery degrades to
-`escalate` — a human, not a retry.
+`escalate` - a human, not a retry.
 
 So: **the interpreter has no backward edge; the supervisor has exactly one, it is budgeted, and it is
 gated on a static analysis the language makes possible.** The straight-line property is what buys the
@@ -237,7 +237,7 @@ source of both flake and wasted wall-clock in recorded automation, and a recorde
 recording machine's load into the artifact forever.
 
 Waiting is a property of a checkpoint: poll until the declared predicate holds, or until `settleMs`
-is spent. Transient slowness is therefore **not a recovery** — it needs no remedy, it is simply the
+is spent. Transient slowness is therefore **not a recovery** - it needs no remedy, it is simply the
 settle budget doing its job. A recovery exists only for a condition that requires you to *do*
 something. Keeping "wait and retry" out of the recovery vocabulary removes the most common
 degenerate recovery rule, the one that turns into an unbounded retry loop in every system that
@@ -253,7 +253,7 @@ budget number mean something on both.
 
 ## 3. The instruction set
 
-Nine instructions. Each one exists because it has a *distinct postcondition* — that is the admission
+Nine instructions. Each one exists because it has a *distinct postcondition* - that is the admission
 criterion, and it is the reason `fill` / `select` / `setToggle` are not collapsed into one `setValue`
 opcode despite the temptation. The interpreter's job is to verify what it just did; an opcode with
 three different postconditions is an opcode that cannot be checked.
@@ -273,7 +273,7 @@ three different postconditions is an opcode that cannot be checked.
 Notes on the individual choices:
 
 - **`setToggle` sets a state; it does not toggle.** `toggle` is order-dependent and therefore not
-  replayable — replaying a toggle against a screen that already remembered the user's last choice
+  replayable - replaying a toggle against a screen that already remembered the user's last choice
   produces the opposite result. `setToggle{checked:true}` is idempotent by construction, and its
   postcondition is checkable.
 - **`fill` replaces; it does not append.** `mode: 'replace'` is the only value in v1. Appending
@@ -281,22 +281,22 @@ Notes on the individual choices:
   language must not have. The field exists so that a future `'append'` is a schema change rather
   than a surprise.
 - **`pressKey` takes a closed key enum, not characters.** Typing text is `fill`. `pressKey` covers
-  `Enter`, `Tab`, `Escape`, arrows, `Home/End/PageUp/PageDown`, and `F1`–`F12`. The function keys
+  `Enter`, `Tab`, `Escape`, arrows, `Home/End/PageUp/PageDown`, and `F1`-`F12`. The function keys
   are not decoration: on a green-screen surface the PF keys *are* the submit mechanism, and without
   this instruction the terminal surface is inexpressible. This is the one instruction most likely to
   be abused as an escape hatch, so it is constrained the same way every other acting instruction is
-  — it needs a target (or an explicit `null` target meaning "the surface's focused control"), an
+  - it needs a target (or an explicit `null` target meaning "the surface's focused control"), an
   effect class, and a postcondition.
 - **`readTable` is bounded iteration and is therefore allowed.** This is the one place the design
   bends and it is worth being precise about why it is not a loop: an `Observation` contains finitely
   many nodes, `readTable` walks that finite set once, and `maxRows` caps the result. It performs no
-  actions and cannot re-observe. Iterating over *observations* — "for each row, click it and come
-  back" — is the thing that is refused, because that iteration is unbounded in actions and destroys
+  actions and cannot re-observe. Iterating over *observations* - "for each row, click it and come
+  back" - is the thing that is refused, because that iteration is unbounded in actions and destroys
   the static effect analysis. **Iteration over one observation is finite by construction; iteration
   over actions is not.**
 - **There is no `switchFrame` / `focusWindow` / `enterScreen` instruction.** A mode-setting
   instruction gives the interpreter carried state that every subsequent instruction implicitly reads,
-  and implicit carried state is where determinism dies — a step's meaning would then depend on
+  and implicit carried state is where determinism dies - a step's meaning would then depend on
   instructions arbitrarily far above it. Instead, every `Target` names its container **absolutely**
   from the root (`ContainerRef`, §5.4). Frames on a legacy frameset, dialogs, native windows, and
   drawn boxes on a character grid all address the same way.
@@ -309,14 +309,14 @@ Notes on the individual choices:
 
 Every step carries both:
 
-- **`precondition: Predicate | null`** — must hold *before* the action is lowered. Its job is not
+- **`precondition: Predicate | null`** - must hold *before* the action is lowered. Its job is not
   belt-and-braces: it is what makes a step safe to **resume**. When a human takes the control lease,
   does something, and hands it back, the interpreter re-verifies the current step's precondition
   rather than blindly continuing (build brief §3.5). Preconditions are also what makes a recovery
-  remedy safe — after any excursion, control returns to the triggering step and its precondition is
+  remedy safe - after any excursion, control returns to the triggering step and its precondition is
   re-checked. A language whose steps declare what they require is a language whose execution can be
   interrupted.
-- **`expect: Checkpoint`** — must hold *after*, within a declared settle budget. This is the
+- **`expect: Checkpoint`** - must hold *after*, within a declared settle budget. This is the
   brief's "checkpoint or success condition", except it is on **every** step rather than only at the
   end. A final-only checkpoint tells you the flow failed; a per-step checkpoint tells you *where*.
 
@@ -346,7 +346,7 @@ interface RecoveryRule {
 
 /** The restricted sublanguage a remedy may use. Note what is absent: `read`, `readTable`, `assert`,
  *  nested `recoveries`, and `outcomes`. A remedy cannot bind a value, cannot classify, and cannot
- *  recurse — it can only clear an obstacle and hand control back. */
+ *  recurse - it can only clear an obstacle and hand control back. */
 type RemedyInstruction =
   | { kind: 'click';      target: Target }
   | { kind: 'pressKey';   target: Target | null; key: Key }
@@ -383,7 +383,7 @@ Three consumers, and each of them is a requirement in the brief:
    irreversible step halfway through, with three writes already applied.
 2. **The approval UI** shows a reviewer the complete blast radius of what they are signing.
 3. **The agent-facing capability catalog** publishes `maxEffect` and `reads[].sensitivity`, so a
-   calling agent knows a capability writes — and what class of data it returns — *before* calling it.
+   calling agent knows a capability writes - and what class of data it returns - *before* calling it.
 
 **This is the single strongest argument against putting conditionals in the language.** With an `if`,
 every one of those three becomes "somewhere between this and that, depending", and a signed approval
@@ -393,13 +393,13 @@ over a digest stops meaning anything precise.
 
 ## 4. The ports: `Observation` and `Action`
 
-Everything above this boundary — the interpreter, the classifier, the resolver, the policy engine,
-the recorder, the operator console — is written against these types and has never heard of a browser,
+Everything above this boundary - the interpreter, the classifier, the resolver, the policy engine,
+the recorder, the operator console - is written against these types and has never heard of a browser,
 a pty, Playwright, CDP, or a DOM.
 
 ```ts
 // ─────────────────────────────────────────────────────────────────────────────
-// Observation — what the world looks like right now
+// Observation - what the world looks like right now
 // ─────────────────────────────────────────────────────────────────────────────
 
 type SurfaceKind = 'browser' | 'terminal' | 'desktop';
@@ -483,7 +483,7 @@ interface UINode {
   containerId: ContainerId;
   parentId: NodeId | null;
 
-  /** Closed, normalized role enum — a subset both a browser AX tree and a synthesized grid tree can
+  /** Closed, normalized role enum - a subset both a browser AX tree and a synthesized grid tree can
    *  produce. Not the full ARIA vocabulary; anything outside it maps to 'unknown'. */
   role: Role;
 
@@ -499,7 +499,7 @@ interface UINode {
 
   state: NodeState;
 
-  /** Browser: CSS pixels. Terminal: character cells. One type, two units — declared, so nothing
+  /** Browser: CSS pixels. Terminal: character cells. One type, two units - declared, so nothing
    *  downstream can accidentally compare a pixel distance to a cell distance. */
   bounds: Bounds;
   boundsUnit: 'px' | 'cell';
@@ -521,7 +521,7 @@ type Role =
   | 'heading' | 'text' | 'label' | 'alert' | 'status' | 'dialog' | 'form'
   | 'region' | 'navigation' | 'main' | 'banner' | 'progressbar' | 'image'
   /** Legacy <font>-soup and unlabelled grid runs genuinely have no defensible role. Forcing a guess
-   *  would be worse than admitting it — but a Target may not carry role 'unknown' (link error). */
+   *  would be worse than admitting it - but a Target may not carry role 'unknown' (link error). */
   | 'unknown';
 
 type NameSource =
@@ -537,7 +537,7 @@ interface NodeState {
 interface Bounds { x: number; y: number; w: number; h: number }
 
 // ─────────────────────────────────────────────────────────────────────────────
-// Action — the closed set of things anything is ever allowed to do
+// Action - the closed set of things anything is ever allowed to do
 // ─────────────────────────────────────────────────────────────────────────────
 
 type Action =
@@ -586,7 +586,7 @@ interface Surface {
   observe(opts?: { minGeneration?: number; timeoutMs?: number }): Promise<Observation>;
 
   /** Every action carries the lease token. The executor rejects a token that is not the current
-   *  holder's — including automation's own token after a handoff. Enforcement, not convention. */
+   *  holder's - including automation's own token after a handoff. Enforcement, not convention. */
   act(action: Action, lease: LeaseToken): Promise<ActResult>;
 
   /** Sensitive regions are masked by the surface, at capture time, before bytes exist. */
@@ -627,7 +627,7 @@ Three deliberate choices in there worth defending:
 
 ### 5.1 The problem, stated honestly
 
-The brief has deliberately removed selector drift as the headline problem — these are stable
+The brief has deliberately removed selector drift as the headline problem - these are stable
 enterprise apps. So this section is not about self-healing selectors, and building an elaborate
 healing engine here would be answering a question nobody asked. What targets have to survive is
 different and harder to fake:
@@ -635,7 +635,7 @@ different and harder to fake:
 1. There is **no clean DOM, no test IDs, and generated ids** (`ctl00_ctl32_g_9a1`) that are
    scoped to a vendor build, not to a control.
 2. The same target expression has to be **interpretable on a character grid**, where there is no
-   markup at all — only 24×80 cells.
+   markup at all - only 24×80 cells.
 3. Getting it *subtly* wrong is worse than failing. A locator that silently matches the wrong row of
    a member table and then reads a balance is a compliance incident, not a bug.
 
@@ -650,7 +650,7 @@ interface Target {
   /** Absolute container path from the root. No interpreter "current frame" mode exists (§3). */
   container: ContainerRef;
 
-  /** Independently computed. Derived by the recorder from the node the model selected — the model
+  /** Independently computed. Derived by the recorder from the node the model selected - the model
    *  never writes one of these (build brief §3.2). ≥ 2 required at link time. */
   descriptors: Descriptor[];
 
@@ -672,7 +672,7 @@ Resolution is one fixed algorithm and it has no fallback chain:
 
 1. Evaluate every descriptor **against a single observation snapshot**. Each returns
    `Resolved(nodeId)` | `NonUnique(count)` | `Abstain(reason)`.
-2. `NonUnique` counts as an abstention for quorum, but is recorded distinctly in the fingerprint —
+2. `NonUnique` counts as an abstention for quorum, but is recorded distinctly in the fingerprint -
    it is the strongest available drift signal, because it means the screen grew a second thing that
    looks like the thing.
 3. Let `S` = the set of distinct node ids that were resolved.
@@ -707,7 +707,7 @@ So each descriptor declares its evidence source, and quorum requires **≥ 2 dis
 type EvidenceSource =
   | 'accessibleName'  // the AX name computation / synthesized grid name
   | 'labelText'       // an adjacent label token, spatially related
-  | 'columnHeader'    // a table's own header row — structural, not cosmetic
+  | 'columnHeader'    // a table's own header row - structural, not cosmetic
   | 'ordinal'         // position among same-role siblings in a landmark
   | 'geometry';       // spatial relation to another resolved node
 ```
@@ -745,7 +745,7 @@ type Descriptor =
 
   | { id: DescriptorId; kind: 'tableCell'; evidenceSource: 'columnHeader';
       table: NodeQuery;
-      /** "the row whose <Member ID> column matches <param.memberId>" — SEMANTIC row identity,
+      /** "the row whose <Member ID> column matches <param.memberId>" - SEMANTIC row identity,
        *  parameterized. This is the descriptor that carries table-based legacy layouts, and the
        *  reason `TextMatcher.value` is a ValueRef rather than a string. */
       rowWhere: { columnHeader: TextMatcher; cellMatches: TextMatcher };
@@ -757,7 +757,7 @@ type Descriptor =
       region: NodeQuery; role: Role; index: number; }
 
   | { id: DescriptorId; kind: 'boxAnchored'; evidenceSource: 'geometry';
-      /** An INLINE anchor descriptor, not a reference to a sibling — the other descriptors in a
+      /** An INLINE anchor descriptor, not a reference to a sibling - the other descriptors in a
        *  Target all resolve the same node, so there is no sibling that resolves the anchor. The
        *  anchor may not itself be `boxAnchored`, which makes cycles impossible by construction
        *  rather than by a graph check. */
@@ -788,7 +788,7 @@ nothing else. It never sees, writes, or edits a descriptor.
 ### 5.5 What is refused, and the interpreter-first reason
 
 **No CSS selectors. No XPath. No raw coordinates as a primary target.** The usual argument is
-robustness. From this proposal's angle there is a sharper one: **a CSS selector is an expression in a
+resilience. From this proposal's angle there is a sharper one: **a CSS selector is an expression in a
 second language that the interpreter cannot reason about.** It cannot be typechecked, its failure
 mode is silent (`querySelector` cheerfully returns the first match), it cannot be re-interpreted on a
 surface that has no markup, and it cannot be rendered into a human-readable "expected" line in a
@@ -822,9 +822,9 @@ interface DriftSignal {
 ```
 
 `DriftSignal` is present on **every** arm of the result contract, including `success`. A run that
-succeeded on two of four descriptors succeeded — and the operator should know the margin is thinning
+succeeded on two of four descriptors succeeded - and the operator should know the margin is thinning
 before the day it hits zero. Failing a correct run because a label changed would be exactly the
-"elaborate self-healing selectors called robustness" the brief warns against, in reverse.
+"elaborate self-healing selectors" the brief warns against, in reverse.
 
 ---
 
@@ -843,7 +843,7 @@ conflating them is what makes an artifact unreviewable.**
 | `CapabilityOverlay` | the **linker**, per tenant | additive, non-semantic overrides only | a tenant diverges |
 
 The contract is separately addressed and separately versioned because the same contract can be
-implemented by **more than one artifact** — a browser program for tenants on the web core and a
+implemented by **more than one artifact** - a browser program for tenants on the web core and a
 terminal program for tenants still on the green screen. One agent-facing tool; two programs. That is
 the honest answer to "how does this extend across surfaces", and it falls out of separating the three
 readers.
@@ -855,8 +855,8 @@ readers.
  *  major it was not built for, rather than trying to interpret a construct it has never seen. */
 type LanguageVersion = `crr/${number}.${number}`;
 
-type ContractId   = string;   // 'cu.member.lookup_savings_balance' — reverse-dotted, tenant-free
-type StepId       = string;   // 's04_verify_results' — stable across edits; overlays address it
+type ContractId   = string;   // 'cu.member.lookup_savings_balance' - reverse-dotted, tenant-free
+type StepId       = string;   // 's04_verify_results' - stable across edits; overlays address it
 type BindingName  = string;   // a single-assignment slot in the interpreter's env
 type ParamName    = string;
 type LiteralId    = string;   // addressable so an overlay can retarget branded text
@@ -872,7 +872,7 @@ type NormalizerId = 'trim@1' | 'collapseWhitespace@1' | 'lower@1' | 'upper@1'
 type ExtractorId  = 'verbatimText@1' | 'integer@1' | 'decimal@1' | 'currencyUSD@1'
                   | 'iso8601Date@1'  | 'usDate@1'  | 'lastFour@1' | 'boolean@1';
 
-/** Named, total validators. NOT a regex field — see §11. */
+/** Named, total validators. NOT a regex field - see §11. */
 type FormatId     = 'memberNumber@1' | 'accountNumber@1' | 'usPhone@1' | 'usDate@1'
                   | 'nonEmpty@1' | 'digits@1';
 
@@ -895,13 +895,13 @@ type ValueRef =
   | { from: 'binding'; name: BindingName }     // written by an EARLIER read step; linker enforces
   /** Literals are ALWAYS `public`. This is the PII control expressed as a type rule: a value the
    *  recorder classified as derived-from-the-goal cannot be stored as a literal, so it must be a
-   *  parameter. One mechanism, three requirements satisfied — reuse, no-PII-at-rest, and the
+   *  parameter. One mechanism, three requirements satisfied - reuse, no-PII-at-rest, and the
    *  route-canonicalization stretch goal (build brief §3.6). */
   | { from: 'literal'; id: LiteralId; value: string; sensitivity: 'public' };
 
 interface TextMatcher {
   mode: 'equals' | 'contains' | 'startsWith' | 'endsWith';
-  /** A ValueRef, not a string — this is what lets a detector or a table-row descriptor compare
+  /** A ValueRef, not a string - this is what lets a detector or a table-row descriptor compare
    *  against an invocation parameter. */
   value: ValueRef;
   /** Applied to BOTH the observed text and the matcher's value before comparison, so the
@@ -923,7 +923,7 @@ interface NodeQuery {
   within?: { role: Role; name?: TextMatcher };
 }
 
-/** Propositional logic over one finite Observation. Total and decidable — this is not computation,
+/** Propositional logic over one finite Observation. Total and decidable - this is not computation,
  *  and it is deliberately not an expression language: no arithmetic, no concatenation, no
  *  comparison operators, no regex. Nesting depth is capped at 4 by the linker, which bounds
  *  evaluation cost and keeps the prose renderer (§8.4) tractable. */
@@ -975,8 +975,8 @@ interface CapabilityContract {
   outcomes: OutcomeDecl[];
 
   /** Copied from analyzeEffects() of the implementing artifact at approval time and re-checked by
-   *  the linker. Published in the agent catalog so a calling agent knows a capability writes —
-   *  and what class of data it hands back — BEFORE it calls it. */
+   *  the linker. Published in the agent catalog so a calling agent knows a capability writes -
+   *  and what class of data it hands back - BEFORE it calls it. */
   effectSummary: { maxEffect: EffectClass; readsSensitivity: Sensitivity };
 
   integrity: Integrity;
@@ -1081,7 +1081,7 @@ interface RouteDecl {
   id: RouteId;
   /** Browser: a canonical path pattern with named segments, '/members/:memberId/accounts'.
    *  Terminal: a screen id, 'MEMB01'.
-   *  NEVER an origin. Origin is per-tenant invocation config, allowlisted by policy — which is
+   *  NEVER an origin. Origin is per-tenant invocation config, allowlisted by policy - which is
    *  exactly what lets one artifact serve hundreds of institutions unmodified. */
   pattern: string;
   /** ':memberId' → param.memberId. The linker checks every named segment is bound. */
@@ -1105,7 +1105,7 @@ interface ProgramBudgets {
 ```ts
 interface StepBase {
   id: StepId;
-  /** Rendered in journals, failure reports and the operator console brief. Not decoration —
+  /** Rendered in journals, failure reports and the operator console brief. Not decoration -
    *  this is what a human on-call reads at 2am. */
   title: string;
 
@@ -1116,7 +1116,7 @@ interface StepBase {
    *  after any recovery excursion (§3.1). */
   precondition: Predicate | null;
 
-  /** Must hold AFTER, within its settle budget. Every step, not just the last one — a final-only
+  /** Must hold AFTER, within its settle budget. Every step, not just the last one - a final-only
    *  checkpoint tells you the flow failed; a per-step checkpoint tells you where. */
   expect: Checkpoint;
 
@@ -1142,7 +1142,7 @@ interface OutcomeRule {
   detector: Predicate;
   /** Writes the outcome's typed payload into bindings, which the contract's `payload[].from`
    *  names. Bindings written earlier in the program are NOT leaked into an outcome payload unless
-   *  the outcome captures them here — a deliberate privacy and typing rule. Capture bindings are
+   *  the outcome captures them here - a deliberate privacy and typing rule. Capture bindings are
    *  single-assignment like every other binding, and because outcomes are terminal, nothing can
    *  read them afterwards. */
   capture: { binding: BindingName; read: ExtractSpec }[];
@@ -1267,7 +1267,7 @@ interface Lifecycle {
   verification: {
     at: string;
     /** 'full' replayed every step. 'dry' skipped WRITE_IRREVERSIBLE steps, resolving their targets
-     *  and checking their preconditions without acting — see §12. */
+     *  and checking their preconditions without acting - see §12. */
     mode: 'full' | 'dry';
     replayJournalDigest: Sha256;
     fingerprint: Sha256;
@@ -1309,7 +1309,7 @@ interface CapabilityOverlay {
 
 /** ADD-ONLY and NON-SEMANTIC. An overlay may not add, remove, or reorder steps; may not change an
  *  effect class; may not remove a descriptor, a detector, or a checkpoint. If a tenant needs a
- *  different sequence of actions, that is a different artifact — because otherwise the signature
+ *  different sequence of actions, that is a different artifact - because otherwise the signature
  *  over the base digest would be a signature over something the tenant never runs. Overlays widen
  *  tolerances and add evidence. They never change what a capability does. */
 type OverlayPatch =
@@ -1320,7 +1320,7 @@ type OverlayPatch =
   | { op: 'addDescriptor'; stepId: StepId; descriptor: Descriptor }
   | { op: 'addRecovery'; stepId: StepId; rule: RecoveryRule }
   | { op: 'setRoutePattern'; routeId: RouteId; pattern: string }
-  /** Branded strings inside DETECTORS only — never inside a Target descriptor, never a route,
+  /** Branded strings inside DETECTORS only - never inside a Target descriptor, never a route,
    *  never a `fill` value. Retargeting a detector's wording cannot change which control the
    *  program acts on; retargeting a descriptor's wording could, which is why a tenant that renamed
    *  a button uses `addDescriptor` instead and lets the base descriptor abstain. */
@@ -1338,11 +1338,11 @@ Small, but listed so nothing in this document is hand-waved.
 ```ts
 type NodeId       = string;   // observation-scoped ONLY; never persisted (§4)
 type ContainerId  = string;
-type EvidenceRef  = string;   // 'ev:run/2026-08-24/inv_01JQ7Y3M2K/s05.png' — a pointer, never bytes
+type EvidenceRef  = string;   // 'ev:run/2026-08-24/inv_01JQ7Y3M2K/s05.png' - a pointer, never bytes
 
 type BoundValue   = { value: string | null; type: ValueType; sensitivity: Sensitivity;
                       /** Taint. A tainted value may not be journaled, rendered into a failure
-                       *  report, or written to an artifact — enforced at the sink, not by
+                       *  report, or written to an artifact - enforced at the sink, not by
                        *  remembering to redact at every call site. */
                       tainted: boolean };
 type Bindings     = ReadonlyMap<BindingName, BoundValue>;
@@ -1413,7 +1413,7 @@ actions, which is the difference between a bad artifact and a half-applied one.
 | 11 | every `Target` has ≥ 2 descriptors, ≥ 2 distinct evidence sources, and `role !== 'unknown'` |
 | 12 | `boxAnchored.anchor` is not itself a `boxAnchored` (anchors nest at most one level) |
 | 13 | effect class is legal for the step kind; `EffectSummary` is computed and matches the contract |
-| 14 | a `fill` value is a literal only when that literal is `sensitivity: 'public'` — the `literal` variant cannot express any other sensitivity, so this is a type-level guarantee the linker re-checks. Whether a value *should* have been a parameter is a **recorder-side** lint (`valueAppearsInGoal`, `valueMatchesAKnownPIIFormat`), not something the linker can re-derive; §13 records that limit |
+| 14 | a `fill` value is a literal only when that literal is `sensitivity: 'public'` - the `literal` variant cannot express any other sensitivity, so this is a type-level guarantee the linker re-checks. Whether a value *should* have been a parameter is a **recorder-side** lint (`valueAppearsInGoal`, `valueMatchesAKnownPIIFormat`), not something the linker can re-derive; §13 records that limit |
 | 15 | `budgets.maxActions ≥ actingSteps + Σ(remedy.length × maxAttempts)`; all budgets finite and > 0 |
 | 16 | remedies: ≤ 4 instructions, no `read`/`readTable`/`assert`, no nested recoveries |
 | 17 | every instruction, `Key`, `Role`, container kind and descriptor kind is in `Surface.capabilities()` |
@@ -1429,8 +1429,8 @@ Plus an argument bind check: supplied arguments satisfy `type`, `format`, `enumV
 ## 7. A real artifact: member savings lookup
 
 The goal, as an agent would state it: *"look up member 40001234 and read their current savings
-balance."* Recorded once against `fixtures/corebank-web` — framesets, table layout, generated ids, no
-test IDs — and thereafter replayed with no model in the loop.
+balance."* Recorded once against `fixtures/corebank-web` - framesets, table layout, generated ids, no
+test IDs - and thereafter replayed with no model in the loop.
 
 Three documents follow: the contract the agent calls, the program the interpreter runs, and one
 tenant overlay. Note what is **absent** from all three: no host, no URL, no member number, no member
@@ -1507,7 +1507,7 @@ program reads.
 
 This is the entire agent-facing surface. It serialises directly into a tool definition; the outcome
 codes become the values the agent switches on. **`MEMBER_NOT_FOUND` is a return value with a typed
-payload, not an exception** — that is the single most important line in this document, because the
+payload, not an exception** - that is the single most important line in this document, because the
 brief's glossary names conflating the two as the most common design mistake in this problem.
 
 Two judgment calls worth defending here:
@@ -1518,7 +1518,7 @@ Two judgment calls worth defending here:
   agent does not helpfully try again.
 - **`INPUT_REJECTED_BY_APP` is an outcome even though we validated the input ourselves.** Our
   `format: memberNumber@1` and the application's field validation can disagree, and when they do
-  **the application is authoritative** — it is the system of record. So the caller gets the app's own
+  **the application is authoritative** - it is the system of record. So the caller gets the app's own
   message verbatim, and the disagreement is *also* emitted as a drift signal, because it means our
   declared format is wrong and someone should fix the contract.
 
@@ -2136,8 +2136,8 @@ the program changes:
 
 Note what the overlay does with the renamed button. It does **not** rewrite the base's `Search`
 descriptor. It **adds** a `Find Member` descriptor, and the base's `d_search_name` descriptor simply
-abstains at Summit. Quorum is still met — `d_search_name_summit` (`accessibleName`) plus
-`d_search_box` (`geometry`) — and the abstention shows up in the fingerprint as a permanent,
+abstains at Summit. Quorum is still met - `d_search_name_summit` (`accessibleName`) plus
+`d_search_box` (`geometry`) - and the abstention shows up in the fingerprint as a permanent,
 visible record that this tenant has diverged. An overlay that *edited* the base would have erased
 that signal, and would have made the approval signature over the base digest a signature over
 something Summit never runs.
@@ -2152,7 +2152,7 @@ Three things I would rather state than have a reviewer find:
    The mitigation is that this is the one `optional` read in the flow: if it degrades, it binds null
    and the capability still returns. Declaring `evidenceSource` per-descriptor makes this
    *inspectable*; it does not make it impossible.
-2. **`s05_open_member_record` has two descriptors with a shared root** — both find the row by its
+2. **`s05_open_member_record` has two descriptors with a shared root** - both find the row by its
    Member ID cell. But this is the good case, and it is worth being explicit about why: the row is
    identified by *the very value the caller asked about*. A mis-hit would require the wrong row to
    contain the right member number. **Parameterized row identity is a stronger guarantee than any
@@ -2276,7 +2276,7 @@ interface ReplayEscalated extends ReplayEnvelope {
       evidence: EvidenceRef | null;
     };
     lease: { holder: 'human' | 'automation'; expiresAt: string };
-    /** Presenting this token, plus the lease, resumes THIS machine at THIS step — which then
+    /** Presenting this token, plus the lease, resumes THIS machine at THIS step - which then
      *  re-verifies its precondition rather than blindly continuing. */
     resumeToken: string;
     consoleUrl: string;
@@ -2290,7 +2290,7 @@ interface ReplayFailure extends ReplayEnvelope {
     stepId: StepId | null;          // null only for LINK_ERROR / POLICY_DENIED pre-flight
     stepIndex: number | null;
     stepTitle: string | null;
-    message: string;                // generated, not hand-written — see §8.4
+    message: string;                // generated, not hand-written - see §8.4
     /** The declared expectation, rendered clause by clause with each clause's verdict. */
     expected: ExpectationTrace;
     /** What was actually there, redacted. */
@@ -2307,7 +2307,7 @@ interface ReplayFailure extends ReplayEnvelope {
 
 ### 8.2 The failure taxonomy
 
-Sixteen classes, closed. Each one exists because it implies a **different human action** — that is
+Sixteen classes, closed. Each one exists because it implies a **different human action** - that is
 the admission test, and it is why there is no `UNKNOWN_ERROR`.
 
 ```ts
@@ -2424,11 +2424,11 @@ contract should not make a caller infer it.
 }
 ```
 
-Three things to notice. `stepsExecuted: 3` of 9 — the run stopped early and that is **correct
+Three things to notice. `stepsExecuted: 3` of 9 - the run stopped early and that is **correct
 behaviour**, not truncation. The payload is the outcome's own type: there is no `savingsBalanceUsd`
 key set to null, because a not-found member does not have a balance to be null. And the literal that
 fired is Summit's overridden `"No matching member on file"`, so the same program returned the same
-typed outcome on a tenant whose wording differs — which is the entire multi-tenant claim, in one
+typed outcome on a tenant whose wording differs - which is the entire multi-tenant claim, in one
 field.
 
 ```json
@@ -2472,7 +2472,7 @@ field.
 ```
 
 That failure is the design working. A first-match locator strategy would have clicked *something*,
-landed on a member record, and returned a balance — the wrong member's. **The system's most valuable
+landed on a member record, and returned a balance - the wrong member's. **The system's most valuable
 behaviour is refusing to act**, and this is what refusing looks like when it is written down.
 
 ### 8.4 Failure messages are generated, not written
@@ -2502,11 +2502,11 @@ than "the same file runs everywhere".
 
 | Layer | Shared across browser and character grid? |
 |---|---|
-| `CapabilityContract` — params, returns, outcome codes | **Yes, identically.** One agent-facing tool. |
+| `CapabilityContract` - params, returns, outcome codes | **Yes, identically.** One agent-facing tool. |
 | The instruction set, predicate language, extractors, normalizers | **Yes.** Same nine opcodes, same eleven predicate ops. |
-| The error taxonomy — outcome and recovery *detectors* | **Mostly.** Detectors read normalized text and roles, so `contains "NO MEMBER ON FILE"` works on both. Wording differs; that is what `setLiteral` is for. |
+| The error taxonomy - outcome and recovery *detectors* | **Mostly.** Detectors read normalized text and roles, so `contains "NO MEMBER ON FILE"` works on both. Wording differs; that is what `setLiteral` is for. |
 | Descriptor *kinds* | **Yes.** `labelAnchored` and `tableCell` are the two idioms that carry both. |
-| The `Program` — the actual step sequence | **No, and I will not pretend otherwise.** Green-screen flows have different screen counts and different field orders. |
+| The `Program` - the actual step sequence | **No, and I will not pretend otherwise.** Green-screen flows have different screen counts and different field orders. |
 
 So: **one contract, one language, one taxonomy, two programs.** The `CapabilityContract` is a
 separate document precisely so this is expressible without a lie (§6.0). A tenant on the web core and
@@ -2521,13 +2521,13 @@ extra steps.
 | Construct | Browser (`surface-browser`) | Character grid (`surface-terminal`) |
 |---|---|---|
 | `Observation.nodes` | CDP `Accessibility.getFullAXTree`, merged with `DOM.getBoxModel` geometry. **Not `querySelector`.** | Synthesized from the VT screen buffer: a run of `_` or reverse-video cells following a `Label:` token becomes `role:'textbox', name:'Label'`; the PF-key legend line (`F3=Exit  F5=Search`) becomes `role:'button'` nodes named by their legend text |
-| `UINode.confidence` | 1.0 for an AX node with an explicit label; lower for a computed name | derived from the synthesis heuristic that produced the node — a bracketed `[ Search ]` scores higher than a bare label guess |
+| `UINode.confidence` | 1.0 for an AX node with an explicit label; lower for a computed name | derived from the synthesis heuristic that produced the node - a bracketed `[ Search ]` scores higher than a bare label guess |
 | `containers` | the frame tree | screen id plus detected drawn boxes (`┌─┐` runs) as `dialog` regions |
 | `bounds` / `boundsUnit` | CSS pixels | character cells |
 | `stability.quiescent` | no in-flight navigation or fetch, plus two consecutive identical AX generations | no bytes from the pty for `settleQuietMs`, cursor parked, no pending screen-clear |
 | `Location.route` | canonicalized path pattern | the screen/transaction id read from the fixed header field |
 | `navigate` | `page.goto(origin + route)` | type the transaction code into the command line and send |
-| `click{role:'button', name:'Search'}` | element click | **`pressKey(F5)`** — the legend line said `F5=Search`, so the synthesized button node carries the key that activates it |
+| `click{role:'button', name:'Search'}` | element click | **`pressKey(F5)`** - the legend line said `F5=Search`, so the synthesized button node carries the key that activates it |
 | `fill` | focus, then set value | move the cursor to the field origin, clear its declared width, type |
 | `labelAnchored{relation:'rightOf'}` | `<label for>` / `aria-labelledby` / nearest preceding text | the next non-blank cell run on the same row |
 | `tableCell` | `table`/`row`/`cell`/`columnheader` roles | column boundaries inferred from the header row, then row scan |
@@ -2546,12 +2546,12 @@ into a "click search" step and no CSS selector to make it browser-only.
 - **Role synthesis on a grid is a heuristic**, so grid observations carry lower `confidence` and
   descriptors abstain more often. This is why `SurfaceCapabilities.confidenceFloor` exists and why
   the linker refuses a program whose targets need descriptor kinds the surface cannot resolve
-  (§6.7 check 17) — the failure lands at load time with a clear message rather than at step 6 with a
+  (§6.7 check 17) - the failure lands at load time with a clear message rather than at step 6 with a
   mysterious `TARGET_NOT_FOUND`.
 - **Quorum independence is weaker on a grid** (§5.3). Role, name, and label anchoring can all derive
   from the same label token. `evidenceSource` makes this visible; it does not make it go away.
-- **Desktop (AX/UIA) is a documented seam, not built.** It fits the same ports — `Observation.nodes`
-  from the platform accessibility API, `containers` as windows — and would need one new `Container`
+- **Desktop (AX/UIA) is a documented seam, not built.** It fits the same ports - `Observation.nodes`
+  from the platform accessibility API, `containers` as windows - and would need one new `Container`
   kind and a `navigate` that means "activate this view". Nothing in the language changes.
 
 ---
@@ -2572,8 +2572,8 @@ scope); `@crr/` is used below purely to keep the table readable.
 | `@crr/replay` | **The interpreter.** Machine state, the step semantics, the classifier, the target resolver, budgets, the fingerprint. Contains no I/O and no clock read; a source-scanning contract test enforces that, and a second one enforces that it imports no driver and contains no CSS-selector vocabulary. |
 | `@crr/discovery` | The LLM observe→decide→act loop, the descriptor deriver, the parameterizer, the route canonicalizer, and the record-then-immediately-replay verification gate. Separate because the no-live-services demo path must not pull a model SDK. |
 | `@crr/surface-browser` | Playwright + CDP driver: builds `Observation` from `Accessibility.getFullAXTree` merged with box geometry. The only package allowed to know what a DOM is. |
-| `@crr/surface-terminal` | Pty + VT-buffer driver that synthesizes an accessibility tree from a character grid. **This package's whole reason to exist is to make the port falsifiable** — if it cannot be written, the abstraction was aspirational. |
-| `@crr/conformance` | Fault scenarios × replay engines, asserting correct three-way classification and zero false successes — plus **deliberately weakened engines** (first-match locators, no checkpoint verification, no outcome classifier, no quorum) and a meta-test that fails if the suite stops discriminating between them. Separate so the broken engines can never ship inside `@crr/replay`. |
+| `@crr/surface-terminal` | Pty + VT-buffer driver that synthesizes an accessibility tree from a character grid. **This package's whole reason to exist is to make the port falsifiable** - if it cannot be written, the abstraction was aspirational. |
+| `@crr/conformance` | Fault scenarios × replay engines, asserting correct three-way classification and zero false successes - plus **deliberately weakened engines** (first-match locators, no checkpoint verification, no outcome classifier, no quorum) and a meta-test that fails if the suite stops discriminating between them. Separate so the broken engines can never ship inside `@crr/replay`. |
 | `@crr/cli` | `discover`, `replay`, `verify`, `approve`, `diff`, `catalog`, `stability`, plus the bare operator console. The console is a directory here, not a package: nothing imports it. |
 | `fixtures/corebank-web` | The intentionally hostile web surface: framesets, table layout, generated ids, `<font>` tags, no test IDs, a modal step, per-request fault injection, and two tenant variants of the same vendor product. |
 | `fixtures/corebank-tui` | The green-screen variant, so the terminal surface has something to drive. |
@@ -2582,7 +2582,7 @@ scope); `@crr/` is used below purely to keep the table readable.
 
 | Not created | Why |
 |---|---|
-| `@crr/policy` | Policy is ~300 lines and has exactly one meaningful property — that it is the *only* chokepoint. A package boundary does not add that; the contract test that fails if any `Surface.act` call site bypasses it does. |
+| `@crr/policy` | Policy is ~300 lines and has exactly one meaningful property - that it is the *only* chokepoint. A package boundary does not add that; the contract test that fails if any `Surface.act` call site bypasses it does. |
 | `@crr/llm` | Its only consumer is `@crr/discovery`. **A port is a file, not a package.** |
 | `@crr/operator-console` | Nothing imports it. It is a directory in `@crr/cli`. |
 | `@crr/store` | One interface and one fs-backed implementation, used by three packages that already depend on `@crr/core`. |
@@ -2598,21 +2598,21 @@ next to the refusal, because a refusal whose cost you cannot name is a preferenc
 
 | Refused | Real use case it would serve | Why it is out | What it costs, honestly |
 |---|---|---|---|
-| **Conditionals (`if`)** | the app sometimes lands on a detail page and sometimes on a results list | With a branch, `analyzeEffects` degrades from an exact set to an upper bound, so a signed approval over a digest stops describing what will actually happen — and the fingerprint gains a degree of freedom that makes drift undetectable | Genuinely branching flows must be decomposed into several capabilities, and the branch lives in the calling agent. **The calling agent is a Turing machine. The capability must not be.** |
+| **Conditionals (`if`)** | the app sometimes lands on a detail page and sometimes on a results list | With a branch, `analyzeEffects` degrades from an exact set to an upper bound, so a signed approval over a digest stops describing what will actually happen - and the fingerprint gains a degree of freedom that makes drift undetectable | Genuinely branching flows must be decomposed into several capabilities, and the branch lives in the calling agent. **The calling agent is a Turing machine. The capability must not be.** |
 | **Loops over actions** | "for each of the member's shares, open it and read the rate" | Unbounded in actions; destroys the budget guarantee and the effect analysis; and a loop that runs 3 times in recording and 700 times in production is a denial-of-service against a bank's core | `readTable` covers the read-only fan-out case. True per-row *action* fan-out is the calling agent's job: it calls `list_shares`, then calls `read_share_rate` N times, with its own budget |
 | **An expression language** (arithmetic, concatenation, comparison operators) | "search for `lastName + ', ' + firstName`" | It is a Turing tarpit, an injection surface, and it puts semantics in the artifact that no reviewer and no static analysis can audit | Composition happens in the caller, which passes the composed value as a parameter. Slightly more parameters; vastly more reviewable |
-| **Artifact-authored regex** | extracting `$4,182.77` out of `Balance: $4,182.77 (avail $4,100.00)` | It is an expression language wearing a disguise: unreviewable, ReDoS-prone, and it makes an artifact's meaning depend on a regex engine's dialect | A missing extractor is a PR to the registry, reviewed once and then reused across hundreds of tenants. That is leverage, not friction — but it *is* a release, and a flow can be blocked on one |
+| **Artifact-authored regex** | extracting `$4,182.77` out of `Balance: $4,182.77 (avail $4,100.00)` | It is an expression language wearing a disguise: unreviewable, ReDoS-prone, and it makes an artifact's meaning depend on a regex engine's dialect | A missing extractor is a PR to the registry, reviewed once and then reused across hundreds of tenants. That is leverage, not friction - but it *is* a release, and a flow can be blocked on one |
 | **CSS selectors / XPath** | it is what every recorder in the world emits | A second language the interpreter cannot typecheck, cannot re-interpret on a grid, and cannot render into an "expected" line. `querySelector` silently returning the first match is the exact failure this system exists to prevent | Descriptor derivation is real work, and there are controls with no accessible name that a CSS selector would have found in one line |
 | **Raw coordinates as a primary target** | a screenshot-only surface with no tree at all | Viewport-, zoom-, and font-dependent: a determinism hole the language can simply not have | A pure-pixel surface (a Citrix window, say) would need a new descriptor kind and honest degradation, not a coordinate field bolted onto this one |
 | **`sleep` / fixed delays** | "wait 3 seconds after clicking, it always works" | The single largest source of both flake and wasted wall clock; a recorded sleep encodes the recording machine's load into the artifact forever | A screen with no observable settling signal needs a `Surface` that computes quiescence properly. That is real work pushed onto the driver, deliberately |
 | **`toggle`** | "click the checkbox" | Order-dependent, therefore not replayable | none |
-| **Sub-flow calls / `include`** | shared login preamble across 40 capabilities | Recursion risk, and it makes the approval digest cover something the reviewer did not read | Duplication across artifacts today. The seam: `include` would be a **linker** feature — statically resolved, acyclic, depth-capped, and flattened before the interpreter ever sees it. **Composition is a linker feature, not an interpreter feature.** |
+| **Sub-flow calls / `include`** | shared login preamble across 40 capabilities | Recursion risk, and it makes the approval digest cover something the reviewer did not read | Duplication across artifacts today. The seam: `include` would be a **linker** feature - statically resolved, acyclic, depth-capped, and flattened before the interpreter ever sees it. **Composition is a linker feature, not an interpreter feature.** |
 | **Clock reads inside the program** | "if it is after 5pm, use the next-business-day screen" | A program that reads a clock is not a pure function of `(program, args, observations)` and cannot be replayed for a postmortem | Any date the flow needs arrives as a parameter. The caller owns the calendar |
 | **Random / UUID generation** | generating a reference number | Same reason; also makes idempotency impossible to reason about | Comes from the invocation (`idempotencyKey` on the envelope) |
-| **A model call at replay time** | "the screen changed a bit, let the LLM figure it out" | It would void the one property the whole system is for. A capability whose behaviour depends on a model is not a capability, it is another agent | The brief's "assisted fallback" stretch goal is still reachable — but as a **supervisor** action that produces a *proposed overlay patch* for human review, never as an instruction the interpreter can execute |
-| **`customStep` / a JS hook** | the universal escape hatch | It converts the artifact from data into code and voids every guarantee at once: the digest stops meaning anything, the effect analysis stops being sound, and the language stops being reviewable | Some flow, somewhere, will need something the nine instructions cannot express. The answer is a tenth instruction with a declared postcondition, argued for on its merits — not a hole |
+| **A model call at replay time** | "the screen changed a bit, let the LLM figure it out" | It would void the one property the whole system is for. A capability whose behaviour depends on a model is not a capability, it is another agent | The brief's "assisted fallback" stretch goal is still reachable - but as a **supervisor** action that produces a *proposed overlay patch* for human review, never as an instruction the interpreter can execute |
+| **`customStep` / a JS hook** | the universal escape hatch | It converts the artifact from data into code and voids every guarantee at once: the digest stops meaning anything, the effect analysis stops being sound, and the language stops being reviewable | Some flow, somewhere, will need something the nine instructions cannot express. The answer is a tenth instruction with a declared postcondition, argued for on its merits - not a hole |
 | **Whole-program retry** | "just try again" | Hides the difference between transient and chronic, and re-executes writes | Only the gated restart of §2.5, which refuses outright once an irreversible step is behind the pc |
-| **PII values of any kind** | it would make the example artifact more readable | Structural, not a lint: a `fill` value may be a literal only when the recorder classified it as non-goal-derived, and literals are typed `sensitivity: 'public'`. Enforced at link time | Nothing. This is the rare case where the safe design is also the reusable one — it is the same mechanism as parameterization (build brief §3.6) |
+| **PII values of any kind** | it would make the example artifact more readable | Structural, not a lint: a `fill` value may be a literal only when the recorder classified it as non-goal-derived, and literals are typed `sensitivity: 'public'`. Enforced at link time | Nothing. This is the rare case where the safe design is also the reusable one - it is the same mechanism as parameterization (build brief §3.6) |
 | **Credentials or session state** | replay needs to log in | Never in the artifact. `secret` params resolve from a credential provider at invocation and may not appear in `returns` | Some coupling to a credential provider at deploy time |
 | **Inline screenshots / transcripts** | self-contained artifacts | An `Observation` is passed to pure functions and must stay cheap to clone and to freeze into a fixture; a transcript is the likeliest place for raw PII to hide | Evidence lives in a store and is referenced by `EvidenceRef` |
 | **Cosmetic assertions** (colour, font, pixel position) | "the error text is red" | Not semantics. It would fail correct runs on a rebrand | A genuinely colour-encoded state (a red row meaning "frozen") needs the surface to expose it as `NodeState`, not the language to grow a colour predicate |
@@ -2620,7 +2620,7 @@ next to the refusal, because a refusal whose cost you cannot name is a preferenc
 
 ### 11.1 The one conditional I would add first, and what it would cost
 
-`skipIf: Predicate` on a step — the step becomes a no-op when the predicate holds. This is the
+`skipIf: Predicate` on a step - the step becomes a no-op when the predicate holds. This is the
 minimal branch, and it is worth being explicit that it would *not* break the core properties: the
 program stays straight-line, `pc` still only increases, termination is unaffected, and it is still
 statically analyzable. It would solve real problems immediately, starting with "this tenant's build
@@ -2631,15 +2631,15 @@ It is still not in v1, for three specific costs:
 1. `analyzeEffects` degrades from an **exact** effect set to an **upper bound**, so an approval says
    "may write" instead of "writes". In a regulated environment that is a meaningful downgrade of what
    a signature means.
-2. A skipped step's postcondition goes unverified, so the checkpoint chain — the thing that tells you
-   *where* a flow went wrong rather than merely that it did — develops holes.
+2. A skipped step's postcondition goes unverified, so the checkpoint chain - the thing that tells you
+   *where* a flow went wrong rather than merely that it did - develops holes.
 3. The fingerprint gains a degree of freedom. "This descriptor abstained" and "this step was skipped"
    become hard to tell apart, and drift detection gets noisier exactly where it matters.
 
 The v1 answer to the confirmation-dialog case is a **recovery** with an `actions` remedy, which is
 already bounded, budgeted, counted in `recoveriesApplied`, and visible in the result. That covers the
 overwhelming majority of what `skipIf` would be used for, and it covers it with better observability.
-Knowing precisely where the line is — and what crossing it costs — matters more than where it is
+Knowing precisely where the line is - and what crossing it costs - matters more than where it is
 drawn.
 
 ---
@@ -2656,12 +2656,12 @@ artifact with the model out of the loop, and only save it as `draft` if that suc
 gap between "the model did it" and "the recording faithfully describes what it did."
 
 But taken literally it cannot be applied to the flows that need it most. *"Open a new sub-account for
-this member and reach the confirmation screen"* — the brief's own second example goal — cannot be
+this member and reach the confirmation screen"* - the brief's own second example goal - cannot be
 verified by replaying it, because replaying it opens a second sub-account. And an unverifiable
 capability is exactly the class where a mistake is expensive.
 
 There is a second, quieter problem: immediate replay runs against the session state the discovery run
-left behind — already authenticated, caches warm, and the record possibly now *changed by* the
+left behind - already authenticated, caches warm, and the record possibly now *changed by* the
 discovery run. It verifies the flow in the one condition it will never be replayed in.
 
 **The amendment, and it costs almost nothing because the language already supports it:** verification
@@ -2673,7 +2673,7 @@ type ExecutionMode =
   | { mode: 'full' }
   /** Every instruction executes EXCEPT those declared WRITE_IRREVERSIBLE. For those, the
    *  interpreter resolves the target (proving the descriptors work and quorum holds), evaluates the
-   *  precondition, evaluates the outcome and recovery detectors — and does not act. It then stops
+   *  precondition, evaluates the outcome and recovery detectors - and does not act. It then stops
    *  at the first such step and reports `verified(partial)` naming the steps it did not execute. */
   | { mode: 'dry' };
 ```
@@ -2685,7 +2685,7 @@ they were. The resulting lifecycle is honest rather than binary:
 | Verification result | Lifecycle state | Unattended replay? |
 |---|---|---|
 | `full` replay succeeded end to end | `verified` | yes, once approved |
-| `dry` replay reached the first irreversible step with every target resolved | `verified(partial)` | **no** — `attended` approval only, until a human has watched one live run |
+| `dry` replay reached the first irreversible step with every target resolved | `verified(partial)` | **no** - `attended` approval only, until a human has watched one live run |
 | replay failed | stays `proposed`, with the failure attached | no |
 
 `verified(partial)` is a weaker claim than `verified`, and the design should say so in the artifact
@@ -2695,15 +2695,15 @@ cannot run on the risky case silently report the same thing it reports on the sa
 ### 12.2 §3.2's "ranked set of descriptors" and "disagreement is not a fallback chain" are in tension
 
 Taken literally, a *rank* implies a preference, a preference implies a winner, and a winner is a
-fallback chain — which is precisely what the same sentence forbids. The two halves cannot both be
+fallback chain - which is precisely what the same sentence forbids. The two halves cannot both be
 literal.
 
 This proposal resolves it as **quorum with abstention** (§5.2): rank determines nothing about who
 wins. Every descriptor is evaluated, all results are compared, agreement is required, and
 disagreement is a hard stop. Rank survives only as two things it can honestly be:
 
-- **eligibility** — `geometry` and `ordinal` cannot carry a quorum between them, and
-- **evidence independence** — quorum requires ≥ 2 distinct `evidenceSource` values (§5.3).
+- **eligibility** - `geometry` and `ordinal` cannot carry a quorum between them, and
+- **evidence independence** - quorum requires ≥ 2 distinct `evidenceSource` values (§5.3).
 
 I read this as sharpening §3.2 rather than contradicting it, but it is a real change to what "ranked"
 means and it should be visible rather than quietly implemented.
@@ -2716,8 +2716,8 @@ Stated here rather than discovered by a reviewer.
 
 1. **`effect` is declared, not proven.** Nothing verifies that a step marked `READ` does not write
    server-side. The linker checks consistency; a human checks truth, at approval time. A partial
-   mitigation exists for the browser surface — cross-check the declaration against observed request
-   methods during discovery and flag a `READ` step that issued a `POST` — but that is a heuristic,
+   mitigation exists for the browser surface - cross-check the declaration against observed request
+   methods during discovery and flag a `READ` step that issued a `POST` - but that is a heuristic,
    it does not exist for the terminal surface at all, and it must not be sold as a guarantee. **This
    is the load-bearing assumption under the entire safety story.**
 
@@ -2726,8 +2726,8 @@ Stated here rather than discovered by a reviewer.
    both read the same label token genuinely independent. §7.4 shows a case in this very artifact
    where the check passes on the letter. On a character grid this is systematically worse.
 
-3. **The straight-line refusal will meet a flow that genuinely branches**, and the answer —
-   decompose into several capabilities — pushes complexity into the calling agent and increases the
+3. **The straight-line refusal will meet a flow that genuinely branches**, and the answer -
+   decompose into several capabilities - pushes complexity into the calling agent and increases the
    number of artifacts to maintain. §11.1 names the escape hatch I would add first and what it costs.
 
 4. **The closed extractor/normalizer registry will block a flow.** A capability that needs a shape
@@ -2737,13 +2737,13 @@ Stated here rather than discovered by a reviewer.
 5. **Registry versioning is what keeps "artifact is data" true, and it is easy to get wrong.** Ids
    carry a major (`currencyUSD@1`) precisely so engine code cannot silently change what an approved
    artifact means. If anyone ever "fixes" a registry entry in place, the digest keeps matching while
-   the behaviour changes — the exact failure the content-addressing was for. This needs a test, not a
+   the behaviour changes - the exact failure the content-addressing was for. This needs a test, not a
    convention.
 
 6. **Overlay pinning is real operational cost at hundreds of tenants.** An overlay pins a base
    digest, so bumping a base artifact leaves every overlay in `needs-reverification`. That is the
-   correct default — the alternative is overlays silently applying to a program they were never
-   checked against — but at 400 tenants it is a queue someone has to work, and this design does not
+   correct default - the alternative is overlays silently applying to a program they were never
+   checked against - but at 400 tenants it is a queue someone has to work, and this design does not
    solve that. It only makes the backlog visible instead of invisible.
 
 7. **Restart-from-entry doubles wall clock and re-executes every read.** It is gated on effects, but
@@ -2751,7 +2751,7 @@ Stated here rather than discovered by a reviewer.
    a session timeout at step 8 turns a 5-second capability into a 60-second one.
 
 8. **`readTable` truncation defaults to failing**, which is right, but it means a member with more
-   shares than `maxRows` fails a read-only lookup. The alternative — silent truncation — is worse,
+   shares than `maxRows` fails a read-only lookup. The alternative - silent truncation - is worse,
    and `onTruncate: 'flag'` exists for callers who genuinely want a prefix. It is still a sharp edge.
 
 9. **The predicate depth cap of 4 will bite** on some legacy screen whose error banner is only
@@ -2760,7 +2760,7 @@ Stated here rather than discovered by a reviewer.
 
 10. **`AMBIGUOUS_CLASSIFICATION` will fire in production** the first time a permission-denied banner
     and an app-error banner appear together on a screen where the recording only ever saw one. That
-    is the design working — it refuses to guess which answer the caller gets — but it is a hard
+    is the design working - it refuses to guess which answer the caller gets - but it is a hard
     failure on a run that a sloppier system would have completed, and someone will file it as a bug.
 
 11. **The "no PII in artifacts" guarantee has a typed half and a heuristic half.** The typed half is
@@ -2769,7 +2769,7 @@ Stated here rather than discovered by a reviewer.
     `40001234` it just typed into a field, and therefore should become a parameter rather than a
     literal. That inference is good but not perfect, and the linker cannot re-derive it. A value the
     recorder failed to recognise as goal-derived would be stored as a `public` literal and would be
-    wrong. The mitigation is a recorder-side lint plus human review at approval — not a proof.
+    wrong. The mitigation is a recorder-side lint plus human review at approval - not a proof.
 
 12. **None of this is measured.** No benchmark, no flake rate, no replay-success rate is claimed
     anywhere in this document, because nothing has been built. The conformance suite in build brief
@@ -2783,16 +2783,16 @@ Stated here rather than discovered by a reviewer.
 The interpreter-first framing implies its own build order, and it front-loads the parts the
 assignment says are central.
 
-1. `@crr/schema` — the types, the linker, the registries, the digest, and the prose renderers. It has
+1. `@crr/schema` - the types, the linker, the registries, the digest, and the prose renderers. It has
    no dependencies and it makes everything downstream typecheckable. Ship it with the twenty linker
    checks as twenty tests.
-2. `@crr/replay`'s classifier and resolver, tested entirely against **frozen `Observation` JSON** —
+2. `@crr/replay`'s classifier and resolver, tested entirely against **frozen `Observation` JSON** -
    no browser, no pty. This is where the three-way taxonomy is proven, and it can be proven before a
    single driver exists. It is also the largest source of the code-quality signal the brief asks for.
 3. `@crr/surface-browser` and the `fixtures/corebank-web` hostile app with its fault injection,
    because the fault injection is what makes step 2's tests real rather than imagined.
 4. The interpreter loop, the budgets, the lease, and the policy chokepoint.
-5. `@crr/discovery` and the record-then-replay gate — including the `dry` mode of §12.1.
+5. `@crr/discovery` and the record-then-replay gate - including the `dry` mode of §12.1.
 6. `@crr/conformance` with the weakened engines and the meta-test.
 7. `@crr/surface-terminal` and `fixtures/corebank-tui` last, because their job is to **falsify** the
    port. If they cannot be written against the ports as specified in §4, that is the most valuable
