@@ -3,6 +3,7 @@ import { dirname, join, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 import {
   type Allowlist,
+  type ApprovalTrustStore,
   type CapabilityArtifact,
   type CapabilityContract,
   type Digest,
@@ -120,27 +121,42 @@ function invocationApproval(args: {
   readonly artifactDigest?: Digest;
   readonly contractDigest?: Digest;
   readonly idempotencyKey?: string | null;
+  readonly tenant?: typeof TENANT;
+  readonly policyVersion?: string;
+  readonly ceiling?: EffectClass;
   readonly expiresAt?: string;
+  readonly argsHash?: Digest;
+  readonly untrustedSigner?: boolean;
+  readonly trustStatus?: "active" | "revoked";
+  readonly revokedReason?: string | null;
+  readonly trustRevocations?: ApprovalTrustStore["revocations"];
 }): InvocationApprovalGrant {
   const artifact = args.artifact ?? approvedArtifact;
+  const scope = args.tenant ?? TENANT;
   const pair = generateApprovalKeyPair(`invocation-${args.approvalId}`);
   const signer = localApprovalKeySigner({
     signer: pair.signer,
     signerId: "ops-approver-4",
     authority: [APPROVER_AUTHORITY],
   });
-  const trust = ed25519TrustStore([
-    {
-      ...pair.trustedKey,
-      signerId: "ops-approver-4",
-      authority: [APPROVER_AUTHORITY],
-      notBefore: "2026-02-11T13:00:00.000Z",
-      notAfter: "2026-02-12T14:00:00.000Z",
-      status: "active",
-      revokedReason: null,
-      supersedes: null,
-    },
-  ]);
+  const trust = ed25519TrustStore(
+    args.untrustedSigner === true
+      ? []
+      : [
+          {
+            ...pair.trustedKey,
+            signerId: "ops-approver-4",
+            authority: [APPROVER_AUTHORITY],
+            notBefore: "2026-02-11T13:00:00.000Z",
+            notAfter: "2026-02-12T14:00:00.000Z",
+            status: args.trustStatus ?? "active",
+            revokedReason: args.revokedReason ?? null,
+            supersedes: null,
+          },
+        ],
+    args.trustRevocations ?? [],
+  );
+  const ceiling = args.ceiling ?? "WRITE_IRREVERSIBLE";
   const approval = signApprovalDocument(
     {
       schemaVersion: "capability.approval/v1",
@@ -155,17 +171,20 @@ function invocationApproval(args: {
         contractDigest: args.contractDigest ?? writeContract.digest,
       },
       scope: {
-        tenants: [TENANT.tenantId],
-        appInstances: [TENANT.appInstanceId],
+        tenants: [scope.tenantId],
+        appInstances: [scope.appInstanceId],
       },
-      policyVersion: "crr-approval-policy/1",
-      ceiling: "WRITE_IRREVERSIBLE",
+      policyVersion: args.policyVersion ?? "crr-approval-policy/1",
+      ceiling,
       issuedAt: "2026-02-11T13:55:00.000Z",
       expiresAt: args.expiresAt ?? "2026-02-11T15:00:00.000Z",
-      request: {
-        argsHash: approvalArgsHash(args.approvalId, ARGS),
-        idempotencyKey: args.idempotencyKey ?? null,
-      },
+      request:
+        ceiling === "WRITE_IRREVERSIBLE"
+          ? {
+              argsHash: args.argsHash ?? approvalArgsHash(args.approvalId, ARGS),
+              idempotencyKey: args.idempotencyKey ?? null,
+            }
+          : null,
       signer: {
         signerId: "ops-approver-4",
         authority: [APPROVER_AUTHORITY],
@@ -351,17 +370,23 @@ function timeoutAfterCommit(transition: MockTransition): MockTransition {
   };
 }
 
-function assertCleanCanary(): readonly string[] {
-  const hits: string[] = [];
+function assertCleanCanary(): readonly { readonly label: string; readonly hits: readonly string[] }[] {
+  const secrets = [{ label: "WRITE_MEMBER_ID", value: WRITE_MEMBER_ID }] as const;
+  const hits = new Map<string, string[]>(secrets.map((secret) => [secret.label, []]));
   const scan = (dir: string): void => {
     for (const entry of readdirSync(dir)) {
       const full = join(dir, entry);
       if (statSync(full).isDirectory()) scan(full);
-      else if (readFileSync(full, "utf8").includes(WRITE_MEMBER_ID)) hits.push(full);
+      else {
+        const text = readFileSync(full, "utf8");
+        for (const secret of secrets) {
+          if (text.includes(secret.value)) hits.get(secret.label)?.push(full);
+        }
+      }
     }
   };
   scan(OUT);
-  return hits;
+  return [...hits].map(([label, found]) => ({ label, hits: found }));
 }
 
 async function main(): Promise<void> {
@@ -402,6 +427,103 @@ async function main(): Promise<void> {
       }),
     }),
     await replayScenario({
+      id: "wrong-contract-digest",
+      note: "The approval is signed and otherwise valid, but covers a different contract digest. No irreversible dispatch occurs.",
+      approval: invocationApproval({
+        approvalId: "approval-evidence-wrong-contract",
+        contractDigest: digestOf("wrong-contract"),
+      }),
+    }),
+    await replayScenario({
+      id: "expired-approval",
+      note: "The approval expired before the invocation reached the irreversible gate. No irreversible dispatch occurs.",
+      approval: invocationApproval({
+        approvalId: "approval-evidence-expired",
+        expiresAt: "2026-02-11T13:59:59.000Z",
+      }),
+    }),
+    await replayScenario({
+      id: "wrong-tenant-scope",
+      note: "The approval is scoped to another tenant. No irreversible dispatch occurs.",
+      approval: invocationApproval({
+        approvalId: "approval-evidence-wrong-tenant",
+        tenant: { tenantId: "summit", appInstanceId: TENANT.appInstanceId },
+      }),
+    }),
+    await replayScenario({
+      id: "wrong-app-scope",
+      note: "The approval is scoped to another app instance. No irreversible dispatch occurs.",
+      approval: invocationApproval({
+        approvalId: "approval-evidence-wrong-app",
+        tenant: { tenantId: TENANT.tenantId, appInstanceId: "riverbend-branch-mock" },
+      }),
+    }),
+    await replayScenario({
+      id: "old-approval-policy",
+      note: "The approval was issued under a different approval-policy version. No irreversible dispatch occurs.",
+      approval: invocationApproval({
+        approvalId: "approval-evidence-old-policy",
+        policyVersion: "crr-approval-policy/old",
+      }),
+    }),
+    await replayScenario({
+      id: "write-reversible-approval",
+      note: "A WRITE_REVERSIBLE approval cannot authorize a WRITE_IRREVERSIBLE action. No irreversible dispatch occurs.",
+      approval: invocationApproval({
+        approvalId: "approval-evidence-reversible-ceiling",
+        ceiling: "WRITE_REVERSIBLE",
+      }),
+    }),
+    await replayScenario({
+      id: "untrusted-signer",
+      note: "The signature is well formed, but the signer key is absent from the trust store. No irreversible dispatch occurs.",
+      approval: invocationApproval({
+        approvalId: "approval-evidence-untrusted",
+        untrustedSigner: true,
+      }),
+    }),
+    await replayScenario({
+      id: "revoked-signer-key",
+      note: "The signer key is in the trust store but revoked. No irreversible dispatch occurs.",
+      approval: invocationApproval({
+        approvalId: "approval-evidence-revoked-key",
+        trustStatus: "revoked",
+        revokedReason: "operator left the credit union",
+      }),
+    }),
+    await replayScenario({
+      id: "revoked-approval-id",
+      note: "The signer key is trusted, but this approval id has been revoked. No irreversible dispatch occurs.",
+      approval: invocationApproval({
+        approvalId: "approval-evidence-revoked-approval",
+        trustRevocations: [
+          {
+            approvalId: "approval-evidence-revoked-approval",
+            reason: "duplicate member request",
+            revokedAt: "2026-02-11T14:02:00.000Z",
+            revokedBy: "ops-risk",
+          },
+        ],
+      }),
+    }),
+    await replayScenario({
+      id: "args-hash-mismatch",
+      note: "The approval is bound to a different argument hash. No irreversible dispatch occurs.",
+      approval: invocationApproval({
+        approvalId: "approval-evidence-wrong-args",
+        argsHash: digestOf("other-args"),
+      }),
+    }),
+    await replayScenario({
+      id: "idempotency-mismatch",
+      note: "The invocation presents one idempotency key, but the approval binds another. No irreversible dispatch occurs.",
+      approval: invocationApproval({
+        approvalId: "approval-evidence-wrong-idempotency",
+        idempotencyKey: "write-evidence-approved-key",
+      }),
+      idempotencyKey: "write-evidence-presented-key",
+    }),
+    await replayScenario({
       id: "policy-read-ceiling",
       note: "A valid approval is present, but policy maxEffect READ is a separate gate and refuses before the first write step dispatches.",
       artifact: policyArtifact,
@@ -433,8 +555,9 @@ async function main(): Promise<void> {
       "",
       "This exhibit uses the deterministic mock write fixture rather than the browser fixture. It",
       "proves runtime behavior at the irreversible boundary: approval refusal before dispatch,",
-      "dry-run boundary reporting, valid approval dispatching once, policy as a separate gate,",
-      "idempotency de-duplication and effect-in-doubt after a post-commit observation failure.",
+      "dry-run boundary reporting, valid approval dispatching once, specific rejection reasons,",
+      "policy as a separate gate, idempotency de-duplication and effect-in-doubt after a",
+      "post-commit observation failure.",
       "",
       "The successful run has a typed confirmation output in memory. The output value is not written",
       "to this evidence directory because the fixture text includes the synthetic sensitive member",
@@ -444,14 +567,15 @@ async function main(): Promise<void> {
       "",
     ].join("\n"),
   );
-  const hits = assertCleanCanary();
+  const canary = assertCleanCanary();
   writeJson(join(OUT, "MANIFEST.json"), {
     generatedBy: "packages/runtime/demo/write-boundary.ts",
     scenarios: summaries,
-    canary: { forbiddenValue: "WRITE_MEMBER_ID", hits },
+    canary,
   });
-  if (hits.length > 0) {
-    throw new Error(`write-boundary evidence leaked the synthetic member id: ${hits.join(", ")}`);
+  const hitPaths = canary.flatMap((entry) => entry.hits);
+  if (hitPaths.length > 0) {
+    throw new Error(`write-boundary evidence leaked synthetic sensitive values: ${hitPaths.join(", ")}`);
   }
   process.stdout.write(`write-boundary evidence: ${summaries.length} scenarios, canary clean\n`);
 }

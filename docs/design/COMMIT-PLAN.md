@@ -7,12 +7,12 @@
 > back-office apps*). Its opening sentence — *"Nothing here has been committed"* — was true when it
 > was written and is false now.
 >
-> **Three numbers in it are stale and are not corrected in place, because the draft commit messages
+> **Several numbers in it are stale and are not corrected in place, because the draft commit messages
 > below are a record of what was actually written at the time and editing them would be a
-> fabrication.** As measured in the tree today (`docs/design/SUBMISSION-READY.md` carries the
-> commands): `pnpm lint` reads **317** files, not 313; `pnpm test` is **1,921** tests, not 1,843;
-> and the bundle is 65 files / **~1,169,000** bytes, a figure that moves by a few hundred bytes per
-> run because the run's own log is inside it.
+> fabrication.** As measured on 2026-08-30 (`docs/FINAL-REVIEWER-GUIDE.md` and
+> `docs/design/SUBMISSION-READY.md` carry the commands): `pnpm lint` reads **317** files, not 313;
+> `pnpm test` is **2,032** tests / **109** test files, not 1,843 or 1,921; and the generated demo
+> bundle is **241 files**, not 65.
 >
 > What is still true and still worth reading: the deletion list, the ordering rule (generated
 > content before the documents that quote it), and the closing rule — **do not run `pnpm discover`

@@ -59,10 +59,10 @@
     "attempts": [],
     "retriable": "after-human-action",
     "operatorAction": "the session broker could not re-establish the session",
-    "observationRef": "obs:cecf7d7a2153937b264ec98be62344ffc8cea15109392dd913904f84d9fcd0e5"
+    "observationRef": "obs:be11b2a8d3e3061cf146573bdbd9cffba3b4a97d16d0f4728e9fe7bf998f3024"
   },
   "run": {
-    "runId": "run-ccf59f06-7dce-4d23-a5de-aec5df1da829",
+    "runId": "run-49a7ba84-8ee3-4e79-9887-9329c60e581e",
     "capability": {
       "name": "corebank.member.read_share_position",
       "version": "1.0.0"
@@ -80,9 +80,9 @@
     },
     "surface": "web-legacy",
     "engineVersion": "crr-runtime/0.1.0",
-    "startedAt": "2026-08-30T01:41:40.259Z",
-    "endedAt": "2026-08-30T01:41:41.062Z",
-    "durationMs": 803,
+    "startedAt": "2026-08-30T07:27:55.953Z",
+    "endedAt": "2026-08-30T07:27:56.748Z",
+    "durationMs": 795,
     "stepsExecuted": 4,
     "stepsTotal": 9,
     "budgets": {
@@ -103,7 +103,7 @@
         "limit": 1
       },
       "wallClockMs": {
-        "used": 804,
+        "used": 797,
         "limit": 180000
       }
     },
@@ -140,21 +140,21 @@
         },
         "skeletonDigest": "sha256:014aa733ad56a65ca562941a1edf215144446165bd3145f7af8bce711be1ce89",
         "observationRef": null,
-        "elapsedMs": 160,
+        "elapsedMs": 159,
         "resolution": [
           {
             "descriptorId": "member-id-right-of-label",
             "kind": "label-anchored",
             "evidenceSource": "labelText",
             "verdict": "resolved",
-            "resolvedNodeId": "textbox:f3-158"
+            "resolvedNodeId": "textbox:f3-160"
           },
           {
             "descriptorId": "member-id-first-in-form",
             "kind": "ordinal-in-container",
             "evidenceSource": "ordinal",
             "verdict": "resolved",
-            "resolvedNodeId": "textbox:f3-158"
+            "resolvedNodeId": "textbox:f3-160"
           }
         ]
       },
@@ -167,21 +167,21 @@
         },
         "skeletonDigest": "sha256:8be7e5b0e9750e40cd59049e6b76df8a9fdd68cacd9ea33dad97cd28d9f46800",
         "observationRef": null,
-        "elapsedMs": 162,
+        "elapsedMs": 158,
         "resolution": [
           {
             "descriptorId": "search-by-name",
             "kind": "role-name",
             "evidenceSource": "accessibleName",
             "verdict": "resolved",
-            "resolvedNodeId": "button:f3-168"
+            "resolvedNodeId": "button:f3-170"
           },
           {
             "descriptorId": "search-right-of-member-id",
             "kind": "geometric",
             "evidenceSource": "geometry",
             "verdict": "resolved",
-            "resolvedNodeId": "button:f3-168"
+            "resolvedNodeId": "button:f3-170"
           }
         ]
       },
@@ -213,7 +213,7 @@
         },
         "skeletonDigest": "sha256:8be7e5b0e9750e40cd59049e6b76df8a9fdd68cacd9ea33dad97cd28d9f46800",
         "observationRef": null,
-        "elapsedMs": 162
+        "elapsedMs": 156
       },
       {
         "stepId": "open-member-record",
@@ -228,21 +228,21 @@
         },
         "skeletonDigest": "sha256:659180a60bf9b19e64be202a63135c2ed945f5a16c27d8275049ab25431e1bd9",
         "observationRef": null,
-        "elapsedMs": 164,
+        "elapsedMs": 165,
         "resolution": [
           {
             "descriptorId": "open-by-row-key",
             "kind": "table-cell",
             "evidenceSource": "columnHeader",
             "verdict": "resolved",
-            "resolvedNodeId": "link:f3-252"
+            "resolvedNodeId": "link:f3-254"
           },
           {
             "descriptorId": "open-by-link-text",
             "kind": "role-name",
             "evidenceSource": "accessibleName",
             "verdict": "resolved",
-            "resolvedNodeId": "link:f3-252"
+            "resolvedNodeId": "link:f3-254"
           }
         ]
       }
@@ -255,10 +255,10 @@
       "needsSpecialization": false
     },
     "evidence": [
-      "obs:cecf7d7a2153937b264ec98be62344ffc8cea15109392dd913904f84d9fcd0e5",
-      "journal:cb4442cff5930d9f35a053bd21dc510ad7f74b787ad3449237f360ca45748be1"
+      "obs:be11b2a8d3e3061cf146573bdbd9cffba3b4a97d16d0f4728e9fe7bf998f3024",
+      "journal:616500ab931fc991bf2a2acad3a9b3d181b586177a307c60f63a8b6b2891fe4a"
     ],
-    "journalRef": "journal:cb4442cff5930d9f35a053bd21dc510ad7f74b787ad3449237f360ca45748be1",
+    "journalRef": "journal:616500ab931fc991bf2a2acad3a9b3d181b586177a307c60f63a8b6b2891fe4a",
     "warnings": []
   }
 }

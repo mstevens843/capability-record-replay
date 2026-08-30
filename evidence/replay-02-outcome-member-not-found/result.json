@@ -13,7 +13,7 @@
   },
   "alsoMatched": [],
   "run": {
-    "runId": "run-0c1e67db-468a-4f84-8749-8ed244b14697",
+    "runId": "run-ed129692-f5e4-48d2-8083-e0135b6369d7",
     "capability": {
       "name": "corebank.member.read_share_position",
       "version": "1.0.0"
@@ -31,9 +31,9 @@
     },
     "surface": "web-legacy",
     "engineVersion": "crr-runtime/0.1.0",
-    "startedAt": "2026-08-30T01:41:35.557Z",
-    "endedAt": "2026-08-30T01:41:36.057Z",
-    "durationMs": 500,
+    "startedAt": "2026-08-30T07:27:51.148Z",
+    "endedAt": "2026-08-30T07:27:51.642Z",
+    "durationMs": 494,
     "stepsExecuted": 2,
     "stepsTotal": 9,
     "budgets": {
@@ -54,7 +54,7 @@
         "limit": 1
       },
       "wallClockMs": {
-        "used": 501,
+        "used": 494,
         "limit": 180000
       }
     },
@@ -73,7 +73,7 @@
         },
         "skeletonDigest": "sha256:77133a7a47cabfb23d8a04fdd48bd97dff3e5670d891b221c3db0bf8275c79c4",
         "observationRef": null,
-        "elapsedMs": 152
+        "elapsedMs": 150
       },
       {
         "stepId": "enter-member-id",
@@ -84,7 +84,7 @@
         },
         "skeletonDigest": "sha256:db600b4254e71da42a08128d6538ea5853a8a1c4746452d7875ee7345501fee3",
         "observationRef": null,
-        "elapsedMs": 166,
+        "elapsedMs": 162,
         "resolution": [
           {
             "descriptorId": "member-id-right-of-label",
@@ -114,7 +114,7 @@
         },
         "skeletonDigest": "sha256:7fac544c14c45e1dea55558a9c3132523d3132f6887ecf70e5a7aa608d48d15a",
         "observationRef": "obs:e26f7bd669185119c6eab2035baa9a84155c2a02629472744c048901d20f69c7",
-        "elapsedMs": 175,
+        "elapsedMs": 172,
         "resolution": [
           {
             "descriptorId": "search-by-name",
@@ -142,9 +142,9 @@
     },
     "evidence": [
       "obs:e26f7bd669185119c6eab2035baa9a84155c2a02629472744c048901d20f69c7",
-      "journal:12675c56214612adc7a2770d4e5f72f2ea29101a58ad575c82f62f245db280ae"
+      "journal:680ee3003ac813a1f14e1bfe29aeaf8054795ba5e79d6014b270df632c74f129"
     ],
-    "journalRef": "journal:12675c56214612adc7a2770d4e5f72f2ea29101a58ad575c82f62f245db280ae",
+    "journalRef": "journal:680ee3003ac813a1f14e1bfe29aeaf8054795ba5e79d6014b270df632c74f129",
     "warnings": []
   }
 }

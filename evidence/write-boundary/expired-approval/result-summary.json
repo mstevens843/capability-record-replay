@@ -1,0 +1,12 @@
+{
+  "id": "expired-approval",
+  "status": "failed",
+  "failureClass": "approval-required",
+  "stepsExecuted": 4,
+  "finalDispatches": 0,
+  "approvalAccepted": 0,
+  "approvalRefused": [
+    "approval-expired"
+  ],
+  "note": "The approval expired before the invocation reached the irreversible gate. No irreversible dispatch occurs."
+}

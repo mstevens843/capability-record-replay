@@ -51,6 +51,138 @@
       "note": "The approval is signed and otherwise valid, but covers a different artifact digest. No irreversible dispatch occurs."
     },
     {
+      "id": "wrong-contract-digest",
+      "status": "failed",
+      "failureClass": "approval-required",
+      "stepsExecuted": 4,
+      "finalDispatches": 0,
+      "approvalAccepted": 0,
+      "approvalRefused": [
+        "contract-digest-mismatch"
+      ],
+      "note": "The approval is signed and otherwise valid, but covers a different contract digest. No irreversible dispatch occurs."
+    },
+    {
+      "id": "expired-approval",
+      "status": "failed",
+      "failureClass": "approval-required",
+      "stepsExecuted": 4,
+      "finalDispatches": 0,
+      "approvalAccepted": 0,
+      "approvalRefused": [
+        "approval-expired"
+      ],
+      "note": "The approval expired before the invocation reached the irreversible gate. No irreversible dispatch occurs."
+    },
+    {
+      "id": "wrong-tenant-scope",
+      "status": "failed",
+      "failureClass": "approval-required",
+      "stepsExecuted": 4,
+      "finalDispatches": 0,
+      "approvalAccepted": 0,
+      "approvalRefused": [
+        "tenant-not-in-scope"
+      ],
+      "note": "The approval is scoped to another tenant. No irreversible dispatch occurs."
+    },
+    {
+      "id": "wrong-app-scope",
+      "status": "failed",
+      "failureClass": "approval-required",
+      "stepsExecuted": 4,
+      "finalDispatches": 0,
+      "approvalAccepted": 0,
+      "approvalRefused": [
+        "app-instance-not-in-scope"
+      ],
+      "note": "The approval is scoped to another app instance. No irreversible dispatch occurs."
+    },
+    {
+      "id": "old-approval-policy",
+      "status": "failed",
+      "failureClass": "approval-required",
+      "stepsExecuted": 4,
+      "finalDispatches": 0,
+      "approvalAccepted": 0,
+      "approvalRefused": [
+        "policy-version-mismatch"
+      ],
+      "note": "The approval was issued under a different approval-policy version. No irreversible dispatch occurs."
+    },
+    {
+      "id": "write-reversible-approval",
+      "status": "failed",
+      "failureClass": "approval-required",
+      "stepsExecuted": 4,
+      "finalDispatches": 0,
+      "approvalAccepted": 0,
+      "approvalRefused": [
+        "effect-class-escalation"
+      ],
+      "note": "A WRITE_REVERSIBLE approval cannot authorize a WRITE_IRREVERSIBLE action. No irreversible dispatch occurs."
+    },
+    {
+      "id": "untrusted-signer",
+      "status": "failed",
+      "failureClass": "approval-required",
+      "stepsExecuted": 4,
+      "finalDispatches": 0,
+      "approvalAccepted": 0,
+      "approvalRefused": [
+        "signer-unknown"
+      ],
+      "note": "The signature is well formed, but the signer key is absent from the trust store. No irreversible dispatch occurs."
+    },
+    {
+      "id": "revoked-signer-key",
+      "status": "failed",
+      "failureClass": "approval-required",
+      "stepsExecuted": 4,
+      "finalDispatches": 0,
+      "approvalAccepted": 0,
+      "approvalRefused": [
+        "signer-key-revoked"
+      ],
+      "note": "The signer key is in the trust store but revoked. No irreversible dispatch occurs."
+    },
+    {
+      "id": "revoked-approval-id",
+      "status": "failed",
+      "failureClass": "approval-required",
+      "stepsExecuted": 4,
+      "finalDispatches": 0,
+      "approvalAccepted": 0,
+      "approvalRefused": [
+        "approval-revoked"
+      ],
+      "note": "The signer key is trusted, but this approval id has been revoked. No irreversible dispatch occurs."
+    },
+    {
+      "id": "args-hash-mismatch",
+      "status": "failed",
+      "failureClass": "approval-required",
+      "stepsExecuted": 4,
+      "finalDispatches": 0,
+      "approvalAccepted": 0,
+      "approvalRefused": [
+        "args-hash-mismatch"
+      ],
+      "note": "The approval is bound to a different argument hash. No irreversible dispatch occurs."
+    },
+    {
+      "id": "idempotency-mismatch",
+      "status": "failed",
+      "failureClass": "approval-required",
+      "stepsExecuted": 4,
+      "finalDispatches": 0,
+      "approvalAccepted": 0,
+      "approvalRefused": [
+        "idempotency-key-mismatch"
+      ],
+      "note": "The invocation presents one idempotency key, but the approval binds another. No irreversible dispatch occurs."
+    },
+    {
       "id": "policy-read-ceiling",
       "status": "failed",
       "failureClass": "policy-denied",
@@ -81,8 +213,10 @@
       "note": "The irreversible action dispatches once, then perception times out. The result is effect-in-doubt and is not retryable."
     }
   ],
-  "canary": {
-    "forbiddenValue": "WRITE_MEMBER_ID",
-    "hits": []
-  }
+  "canary": [
+    {
+      "label": "WRITE_MEMBER_ID",
+      "hits": []
+    }
+  ]
 }

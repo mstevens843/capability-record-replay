@@ -1,0 +1,12 @@
+{
+  "id": "untrusted-signer",
+  "status": "failed",
+  "failureClass": "approval-required",
+  "stepsExecuted": 4,
+  "finalDispatches": 0,
+  "approvalAccepted": 0,
+  "approvalRefused": [
+    "signer-unknown"
+  ],
+  "note": "The signature is well formed, but the signer key is absent from the trust store. No irreversible dispatch occurs."
+}

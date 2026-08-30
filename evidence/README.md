@@ -1,9 +1,10 @@
 # `/evidence` — what was actually run, and what was not
 
-**Every file in this directory except `discovery-live/` was produced by `pnpm demo`, on a**
-**laptop, with no live service of any kind.** The only two things `pnpm demo` needs are a
-Chromium build and a free TCP port. `discovery-live/` is the one exception and the next
-section is about it.
+This directory now has two kinds of evidence. The main replay bundle is produced by `pnpm demo`,
+on a laptop, with no live service of any kind. Supplemental exhibits are produced by their own
+commands and describe themselves in their own `README.md` files. `discovery-live/` is the one
+model-produced directory when present;
+everything else is deterministic replay, verification, conformance, or promotion work.
 
 **All data is synthetic.** `fixtures/corebank-web` is a purpose-built hostile back office; the
 members, balances and account numbers in it exist nowhere else and are marked `(SYNTHETIC)` on
@@ -27,6 +28,9 @@ with no model in the decision path.
 | [`masked-capture/`](masked-capture/) | `@crr/surface-browser` `capture()` | **none** |
 | [`redaction-canary/`](redaction-canary/) | `@crr/runtime` `runRedactionCanary()` | **none** |
 | [`outcome-promotion/`](outcome-promotion/) | a reviewer walking the live artifact through `crr probe` / `crr promote` / `crr verify` | **none — the two documents it starts from came from the live run; nothing else here did** |
+| [`write-boundary/`](write-boundary/) | `pnpm -F @crr/runtime exec tsx demo/write-boundary.ts` | **none** |
+| [`semantic-denials/`](semantic-denials/) | `pnpm -F @crr/runtime exec tsx test/evidence/semantic-denials.ts` | **none** |
+| [`terminal-survivors/`](terminal-survivors/) | `pnpm -F @crr/conformance exec tsx test/evidence/terminal-survivors.ts` | **none** |
 | [`discovery-live/`](discovery-live/) | `pnpm discover` — the `anthropic` adapter against the Messages API | see `discovery-live/provenance.json` |
 
 ### About `artifact/`
@@ -82,21 +86,19 @@ output) and `observations/` — the run's evidence sink, holding content-address
 `captureOn: ["failure"]`; the two hard failures each freeze the screen that failed, and that
 file is a `classify()` unit test with no reproduction step attached to it.
 
-## What is NOT here, and why
+## What the main `pnpm demo` bundle does not contain
 
-- **A permission denial.** The fixture serves both of SPEC §4.2's denial rows — one scoped to the
-  record (a business outcome) and one to the session role (a hard failure) — but both are served
-  on the **commit** route, and this capability is READ-only: it stops at the prepared sub-account
-  form and never posts. Arming a fault the flow cannot reach and presenting the resulting
-  checkpoint failure as a permission denial would be a fabricated exhibit. The two rows are
-  exercised over frozen observations in `@crr/conformance`'s corpus instead — `a denial scoped
-  to the RECORD is MEMBER_RESTRICTED` and `a denial scoped to the SESSION ROLE is
-  entitlement-denied, a hard failure`, both mirroring this fixture's own fault ids.
-- **A write.** Same reason. The irreversible boundary is exercised by `replay-dry` in
-  `packages/runtime/test/verify.test.ts` ("does not perform the write twice"), over `MockSurface`.
-- **A second tenant.** `packages/runtime/test/browser-overlay.test.ts` replays this artifact at
-  the `summit` variant through an overlay; it is not in this bundle only because `pnpm demo`
-  keeps to one surface.
+`pnpm demo` is still the read/replay bundle. It does not post a sub-account, and it does not arm
+commit-route permission faults. Those are covered by supplemental exhibits instead:
+
+- `write-boundary/` covers approval refusal, dry-run boundary reporting, valid approval,
+  rejected approvals, policy refusal, idempotency repeat, and effect-in-doubt.
+- `semantic-denials/` covers record-denial business outcome vs role-denial entitlement failure
+  against the browser write fixture.
+- `terminal-survivors/` covers the green-screen mutant survivor ledger.
+
+The second-tenant browser overlay remains in `packages/runtime/test/browser-overlay.test.ts`
+rather than the main bundle, because `pnpm demo` keeps to one browser fixture tenant.
 
 ## The redaction canary
 
@@ -111,7 +113,11 @@ alignment, which is too few to tell from noise. Those pairs are listed under `no
 [`redaction-canary/report.txt`](redaction-canary/report.txt). An encoding that was never searched
 for is not coverage, and a report that quietly dropped it would be claiming more than it checked.
 
-Result of the run that produced this bundle: **CLEAN** — 140 files, 3924465 bytes, 26 distinct needles, 0 hits, 0 credential-shaped strings, self-test passed (26/26).
+Result of the run that produced the main demo bundle: **CLEAN** — 237 files, 5674049 bytes, 26 distinct needles, 0 hits, 0 credential-shaped strings, self-test passed (26/26).
+
+The supplemental write and semantic-denial exhibits also write canary summaries for the
+sensitive values they use. `terminal-survivors/` contains only scenario and mutant names, not
+caller inputs.
 
 That report covers every file that existed when it ran. This `README.md`, the report itself and
 the finished `demo.log` are written afterwards, so a **second whole-bundle pass** runs once every
@@ -129,6 +135,10 @@ things it cannot check.
 pnpm install
 pnpm -F @crr/surface-browser exec playwright install chromium   # once
 pnpm demo
+pnpm -F @crr/runtime exec tsx demo/write-boundary.ts
+pnpm -F @crr/runtime exec tsx test/evidence/semantic-denials.ts
+pnpm -F @crr/conformance exec tsx test/evidence/terminal-survivors.ts
 ```
 
-`pnpm demo` deletes and rewrites everything here except `discovery-live/`.
+`pnpm demo` deletes and rewrites only the directories it owns; the supplemental evidence
+commands rewrite their own directories.

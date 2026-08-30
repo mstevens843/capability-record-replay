@@ -1,0 +1,14 @@
+kill matrix: 9 mutants x 14 scenarios
+--------------------------------------------------------------------------------------------------------
+mutant            killed by                          of which false successes      
+firstMatch        T13,T14                            T13,T14                       
+countQuorum       T14                                T14                           
+noAssert          SURVIVED                           -                             
+noSettleGate      SURVIVED                           -                             
+checkpointFirst   T03,T04                            -                             
+noContinuity      SURVIVED                           -                             
+noDelta           T08                                -                             
+nearestMatch      T06,T08                            T06,T08                       
+noProvenance      SURVIVED                           -                             
+--------------------------------------------------------------------------------------------------------
+SURVIVORS (a gap in the suite): noAssert, noSettleGate, noContinuity, noProvenance

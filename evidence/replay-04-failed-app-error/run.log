@@ -5,9 +5,9 @@
    broker    can-reauthenticate
    armed     {"ok":true,"session":"s000001","armed":{"id":"app-error","screen":"detail","mode":"sticky","delayMs":1200}}
    arm       FAILED   app-error at open-member-record
-   run       4/9 steps, 1602ms, 10 step attempts
+   run       4/9 steps, 1590ms, 10 step attempts
    budgets   actions 9, observations 30, remediations 1, program attempts 1
    recovery  APP_ERROR_PAGE at open-member-record: cleared after 1
-   evidence  2 frozen observation(s), journal journal:94c79aac9ff6965bef5bea622e0ca9f9f91000a9017e9865ed321be821edd30e
+   evidence  2 frozen observation(s), journal journal:638af6943ea6d36b6e6966124cbef697f9b242d6060b03194a67e96b30c971be
    checked   every declared expectation held
 

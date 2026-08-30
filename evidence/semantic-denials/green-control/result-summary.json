@@ -1,0 +1,14 @@
+{
+  "id": "green-control",
+  "status": "ok",
+  "beforeSubAccounts": 1,
+  "afterSubAccounts": 2,
+  "commitStepActed": 1,
+  "approvalAccepted": 1,
+  "approvalRefused": [],
+  "commitClassifierVerdict": {
+    "kind": "advance",
+    "outputs": []
+  },
+  "note": "Control run used as a negative proof sample. It commits once in its isolated browser fixture session."
+}

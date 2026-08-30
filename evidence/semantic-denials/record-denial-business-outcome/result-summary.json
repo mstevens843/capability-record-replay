@@ -1,0 +1,18 @@
+{
+  "id": "record-denial-business-outcome",
+  "status": "outcome",
+  "outcome": "MEMBER_RESTRICTED",
+  "beforeSubAccounts": 1,
+  "afterSubAccounts": 1,
+  "commitStepActed": 1,
+  "approvalAccepted": 1,
+  "approvalRefused": [],
+  "commitClassifierVerdict": {
+    "kind": "outcome",
+    "code": "MEMBER_RESTRICTED",
+    "data": [],
+    "priority": 5,
+    "alsoMatched": []
+  },
+  "note": "The fixture refused the commit because the member record is restricted. The artifact's reviewer-authored detector returns MEMBER_RESTRICTED and the fixture state does not change."
+}

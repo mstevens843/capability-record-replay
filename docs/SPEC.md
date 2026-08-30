@@ -1217,8 +1217,9 @@ export interface Invocation<C extends CapabilityContract> {
                           readonly requestedBy: "agent" | "human" | "schedule" };
 }
 
-/** The approval token is required BY THE TYPE when the capability is irreversible, and forbidden
- *  when it is not. You cannot forget it and you cannot smuggle one onto a READ to look important. */
+/** The low-level policy approval grant is required BY THE TYPE when the capability is irreversible,
+ *  and forbidden when it is not. The runtime mints that grant only after rich invocation approval
+ *  verifies at the irreversible dispatch boundary. */
 export type WithApproval<C extends CapabilityContract> =
   C["requiresApproval"] extends true
     ? Invocation<C> & { readonly approval: ApprovalToken }
@@ -2042,7 +2043,7 @@ decided before the surface is touched at all.
 | 24 | Checkpoint predicate false and nothing above matched | **hard failure** | B6 | `checkpoint-failed` | engine |
 | 25 | Checkpoint true but a continuity value is absent or different | **hard failure** | B5 | `continuity-broken` | engine |
 | 26 | Checkpoint true, a required output is missing or untypeable, or a table read truncated | **hard failure** | post-B5 | `output-extraction-failed` | engine |
-| 27 | Action or navigation outside the allowlist; irreversible without an approval token | **hard failure** | G, pre-act | `policy-denied` / `approval-required` | engine |
+| 27 | Action or navigation outside the allowlist; irreversible without valid invocation approval | **hard failure** | G, pre-act | `policy-denied` / `approval-required` | engine |
 | 28 | Human took the control lease mid-run | **hard failure** unless it is a handoff resume | G | `lease-lost` | engine |
 | 29 | Entry precondition false at step 0 | **hard failure** | G | `precondition-not-met` | schema |
 | 30 | Two rules match in one band with no total order | **hard failure** | any | `ambiguous-classification` | engine |
@@ -2235,7 +2236,7 @@ success on a page that looks similar before and after, and which neither rival p
 wrong record was touched, no pure function over the surface can find out. This is the honest limit of
 the whole approach. Three things follow, and they are the actual mitigation:
 
-1. `WRITE_IRREVERSIBLE` requires an approved artifact **and** a per-invocation approval token. The
+1. `WRITE_IRREVERSIBLE` requires an approved artifact **and** scoped invocation approval. The
    residual undetectable-wrong-target risk is precisely why that gate exists — not a generic "writes
    are scary."
 2. **Continuity assertions are mandatory on the confirmation screen of a write flow** (invariant 11),
@@ -2745,7 +2746,7 @@ plausibly finish the job**:
 |---|---|
 | `unclassified-state` | the observation matched no rule and failed the checkpoint. The growth mechanism, not an embarrassment (§7.7) |
 | `recovery-exhausted` | a declared recovery gave up and its `resume` is `escalate` |
-| `approval-required` | policy classified the next action irreversible and no approval token was presented |
+| `approval-required` | the next action is irreversible and no valid invocation approval was presented |
 | `target-ambiguous` / `target-underdetermined` | we refuse to guess which control to click |
 | `session-lost` | the authenticated context is gone and re-establishing it is a human act |
 | `effect-in-doubt` | **auto-escalates regardless of `onIntervention`.** Nobody gets to say "fail and go home" about an irreversible action whose result was never observed |
@@ -2792,8 +2793,9 @@ Resume is **not** "continue at pc". On hand-back, in this order:
 5. **Re-verify continuity.** Every `ContinuityDef` in scope at this step must still hold. A human who
    navigated to a different member's record while investigating must not have the run resume into
    that member's account. Failure here is `continuity-broken`, not a resume.
-6. **Re-check the effect gate.** If the step is `WRITE_IRREVERSIBLE`, the approval token is
-   re-validated at epoch+1; a token consumed before the handoff does not survive it.
+6. **Re-check the effect gate.** If the step is `WRITE_IRREVERSIBLE`, rich invocation approval is
+   re-validated at epoch+1 when present; the legacy policy token fallback is only a compatibility
+   path, and the interpreter still re-verifies before dispatch.
 7. **Re-run the step from the top of the cycle** (§3.1 step 1), not from the middle.
 
 The journal carries a `ControlTransfer` with the operator's id and the titles — never values, never
@@ -2867,8 +2869,9 @@ Order of evaluation inside `check`, first refusal wins:
 6. effect ≤ artifact `policy.maxEffect` → else `effect-exceeds-artifact`
 7. in replay: artifact `lifecycle.status === "approved"` and its digest verifies → else
    `artifact-not-approved` / `artifact-digest-mismatch`
-8. if effect is `WRITE_IRREVERSIBLE`: an approval token is present and valid for this
-   (capability, version, tenant, run) → else `irreversible-requires-approval`
+8. if effect is `WRITE_IRREVERSIBLE`: scoped invocation approval is present and valid for this
+   artifact, contract, tenant, app instance, policy version, argument hash and idempotency key
+   -> else `irreversible-requires-approval`
 9. no tainted handle flows to a disallowed sink → else `tainted-value-to-disallowed-sink`
 
 In discovery the allowlist's `discoveryMaxEffect` applies and an irreversible action additionally
@@ -2885,9 +2888,9 @@ What each class buys:
 
 - `READ` — no approval, retriable, may be restarted from any resume point, eligible for
   `replay-full` verification.
-- `WRITE_REVERSIBLE` — no approval token, but the step is excluded from a `restart-from-checkpoint`
+- `WRITE_REVERSIBLE` — no irreversible approval, but the step is excluded from a `restart-from-checkpoint`
   that would cross it unless the artifact declares the step idempotent.
-- `WRITE_IRREVERSIBLE` — approval token required **by the type** (`WithApproval<C>`), `retriable`
+- `WRITE_IRREVERSIBLE` — invocation approval required at the dispatch boundary, `retriable`
   forced to `never`, no `act` recoveries, no restart across it, `replay-dry` verification,
   mandatory continuity assertion on the confirmation step (invariant 11), and auto-escalating
   `effect-in-doubt` if dispatch is not followed by an observation.

@@ -1,0 +1,73 @@
+{
+  "id": "role-denial-entitlement-failure",
+  "status": "failed",
+  "failureClass": "entitlement-denied",
+  "failureAtStep": "commit-subaccount",
+  "beforeSubAccounts": 1,
+  "afterSubAccounts": 1,
+  "commitStepActed": 1,
+  "approvalAccepted": 1,
+  "approvalRefused": [],
+  "commitClassifierVerdict": {
+    "kind": "fail",
+    "failure": "entitlement-denied",
+    "detail": {
+      "sideEffects": "possible",
+      "expected": {
+        "rendered": "the automation's own role carries the entitlement this screen needs",
+        "clauses": []
+      },
+      "observed": {
+        "route": {
+          "originAlias": "corebank",
+          "path": "/member/:memberId/subaccount/commit",
+          "query": {},
+          "frame": "content"
+        },
+        "settled": true,
+        "pendingReason": null,
+        "skeletonDigest": "sha256:28958c8f114b60f636e7f88bc2f57e6c81641df273a018fc56153ebe26d327f5",
+        "nodeCount": 90,
+        "nativeDialog": null,
+        "inputIntercepted": false,
+        "salient": [
+          {
+            "role": "link",
+            "name": "Member Search",
+            "disabled": false,
+            "visible": true
+          },
+          {
+            "role": "link",
+            "name": "Account Maintenance",
+            "disabled": false,
+            "visible": true
+          },
+          {
+            "role": "link",
+            "name": "Card Services",
+            "disabled": false,
+            "visible": true
+          },
+          {
+            "role": "link",
+            "name": "Teller Journal",
+            "disabled": false,
+            "visible": true
+          },
+          {
+            "role": "link",
+            "name": "Return to Member ID <taint:memberId-1>",
+            "disabled": false,
+            "visible": true
+          }
+        ],
+        "redactionsApplied": 1
+      },
+      "attempts": [],
+      "retriable": "no",
+      "operatorAction": "The automation's own account lacks the entitlement for this screen."
+    }
+  },
+  "note": "The fixture refused the same final screen because the teller role lacks OPEN_SUBACCOUNT authority. The runtime reports entitlement-denied, not a member business outcome, and the fixture state does not change."
+}

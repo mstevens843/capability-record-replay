@@ -1,0 +1,897 @@
+[
+  {
+    "seq": 0,
+    "runId": "run-expired-approval-1",
+    "at": "2026-02-11T14:00:00.000Z",
+    "type": "run.started",
+    "mode": "replay",
+    "capability": "mock.member.open_subaccount",
+    "artifactDigest": "sha256:eb812d520445b7d82c818fd98d446272bf97a719181665da7192558826cb3652",
+    "effectiveDigest": "sha256:eb812d520445b7d82c818fd98d446272bf97a719181665da7192558826cb3652",
+    "tenantId": "riverbend",
+    "argsShape": {
+      "memberId": "digits(5)"
+    }
+  },
+  {
+    "seq": 1,
+    "runId": "run-expired-approval-1",
+    "at": "2026-02-11T14:00:00.000Z",
+    "type": "link.completed",
+    "checksRun": 29,
+    "errors": []
+  },
+  {
+    "seq": 2,
+    "runId": "run-expired-approval-1",
+    "at": "2026-02-11T14:00:00.000Z",
+    "type": "session.opened",
+    "sessionId": "static-session",
+    "sessionProfile": "mock-teller"
+  },
+  {
+    "seq": 3,
+    "runId": "run-expired-approval-1",
+    "at": "2026-02-11T14:00:00.000Z",
+    "type": "lease.acquired",
+    "holder": "automation",
+    "actorId": "run:run-expired-approval-1",
+    "epoch": 1
+  },
+  {
+    "seq": 4,
+    "runId": "run-expired-approval-1",
+    "at": "2026-02-11T14:00:00.000Z",
+    "type": "step.entered",
+    "stepId": "open-search",
+    "index": 0,
+    "attempt": 1,
+    "effect": "READ"
+  },
+  {
+    "seq": 5,
+    "runId": "run-expired-approval-1",
+    "at": "2026-02-11T14:00:00.000Z",
+    "type": "budget.charged",
+    "ledger": "observations",
+    "used": 1,
+    "limit": 120
+  },
+  {
+    "seq": 6,
+    "runId": "run-expired-approval-1",
+    "at": "2026-02-11T14:00:00.000Z",
+    "type": "observed",
+    "stepId": "open-search",
+    "obsSeq": 0,
+    "skeletonDigest": "sha256:4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+    "settled": true,
+    "nodeCount": 0,
+    "observationRef": null
+  },
+  {
+    "seq": 7,
+    "runId": "run-expired-approval-1",
+    "at": "2026-02-11T14:00:00.000Z",
+    "type": "classified",
+    "stepId": "open-search",
+    "phase": "pre",
+    "verdict": {
+      "kind": "advance",
+      "outputs": []
+    },
+    "alsoMatched": []
+  },
+  {
+    "seq": 8,
+    "runId": "run-expired-approval-1",
+    "at": "2026-02-11T14:00:00.000Z",
+    "type": "policy.decided",
+    "decision": {
+      "allow": true,
+      "effect": "READ",
+      "ruleId": "route:corebank/search"
+    },
+    "actionKind": "navigate",
+    "effect": "READ"
+  },
+  {
+    "seq": 9,
+    "runId": "run-expired-approval-1",
+    "at": "2026-02-11T14:00:00.000Z",
+    "type": "budget.charged",
+    "ledger": "actions",
+    "used": 1,
+    "limit": 20
+  },
+  {
+    "seq": 10,
+    "runId": "run-expired-approval-1",
+    "at": "2026-02-11T14:00:00.000Z",
+    "type": "acted",
+    "stepId": "open-search",
+    "actionKind": "navigate",
+    "targetTitle": "Open the search screen",
+    "valueRef": null,
+    "valueLength": null,
+    "result": "dispatched"
+  },
+  {
+    "seq": 11,
+    "runId": "run-expired-approval-1",
+    "at": "2026-02-11T14:00:00.000Z",
+    "type": "budget.charged",
+    "ledger": "observations",
+    "used": 2,
+    "limit": 120
+  },
+  {
+    "seq": 12,
+    "runId": "run-expired-approval-1",
+    "at": "2026-02-11T14:00:00.050Z",
+    "type": "budget.charged",
+    "ledger": "observations",
+    "used": 3,
+    "limit": 120
+  },
+  {
+    "seq": 13,
+    "runId": "run-expired-approval-1",
+    "at": "2026-02-11T14:00:00.050Z",
+    "type": "settled",
+    "stepId": "open-search",
+    "polls": 2,
+    "elapsedMs": 50,
+    "settled": true
+  },
+  {
+    "seq": 14,
+    "runId": "run-expired-approval-1",
+    "at": "2026-02-11T14:00:00.050Z",
+    "type": "observed",
+    "stepId": "open-search",
+    "obsSeq": 2,
+    "skeletonDigest": "sha256:63949c944bd0cb6f692fbc886742fe9ee15c0e6690df39cc80d58cde70f1f0c7",
+    "settled": true,
+    "nodeCount": 2,
+    "observationRef": null
+  },
+  {
+    "seq": 15,
+    "runId": "run-expired-approval-1",
+    "at": "2026-02-11T14:00:00.050Z",
+    "type": "classified",
+    "stepId": "open-search",
+    "phase": "post",
+    "verdict": {
+      "kind": "advance",
+      "outputs": []
+    },
+    "alsoMatched": []
+  },
+  {
+    "seq": 16,
+    "runId": "run-expired-approval-1",
+    "at": "2026-02-11T14:00:00.050Z",
+    "type": "checkpoint",
+    "stepId": "open-search",
+    "passed": true,
+    "trace": {
+      "rendered": "the surface has settled and the surface is on route search",
+      "clauses": [
+        {
+          "rendered": "the surface has settled",
+          "verdict": true
+        },
+        {
+          "rendered": "the surface is on route search",
+          "verdict": true
+        }
+      ]
+    }
+  },
+  {
+    "seq": 17,
+    "runId": "run-expired-approval-1",
+    "at": "2026-02-11T14:00:00.050Z",
+    "type": "step.entered",
+    "stepId": "enter-member-id",
+    "index": 1,
+    "attempt": 1,
+    "effect": "READ"
+  },
+  {
+    "seq": 18,
+    "runId": "run-expired-approval-1",
+    "at": "2026-02-11T14:00:00.050Z",
+    "type": "budget.charged",
+    "ledger": "observations",
+    "used": 4,
+    "limit": 120
+  },
+  {
+    "seq": 19,
+    "runId": "run-expired-approval-1",
+    "at": "2026-02-11T14:00:00.050Z",
+    "type": "observed",
+    "stepId": "enter-member-id",
+    "obsSeq": 3,
+    "skeletonDigest": "sha256:63949c944bd0cb6f692fbc886742fe9ee15c0e6690df39cc80d58cde70f1f0c7",
+    "settled": true,
+    "nodeCount": 2,
+    "observationRef": null
+  },
+  {
+    "seq": 20,
+    "runId": "run-expired-approval-1",
+    "at": "2026-02-11T14:00:00.050Z",
+    "type": "classified",
+    "stepId": "enter-member-id",
+    "phase": "pre",
+    "verdict": {
+      "kind": "advance",
+      "outputs": []
+    },
+    "alsoMatched": []
+  },
+  {
+    "seq": 21,
+    "runId": "run-expired-approval-1",
+    "at": "2026-02-11T14:00:00.050Z",
+    "type": "resolved",
+    "stepId": "enter-member-id",
+    "descriptors": [
+      {
+        "id": "member-id-field-by-name",
+        "kind": "role-name",
+        "evidenceSource": "accessibleName",
+        "verdict": "resolved",
+        "nodeId": "textbox:member-id"
+      },
+      {
+        "id": "member-id-field-by-position",
+        "kind": "ordinal-in-container",
+        "evidenceSource": "ordinal",
+        "verdict": "resolved",
+        "nodeId": "textbox:member-id"
+      }
+    ],
+    "agreed": true,
+    "distinctSources": 2
+  },
+  {
+    "seq": 22,
+    "runId": "run-expired-approval-1",
+    "at": "2026-02-11T14:00:00.050Z",
+    "type": "policy.decided",
+    "decision": {
+      "allow": true,
+      "effect": "READ",
+      "ruleId": "route:corebank/search"
+    },
+    "actionKind": "type",
+    "effect": "READ"
+  },
+  {
+    "seq": 23,
+    "runId": "run-expired-approval-1",
+    "at": "2026-02-11T14:00:00.050Z",
+    "type": "budget.charged",
+    "ledger": "actions",
+    "used": 2,
+    "limit": 20
+  },
+  {
+    "seq": 24,
+    "runId": "run-expired-approval-1",
+    "at": "2026-02-11T14:00:00.050Z",
+    "type": "acted",
+    "stepId": "enter-member-id",
+    "actionKind": "type",
+    "targetTitle": "the textbox named <member-id-field>, inside frame exactly \"content\", inside the form",
+    "valueRef": "taint:memberId-1",
+    "valueLength": 5,
+    "result": "dispatched"
+  },
+  {
+    "seq": 25,
+    "runId": "run-expired-approval-1",
+    "at": "2026-02-11T14:00:00.050Z",
+    "type": "budget.charged",
+    "ledger": "observations",
+    "used": 5,
+    "limit": 120
+  },
+  {
+    "seq": 26,
+    "runId": "run-expired-approval-1",
+    "at": "2026-02-11T14:00:00.100Z",
+    "type": "budget.charged",
+    "ledger": "observations",
+    "used": 6,
+    "limit": 120
+  },
+  {
+    "seq": 27,
+    "runId": "run-expired-approval-1",
+    "at": "2026-02-11T14:00:00.100Z",
+    "type": "settled",
+    "stepId": "enter-member-id",
+    "polls": 2,
+    "elapsedMs": 50,
+    "settled": true
+  },
+  {
+    "seq": 28,
+    "runId": "run-expired-approval-1",
+    "at": "2026-02-11T14:00:00.100Z",
+    "type": "observed",
+    "stepId": "enter-member-id",
+    "obsSeq": 5,
+    "skeletonDigest": "sha256:6bdfcb9a01f9987d33c3145d439ab3c9a175b48066bd4db9550cf9112f9183d6",
+    "settled": true,
+    "nodeCount": 2,
+    "observationRef": null
+  },
+  {
+    "seq": 29,
+    "runId": "run-expired-approval-1",
+    "at": "2026-02-11T14:00:00.100Z",
+    "type": "classified",
+    "stepId": "enter-member-id",
+    "phase": "post",
+    "verdict": {
+      "kind": "advance",
+      "outputs": []
+    },
+    "alsoMatched": []
+  },
+  {
+    "seq": 30,
+    "runId": "run-expired-approval-1",
+    "at": "2026-02-11T14:00:00.100Z",
+    "type": "checkpoint",
+    "stepId": "enter-member-id",
+    "passed": true,
+    "trace": {
+      "rendered": "the surface has settled",
+      "clauses": [
+        {
+          "rendered": "the surface has settled",
+          "verdict": true
+        }
+      ]
+    }
+  },
+  {
+    "seq": 31,
+    "runId": "run-expired-approval-1",
+    "at": "2026-02-11T14:00:00.100Z",
+    "type": "step.entered",
+    "stepId": "submit-search",
+    "index": 2,
+    "attempt": 1,
+    "effect": "READ"
+  },
+  {
+    "seq": 32,
+    "runId": "run-expired-approval-1",
+    "at": "2026-02-11T14:00:00.100Z",
+    "type": "budget.charged",
+    "ledger": "observations",
+    "used": 7,
+    "limit": 120
+  },
+  {
+    "seq": 33,
+    "runId": "run-expired-approval-1",
+    "at": "2026-02-11T14:00:00.100Z",
+    "type": "observed",
+    "stepId": "submit-search",
+    "obsSeq": 6,
+    "skeletonDigest": "sha256:6bdfcb9a01f9987d33c3145d439ab3c9a175b48066bd4db9550cf9112f9183d6",
+    "settled": true,
+    "nodeCount": 2,
+    "observationRef": null
+  },
+  {
+    "seq": 34,
+    "runId": "run-expired-approval-1",
+    "at": "2026-02-11T14:00:00.100Z",
+    "type": "classified",
+    "stepId": "submit-search",
+    "phase": "pre",
+    "verdict": {
+      "kind": "advance",
+      "outputs": []
+    },
+    "alsoMatched": []
+  },
+  {
+    "seq": 35,
+    "runId": "run-expired-approval-1",
+    "at": "2026-02-11T14:00:00.100Z",
+    "type": "resolved",
+    "stepId": "submit-search",
+    "descriptors": [
+      {
+        "id": "search-button-by-name",
+        "kind": "role-name",
+        "evidenceSource": "accessibleName",
+        "verdict": "resolved",
+        "nodeId": "button:search"
+      },
+      {
+        "id": "search-button-by-position",
+        "kind": "ordinal-in-container",
+        "evidenceSource": "ordinal",
+        "verdict": "resolved",
+        "nodeId": "button:search"
+      }
+    ],
+    "agreed": true,
+    "distinctSources": 2
+  },
+  {
+    "seq": 36,
+    "runId": "run-expired-approval-1",
+    "at": "2026-02-11T14:00:00.100Z",
+    "type": "policy.decided",
+    "decision": {
+      "allow": true,
+      "effect": "READ",
+      "ruleId": "route:corebank/search"
+    },
+    "actionKind": "click",
+    "effect": "READ"
+  },
+  {
+    "seq": 37,
+    "runId": "run-expired-approval-1",
+    "at": "2026-02-11T14:00:00.100Z",
+    "type": "budget.charged",
+    "ledger": "actions",
+    "used": 3,
+    "limit": 20
+  },
+  {
+    "seq": 38,
+    "runId": "run-expired-approval-1",
+    "at": "2026-02-11T14:00:00.100Z",
+    "type": "acted",
+    "stepId": "submit-search",
+    "actionKind": "click",
+    "targetTitle": "the button named <search-button>, inside frame exactly \"content\", inside the form",
+    "valueRef": null,
+    "valueLength": null,
+    "result": "dispatched"
+  },
+  {
+    "seq": 39,
+    "runId": "run-expired-approval-1",
+    "at": "2026-02-11T14:00:00.100Z",
+    "type": "budget.charged",
+    "ledger": "observations",
+    "used": 8,
+    "limit": 120
+  },
+  {
+    "seq": 40,
+    "runId": "run-expired-approval-1",
+    "at": "2026-02-11T14:00:00.150Z",
+    "type": "budget.charged",
+    "ledger": "observations",
+    "used": 9,
+    "limit": 120
+  },
+  {
+    "seq": 41,
+    "runId": "run-expired-approval-1",
+    "at": "2026-02-11T14:00:00.150Z",
+    "type": "settled",
+    "stepId": "submit-search",
+    "polls": 2,
+    "elapsedMs": 50,
+    "settled": true
+  },
+  {
+    "seq": 42,
+    "runId": "run-expired-approval-1",
+    "at": "2026-02-11T14:00:00.150Z",
+    "type": "observed",
+    "stepId": "submit-search",
+    "obsSeq": 8,
+    "skeletonDigest": "sha256:704a5b99f801622274f66b903c0315bc2b67df8d990912f40992a2c38aaa3612",
+    "settled": true,
+    "nodeCount": 2,
+    "observationRef": null
+  },
+  {
+    "seq": 43,
+    "runId": "run-expired-approval-1",
+    "at": "2026-02-11T14:00:00.150Z",
+    "type": "classified",
+    "stepId": "submit-search",
+    "phase": "post",
+    "verdict": {
+      "kind": "advance",
+      "outputs": []
+    },
+    "alsoMatched": []
+  },
+  {
+    "seq": 44,
+    "runId": "run-expired-approval-1",
+    "at": "2026-02-11T14:00:00.150Z",
+    "type": "checkpoint",
+    "stepId": "submit-search",
+    "passed": true,
+    "trace": {
+      "rendered": "the surface has settled and the surface is on route results and a link inside frame exactly \"content\", inside the form is present",
+      "clauses": [
+        {
+          "rendered": "the surface has settled",
+          "verdict": true
+        },
+        {
+          "rendered": "the surface is on route results",
+          "verdict": true
+        },
+        {
+          "rendered": "a link inside frame exactly \"content\", inside the form is present",
+          "verdict": true,
+          "nodeSummary": "matched the link named \"Open\""
+        }
+      ]
+    }
+  },
+  {
+    "seq": 45,
+    "runId": "run-expired-approval-1",
+    "at": "2026-02-11T14:00:00.150Z",
+    "type": "step.entered",
+    "stepId": "open-new-subaccount",
+    "index": 3,
+    "attempt": 1,
+    "effect": "READ"
+  },
+  {
+    "seq": 46,
+    "runId": "run-expired-approval-1",
+    "at": "2026-02-11T14:00:00.150Z",
+    "type": "budget.charged",
+    "ledger": "observations",
+    "used": 10,
+    "limit": 120
+  },
+  {
+    "seq": 47,
+    "runId": "run-expired-approval-1",
+    "at": "2026-02-11T14:00:00.150Z",
+    "type": "observed",
+    "stepId": "open-new-subaccount",
+    "obsSeq": 9,
+    "skeletonDigest": "sha256:704a5b99f801622274f66b903c0315bc2b67df8d990912f40992a2c38aaa3612",
+    "settled": true,
+    "nodeCount": 2,
+    "observationRef": null
+  },
+  {
+    "seq": 48,
+    "runId": "run-expired-approval-1",
+    "at": "2026-02-11T14:00:00.150Z",
+    "type": "classified",
+    "stepId": "open-new-subaccount",
+    "phase": "pre",
+    "verdict": {
+      "kind": "advance",
+      "outputs": []
+    },
+    "alsoMatched": []
+  },
+  {
+    "seq": 49,
+    "runId": "run-expired-approval-1",
+    "at": "2026-02-11T14:00:00.150Z",
+    "type": "resolved",
+    "stepId": "open-new-subaccount",
+    "descriptors": [
+      {
+        "id": "open-link-by-name",
+        "kind": "role-name",
+        "evidenceSource": "accessibleName",
+        "verdict": "resolved",
+        "nodeId": "link:open"
+      },
+      {
+        "id": "open-link-by-position",
+        "kind": "ordinal-in-container",
+        "evidenceSource": "ordinal",
+        "verdict": "resolved",
+        "nodeId": "link:open"
+      }
+    ],
+    "agreed": true,
+    "distinctSources": 2
+  },
+  {
+    "seq": 50,
+    "runId": "run-expired-approval-1",
+    "at": "2026-02-11T14:00:00.150Z",
+    "type": "policy.decided",
+    "decision": {
+      "allow": true,
+      "effect": "READ",
+      "ruleId": "route:corebank/results"
+    },
+    "actionKind": "click",
+    "effect": "READ"
+  },
+  {
+    "seq": 51,
+    "runId": "run-expired-approval-1",
+    "at": "2026-02-11T14:00:00.150Z",
+    "type": "budget.charged",
+    "ledger": "actions",
+    "used": 4,
+    "limit": 20
+  },
+  {
+    "seq": 52,
+    "runId": "run-expired-approval-1",
+    "at": "2026-02-11T14:00:00.150Z",
+    "type": "acted",
+    "stepId": "open-new-subaccount",
+    "actionKind": "click",
+    "targetTitle": "the link named <open-link>, inside frame exactly \"content\", inside the form",
+    "valueRef": null,
+    "valueLength": null,
+    "result": "dispatched"
+  },
+  {
+    "seq": 53,
+    "runId": "run-expired-approval-1",
+    "at": "2026-02-11T14:00:00.150Z",
+    "type": "budget.charged",
+    "ledger": "observations",
+    "used": 11,
+    "limit": 120
+  },
+  {
+    "seq": 54,
+    "runId": "run-expired-approval-1",
+    "at": "2026-02-11T14:00:00.200Z",
+    "type": "budget.charged",
+    "ledger": "observations",
+    "used": 12,
+    "limit": 120
+  },
+  {
+    "seq": 55,
+    "runId": "run-expired-approval-1",
+    "at": "2026-02-11T14:00:00.200Z",
+    "type": "settled",
+    "stepId": "open-new-subaccount",
+    "polls": 2,
+    "elapsedMs": 50,
+    "settled": true
+  },
+  {
+    "seq": 56,
+    "runId": "run-expired-approval-1",
+    "at": "2026-02-11T14:00:00.200Z",
+    "type": "observed",
+    "stepId": "open-new-subaccount",
+    "obsSeq": 11,
+    "skeletonDigest": "sha256:eac64aef81ea466e9b79b82f908b23bef9b7c6309910fb33d03d441761c2e4a8",
+    "settled": true,
+    "nodeCount": 2,
+    "observationRef": null
+  },
+  {
+    "seq": 57,
+    "runId": "run-expired-approval-1",
+    "at": "2026-02-11T14:00:00.200Z",
+    "type": "classified",
+    "stepId": "open-new-subaccount",
+    "phase": "post",
+    "verdict": {
+      "kind": "advance",
+      "outputs": []
+    },
+    "alsoMatched": []
+  },
+  {
+    "seq": 58,
+    "runId": "run-expired-approval-1",
+    "at": "2026-02-11T14:00:00.200Z",
+    "type": "checkpoint",
+    "stepId": "open-new-subaccount",
+    "passed": true,
+    "trace": {
+      "rendered": "the surface has settled and the surface is on route new-subaccount and a button named <confirm-button> inside frame exactly \"content\", inside the form is present",
+      "clauses": [
+        {
+          "rendered": "the surface has settled",
+          "verdict": true
+        },
+        {
+          "rendered": "the surface is on route new-subaccount",
+          "verdict": true
+        },
+        {
+          "rendered": "a button named <confirm-button> inside frame exactly \"content\", inside the form is present",
+          "verdict": true,
+          "evidenceSource": "accessibleName",
+          "nodeSummary": "matched the button named \"Confirm\""
+        }
+      ]
+    }
+  },
+  {
+    "seq": 59,
+    "runId": "run-expired-approval-1",
+    "at": "2026-02-11T14:00:00.200Z",
+    "type": "step.entered",
+    "stepId": "confirm-open",
+    "index": 4,
+    "attempt": 1,
+    "effect": "WRITE_IRREVERSIBLE"
+  },
+  {
+    "seq": 60,
+    "runId": "run-expired-approval-1",
+    "at": "2026-02-11T14:00:00.200Z",
+    "type": "budget.charged",
+    "ledger": "observations",
+    "used": 13,
+    "limit": 120
+  },
+  {
+    "seq": 61,
+    "runId": "run-expired-approval-1",
+    "at": "2026-02-11T14:00:00.200Z",
+    "type": "observed",
+    "stepId": "confirm-open",
+    "obsSeq": 12,
+    "skeletonDigest": "sha256:eac64aef81ea466e9b79b82f908b23bef9b7c6309910fb33d03d441761c2e4a8",
+    "settled": true,
+    "nodeCount": 2,
+    "observationRef": null
+  },
+  {
+    "seq": 62,
+    "runId": "run-expired-approval-1",
+    "at": "2026-02-11T14:00:00.200Z",
+    "type": "classified",
+    "stepId": "confirm-open",
+    "phase": "pre",
+    "verdict": {
+      "kind": "advance",
+      "outputs": []
+    },
+    "alsoMatched": []
+  },
+  {
+    "seq": 63,
+    "runId": "run-expired-approval-1",
+    "at": "2026-02-11T14:00:00.200Z",
+    "type": "resolved",
+    "stepId": "confirm-open",
+    "descriptors": [
+      {
+        "id": "confirm-button-by-name",
+        "kind": "role-name",
+        "evidenceSource": "accessibleName",
+        "verdict": "resolved",
+        "nodeId": "button:confirm"
+      },
+      {
+        "id": "confirm-button-by-position",
+        "kind": "ordinal-in-container",
+        "evidenceSource": "ordinal",
+        "verdict": "resolved",
+        "nodeId": "button:confirm"
+      }
+    ],
+    "agreed": true,
+    "distinctSources": 2
+  },
+  {
+    "seq": 64,
+    "runId": "run-expired-approval-1",
+    "at": "2026-02-11T14:00:00.200Z",
+    "type": "approval.refused",
+    "approvalId": "approval-evidence-expired",
+    "reason": "approval-expired",
+    "detail": "approval approval-evidence-expired expired at 2026-02-11T13:59:59.000Z and it is now 2026-02-11T14:00:00.200Z",
+    "keyId": "invocation-approval-evidence-expired",
+    "stepId": "confirm-open",
+    "effect": "WRITE_IRREVERSIBLE"
+  },
+  {
+    "seq": 65,
+    "runId": "run-expired-approval-1",
+    "at": "2026-02-11T14:00:00.200Z",
+    "type": "policy.decided",
+    "decision": {
+      "allow": false,
+      "reason": "irreversible-requires-approval",
+      "ruleId": "approval:approval-expired",
+      "detail": "approval approval-evidence-expired expired at 2026-02-11T13:59:59.000Z and it is now 2026-02-11T14:00:00.200Z"
+    },
+    "actionKind": "click",
+    "effect": "WRITE_IRREVERSIBLE"
+  },
+  {
+    "seq": 66,
+    "runId": "run-expired-approval-1",
+    "at": "2026-02-11T14:00:00.200Z",
+    "type": "classified",
+    "stepId": "confirm-open",
+    "phase": "pre",
+    "verdict": {
+      "kind": "fail",
+      "failure": "approval-required",
+      "detail": {
+        "sideEffects": "possible",
+        "expected": {
+          "rendered": "an approval token accompanies this invocation (approval approval-evidence-expired expired at 2026-02-11T13:59:59.000Z and it is now 2026-02-11T14:00:00.200Z)",
+          "clauses": []
+        },
+        "observed": {
+          "route": {
+            "originAlias": "corebank",
+            "path": "/subaccount/new",
+            "query": {},
+            "frame": "content"
+          },
+          "settled": true,
+          "pendingReason": null,
+          "skeletonDigest": "sha256:eac64aef81ea466e9b79b82f908b23bef9b7c6309910fb33d03d441761c2e4a8",
+          "nodeCount": 2,
+          "nativeDialog": null,
+          "inputIntercepted": false,
+          "salient": [
+            {
+              "role": "status",
+              "name": "New sub-account for member <taint:memberId-1>",
+              "disabled": false,
+              "visible": true
+            },
+            {
+              "role": "button",
+              "name": "Confirm",
+              "disabled": false,
+              "visible": true
+            }
+          ],
+          "redactionsApplied": 1
+        },
+        "attempts": [],
+        "retriable": "after-human-action",
+        "operatorAction": "This capability needs an approval token for this invocation."
+      }
+    },
+    "alsoMatched": []
+  },
+  {
+    "seq": 67,
+    "runId": "run-expired-approval-1",
+    "at": "2026-02-11T14:00:00.200Z",
+    "type": "evidence.captured",
+    "ref": "obs:d28158b474dac637a6bc9fd3ac6046d9ead0cd602897f687e33f9a9bf02b886a",
+    "kind": "observation",
+    "maskedRegions": 0,
+    "stepId": "confirm-open",
+    "phase": "pre"
+  },
+  {
+    "seq": 68,
+    "runId": "run-expired-approval-1",
+    "at": "2026-02-11T14:00:00.200Z",
+    "type": "run.finished",
+    "status": "failed",
+    "failureClass": "approval-required"
+  }
+]

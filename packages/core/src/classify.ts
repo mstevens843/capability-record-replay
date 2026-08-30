@@ -841,8 +841,10 @@ function recoverWith(input: ClassifierInput, ctx: EvalContext, rule: RecoveryRul
  * terminal: an `outcome`, an `advance`, or a failure that is not retriable.
  *
  * `recover` is unreachable by construction, because a recovery implies a retry and a retry implies
- * knowing the action did not take effect - which is precisely what is unknown. Anything else
- * collapses to `effect-in-doubt`: it did not fail and it did not succeed, and the only correct
+ * knowing the action did not take effect - which is precisely what is unknown. A declared
+ * entitlement denial is already terminal and already says a person must change authority outside
+ * this run, so preserving it keeps row 8 distinguishable without creating a retry path. Anything
+ * else collapses to `effect-in-doubt`: it did not fail and it did not succeed, and the only correct
  * behaviour is to stop and let a person reconcile against the system of record.
  *
  * `pending` survives, because waiting for the confirmation screen is bounded by the settle budget
@@ -857,7 +859,12 @@ function terminalizeAfterIrreversibleDispatch(
   if (verdict.kind === "outcome" || verdict.kind === "advance" || verdict.kind === "pending") {
     return verdict;
   }
-  if (verdict.kind === "fail" && verdict.failure === "effect-in-doubt") return verdict;
+  if (
+    verdict.kind === "fail" &&
+    (verdict.failure === "effect-in-doubt" || verdict.failure === "entitlement-denied")
+  ) {
+    return verdict;
+  }
   return fail(input, ctx, "effect-in-doubt", {
     note:
       verdict.kind === "recover"

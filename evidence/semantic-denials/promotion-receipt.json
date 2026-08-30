@@ -1,0 +1,31 @@
+{
+  "promotion": {
+    "code": "MEMBER_RESTRICTED",
+    "atStep": "commit-subaccount",
+    "reviewDigest": "sha256:9cd69e88354e0fdc014c1e7a01255bf1fc411d7591f72d51b35787cdd7f11de7",
+    "reviewedBy": "ops-approver-4",
+    "supersedesArtifactVersion": 1,
+    "proof": {
+      "verdict": "discriminates",
+      "proverVersion": "crr-prover/1",
+      "positives": [
+        {
+          "observation": "sha256:42e701fc83ce2b95b89ce708317b004acbc81aa698914e8a405455bae528d16c",
+          "atStep": "commit-subaccount"
+        }
+      ],
+      "negatives": {
+        "corpusDigest": "sha256:1f5dee9139206e0d2d93f8206a4b841de37a7d6022849c27061b8f31e79abce8",
+        "total": 3,
+        "happyPathAtStep": 1,
+        "otherAbnormalAtStep": 1,
+        "otherSteps": 1,
+        "otherTenants": 0
+      },
+      "provenAt": [
+        "riverbend"
+      ]
+    },
+    "probeConfirmed": true
+  }
+}

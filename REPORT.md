@@ -2,7 +2,8 @@
 
 A model drives a legacy back-office application once. What it learned becomes a typed, versioned,
 content-addressed capability document. Everything after is a deterministic interpreter with no model
-in the decision path.
+in the decision path. For a reviewer command path, start with
+`docs/FINAL-REVIEWER-GUIDE.md`; for assignment traceability, read `docs/REQUIREMENT-TRACE.md`.
 
 **What is *not* proven, first.**
 
@@ -17,11 +18,11 @@ in the decision path.
 
 | Claim | Result | Command / receipt |
 |---|---|---|
-| Builds and passes with **zero credentials** | **2,027 tests**, 8 members, exit 0 | `env -u ANTHROPIC_API_KEY -u ANTHROPIC_AUTH_TOKEN -u OPENAI_API_KEY -u CLAUDE_CODE_OAUTH_TOKEN pnpm test` |
+| Builds and passes with **zero credentials** | **2,032 tests**, 8 members, exit 0 | `env -u ANTHROPIC_API_KEY -u ANTHROPIC_AUTH_TOKEN -u OPENAI_API_KEY -u CLAUDE_CODE_OAUTH_TOKEN TURBO_FORCE=1 pnpm test` |
 | A real model reached a real goal | `claude-opus-5`, 9 turns, 42,368 billed tokens, **$0.14** | `evidence/discovery-live/provenance.json` |
 | Its artifact replayed with the model out of the loop | `full`, `proposed → draft`, every gating canary pass CLEAN | `evidence/discovery-live/verification.json` |
 | Replay tells a good engine from a broken one | reference engine **0 false successes**; **9/9 mutants killed**, 13 of the 17 kills false successes | `pnpm -F @crr/conformance stability` |
-| A reviewer can run it with no key | 144 files on every run, whole-bundle canary CLEAN, exit 0 | `pnpm demo` |
+| A reviewer can run the main demo with no key | 241 files on three credential-unset runs, whole-bundle canary CLEAN, exit 0 | `pnpm demo` |
 
 ---
 
@@ -166,9 +167,9 @@ are real.
 `check(action, ctx)` over lease, allowlisted origin and canonicalized route, action kind, both effect
 ceilings, approval state and taint sink, first refusal winning. It is not a package, because a
 package boundary does not make something the *only* chokepoint; the contract test does. **Effect
-classes** `READ | WRITE_REVERSIBLE | WRITE_IRREVERSIBLE`: irreversible requires an approval token *by
-the type*, forbids retries and restarts across it, and turns unobserved dispatch into an
-auto-escalation. **A taint model**: a `sensitive` parameter yields a handle at bind time, and the
+classes** `READ | WRITE_REVERSIBLE | WRITE_IRREVERSIBLE`: irreversible requires scoped invocation
+approval at the dispatch boundary, forbids retries and restarts across it, and turns unobserved
+dispatch into an auto-escalation. **A taint model**: a `sensitive` parameter yields a handle at bind time, and the
 handle — never the value — reaches the policy engine, the journal and every capture.
 
 A safety section listing no failures is not credible. **Four real leaks were caught by these

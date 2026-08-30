@@ -1,0 +1,12 @@
+{
+  "id": "wrong-contract-digest",
+  "status": "failed",
+  "failureClass": "approval-required",
+  "stepsExecuted": 4,
+  "finalDispatches": 0,
+  "approvalAccepted": 0,
+  "approvalRefused": [
+    "contract-digest-mismatch"
+  ],
+  "note": "The approval is signed and otherwise valid, but covers a different contract digest. No irreversible dispatch occurs."
+}

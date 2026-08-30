@@ -225,13 +225,12 @@ export function signApprovalDocument(
 /**
  * An in-process signer over an ed25519 private key.
  *
- * THE LIMITATION, STATED WHERE IT WILL BE READ: this implementation has no key custody. It takes a
- * private key as an argument, holds it in memory for as long as the process lives, and has no
- * notion of who the approver is beyond a `keyId` string, no expiry, no revocation path, and no
- * audit trail of its own use. That is a deliberate stopping point (OPEN-QUESTIONS-RESOLVED Q5), not
- * an oversight: an approval is only ever as strong as the custody of the signing key, and a
- * half-built key manager would make that weakness harder to see rather than easier. REPORT section
- * 6 says the same thing in the same words.
+ * THE LIMITATION, STATED WHERE IT WILL BE READ: this local adapter has no key custody. It takes a
+ * private key as an argument and holds it in memory for as long as the process lives. Signer
+ * identity, authority, expiry and revocation live on the approval document and trust store around
+ * it; this function only performs local signing. That is a deliberate stopping point, not an
+ * oversight: an approval is only ever as strong as the custody of the signing key, and a half-built
+ * key manager would make that weakness harder to see rather than easier.
  */
 export function ed25519Signer(
   keyId: string,

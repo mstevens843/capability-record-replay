@@ -1,0 +1,1041 @@
+[
+  {
+    "seq": 0,
+    "runId": "run-semantic-role-denial-entitlement-failure-1",
+    "at": "2026-08-30T07:27:10.830Z",
+    "type": "run.started",
+    "mode": "replay",
+    "capability": "corebank.member.open_sub_account",
+    "artifactDigest": "sha256:530a657b8434789f5e28f91521bf85a13f6f0bc11e005e018f0688d7488aa69f",
+    "effectiveDigest": "sha256:530a657b8434789f5e28f91521bf85a13f6f0bc11e005e018f0688d7488aa69f",
+    "tenantId": "riverbend",
+    "argsShape": {
+      "memberId": "digits(5)",
+      "openingDeposit": "string(6)"
+    }
+  },
+  {
+    "seq": 1,
+    "runId": "run-semantic-role-denial-entitlement-failure-1",
+    "at": "2026-08-30T07:27:10.834Z",
+    "type": "link.completed",
+    "checksRun": 29,
+    "errors": []
+  },
+  {
+    "seq": 2,
+    "runId": "run-semantic-role-denial-entitlement-failure-1",
+    "at": "2026-08-30T07:27:10.834Z",
+    "type": "session.opened",
+    "sessionId": "corebank-fixture",
+    "sessionProfile": "corebank-teller"
+  },
+  {
+    "seq": 3,
+    "runId": "run-semantic-role-denial-entitlement-failure-1",
+    "at": "2026-08-30T07:27:10.834Z",
+    "type": "lease.acquired",
+    "holder": "automation",
+    "actorId": "run:run-semantic-role-denial-entitlement-failure-1",
+    "epoch": 1
+  },
+  {
+    "seq": 4,
+    "runId": "run-semantic-role-denial-entitlement-failure-1",
+    "at": "2026-08-30T07:27:10.834Z",
+    "type": "step.entered",
+    "stepId": "open-subaccount-form",
+    "index": 0,
+    "attempt": 1,
+    "effect": "READ"
+  },
+  {
+    "seq": 5,
+    "runId": "run-semantic-role-denial-entitlement-failure-1",
+    "at": "2026-08-30T07:27:10.834Z",
+    "type": "budget.charged",
+    "ledger": "observations",
+    "used": 1,
+    "limit": 200
+  },
+  {
+    "seq": 6,
+    "runId": "run-semantic-role-denial-entitlement-failure-1",
+    "at": "2026-08-30T07:27:10.842Z",
+    "type": "observed",
+    "stepId": "open-subaccount-form",
+    "obsSeq": 0,
+    "skeletonDigest": "sha256:77133a7a47cabfb23d8a04fdd48bd97dff3e5670d891b221c3db0bf8275c79c4",
+    "settled": true,
+    "nodeCount": 99,
+    "observationRef": null
+  },
+  {
+    "seq": 7,
+    "runId": "run-semantic-role-denial-entitlement-failure-1",
+    "at": "2026-08-30T07:27:10.842Z",
+    "type": "classified",
+    "stepId": "open-subaccount-form",
+    "phase": "pre",
+    "verdict": {
+      "kind": "advance",
+      "outputs": []
+    },
+    "alsoMatched": []
+  },
+  {
+    "seq": 8,
+    "runId": "run-semantic-role-denial-entitlement-failure-1",
+    "at": "2026-08-30T07:27:10.842Z",
+    "type": "policy.decided",
+    "decision": {
+      "allow": true,
+      "effect": "READ",
+      "ruleId": "route:corebank/member/:memberId/subaccount/new"
+    },
+    "actionKind": "navigate",
+    "effect": "READ"
+  },
+  {
+    "seq": 9,
+    "runId": "run-semantic-role-denial-entitlement-failure-1",
+    "at": "2026-08-30T07:27:10.842Z",
+    "type": "budget.charged",
+    "ledger": "actions",
+    "used": 1,
+    "limit": 12
+  },
+  {
+    "seq": 10,
+    "runId": "run-semantic-role-denial-entitlement-failure-1",
+    "at": "2026-08-30T07:27:10.846Z",
+    "type": "acted",
+    "stepId": "open-subaccount-form",
+    "actionKind": "navigate",
+    "targetTitle": "Open the sub-account form for this member",
+    "valueRef": null,
+    "valueLength": null,
+    "result": "dispatched"
+  },
+  {
+    "seq": 11,
+    "runId": "run-semantic-role-denial-entitlement-failure-1",
+    "at": "2026-08-30T07:27:10.846Z",
+    "type": "budget.charged",
+    "ledger": "observations",
+    "used": 2,
+    "limit": 200
+  },
+  {
+    "seq": 12,
+    "runId": "run-semantic-role-denial-entitlement-failure-1",
+    "at": "2026-08-30T07:27:10.976Z",
+    "type": "budget.charged",
+    "ledger": "observations",
+    "used": 3,
+    "limit": 200
+  },
+  {
+    "seq": 13,
+    "runId": "run-semantic-role-denial-entitlement-failure-1",
+    "at": "2026-08-30T07:27:11.108Z",
+    "type": "budget.charged",
+    "ledger": "observations",
+    "used": 4,
+    "limit": 200
+  },
+  {
+    "seq": 14,
+    "runId": "run-semantic-role-denial-entitlement-failure-1",
+    "at": "2026-08-30T07:27:11.121Z",
+    "type": "settled",
+    "stepId": "open-subaccount-form",
+    "polls": 3,
+    "elapsedMs": 276,
+    "settled": true
+  },
+  {
+    "seq": 15,
+    "runId": "run-semantic-role-denial-entitlement-failure-1",
+    "at": "2026-08-30T07:27:11.121Z",
+    "type": "observed",
+    "stepId": "open-subaccount-form",
+    "obsSeq": 3,
+    "skeletonDigest": "sha256:f60d16ebf22946e16cd482a244f6a76528da285f54ba0e07ef1c0083e3c731aa",
+    "settled": true,
+    "nodeCount": 118,
+    "observationRef": null
+  },
+  {
+    "seq": 16,
+    "runId": "run-semantic-role-denial-entitlement-failure-1",
+    "at": "2026-08-30T07:27:11.122Z",
+    "type": "classified",
+    "stepId": "open-subaccount-form",
+    "phase": "post",
+    "verdict": {
+      "kind": "advance",
+      "outputs": []
+    },
+    "alsoMatched": []
+  },
+  {
+    "seq": 17,
+    "runId": "run-semantic-role-denial-entitlement-failure-1",
+    "at": "2026-08-30T07:27:11.122Z",
+    "type": "checkpoint",
+    "stepId": "open-subaccount-form",
+    "passed": true,
+    "trace": {
+      "rendered": "the surface has settled and the surface is on route subaccount-new and a combobox inside frame exactly \"content\", inside the form is present and the run is still on the record bound to `subjectMember` inside frame exactly \"content\"",
+      "clauses": [
+        {
+          "rendered": "the surface has settled",
+          "verdict": true
+        },
+        {
+          "rendered": "the surface is on route subaccount-new",
+          "verdict": true
+        },
+        {
+          "rendered": "a combobox inside frame exactly \"content\", inside the form is present",
+          "verdict": true,
+          "nodeSummary": "matched one unnamed combobox"
+        },
+        {
+          "rendered": "the run is still on the record bound to `subjectMember` inside frame exactly \"content\"",
+          "verdict": true
+        }
+      ]
+    }
+  },
+  {
+    "seq": 18,
+    "runId": "run-semantic-role-denial-entitlement-failure-1",
+    "at": "2026-08-30T07:27:11.123Z",
+    "type": "step.entered",
+    "stepId": "choose-subaccount-type",
+    "index": 1,
+    "attempt": 1,
+    "effect": "READ"
+  },
+  {
+    "seq": 19,
+    "runId": "run-semantic-role-denial-entitlement-failure-1",
+    "at": "2026-08-30T07:27:11.123Z",
+    "type": "budget.charged",
+    "ledger": "observations",
+    "used": 5,
+    "limit": 200
+  },
+  {
+    "seq": 20,
+    "runId": "run-semantic-role-denial-entitlement-failure-1",
+    "at": "2026-08-30T07:27:11.133Z",
+    "type": "observed",
+    "stepId": "choose-subaccount-type",
+    "obsSeq": 4,
+    "skeletonDigest": "sha256:f60d16ebf22946e16cd482a244f6a76528da285f54ba0e07ef1c0083e3c731aa",
+    "settled": true,
+    "nodeCount": 118,
+    "observationRef": null
+  },
+  {
+    "seq": 21,
+    "runId": "run-semantic-role-denial-entitlement-failure-1",
+    "at": "2026-08-30T07:27:11.134Z",
+    "type": "classified",
+    "stepId": "choose-subaccount-type",
+    "phase": "pre",
+    "verdict": {
+      "kind": "advance",
+      "outputs": []
+    },
+    "alsoMatched": []
+  },
+  {
+    "seq": 22,
+    "runId": "run-semantic-role-denial-entitlement-failure-1",
+    "at": "2026-08-30T07:27:11.134Z",
+    "type": "resolved",
+    "stepId": "choose-subaccount-type",
+    "descriptors": [
+      {
+        "id": "product-right-of-type-label",
+        "kind": "label-anchored",
+        "evidenceSource": "labelText",
+        "verdict": "resolved",
+        "nodeId": "combobox:f3-171"
+      },
+      {
+        "id": "product-only-list-in-form",
+        "kind": "ordinal-in-container",
+        "evidenceSource": "ordinal",
+        "verdict": "resolved",
+        "nodeId": "combobox:f3-171"
+      }
+    ],
+    "agreed": true,
+    "distinctSources": 2
+  },
+  {
+    "seq": 23,
+    "runId": "run-semantic-role-denial-entitlement-failure-1",
+    "at": "2026-08-30T07:27:11.134Z",
+    "type": "policy.decided",
+    "decision": {
+      "allow": true,
+      "effect": "READ",
+      "ruleId": "route:corebank/member/:memberId/subaccount/new"
+    },
+    "actionKind": "select",
+    "effect": "READ"
+  },
+  {
+    "seq": 24,
+    "runId": "run-semantic-role-denial-entitlement-failure-1",
+    "at": "2026-08-30T07:27:11.134Z",
+    "type": "budget.charged",
+    "ledger": "actions",
+    "used": 2,
+    "limit": 12
+  },
+  {
+    "seq": 25,
+    "runId": "run-semantic-role-denial-entitlement-failure-1",
+    "at": "2026-08-30T07:27:11.137Z",
+    "type": "acted",
+    "stepId": "choose-subaccount-type",
+    "actionKind": "select",
+    "targetTitle": "the combobox to the right of the label <subaccount-type-label>, within 60px, inside frame exactly \"content\", inside the form",
+    "valueRef": null,
+    "valueLength": null,
+    "result": "dispatched"
+  },
+  {
+    "seq": 26,
+    "runId": "run-semantic-role-denial-entitlement-failure-1",
+    "at": "2026-08-30T07:27:11.137Z",
+    "type": "budget.charged",
+    "ledger": "observations",
+    "used": 6,
+    "limit": 200
+  },
+  {
+    "seq": 27,
+    "runId": "run-semantic-role-denial-entitlement-failure-1",
+    "at": "2026-08-30T07:27:11.268Z",
+    "type": "budget.charged",
+    "ledger": "observations",
+    "used": 7,
+    "limit": 200
+  },
+  {
+    "seq": 28,
+    "runId": "run-semantic-role-denial-entitlement-failure-1",
+    "at": "2026-08-30T07:27:11.401Z",
+    "type": "budget.charged",
+    "ledger": "observations",
+    "used": 8,
+    "limit": 200
+  },
+  {
+    "seq": 29,
+    "runId": "run-semantic-role-denial-entitlement-failure-1",
+    "at": "2026-08-30T07:27:11.412Z",
+    "type": "settled",
+    "stepId": "choose-subaccount-type",
+    "polls": 3,
+    "elapsedMs": 274,
+    "settled": true
+  },
+  {
+    "seq": 30,
+    "runId": "run-semantic-role-denial-entitlement-failure-1",
+    "at": "2026-08-30T07:27:11.412Z",
+    "type": "observed",
+    "stepId": "choose-subaccount-type",
+    "obsSeq": 7,
+    "skeletonDigest": "sha256:546089c24d5586fb4419e8629f3f6f09c11fb2c02e845251c243d5e4fbfdf3e4",
+    "settled": true,
+    "nodeCount": 118,
+    "observationRef": null
+  },
+  {
+    "seq": 31,
+    "runId": "run-semantic-role-denial-entitlement-failure-1",
+    "at": "2026-08-30T07:27:11.412Z",
+    "type": "classified",
+    "stepId": "choose-subaccount-type",
+    "phase": "post",
+    "verdict": {
+      "kind": "advance",
+      "outputs": []
+    },
+    "alsoMatched": []
+  },
+  {
+    "seq": 32,
+    "runId": "run-semantic-role-denial-entitlement-failure-1",
+    "at": "2026-08-30T07:27:11.413Z",
+    "type": "checkpoint",
+    "stepId": "choose-subaccount-type",
+    "passed": true,
+    "trace": {
+      "rendered": "the surface has settled and the surface is on route subaccount-new",
+      "clauses": [
+        {
+          "rendered": "the surface has settled",
+          "verdict": true
+        },
+        {
+          "rendered": "the surface is on route subaccount-new",
+          "verdict": true
+        }
+      ]
+    }
+  },
+  {
+    "seq": 33,
+    "runId": "run-semantic-role-denial-entitlement-failure-1",
+    "at": "2026-08-30T07:27:11.413Z",
+    "type": "step.entered",
+    "stepId": "enter-opening-deposit",
+    "index": 2,
+    "attempt": 1,
+    "effect": "READ"
+  },
+  {
+    "seq": 34,
+    "runId": "run-semantic-role-denial-entitlement-failure-1",
+    "at": "2026-08-30T07:27:11.413Z",
+    "type": "budget.charged",
+    "ledger": "observations",
+    "used": 9,
+    "limit": 200
+  },
+  {
+    "seq": 35,
+    "runId": "run-semantic-role-denial-entitlement-failure-1",
+    "at": "2026-08-30T07:27:11.423Z",
+    "type": "observed",
+    "stepId": "enter-opening-deposit",
+    "obsSeq": 8,
+    "skeletonDigest": "sha256:546089c24d5586fb4419e8629f3f6f09c11fb2c02e845251c243d5e4fbfdf3e4",
+    "settled": true,
+    "nodeCount": 118,
+    "observationRef": null
+  },
+  {
+    "seq": 36,
+    "runId": "run-semantic-role-denial-entitlement-failure-1",
+    "at": "2026-08-30T07:27:11.423Z",
+    "type": "classified",
+    "stepId": "enter-opening-deposit",
+    "phase": "pre",
+    "verdict": {
+      "kind": "advance",
+      "outputs": []
+    },
+    "alsoMatched": []
+  },
+  {
+    "seq": 37,
+    "runId": "run-semantic-role-denial-entitlement-failure-1",
+    "at": "2026-08-30T07:27:11.424Z",
+    "type": "resolved",
+    "stepId": "enter-opening-deposit",
+    "descriptors": [
+      {
+        "id": "deposit-right-of-label",
+        "kind": "label-anchored",
+        "evidenceSource": "labelText",
+        "verdict": "resolved",
+        "nodeId": "textbox:f3-195"
+      },
+      {
+        "id": "deposit-only-box-in-form",
+        "kind": "ordinal-in-container",
+        "evidenceSource": "ordinal",
+        "verdict": "resolved",
+        "nodeId": "textbox:f3-195"
+      }
+    ],
+    "agreed": true,
+    "distinctSources": 2
+  },
+  {
+    "seq": 38,
+    "runId": "run-semantic-role-denial-entitlement-failure-1",
+    "at": "2026-08-30T07:27:11.424Z",
+    "type": "policy.decided",
+    "decision": {
+      "allow": true,
+      "effect": "READ",
+      "ruleId": "route:corebank/member/:memberId/subaccount/new"
+    },
+    "actionKind": "type",
+    "effect": "READ"
+  },
+  {
+    "seq": 39,
+    "runId": "run-semantic-role-denial-entitlement-failure-1",
+    "at": "2026-08-30T07:27:11.424Z",
+    "type": "budget.charged",
+    "ledger": "actions",
+    "used": 3,
+    "limit": 12
+  },
+  {
+    "seq": 40,
+    "runId": "run-semantic-role-denial-entitlement-failure-1",
+    "at": "2026-08-30T07:27:11.439Z",
+    "type": "acted",
+    "stepId": "enter-opening-deposit",
+    "actionKind": "type",
+    "targetTitle": "the textbox to the right of the label <initial-deposit-label>, within 60px, inside frame exactly \"content\", inside the form",
+    "valueRef": null,
+    "valueLength": 6,
+    "result": "dispatched"
+  },
+  {
+    "seq": 41,
+    "runId": "run-semantic-role-denial-entitlement-failure-1",
+    "at": "2026-08-30T07:27:11.439Z",
+    "type": "budget.charged",
+    "ledger": "observations",
+    "used": 10,
+    "limit": 200
+  },
+  {
+    "seq": 42,
+    "runId": "run-semantic-role-denial-entitlement-failure-1",
+    "at": "2026-08-30T07:27:11.569Z",
+    "type": "budget.charged",
+    "ledger": "observations",
+    "used": 11,
+    "limit": 200
+  },
+  {
+    "seq": 43,
+    "runId": "run-semantic-role-denial-entitlement-failure-1",
+    "at": "2026-08-30T07:27:11.702Z",
+    "type": "budget.charged",
+    "ledger": "observations",
+    "used": 12,
+    "limit": 200
+  },
+  {
+    "seq": 44,
+    "runId": "run-semantic-role-denial-entitlement-failure-1",
+    "at": "2026-08-30T07:27:11.719Z",
+    "type": "settled",
+    "stepId": "enter-opening-deposit",
+    "polls": 3,
+    "elapsedMs": 281,
+    "settled": true
+  },
+  {
+    "seq": 45,
+    "runId": "run-semantic-role-denial-entitlement-failure-1",
+    "at": "2026-08-30T07:27:11.719Z",
+    "type": "observed",
+    "stepId": "enter-opening-deposit",
+    "obsSeq": 11,
+    "skeletonDigest": "sha256:3cf056e084f4a2fb0e13463e1cf3425cfa1a3fad83959da765cb2dca4156271e",
+    "settled": true,
+    "nodeCount": 119,
+    "observationRef": null
+  },
+  {
+    "seq": 46,
+    "runId": "run-semantic-role-denial-entitlement-failure-1",
+    "at": "2026-08-30T07:27:11.720Z",
+    "type": "classified",
+    "stepId": "enter-opening-deposit",
+    "phase": "post",
+    "verdict": {
+      "kind": "advance",
+      "outputs": []
+    },
+    "alsoMatched": []
+  },
+  {
+    "seq": 47,
+    "runId": "run-semantic-role-denial-entitlement-failure-1",
+    "at": "2026-08-30T07:27:11.720Z",
+    "type": "checkpoint",
+    "stepId": "enter-opening-deposit",
+    "passed": true,
+    "trace": {
+      "rendered": "the surface has settled and the surface is on route subaccount-new",
+      "clauses": [
+        {
+          "rendered": "the surface has settled",
+          "verdict": true
+        },
+        {
+          "rendered": "the surface is on route subaccount-new",
+          "verdict": true
+        }
+      ]
+    }
+  },
+  {
+    "seq": 48,
+    "runId": "run-semantic-role-denial-entitlement-failure-1",
+    "at": "2026-08-30T07:27:11.720Z",
+    "type": "step.entered",
+    "stepId": "submit-subaccount-form",
+    "index": 3,
+    "attempt": 1,
+    "effect": "WRITE_REVERSIBLE"
+  },
+  {
+    "seq": 49,
+    "runId": "run-semantic-role-denial-entitlement-failure-1",
+    "at": "2026-08-30T07:27:11.720Z",
+    "type": "budget.charged",
+    "ledger": "observations",
+    "used": 13,
+    "limit": 200
+  },
+  {
+    "seq": 50,
+    "runId": "run-semantic-role-denial-entitlement-failure-1",
+    "at": "2026-08-30T07:27:11.730Z",
+    "type": "observed",
+    "stepId": "submit-subaccount-form",
+    "obsSeq": 12,
+    "skeletonDigest": "sha256:3cf056e084f4a2fb0e13463e1cf3425cfa1a3fad83959da765cb2dca4156271e",
+    "settled": true,
+    "nodeCount": 119,
+    "observationRef": null
+  },
+  {
+    "seq": 51,
+    "runId": "run-semantic-role-denial-entitlement-failure-1",
+    "at": "2026-08-30T07:27:11.730Z",
+    "type": "classified",
+    "stepId": "submit-subaccount-form",
+    "phase": "pre",
+    "verdict": {
+      "kind": "advance",
+      "outputs": []
+    },
+    "alsoMatched": []
+  },
+  {
+    "seq": 52,
+    "runId": "run-semantic-role-denial-entitlement-failure-1",
+    "at": "2026-08-30T07:27:11.730Z",
+    "type": "resolved",
+    "stepId": "submit-subaccount-form",
+    "descriptors": [
+      {
+        "id": "submit-by-name",
+        "kind": "role-name",
+        "evidenceSource": "accessibleName",
+        "verdict": "resolved",
+        "nodeId": "button:f3-201"
+      },
+      {
+        "id": "submit-only-button-in-form",
+        "kind": "ordinal-in-container",
+        "evidenceSource": "ordinal",
+        "verdict": "resolved",
+        "nodeId": "button:f3-201"
+      }
+    ],
+    "agreed": true,
+    "distinctSources": 2
+  },
+  {
+    "seq": 53,
+    "runId": "run-semantic-role-denial-entitlement-failure-1",
+    "at": "2026-08-30T07:27:11.730Z",
+    "type": "policy.decided",
+    "decision": {
+      "allow": true,
+      "effect": "WRITE_REVERSIBLE",
+      "ruleId": "route:corebank/member/:memberId/subaccount/new"
+    },
+    "actionKind": "click",
+    "effect": "WRITE_REVERSIBLE"
+  },
+  {
+    "seq": 54,
+    "runId": "run-semantic-role-denial-entitlement-failure-1",
+    "at": "2026-08-30T07:27:11.730Z",
+    "type": "budget.charged",
+    "ledger": "actions",
+    "used": 4,
+    "limit": 12
+  },
+  {
+    "seq": 55,
+    "runId": "run-semantic-role-denial-entitlement-failure-1",
+    "at": "2026-08-30T07:27:11.732Z",
+    "type": "acted",
+    "stepId": "submit-subaccount-form",
+    "actionKind": "click",
+    "targetTitle": "the button named <submit-subaccount-button>, inside frame exactly \"content\", inside the form",
+    "valueRef": null,
+    "valueLength": null,
+    "result": "dispatched"
+  },
+  {
+    "seq": 56,
+    "runId": "run-semantic-role-denial-entitlement-failure-1",
+    "at": "2026-08-30T07:27:11.732Z",
+    "type": "budget.charged",
+    "ledger": "observations",
+    "used": 14,
+    "limit": 200
+  },
+  {
+    "seq": 57,
+    "runId": "run-semantic-role-denial-entitlement-failure-1",
+    "at": "2026-08-30T07:27:11.868Z",
+    "type": "budget.charged",
+    "ledger": "observations",
+    "used": 15,
+    "limit": 200
+  },
+  {
+    "seq": 58,
+    "runId": "run-semantic-role-denial-entitlement-failure-1",
+    "at": "2026-08-30T07:27:12.002Z",
+    "type": "budget.charged",
+    "ledger": "observations",
+    "used": 16,
+    "limit": 200
+  },
+  {
+    "seq": 59,
+    "runId": "run-semantic-role-denial-entitlement-failure-1",
+    "at": "2026-08-30T07:27:12.014Z",
+    "type": "settled",
+    "stepId": "submit-subaccount-form",
+    "polls": 3,
+    "elapsedMs": 283,
+    "settled": true
+  },
+  {
+    "seq": 60,
+    "runId": "run-semantic-role-denial-entitlement-failure-1",
+    "at": "2026-08-30T07:27:12.014Z",
+    "type": "observed",
+    "stepId": "submit-subaccount-form",
+    "obsSeq": 15,
+    "skeletonDigest": "sha256:cc9af8e43f34e0f12ae2704eca6bdd26aed515bca197043cc32cb3ddb4d7f5b0",
+    "settled": true,
+    "nodeCount": 137,
+    "observationRef": null
+  },
+  {
+    "seq": 61,
+    "runId": "run-semantic-role-denial-entitlement-failure-1",
+    "at": "2026-08-30T07:27:12.015Z",
+    "type": "classified",
+    "stepId": "submit-subaccount-form",
+    "phase": "post",
+    "verdict": {
+      "kind": "advance",
+      "outputs": []
+    },
+    "alsoMatched": []
+  },
+  {
+    "seq": 62,
+    "runId": "run-semantic-role-denial-entitlement-failure-1",
+    "at": "2026-08-30T07:27:12.015Z",
+    "type": "checkpoint",
+    "stepId": "submit-subaccount-form",
+    "passed": true,
+    "trace": {
+      "rendered": "the surface has settled and the surface is on route subaccount-confirm and the run is still on the record bound to `subjectMember` inside frame exactly \"content\"",
+      "clauses": [
+        {
+          "rendered": "the surface has settled",
+          "verdict": true
+        },
+        {
+          "rendered": "the surface is on route subaccount-confirm",
+          "verdict": true
+        },
+        {
+          "rendered": "the run is still on the record bound to `subjectMember` inside frame exactly \"content\"",
+          "verdict": true
+        }
+      ]
+    }
+  },
+  {
+    "seq": 63,
+    "runId": "run-semantic-role-denial-entitlement-failure-1",
+    "at": "2026-08-30T07:27:12.019Z",
+    "type": "evidence.captured",
+    "ref": "obs:a82e72b332305bd8e46d3f36cdee690ddb6e6f1e7703bc9e8bc28a212ed56b5c",
+    "kind": "observation",
+    "maskedRegions": 0,
+    "stepId": "submit-subaccount-form",
+    "phase": "post"
+  },
+  {
+    "seq": 64,
+    "runId": "run-semantic-role-denial-entitlement-failure-1",
+    "at": "2026-08-30T07:27:12.019Z",
+    "type": "step.entered",
+    "stepId": "commit-subaccount",
+    "index": 4,
+    "attempt": 1,
+    "effect": "WRITE_IRREVERSIBLE"
+  },
+  {
+    "seq": 65,
+    "runId": "run-semantic-role-denial-entitlement-failure-1",
+    "at": "2026-08-30T07:27:12.019Z",
+    "type": "budget.charged",
+    "ledger": "observations",
+    "used": 17,
+    "limit": 200
+  },
+  {
+    "seq": 66,
+    "runId": "run-semantic-role-denial-entitlement-failure-1",
+    "at": "2026-08-30T07:27:12.029Z",
+    "type": "observed",
+    "stepId": "commit-subaccount",
+    "obsSeq": 16,
+    "skeletonDigest": "sha256:cc9af8e43f34e0f12ae2704eca6bdd26aed515bca197043cc32cb3ddb4d7f5b0",
+    "settled": true,
+    "nodeCount": 137,
+    "observationRef": null
+  },
+  {
+    "seq": 67,
+    "runId": "run-semantic-role-denial-entitlement-failure-1",
+    "at": "2026-08-30T07:27:12.030Z",
+    "type": "classified",
+    "stepId": "commit-subaccount",
+    "phase": "pre",
+    "verdict": {
+      "kind": "advance",
+      "outputs": []
+    },
+    "alsoMatched": []
+  },
+  {
+    "seq": 68,
+    "runId": "run-semantic-role-denial-entitlement-failure-1",
+    "at": "2026-08-30T07:27:12.030Z",
+    "type": "resolved",
+    "stepId": "commit-subaccount",
+    "descriptors": [
+      {
+        "id": "confirm-by-name",
+        "kind": "role-name",
+        "evidenceSource": "accessibleName",
+        "verdict": "resolved",
+        "nodeId": "button:f3-307"
+      },
+      {
+        "id": "confirm-first-in-dialog",
+        "kind": "ordinal-in-container",
+        "evidenceSource": "ordinal",
+        "verdict": "resolved",
+        "nodeId": "button:f3-307"
+      }
+    ],
+    "agreed": true,
+    "distinctSources": 2
+  },
+  {
+    "seq": 69,
+    "runId": "run-semantic-role-denial-entitlement-failure-1",
+    "at": "2026-08-30T07:27:12.030Z",
+    "type": "approval.accepted",
+    "approvalId": "approval-semantic-role-denial-entitlement-failure",
+    "subject": "invocation",
+    "ceiling": "WRITE_IRREVERSIBLE",
+    "signerId": "ops-approver-4",
+    "keyId": "ops-invocation-key-1",
+    "over": "sha256:405fabcfcefd0ac3b936aa1a976476faf91890efa00cca55c31562deecbf41e0",
+    "expiresAt": "2099-01-01T00:00:00.000Z",
+    "stepId": "commit-subaccount",
+    "effect": "WRITE_IRREVERSIBLE"
+  },
+  {
+    "seq": 70,
+    "runId": "run-semantic-role-denial-entitlement-failure-1",
+    "at": "2026-08-30T07:27:12.030Z",
+    "type": "policy.decided",
+    "decision": {
+      "allow": true,
+      "effect": "WRITE_IRREVERSIBLE",
+      "ruleId": "route:corebank/member/:memberId/subaccount/confirm"
+    },
+    "actionKind": "click",
+    "effect": "WRITE_IRREVERSIBLE"
+  },
+  {
+    "seq": 71,
+    "runId": "run-semantic-role-denial-entitlement-failure-1",
+    "at": "2026-08-30T07:27:12.030Z",
+    "type": "budget.charged",
+    "ledger": "actions",
+    "used": 5,
+    "limit": 12
+  },
+  {
+    "seq": 72,
+    "runId": "run-semantic-role-denial-entitlement-failure-1",
+    "at": "2026-08-30T07:27:12.032Z",
+    "type": "acted",
+    "stepId": "commit-subaccount",
+    "actionKind": "click",
+    "targetTitle": "the button named <confirm-button>, inside frame exactly \"content\", inside the dialog named <confirm-dialog>",
+    "valueRef": null,
+    "valueLength": null,
+    "result": "dispatched"
+  },
+  {
+    "seq": 73,
+    "runId": "run-semantic-role-denial-entitlement-failure-1",
+    "at": "2026-08-30T07:27:12.032Z",
+    "type": "budget.charged",
+    "ledger": "observations",
+    "used": 18,
+    "limit": 200
+  },
+  {
+    "seq": 74,
+    "runId": "run-semantic-role-denial-entitlement-failure-1",
+    "at": "2026-08-30T07:27:12.162Z",
+    "type": "budget.charged",
+    "ledger": "observations",
+    "used": 19,
+    "limit": 200
+  },
+  {
+    "seq": 75,
+    "runId": "run-semantic-role-denial-entitlement-failure-1",
+    "at": "2026-08-30T07:27:12.294Z",
+    "type": "budget.charged",
+    "ledger": "observations",
+    "used": 20,
+    "limit": 200
+  },
+  {
+    "seq": 76,
+    "runId": "run-semantic-role-denial-entitlement-failure-1",
+    "at": "2026-08-30T07:27:12.302Z",
+    "type": "settled",
+    "stepId": "commit-subaccount",
+    "polls": 3,
+    "elapsedMs": 270,
+    "settled": true
+  },
+  {
+    "seq": 77,
+    "runId": "run-semantic-role-denial-entitlement-failure-1",
+    "at": "2026-08-30T07:27:12.302Z",
+    "type": "observed",
+    "stepId": "commit-subaccount",
+    "obsSeq": 19,
+    "skeletonDigest": "sha256:28958c8f114b60f636e7f88bc2f57e6c81641df273a018fc56153ebe26d327f5",
+    "settled": true,
+    "nodeCount": 90,
+    "observationRef": null
+  },
+  {
+    "seq": 78,
+    "runId": "run-semantic-role-denial-entitlement-failure-1",
+    "at": "2026-08-30T07:27:12.302Z",
+    "type": "classified",
+    "stepId": "commit-subaccount",
+    "phase": "post",
+    "verdict": {
+      "kind": "fail",
+      "failure": "entitlement-denied",
+      "detail": {
+        "sideEffects": "possible",
+        "expected": {
+          "rendered": "the automation's own role carries the entitlement this screen needs",
+          "clauses": []
+        },
+        "observed": {
+          "route": {
+            "originAlias": "corebank",
+            "path": "/member/:memberId/subaccount/commit",
+            "query": {},
+            "frame": "content"
+          },
+          "settled": true,
+          "pendingReason": null,
+          "skeletonDigest": "sha256:28958c8f114b60f636e7f88bc2f57e6c81641df273a018fc56153ebe26d327f5",
+          "nodeCount": 90,
+          "nativeDialog": null,
+          "inputIntercepted": false,
+          "salient": [
+            {
+              "role": "link",
+              "name": "Member Search",
+              "disabled": false,
+              "visible": true
+            },
+            {
+              "role": "link",
+              "name": "Account Maintenance",
+              "disabled": false,
+              "visible": true
+            },
+            {
+              "role": "link",
+              "name": "Card Services",
+              "disabled": false,
+              "visible": true
+            },
+            {
+              "role": "link",
+              "name": "Teller Journal",
+              "disabled": false,
+              "visible": true
+            },
+            {
+              "role": "link",
+              "name": "Return to Member ID <taint:memberId-1>",
+              "disabled": false,
+              "visible": true
+            }
+          ],
+          "redactionsApplied": 1
+        },
+        "attempts": [],
+        "retriable": "no",
+        "operatorAction": "The automation's own account lacks the entitlement for this screen."
+      }
+    },
+    "alsoMatched": []
+  },
+  {
+    "seq": 79,
+    "runId": "run-semantic-role-denial-entitlement-failure-1",
+    "at": "2026-08-30T07:27:12.306Z",
+    "type": "evidence.captured",
+    "ref": "obs:5d7041a7dc23e311706ab4a149ae83fa8fb11bf00077ca85c34d5487764873fe",
+    "kind": "observation",
+    "maskedRegions": 0,
+    "stepId": "commit-subaccount",
+    "phase": "post"
+  },
+  {
+    "seq": 80,
+    "runId": "run-semantic-role-denial-entitlement-failure-1",
+    "at": "2026-08-30T07:27:12.306Z",
+    "type": "run.finished",
+    "status": "failed",
+    "failureClass": "entitlement-denied"
+  }
+]

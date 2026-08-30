@@ -1,0 +1,12 @@
+{
+  "id": "revoked-approval-id",
+  "status": "failed",
+  "failureClass": "approval-required",
+  "stepsExecuted": 4,
+  "finalDispatches": 0,
+  "approvalAccepted": 0,
+  "approvalRefused": [
+    "approval-revoked"
+  ],
+  "note": "The signer key is trusted, but this approval id has been revoked. No irreversible dispatch occurs."
+}

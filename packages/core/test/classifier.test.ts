@@ -218,6 +218,18 @@ describe("SPEC 4.2 the enumeration", () => {
     expect(detail.retriable).toBe("after-human-action");
   });
 
+  it("row 8: a role denial observed after an irreversible click stays an entitlement failure", () => {
+    const verdict = classify(
+      inputFor(resolvedStep("open-member-row"), entitlementDenied, {
+        ambient: [ROLE_NOT_ENTITLED],
+        irreversibleDispatched: true,
+      }),
+    );
+    const detail = expectFail(verdict, "entitlement-denied");
+    expect(detail.sideEffects).toBe("possible");
+    expect(detail.retriable).toBe("no");
+  });
+
   // -- rows 9 and 10: interception ------------------------------------------------------------
 
   it("row 9: a declared native dialog is recoverable, budgeted", () => {

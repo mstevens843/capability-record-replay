@@ -28,9 +28,19 @@
 // the internet, needs no credential, and makes no model call.
 
 import { describe, expect, it } from "vitest";
+import {
+  type CorpusEntry,
+  type EvidenceRef,
+  type Observation,
+  type Predicate,
+  type StepId,
+  type TenantId,
+  proveDiscrimination,
+} from "@crr/core";
 import { ed25519Trust } from "../src/approval.js";
 import { MemoryEvidenceSink } from "../src/evidence.js";
 import { sequentialIds } from "../src/ids.js";
+import type { ReplayOutput } from "../src/replay.js";
 import { MemoryJournal } from "../src/journal.js";
 import { replay } from "../src/replay.js";
 import { verifyAndDraft, verifyArtifact } from "../src/verify.js";
@@ -58,6 +68,11 @@ const TRUST = () =>
 const ARGS = { memberId: WRITE_MEMBER_ID, openingDeposit: WRITE_DEPOSIT } as const;
 const TENANT = { tenantId: "riverbend", appInstanceId: "riverbend-corebank-fixture" };
 const IDEMPOTENCY_KEY = "browser-open-subaccount-1";
+const COMMIT = "commit-subaccount" as StepId;
+const CONTENT_FRAME = {
+  kind: "frame",
+  name: { mode: "exact", value: "content", normalize: "std.text@1" },
+} as const;
 
 /** How many sub-accounts the CORE holds for our member. The system of record, read outside the
  *  interpreter, which is the only thing that can tell a single post from a double one. */
@@ -98,6 +113,50 @@ function runOptions(session: CorebankSession): Parameters<typeof replay>[0] {
   };
 }
 
+async function replayOnce(
+  fault?: "permission-denied-record" | "permission-denied-role",
+): Promise<{ readonly before: number; readonly after: number; readonly output: ReplayOutput }> {
+  const session = await openCorebankSession(ROUTES);
+  try {
+    const before = await accountsHeld(session);
+    if (fault !== undefined) await session.arm(fault);
+    const output = await replay(runOptions(session));
+    const after = await accountsHeld(session);
+    return { before, after, output };
+  } finally {
+    await session.close();
+  }
+}
+
+function capturedObservation(output: ReplayOutput, stepId: StepId): Observation {
+  const captured = eventsOf(output.journal, "evidence.captured").find(
+    (event) => event.stepId === stepId && event.phase === "post",
+  );
+  if (captured === undefined) throw new Error(`no post observation captured at ${stepId}`);
+  return (output.evidence as MemoryEvidenceSink).get(captured.ref as EvidenceRef) as Observation;
+}
+
+function corpusEntry(
+  output: ReplayOutput,
+  stepId: StepId,
+  runStatus: CorpusEntry["runStatus"],
+): CorpusEntry {
+  return {
+    observation: capturedObservation(output, stepId),
+    atStep: stepId,
+    phase: "post",
+    runStatus,
+    tenantId: TENANT.tenantId as TenantId,
+  };
+}
+
+function memberRestrictedDetector(): Predicate {
+  const step = openSubAccountArtifact.flow.steps.find((candidate) => candidate.id === COMMIT);
+  const rule = step?.outcomes.find((candidate) => candidate.code === "MEMBER_RESTRICTED");
+  if (rule === undefined) throw new Error("MEMBER_RESTRICTED is not declared at commit");
+  return rule.detect as Predicate;
+}
+
 const describeBrowser = chromiumAvailable() ? describe : describe.skip;
 
 // Hermetic, and OUTSIDE the browser guard on purpose. Everything below it skips silently on a
@@ -133,6 +192,33 @@ describe("the documents this flow ships", () => {
     // The irreversible boundary the dry run stops at, derived rather than declared.
     expect(openSubAccountArtifact.effects.irreversibleSteps).toEqual(["commit-subaccount"]);
     expect(openSubAccountArtifact.effects.restartSafeUpToPc).toBe(4);
+  });
+
+  it("declares record denial as a promoted business outcome, and role denial as an environment rule", () => {
+    expect(openSubAccountContract.outcomes.map((outcome) => outcome.code)).toContain(
+      "MEMBER_RESTRICTED",
+    );
+    expect(
+      openSubAccountContract.outcomes.find((outcome) => outcome.code === "MEMBER_RESTRICTED")
+        ?.origin,
+    ).toBe("reviewer-authored");
+
+    const commit = openSubAccountArtifact.flow.steps.find((step) => step.id === COMMIT);
+    expect(commit?.outcomes).toHaveLength(1);
+    expect(commit?.outcomes[0]).toMatchObject({
+      code: "MEMBER_RESTRICTED",
+      origin: "reviewer-authored",
+      phase: "post",
+      requiresSettled: true,
+    });
+    expect(openSubAccountArtifact.promotions[0]).toMatchObject({
+      code: "MEMBER_RESTRICTED",
+      atStep: COMMIT,
+      probeConfirmed: true,
+    });
+    expect(openSubAccountArtifact.flow.ambient.map((rule) => rule.name)).toContain(
+      "ROLE_NOT_ENTITLED",
+    );
   });
 });
 
@@ -322,4 +408,98 @@ describeBrowser("opening a sub-account against corebank-web", () => {
       await session.close();
     }
   }, 120_000);
+
+  it("returns MEMBER_RESTRICTED when the commit is denied by the member record", async () => {
+    const { before, after, output } = await replayOnce("permission-denied-record");
+    const { result, journal } = output;
+
+    if (result.status !== "outcome") console.error(JSON.stringify(result, null, 2));
+    expect(result.status).toBe("outcome");
+    if (result.status !== "outcome") return;
+    expect(result.outcome).toBe("MEMBER_RESTRICTED");
+    expect(result.detectedAt.stepId).toBe(COMMIT);
+    expect(after).toBe(before);
+
+    const classified = eventsOf(journal, "classified") as unknown as readonly {
+      stepId: string;
+      phase: string;
+      verdict: { kind: string; code?: string; failure?: string };
+    }[];
+    expect(
+      classified.find((event) => event.stepId === COMMIT && event.phase === "post")?.verdict,
+    ).toMatchObject({ kind: "outcome", code: "MEMBER_RESTRICTED" });
+    expect(eventsOf(journal, "approval.accepted")).toHaveLength(1);
+    expect(eventsOf(journal, "approval.refused")).toHaveLength(0);
+    expect(journalText(journal)).not.toContain(WRITE_MEMBER_ID);
+  }, 120_000);
+
+  it("returns entitlement-denied when the same commit is denied by the teller role", async () => {
+    const { before, after, output } = await replayOnce("permission-denied-role");
+    const { result, journal } = output;
+
+    if (result.status !== "failed") console.error(JSON.stringify(result, null, 2));
+    expect(result.status).toBe("failed");
+    if (result.status !== "failed") return;
+    expect(result.failure.class).toBe("entitlement-denied");
+    expect(result.failure.atStep).toBe(COMMIT);
+    expect(result.failure.sideEffects).toBe("possible");
+    expect(result.failure.retriable).toBe("no");
+    expect(after).toBe(before);
+
+    const classified = eventsOf(journal, "classified") as unknown as readonly {
+      stepId: string;
+      phase: string;
+      verdict: { kind: string; code?: string; failure?: string };
+    }[];
+    expect(
+      classified.find((event) => event.stepId === COMMIT && event.phase === "post")?.verdict,
+    ).toMatchObject({ kind: "fail", failure: "entitlement-denied" });
+    expect(journalText(journal)).not.toContain("MEMBER_RESTRICTED");
+    expect(journalText(journal)).not.toContain(WRITE_MEMBER_ID);
+  }, 120_000);
+
+  it("proves the record-denial detector discriminates from role denial and rejects a broad one", async () => {
+    const green = await replayOnce();
+    const record = await replayOnce("permission-denied-record");
+    const role = await replayOnce("permission-denied-role");
+
+    const program = record.output.program;
+    if (program === null) throw new Error("record-denial replay did not link");
+
+    const positive = corpusEntry(record.output, COMMIT, "outcome");
+    const negatives = [
+      corpusEntry(green.output, COMMIT, "ok"),
+      corpusEntry(role.output, COMMIT, "failed"),
+    ];
+    const proven = proveDiscrimination({
+      detect: memberRestrictedDetector(),
+      atStep: COMMIT,
+      tenant: TENANT.tenantId as TenantId,
+      positives: [positive],
+      negatives,
+      facts: program.facts,
+      bindings: program.bindings,
+    });
+    expect(proven.verdict, proven.reason).toBe("discriminates");
+    expect(proven.negatives).toMatchObject({ happyPathAtStep: 1, otherAbnormalAtStep: 1 });
+
+    const tooBroad: Predicate = {
+      kind: "text-present",
+      scope: { path: [CONTENT_FRAME] },
+      text: { mode: "contains", value: "Request Refused", normalize: "std.text@1" },
+    } as Predicate;
+    const rejected = proveDiscrimination({
+      detect: tooBroad,
+      atStep: COMMIT,
+      tenant: TENANT.tenantId as TenantId,
+      positives: [positive],
+      negatives,
+      facts: program.facts,
+      bindings: program.bindings,
+    });
+    expect(rejected.verdict).toBe("over-fires");
+    if (rejected.verdict !== "over-fires") return;
+    expect(rejected.subclass).toBe("fires-on-other-screen");
+    expect(rejected.capturedOn).toBe("failed");
+  }, 240_000);
 });

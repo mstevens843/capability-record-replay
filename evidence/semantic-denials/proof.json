@@ -1,0 +1,51 @@
+{
+  "declaredDetector": {
+    "atStep": "commit-subaccount",
+    "tenant": "riverbend",
+    "proverVersion": "crr-prover/1",
+    "positives": [
+      {
+        "observation": "sha256:ea196a2a74098ea27a9a15fe57eda80e93261e0abdd950a95436cd56ec22da09",
+        "atStep": "commit-subaccount",
+        "outcome": "fires"
+      }
+    ],
+    "negatives": {
+      "total": 2,
+      "happyPathAtStep": 1,
+      "otherAbnormalAtStep": 1,
+      "otherSteps": 0,
+      "otherTenants": 0
+    },
+    "corpusDigest": "sha256:ee650516dfacadee57122a01c413c27a0668dc6c7e897b5458816a14418117ae",
+    "reason": "fires on 1 designated positive(s) at step commit-subaccount and is silent on all 2 negative(s), of which 1 were captured at that step on a successful run and 1 were other screens at that step",
+    "verdict": "discriminates"
+  },
+  "overBroadDetector": {
+    "atStep": "commit-subaccount",
+    "tenant": "riverbend",
+    "proverVersion": "crr-prover/1",
+    "positives": [
+      {
+        "observation": "sha256:ea196a2a74098ea27a9a15fe57eda80e93261e0abdd950a95436cd56ec22da09",
+        "atStep": "commit-subaccount",
+        "outcome": "fires"
+      }
+    ],
+    "negatives": {
+      "total": 2,
+      "happyPathAtStep": 1,
+      "otherAbnormalAtStep": 1,
+      "otherSteps": 0,
+      "otherTenants": 0
+    },
+    "corpusDigest": "sha256:ee650516dfacadee57122a01c413c27a0668dc6c7e897b5458816a14418117ae",
+    "reason": "the detector fires on sha256:5d7041a7dc23e311706ab4a149ae83fa8fb11bf00077ca85c34d5487764873fe, captured at step commit-subaccount on a run that ended failed at tenant riverbend; it does not tell the outcome screen apart from that one",
+    "verdict": "over-fires",
+    "subclass": "fires-on-other-screen",
+    "observation": "sha256:5d7041a7dc23e311706ab4a149ae83fa8fb11bf00077ca85c34d5487764873fe",
+    "capturedAt": "commit-subaccount",
+    "capturedOn": "failed"
+  },
+  "conclusion": "record denial is a declared business outcome; role denial is a separate entitlement failure"
+}

@@ -30,6 +30,12 @@ discovery run happened; §7 is why neither of those is the same as "done".
 > re-run here and are still the 2026-08-28 figures; `README.md` now carries `144 files` for the demo
 > bundle, and nothing in this note checked it.
 
+> **THE 2026-08-30 FINAL SUBMISSION PASS MOVED THE CURRENT BOARD AGAIN.** This file remains a
+> historical status snapshot. The current reviewer entry point is `docs/FINAL-REVIEWER-GUIDE.md`;
+> the current traceability map is `docs/REQUIREMENT-TRACE.md`. The 2026-08-30 forced no-key run
+> measured **2,032 tests / 109 test files / 14 of 14 tasks**, `Cached: 0/14`, exit 0, and
+> `pnpm demo` produced **241 files** with a clean whole-bundle canary.
+
 ---
 
 ## 0. The one-paragraph version

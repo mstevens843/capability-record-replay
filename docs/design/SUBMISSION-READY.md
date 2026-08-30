@@ -13,18 +13,20 @@ from a run forced with `TURBO_FORCE=1` (or `--force`), so `Cached: 0` is part of
 > **RE-TAKEN IN PART ON 2026-08-29, AFTER THE OUTCOME-PROMOTION PASS.** That pass added linker check
 > 29 (`outcome-unproven`), `packages/core/src/promotion.ts`, `packages/runtime/src/promote.ts` and
 > their two test files, so the test board below moved. **Only the test board was re-run**, with
-> `npx turbo run test --force` and every credential variable unset: **1,984 passed, 107 files, 14/14
-> tasks, `Cached: 0/14`, exit 0.** The figures that carry that number are marked `re-taken
-> 2026-08-29`; every other figure in this document — `pnpm lint` 317 files, `pnpm demo` 65 files, the
-> no-Chromium board, `pnpm preflight`, the conformance stability line — is still the 2026-08-28
+> `npx turbo run test --force` and every credential variable unset: **a now-superseded 107-file
+> board, 14/14 tasks, `Cached: 0/14`, exit 0.** The figures that carry that date are marked `re-taken
+> 2026-08-29`; every other figure in this document — `pnpm lint` 317 files, the no-Chromium board,
+> `pnpm preflight`, the conformance stability line — is still the 2026-08-28
 > measurement and was **not** re-run, so read it as dated rather than as current. Nothing was
 > weakened, skipped or deleted to move the number; the three members that grew are named below.
 
-> **ANNOTATED ON 2026-08-30, AFTER THE WRITE-BOUNDARY APPROVAL PASS.** `pnpm test` passed with
-> **2,027 tests / 109 files / 14 of 14 tasks**. An immediate credentials-unset rerun
+> **ANNOTATED ON 2026-08-30, AFTER THE SEMANTIC-DENIAL / WRITE-BOUNDARY EVIDENCE PASS.** A forced
+> credentials-unset run
 > (`env -u ANTHROPIC_API_KEY -u ANTHROPIC_AUTH_TOKEN -u OPENAI_API_KEY -u CLAUDE_CODE_OAUTH_TOKEN
-> pnpm test`) also exited 0 with 14 of 14 turbo tasks served from cache. The forced-run ledger below
-> remains the 2026-08-29 measurement and is preserved as history rather than silently rewritten.
+> TURBO_FORCE=1 pnpm test`) exited 0 with **2,032 tests / 109 files / 14 of 14 tasks**, `Cached:
+> 0/14`. The forced-run ledger below remains the 2026-08-29 measurement and is preserved as history
+> rather than silently rewritten. The supplemental-inclusive `pnpm demo` was also run three times
+> with credentials unset; each run exited 0 with **241 files** and a clean whole-bundle canary.
 
 ---
 
@@ -37,11 +39,12 @@ $ pnpm lint                               → Checked 317 files in 104ms. No fix
 
 $ env -u ANTHROPIC_API_KEY -u ANTHROPIC_AUTH_TOKEN -u OPENAI_API_KEY \
       -u CLAUDE_CODE_OAUTH_TOKEN TURBO_FORCE=1 pnpm test
-                                          → 1,984 passed, 107 files, 14/14 tasks, Cached 0/14
-                                            1m31s      (re-taken 2026-08-29)               exit 0
+                                          → 2,032 passed, 109 files, 14/14 tasks, Cached 0/14
+                                            1m32.414s  (re-taken 2026-08-30)               exit 0
 
-$ pnpm demo   (three consecutive runs)    → 65 files, DEMO OK, whole-bundle canary CLEAN
-                                            every time                                     exit 0
+$ pnpm demo   (three credential-unset runs)
+                                          → 241 files, DEMO OK, whole-bundle canary CLEAN
+                                            every time   (re-taken 2026-08-30)             exit 0
 
 $ pnpm preflight        (no key in shell) → NOT READY, 1 blocker, 1 warning, 13 passed      exit 1
 $ ANTHROPIC_API_KEY=<shape-valid> pnpm preflight
@@ -54,23 +57,24 @@ $ pnpm -F @crr/conformance stability      → 25/25, 0 FALSE SUCCESSES, 9/9 muta
 
 **Nothing regressed. No test was weakened, skipped or deleted.**
 
-### Per member — the numbers that add up to 1,984
+### Per member — the numbers that add up to 2,032
 
-`env -u … npx turbo run test --force`, per-member `Tests N passed (N)` / `Test Files N passed (N)`.
-**Re-taken 2026-08-29**; the `2026-08-28` column is the board this document was originally written
-against, kept so the move is visible rather than silent.
+`env -u … TURBO_FORCE=1 pnpm test`, per-member `Tests N passed (N)`. Test-file counts below are
+the `*.test.*` files present in each package on 2026-08-30 and add up to the 109 files printed by
+the full forced run. The dated notes after the table preserve the earlier moves rather than
+rewriting history.
 
-| Member | Tests | Test files | was, 2026-08-28 |
+| Member | Tests | Test files | was, 2026-08-29 |
 |---|---:|---:|---:|
-| `packages/core` | 819 | 37 | 788 / 36 |
-| `packages/runtime` | 367 | 23 | 336 / 22 |
+| `packages/core` | 840 | 38 | 819 / 37 |
+| `packages/runtime` | 394 | 24 | 367 / 23 |
 | `packages/discovery` | 362 | 16 | 361 / 16 |
 | `packages/surface-browser` | 107 | 12 | unchanged |
 | `packages/surface-terminal` | 125 | 9 | unchanged |
 | `packages/conformance` | 102 | 8 | unchanged |
 | `fixtures/corebank-web` | 66 | 1 | unchanged |
 | `fixtures/corebank-tui` | 36 | 1 | unchanged |
-| **Total** | **1,984** | **107** | 1,921 / 105 |
+| **Total** | **2,032** | **109** | superseded / 107 |
 
 The submission brief that opened this pass said "1,843 must still pass." **1,843 is the count from an
 earlier revision and it was already stale before this pass began.** Two test files landed since:
@@ -79,8 +83,8 @@ earlier revision and it was already stale before this pass began.** Two test fil
 `packages/runtime/test/demo-contract.test.ts` (9 → 12). 1,843 + 19 + 56 + 3 = 1,921. Nothing was
 removed to get there; every number above is a fresh forced run.
 
-**The same discipline for the 2026-08-29 move, 1,921 → 1,984.** Sixty-three tests were added and
-none removed. Fifty-six of them are the two new files the outcome-promotion pass owes:
+**The same discipline for the 2026-08-29 move from the 1,921-test board.** Sixty-three tests were
+added and none removed. Fifty-six of them are the two new files the outcome-promotion pass owes:
 `packages/core/test/promotion.test.ts` (**28 passed**, `pnpm -F @crr/core exec vitest run
 test/promotion.test.ts`) and `packages/runtime/test/promote.test.ts` (**28 passed**, `pnpm -F
 @crr/runtime exec vitest run test/promote.test.ts`) — which is also why the file count moves 105 →
@@ -120,13 +124,14 @@ section says `pnpm -F @crr/surface-browser exec playwright install chromium` is 
 ## 2. `pnpm demo` — three runs, one file count
 
 ```
-run 1: exit=0  files=65  bytes=1,171,685   scanned 61 files, 1,157,124 bytes   DEMO OK
-run 2: exit=0  files=65  bytes=1,171,692   scanned 61 files, 1,157,131 bytes   DEMO OK
-run 3: exit=0  files=65  bytes=1,171,682   scanned 61 files, 1,157,121 bytes   DEMO OK
+run 1: exit=0  files=241  whole-bundle canary CLEAN   DEMO OK
+run 2: exit=0  files=241  whole-bundle canary CLEAN   DEMO OK
+run 3: exit=0  files=241  whole-bundle canary CLEAN   DEMO OK
 ```
 
-Commands: `pnpm demo`; `find evidence -type f | wc -l`;
-`find evidence -type f -exec stat -f %z {} \; | awk '{s+=$1} END {print s}'`.
+Commands: `env -u ANTHROPIC_API_KEY -u ANTHROPIC_AUTH_TOKEN -u OPENAI_API_KEY -u
+CLAUDE_CODE_OAUTH_TOKEN pnpm demo`. Byte totals were not re-quoted on 2026-08-30; the file count
+and canary verdict are the measured submission signals.
 
 **The file count is exact; the byte total is not, and the difference is the honest part.** Normalising
 the digest in every content-addressed blob name, the three runs produce a **byte-identical file
@@ -143,7 +148,7 @@ Each run also prints, and gates on:
    7 blob directories checked, every file accounted for
 ── discovery-live ─ a live run is present; PENDING.md not written
 REDACTION CANARY  CLEAN   3 value(s) x 14 encodings = 26 needles, self-test 26/26, 0 hits, 0 credentials
-   whole-bundle canary pass: CLEAN - 65 files, 0 hits
+   whole-bundle canary pass: CLEAN - 241 files, 0 hits
 DEMO OK
 ```
 
@@ -167,11 +172,11 @@ outputs reproduce, including the exit codes, which are the point:
 
 Exit `0` / `2` / `1` are `ok` / declared business outcome / everything else, so a shell script can
 tell them apart. None of these four runs wrote anything into `evidence/` — the CLI writes a journal
-only when given `--journal`, and the bundle stayed at 65 files across all four.
+only when given `--journal`, and the bundle count stayed unchanged across all four.
 
 The four "requirements `pnpm demo` does not exhibit" commands in README §3 all reproduce their
 counts, read off the forced test run: `escalation.test.ts` **31**, `browser-overlay.test.ts` **4**,
-`heterogeneity.test.ts` **14**, `browser-write.test.ts` **6**. So do the others the README quotes:
+`heterogeneity.test.ts` **14**, `browser-write.test.ts` **10**. So do the others the README quotes:
 `terminal-conformance.test.ts` **10**, `loop-failure.test.ts` **18**, `canary-scopes.test.ts` **56**,
 and the three core contract tests **15 + 14 + 15 = 44**.
 
@@ -348,7 +353,9 @@ Nothing below was closed by this pass. This list is the same as `/REPORT.md` §7
   test. That is a result about the surface, not a hole in the effort.
 - **No branching in the artifact language**, and no `resume: "continue"`. Conformance scenario 25
   pins the wrong behaviour deliberately.
-- **Approval signs an ed25519 digest and stops** — no key custody, identity, expiry or revocation.
+- **External approval custody is not implemented.** Artifact approval remains the lifecycle digest
+  receipt; invocation approval is richer and runtime-enforced with expiry, signer authority, request
+  binding and revocation checks. KMS/HSM custody and key administration remain deployment seams.
 - **The operator console is bare and polls rather than streams.** The lease and both enforcement
   points are real.
 - **Desktop (AX/UIA) is a documented seam, not code.**
@@ -434,8 +441,8 @@ git add -A evidence
 git status --short          # nothing left but what you meant to commit
 
 env -u ANTHROPIC_API_KEY -u ANTHROPIC_AUTH_TOKEN -u OPENAI_API_KEY \
-    -u CLAUDE_CODE_OAUTH_TOKEN TURBO_FORCE=1 pnpm test   # 1,984, exit 0
-pnpm demo                                                # 65 files, DEMO OK, exit 0
+    -u CLAUDE_CODE_OAUTH_TOKEN TURBO_FORCE=1 pnpm test   # 2,032, exit 0
+pnpm demo                                                # 241 files, DEMO OK, exit 0
 ```
 
 Run `pnpm demo` **once, alone**, immediately before committing — a second concurrent run now refuses

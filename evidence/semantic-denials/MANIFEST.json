@@ -1,0 +1,120 @@
+{
+  "generatedBy": "packages/runtime/test/evidence/semantic-denials.ts",
+  "scenarios": [
+    {
+      "id": "green-control",
+      "status": "ok",
+      "beforeSubAccounts": 1,
+      "afterSubAccounts": 2,
+      "commitStepActed": 1,
+      "approvalAccepted": 1,
+      "approvalRefused": [],
+      "commitClassifierVerdict": {
+        "kind": "advance",
+        "outputs": []
+      },
+      "note": "Control run used as a negative proof sample. It commits once in its isolated browser fixture session."
+    },
+    {
+      "id": "record-denial-business-outcome",
+      "status": "outcome",
+      "outcome": "MEMBER_RESTRICTED",
+      "beforeSubAccounts": 1,
+      "afterSubAccounts": 1,
+      "commitStepActed": 1,
+      "approvalAccepted": 1,
+      "approvalRefused": [],
+      "commitClassifierVerdict": {
+        "kind": "outcome",
+        "code": "MEMBER_RESTRICTED",
+        "data": [],
+        "priority": 5,
+        "alsoMatched": []
+      },
+      "note": "The fixture refused the commit because the member record is restricted. The artifact's reviewer-authored detector returns MEMBER_RESTRICTED and the fixture state does not change."
+    },
+    {
+      "id": "role-denial-entitlement-failure",
+      "status": "failed",
+      "failureClass": "entitlement-denied",
+      "failureAtStep": "commit-subaccount",
+      "beforeSubAccounts": 1,
+      "afterSubAccounts": 1,
+      "commitStepActed": 1,
+      "approvalAccepted": 1,
+      "approvalRefused": [],
+      "commitClassifierVerdict": {
+        "kind": "fail",
+        "failure": "entitlement-denied",
+        "detail": {
+          "sideEffects": "possible",
+          "expected": {
+            "rendered": "the automation's own role carries the entitlement this screen needs",
+            "clauses": []
+          },
+          "observed": {
+            "route": {
+              "originAlias": "corebank",
+              "path": "/member/:memberId/subaccount/commit",
+              "query": {},
+              "frame": "content"
+            },
+            "settled": true,
+            "pendingReason": null,
+            "skeletonDigest": "sha256:28958c8f114b60f636e7f88bc2f57e6c81641df273a018fc56153ebe26d327f5",
+            "nodeCount": 90,
+            "nativeDialog": null,
+            "inputIntercepted": false,
+            "salient": [
+              {
+                "role": "link",
+                "name": "Member Search",
+                "disabled": false,
+                "visible": true
+              },
+              {
+                "role": "link",
+                "name": "Account Maintenance",
+                "disabled": false,
+                "visible": true
+              },
+              {
+                "role": "link",
+                "name": "Card Services",
+                "disabled": false,
+                "visible": true
+              },
+              {
+                "role": "link",
+                "name": "Teller Journal",
+                "disabled": false,
+                "visible": true
+              },
+              {
+                "role": "link",
+                "name": "Return to Member ID <taint:memberId-1>",
+                "disabled": false,
+                "visible": true
+              }
+            ],
+            "redactionsApplied": 1
+          },
+          "attempts": [],
+          "retriable": "no",
+          "operatorAction": "The automation's own account lacks the entitlement for this screen."
+        }
+      },
+      "note": "The fixture refused the same final screen because the teller role lacks OPEN_SUBACCOUNT authority. The runtime reports entitlement-denied, not a member business outcome, and the fixture state does not change."
+    }
+  ],
+  "canary": [
+    {
+      "label": "WRITE_MEMBER_ID",
+      "hits": []
+    },
+    {
+      "label": "WRITE_DEPOSIT",
+      "hits": []
+    }
+  ]
+}

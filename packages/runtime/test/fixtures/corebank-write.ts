@@ -36,7 +36,9 @@ import {
   type StepId,
   type TargetRef,
   type TextMatcher,
+  PROVER_VERSION,
   approveArtifact,
+  digestOf,
   sealArtifact,
   sealContract,
 } from "@crr/core";
@@ -137,7 +139,23 @@ export const openSubAccountContract: CapabilityContract = sealContract({
   // fix: an unlabelled run of body text should become a `text` node.
   outputs: [],
 
-  outcomes: [],
+  outcomes: [
+    {
+      code: "MEMBER_RESTRICTED",
+      kind: "business_outcome",
+      title: "The member record is restricted",
+      summary:
+        "The core refused to open the sub-account because this member record is restricted and must be serviced by a member services supervisor.",
+      terminal: true,
+      payload: [],
+      origin: "reviewer-authored",
+      stableUnderRetry: true,
+      callerAction: "refer-to-specialist",
+      retryable: "never",
+      agentGuidance:
+        "Tell the member this record requires member services handling; do not retry the write with the same role.",
+    },
+  ],
 
   effect: "WRITE_IRREVERSIBLE",
   requiresApproval: true,
@@ -399,6 +417,10 @@ const unsealed = {
       "confirmed-heading": ["Sub-Account Opened"],
       "posting-reference-label": ["Posting Reference"],
       "session-expired-banner": ["Your session has ended due to inactivity"],
+      "record-denial-supervisor": ["member services supervisor must service this record"],
+      "record-denial-reference": ["Reference CB-4417"],
+      "role-denial-function": ["role TELLER1 is not authorized for function OPEN_SUBACCOUNT"],
+      "role-denial-reference": ["Reference CB-2203"],
     },
 
     resumePoints: [],
@@ -575,10 +597,33 @@ const unsealed = {
           // before it starts, and the refusal simply moves one step to the right.
           dialog: { where: CONFIRMATION, present: false },
         },
-        outcomes: [],
-        // NONE, and SPEC section 3.5 is why: a recovery implies a retry, and a retry implies knowing
-        // the action did not take effect - which after a dispatch at this step is precisely what is
-        // unknown. `effect-in-doubt` and a human is the only honest answer.
+        outcomes: [
+          {
+            code: "MEMBER_RESTRICTED",
+            detect: {
+              all: [
+                {
+                  kind: "text-present",
+                  scope: contentPane,
+                  text: token("record-denial-supervisor"),
+                },
+                {
+                  kind: "text-present",
+                  scope: contentPane,
+                  text: token("record-denial-reference"),
+                },
+              ],
+            } as Predicate,
+            priority: 5,
+            phase: "post",
+            requiresSettled: true,
+            origin: "reviewer-authored",
+            capture: [],
+          },
+        ],
+        // No recoveries here. A reviewer-authored record restriction is terminal because the core
+        // says no write happened; everything else after dispatch stays effect-in-doubt unless a
+        // declared environment rule gives a non-retryable operator/session answer.
         recoveries: [],
         extract: [],
         budgets: BUDGETS,
@@ -587,6 +632,28 @@ const unsealed = {
     ],
 
     ambient: [
+      {
+        name: "ROLE_NOT_ENTITLED",
+        band: "environment",
+        detect: {
+          all: [
+            { kind: "text-present", scope: contentPane, text: token("role-denial-function") },
+            { kind: "text-present", scope: contentPane, text: token("role-denial-reference") },
+          ],
+        } as Predicate,
+        priority: 5,
+        phase: "both",
+        remedy: {
+          kind: "escalate",
+          reason: "the automation role lacks OPEN_SUBACCOUNT authority",
+          brief:
+            "The service account's teller role cannot open sub-accounts at this tenant. Grant the entitlement or route the work to an authorized operator; retrying this invocation with the same role will fail identically.",
+        },
+        maxAttempts: 1,
+        allowUnsettled: true,
+        afterRemedy: "reverify",
+        resume: "escalate",
+      },
       {
         // A session that dies mid-write is NOT re-authenticated and retried. `resume: "escalate"`
         // makes it terminal - `session-expired-unrecoverable` - because re-establishing the session
@@ -684,7 +751,35 @@ const unsealed = {
     deadlineMs: 120_000,
   },
 
-  promotions: [],
+  promotions: [
+    {
+      code: "MEMBER_RESTRICTED",
+      atStep: "commit-subaccount",
+      reviewDigest: digestOf("corebank write fixture: the MEMBER_RESTRICTED review document"),
+      reviewedBy: "ops-approver-4",
+      supersedesArtifactVersion: 1,
+      proof: {
+        verdict: "discriminates",
+        proverVersion: PROVER_VERSION,
+        positives: [
+          {
+            observation: digestOf("corebank write fixture: permission-denied-record at commit"),
+            atStep: "commit-subaccount",
+          },
+        ],
+        negatives: {
+          corpusDigest: digestOf("corebank write fixture: role-vs-record denial negative corpus"),
+          total: 3,
+          happyPathAtStep: 1,
+          otherAbnormalAtStep: 1,
+          otherSteps: 1,
+          otherTenants: 0,
+        },
+        provenAt: ["riverbend"],
+      },
+      probeConfirmed: true,
+    },
+  ],
   signatures: [],
 };
 
@@ -716,7 +811,7 @@ export const openSubAccountArtifact: CapabilityArtifact = approveArtifact(openSu
   // The human ticked the irreversible one. "Who approved the irreversible one" is an audit answer.
   acknowledgedEffects: ["READ", "WRITE_REVERSIBLE", "WRITE_IRREVERSIBLE"],
   acknowledgedGrade: "partial-up-to-irreversible",
-  acknowledgedPromotions: [],
+  acknowledgedPromotions: ["MEMBER_RESTRICTED"],
 });
 
 // ---------------------------------------------------------------------------------------------
