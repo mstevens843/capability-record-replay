@@ -1,0 +1,24 @@
+{
+  "id": "tenant-a",
+  "tenantId": "riverbend",
+  "overlay": "none",
+  "status": "ok",
+  "stepsExecuted": 9,
+  "artifactDigest": "sha256:2e45d5f8b847027d8a5fda4d2e54943f70e9abba07fde8106775ac7cc34dab63",
+  "overlayDigest": null,
+  "effectiveDigest": "sha256:133b2dee7f8716f604ee7e1a9cdc6f6661a3f3722527873161606a6b6403068a",
+  "drift": {
+    "fingerprint": "sha256:1697d326e78c72a6f02569d4af7e64a9a0204ff8d4f2f97f3e5f22b55425f00b",
+    "expected": "sha256:a51c2e7c52b067496e1abdcf46cfaa35cfc59450b6c2b5949cb205881fc2c46d",
+    "divergence": 0,
+    "changed": [],
+    "needsSpecialization": false
+  },
+  "outputs": [
+    "accountStatus",
+    "memberName",
+    "shareAccounts",
+    "shareBalance"
+  ],
+  "note": "The base artifact runs at the tenant it was recorded against with no overlay."
+}

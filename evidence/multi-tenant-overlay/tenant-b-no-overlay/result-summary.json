@@ -1,0 +1,19 @@
+{
+  "id": "tenant-b-no-overlay",
+  "tenantId": "summit",
+  "overlay": "none",
+  "status": "failed",
+  "failureClass": "link-error",
+  "stepsExecuted": 0,
+  "artifactDigest": "sha256:2e45d5f8b847027d8a5fda4d2e54943f70e9abba07fde8106775ac7cc34dab63",
+  "overlayDigest": null,
+  "effectiveDigest": "sha256:2e45d5f8b847027d8a5fda4d2e54943f70e9abba07fde8106775ac7cc34dab63",
+  "drift": {
+    "fingerprint": "fp:not-run",
+    "expected": "fp:not-run",
+    "divergence": 0,
+    "changed": [],
+    "needsSpecialization": false
+  },
+  "note": "Without Summit's overlay, the linker refuses before any step executes because the base artifact is not scoped to Summit."
+}

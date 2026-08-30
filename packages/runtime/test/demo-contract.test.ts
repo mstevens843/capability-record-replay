@@ -132,8 +132,10 @@ describe("the demo", () => {
     // A scan that reads nothing passes as loudly as one that reads everything.
     const names = demoFiles().map((path) => path.slice(DEMO.length + 1));
     expect(names).toEqual([
+      "handoff.ts",
       "integrity.ts",
       "main.ts",
+      "multi-tenant-overlay.ts",
       "scenarios.ts",
       "surface-entry.mjs",
       "surface.ts",

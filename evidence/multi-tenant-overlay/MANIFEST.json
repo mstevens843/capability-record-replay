@@ -1,0 +1,129 @@
+{
+  "generatedBy": "packages/runtime/demo/multi-tenant-overlay.ts",
+  "scenarioCount": 3,
+  "scenarios": [
+    {
+      "id": "tenant-a",
+      "tenantId": "riverbend",
+      "overlay": "none",
+      "status": "ok",
+      "stepsExecuted": 9,
+      "artifactDigest": "sha256:2e45d5f8b847027d8a5fda4d2e54943f70e9abba07fde8106775ac7cc34dab63",
+      "overlayDigest": null,
+      "effectiveDigest": "sha256:133b2dee7f8716f604ee7e1a9cdc6f6661a3f3722527873161606a6b6403068a",
+      "drift": {
+        "fingerprint": "sha256:1697d326e78c72a6f02569d4af7e64a9a0204ff8d4f2f97f3e5f22b55425f00b",
+        "expected": "sha256:a51c2e7c52b067496e1abdcf46cfaa35cfc59450b6c2b5949cb205881fc2c46d",
+        "divergence": 0,
+        "changed": [],
+        "needsSpecialization": false
+      },
+      "outputs": [
+        "accountStatus",
+        "memberName",
+        "shareAccounts",
+        "shareBalance"
+      ],
+      "note": "The base artifact runs at the tenant it was recorded against with no overlay."
+    },
+    {
+      "id": "tenant-b-with-overlay",
+      "tenantId": "summit",
+      "overlay": "summit",
+      "status": "ok",
+      "stepsExecuted": 9,
+      "artifactDigest": "sha256:2e45d5f8b847027d8a5fda4d2e54943f70e9abba07fde8106775ac7cc34dab63",
+      "overlayDigest": "sha256:b02aec8a82f40688924e38403b5c7a6b362efdaf10b2fbd882434201dd4b5980",
+      "effectiveDigest": "sha256:420b7461108e1aa2d949ab5908fcb56bbb9111ab725d1d6215e406c5277766fe",
+      "drift": {
+        "fingerprint": "sha256:1697d326e78c72a6f02569d4af7e64a9a0204ff8d4f2f97f3e5f22b55425f00b",
+        "expected": "sha256:a51c2e7c52b067496e1abdcf46cfaa35cfc59450b6c2b5949cb205881fc2c46d",
+        "divergence": 0,
+        "changed": [],
+        "needsSpecialization": false
+      },
+      "outputs": [
+        "accountStatus",
+        "memberName",
+        "shareAccounts",
+        "shareBalance"
+      ],
+      "note": "The same base artifact runs at Summit through overlay-only vocabulary, route and settle-budget changes."
+    },
+    {
+      "id": "tenant-b-no-overlay",
+      "tenantId": "summit",
+      "overlay": "none",
+      "status": "failed",
+      "failureClass": "link-error",
+      "stepsExecuted": 0,
+      "artifactDigest": "sha256:2e45d5f8b847027d8a5fda4d2e54943f70e9abba07fde8106775ac7cc34dab63",
+      "overlayDigest": null,
+      "effectiveDigest": "sha256:2e45d5f8b847027d8a5fda4d2e54943f70e9abba07fde8106775ac7cc34dab63",
+      "drift": {
+        "fingerprint": "fp:not-run",
+        "expected": "fp:not-run",
+        "divergence": 0,
+        "changed": [],
+        "needsSpecialization": false
+      },
+      "note": "Without Summit's overlay, the linker refuses before any step executes because the base artifact is not scoped to Summit."
+    }
+  ],
+  "overlaySemantics": {
+    "vocabularyTokens": [
+      "action-column",
+      "balance-column",
+      "initial-deposit-label",
+      "member-column",
+      "member-id-label",
+      "name-column",
+      "open-subaccount-button",
+      "search-button",
+      "status-column",
+      "subaccount-list-heading",
+      "subaccount-product-column",
+      "subaccount-type-label"
+    ],
+    "routeBasePathRoutes": [
+      "member-detail",
+      "member-results",
+      "member-search",
+      "subaccount-new"
+    ],
+    "settleOverrideSteps": [
+      "open-member-record",
+      "submit-search"
+    ],
+    "forbiddenSemanticFieldsAbsent": true
+  },
+  "divergence": {
+    "overallAll": 0.3382,
+    "overallInteractive": 0.3846,
+    "needsSpecialization": null
+  },
+  "redaction": {
+    "clean": true,
+    "filesScanned": 14,
+    "hits": 0,
+    "forbidden": 0
+  },
+  "files": [
+    "README.md",
+    "divergence-summary.json",
+    "divergence.txt",
+    "overlay-summary.json",
+    "overlay.json",
+    "redaction-canary.json",
+    "redaction-canary.txt",
+    "tenant-a/evidence/journal-b570f335df33cb28cc4f764cd2558274997d2c118bd3f30e0417cf5fcd16dedf.json",
+    "tenant-a/journal.json",
+    "tenant-a/result-summary.json",
+    "tenant-b-no-overlay/evidence/journal-6ea9882ce57a6c72812b99e850431761bad9baa3d42b9be32236aaf8b3556b35.json",
+    "tenant-b-no-overlay/journal.json",
+    "tenant-b-no-overlay/result-summary.json",
+    "tenant-b-with-overlay/evidence/journal-abc271cd98ee6017e5e041454291011e4bf294266339273a17d2dfcb9912979c.json",
+    "tenant-b-with-overlay/journal.json",
+    "tenant-b-with-overlay/result-summary.json"
+  ]
+}

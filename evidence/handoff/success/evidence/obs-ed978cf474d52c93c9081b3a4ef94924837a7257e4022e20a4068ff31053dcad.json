@@ -1,0 +1,236 @@
+{
+  "seq": 6,
+  "surface": {
+    "kind": "web-legacy",
+    "driver": "mock-surface@0.1.0"
+  },
+  "route": {
+    "originAlias": "corebank",
+    "path": "/search",
+    "query": {},
+    "frame": "content"
+  },
+  "nodes": [
+    {
+      "id": "textbox:member-id",
+      "rawRole": "textbox",
+      "ariaRole": "textbox",
+      "name": "Member ID",
+      "value": "<taint:memberId-1>",
+      "text": null,
+      "description": null,
+      "state": {
+        "disabled": false,
+        "focused": true,
+        "visible": true,
+        "checked": null,
+        "expanded": null,
+        "selected": null,
+        "required": null,
+        "invalid": false,
+        "readonly": false
+      },
+      "bounds": {
+        "x": 10,
+        "y": 40,
+        "w": 120,
+        "h": 20,
+        "unit": "px"
+      },
+      "containerPath": [
+        {
+          "kind": "frame",
+          "name": "content"
+        },
+        {
+          "kind": "landmark",
+          "role": "form",
+          "name": "Member Search"
+        }
+      ],
+      "parent": null,
+      "children": [],
+      "labelledBy": [],
+      "tablePosition": null,
+      "capacity": null,
+      "confidence": 1,
+      "live": false,
+      "masked": false
+    },
+    {
+      "id": "button:search",
+      "rawRole": "button",
+      "ariaRole": "button",
+      "name": "Search",
+      "value": null,
+      "text": "Search",
+      "description": null,
+      "state": {
+        "disabled": false,
+        "focused": false,
+        "visible": true,
+        "checked": null,
+        "expanded": null,
+        "selected": null,
+        "required": null,
+        "invalid": false,
+        "readonly": false
+      },
+      "bounds": {
+        "x": 10,
+        "y": 70,
+        "w": 120,
+        "h": 20,
+        "unit": "px"
+      },
+      "containerPath": [
+        {
+          "kind": "frame",
+          "name": "content"
+        },
+        {
+          "kind": "landmark",
+          "role": "form",
+          "name": "Member Search"
+        }
+      ],
+      "parent": null,
+      "children": [],
+      "labelledBy": [],
+      "tablePosition": null,
+      "capacity": null,
+      "confidence": 1,
+      "live": false,
+      "masked": false
+    },
+    {
+      "id": "status:hold",
+      "rawRole": "status",
+      "ariaRole": "status",
+      "name": "",
+      "value": null,
+      "text": "Manual review required before this member can be searched",
+      "description": null,
+      "state": {
+        "disabled": false,
+        "focused": false,
+        "visible": true,
+        "checked": null,
+        "expanded": null,
+        "selected": null,
+        "required": null,
+        "invalid": false,
+        "readonly": false
+      },
+      "bounds": null,
+      "containerPath": [
+        {
+          "kind": "frame",
+          "name": "content"
+        },
+        {
+          "kind": "landmark",
+          "role": "form",
+          "name": "Member Search"
+        }
+      ],
+      "parent": null,
+      "children": [],
+      "labelledBy": [],
+      "tablePosition": null,
+      "capacity": null,
+      "confidence": 1,
+      "live": false,
+      "masked": false
+    },
+    {
+      "id": "button:authorize",
+      "rawRole": "button",
+      "ariaRole": "button",
+      "name": "Authorize",
+      "value": null,
+      "text": "Authorize",
+      "description": null,
+      "state": {
+        "disabled": false,
+        "focused": false,
+        "visible": true,
+        "checked": null,
+        "expanded": null,
+        "selected": null,
+        "required": null,
+        "invalid": false,
+        "readonly": false
+      },
+      "bounds": null,
+      "containerPath": [
+        {
+          "kind": "frame",
+          "name": "content"
+        },
+        {
+          "kind": "landmark",
+          "role": "form",
+          "name": "Member Search"
+        }
+      ],
+      "parent": null,
+      "children": [],
+      "labelledBy": [],
+      "tablePosition": null,
+      "capacity": null,
+      "confidence": 1,
+      "live": false,
+      "masked": false
+    },
+    {
+      "id": "link:menu",
+      "rawRole": "link",
+      "ariaRole": "link",
+      "name": "Main Menu",
+      "value": null,
+      "text": "Main Menu",
+      "description": null,
+      "state": {
+        "disabled": false,
+        "focused": false,
+        "visible": true,
+        "checked": null,
+        "expanded": null,
+        "selected": null,
+        "required": null,
+        "invalid": false,
+        "readonly": false
+      },
+      "bounds": null,
+      "containerPath": [
+        {
+          "kind": "frame",
+          "name": "content"
+        },
+        {
+          "kind": "landmark",
+          "role": "form",
+          "name": "Member Search"
+        }
+      ],
+      "parent": null,
+      "children": [],
+      "labelledBy": [],
+      "tablePosition": null,
+      "capacity": null,
+      "confidence": 1,
+      "live": false,
+      "masked": false
+    }
+  ],
+  "roots": [],
+  "skeletonDigest": "sha256:8273d1a8ccb2903148293796c86a282d9e69a3026d1c5ac0a7b88241636e532d",
+  "stability": {
+    "settled": true,
+    "generation": 2,
+    "pendingReason": null
+  },
+  "nativeDialog": null,
+  "inputIntercepted": false
+}

@@ -1,0 +1,86 @@
+{
+  "result": {
+    "finalStatus": "ok",
+    "finalOutputs": {
+      "resultCount": "1 record"
+    }
+  },
+  "attribution": {
+    "by": "human-assisted",
+    "transfers": [
+      {
+        "at": "2026-02-11T14:00:00.100Z",
+        "from": "automation",
+        "to": "human",
+        "actorId": "operator:itv-handoff-success-1",
+        "interventionId": "itv-handoff-success-1",
+        "actionsPerformed": []
+      },
+      {
+        "at": "2026-02-11T14:00:00.100Z",
+        "from": "human",
+        "to": "human",
+        "actorId": "operator:pat",
+        "interventionId": "itv-handoff-success-1",
+        "actionsPerformed": []
+      },
+      {
+        "at": "2026-02-11T14:00:00.100Z",
+        "from": "human",
+        "to": "automation",
+        "actorId": "operator:pat",
+        "interventionId": null,
+        "actionsPerformed": [
+          {
+            "kind": "click",
+            "targetTitle": "Authorize"
+          }
+        ]
+      }
+    ]
+  },
+  "resumeChecks": [
+    {
+      "step": 1,
+      "name": "lease re-acquired at a new epoch",
+      "passed": true,
+      "note": "the automation holds the session again (handoff-resume)"
+    },
+    {
+      "step": 2,
+      "name": "surface re-observed",
+      "passed": true,
+      "note": "2 nodes at /search, settled"
+    },
+    {
+      "step": 3,
+      "name": "screen re-classified",
+      "passed": true,
+      "note": "the screen matched no environment, interception or recovery rule"
+    },
+    {
+      "step": 4,
+      "name": "step precondition re-verified",
+      "passed": true,
+      "note": "the surface has settled and the surface is on route search and a button named <search-button> inside frame exactly \"content\", inside the form is present"
+    },
+    {
+      "step": 5,
+      "name": "continuity re-verified",
+      "passed": true,
+      "note": "member still hold"
+    },
+    {
+      "step": 6,
+      "name": "effect gate re-checked",
+      "passed": true,
+      "note": "the step is READ; no approval is required"
+    },
+    {
+      "step": 7,
+      "name": "step re-runs from the top of the cycle",
+      "passed": true,
+      "note": "step submit-search re-runs from the top of the cycle, not from the middle"
+    }
+  ]
+}

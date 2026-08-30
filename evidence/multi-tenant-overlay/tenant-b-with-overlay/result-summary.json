@@ -1,0 +1,24 @@
+{
+  "id": "tenant-b-with-overlay",
+  "tenantId": "summit",
+  "overlay": "summit",
+  "status": "ok",
+  "stepsExecuted": 9,
+  "artifactDigest": "sha256:2e45d5f8b847027d8a5fda4d2e54943f70e9abba07fde8106775ac7cc34dab63",
+  "overlayDigest": "sha256:b02aec8a82f40688924e38403b5c7a6b362efdaf10b2fbd882434201dd4b5980",
+  "effectiveDigest": "sha256:420b7461108e1aa2d949ab5908fcb56bbb9111ab725d1d6215e406c5277766fe",
+  "drift": {
+    "fingerprint": "sha256:1697d326e78c72a6f02569d4af7e64a9a0204ff8d4f2f97f3e5f22b55425f00b",
+    "expected": "sha256:a51c2e7c52b067496e1abdcf46cfaa35cfc59450b6c2b5949cb205881fc2c46d",
+    "divergence": 0,
+    "changed": [],
+    "needsSpecialization": false
+  },
+  "outputs": [
+    "accountStatus",
+    "memberName",
+    "shareAccounts",
+    "shareBalance"
+  ],
+  "note": "The same base artifact runs at Summit through overlay-only vocabulary, route and settle-budget changes."
+}

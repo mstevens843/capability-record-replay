@@ -1,0 +1,566 @@
+{
+  "leftTenantId": "riverbend",
+  "rightTenantId": "summit",
+  "needsSpecialization": null,
+  "overall": {
+    "all": {
+      "band": "all",
+      "leftNodes": 506,
+      "rightNodes": 526,
+      "shared": 411,
+      "union": 621,
+      "divergence": 0.3382,
+      "changed": [
+        {
+          "key": "[\"member-detail\",\"[\\\"LayoutTableCell\\\",\\\"acct status\\\"]\"]",
+          "left": 0,
+          "right": 1
+        },
+        {
+          "key": "[\"member-detail\",\"[\\\"LayoutTableCell\\\",\\\"member detail member id <memberId> name alvarez, dana (synthetic) branch 004 - river oaks (synthetic) joined 2019-03-11 status active total share balance 1,204.55 share accounts\\\"]\"]",
+          "left": 1,
+          "right": 0
+        },
+        {
+          "key": "[\"member-detail\",\"[\\\"LayoutTableCell\\\",\\\"member detail member number <memberId> member name alvarez, dana (synthetic) branch 004 - river oaks (synthetic) joined 2019-03-11 acct status active total savings balance 1,204.55 savings accounts\\\"]\"]",
+          "left": 0,
+          "right": 2
+        },
+        {
+          "key": "[\"member-detail\",\"[\\\"LayoutTableCell\\\",\\\"member id <memberId> name alvarez, dana (synthetic) branch 004 - river oaks (synthetic) joined 2019-03-11 status active total share balance 1,204.55\\\"]\"]",
+          "left": 1,
+          "right": 0
+        },
+        {
+          "key": "[\"member-detail\",\"[\\\"LayoutTableCell\\\",\\\"member id\\\"]\"]",
+          "left": 1,
+          "right": 0
+        },
+        {
+          "key": "[\"member-detail\",\"[\\\"LayoutTableCell\\\",\\\"member name\\\"]\"]",
+          "left": 0,
+          "right": 1
+        },
+        {
+          "key": "[\"member-detail\",\"[\\\"LayoutTableCell\\\",\\\"member number <memberId> member name alvarez, dana (synthetic) branch 004 - river oaks (synthetic) joined 2019-03-11 acct status active total savings balance 1,204.55\\\"]\"]",
+          "left": 0,
+          "right": 1
+        },
+        {
+          "key": "[\"member-detail\",\"[\\\"LayoutTableCell\\\",\\\"member number\\\"]\"]",
+          "left": 0,
+          "right": 1
+        },
+        {
+          "key": "[\"member-detail\",\"[\\\"LayoutTableCell\\\",\\\"name\\\"]\"]",
+          "left": 1,
+          "right": 0
+        },
+        {
+          "key": "[\"member-detail\",\"[\\\"LayoutTableCell\\\",\\\"riverbend federal credit union corebank servicing 8.2.14\\\"]\"]",
+          "left": 1,
+          "right": 0
+        },
+        {
+          "key": "[\"member-detail\",\"[\\\"LayoutTableCell\\\",\\\"signed in as oper-csr2 (synthetic)\\\"]\"]",
+          "left": 0,
+          "right": 1
+        },
+        {
+          "key": "[\"member-detail\",\"[\\\"LayoutTableCell\\\",\\\"signed in as oper-teller1 (synthetic)\\\"]\"]",
+          "left": 1,
+          "right": 0
+        }
+      ],
+      "changedTruncated": true
+    },
+    "interactive": {
+      "band": "interactive",
+      "leftNodes": 31,
+      "rightNodes": 32,
+      "shared": 24,
+      "union": 39,
+      "divergence": 0.3846,
+      "changed": [
+        {
+          "key": "[\"member-detail\",\"[\\\"button\\\",\\\"add sub-account\\\"]\"]",
+          "left": 0,
+          "right": 1
+        },
+        {
+          "key": "[\"member-detail\",\"[\\\"button\\\",\\\"open sub-account\\\"]\"]",
+          "left": 1,
+          "right": 0
+        },
+        {
+          "key": "[\"member-results\",\"[\\\"button\\\",\\\"find\\\"]\"]",
+          "left": 0,
+          "right": 1
+        },
+        {
+          "key": "[\"member-results\",\"[\\\"button\\\",\\\"search\\\"]\"]",
+          "left": 1,
+          "right": 0
+        },
+        {
+          "key": "[\"member-results\",\"[\\\"radio\\\",\\\"\\\"]\"]",
+          "left": 0,
+          "right": 1
+        },
+        {
+          "key": "[\"member-search\",\"[\\\"button\\\",\\\"find\\\"]\"]",
+          "left": 0,
+          "right": 1
+        },
+        {
+          "key": "[\"member-search\",\"[\\\"button\\\",\\\"search\\\"]\"]",
+          "left": 1,
+          "right": 0
+        },
+        {
+          "key": "[\"subaccount-new\",\"[\\\"button\\\",\\\"add account\\\"]\"]",
+          "left": 0,
+          "right": 1
+        },
+        {
+          "key": "[\"subaccount-new\",\"[\\\"button\\\",\\\"open account\\\"]\"]",
+          "left": 1,
+          "right": 0
+        },
+        {
+          "key": "[\"subaccount-new\",\"[\\\"option\\\",\\\"savings account - holiday club\\\"]\"]",
+          "left": 0,
+          "right": 1
+        },
+        {
+          "key": "[\"subaccount-new\",\"[\\\"option\\\",\\\"savings account - regular\\\"]\"]",
+          "left": 0,
+          "right": 1
+        },
+        {
+          "key": "[\"subaccount-new\",\"[\\\"option\\\",\\\"savings account - youth\\\"]\"]",
+          "left": 0,
+          "right": 1
+        }
+      ],
+      "changedTruncated": false
+    }
+  },
+  "screens": [
+    {
+      "screen": "member-search",
+      "all": {
+        "band": "all",
+        "leftNodes": 99,
+        "rightNodes": 103,
+        "shared": 83,
+        "union": 119,
+        "divergence": 0.3025,
+        "changed": [
+          {
+            "key": "[\"LayoutTable\",\"\"]",
+            "left": 7,
+            "right": 8
+          },
+          {
+            "key": "[\"LayoutTableCell\",\"find\"]",
+            "left": 0,
+            "right": 1
+          },
+          {
+            "key": "[\"LayoutTableCell\",\"last name\"]",
+            "left": 1,
+            "right": 0
+          },
+          {
+            "key": "[\"LayoutTableCell\",\"member id\"]",
+            "left": 1,
+            "right": 0
+          },
+          {
+            "key": "[\"LayoutTableCell\",\"member number\"]",
+            "left": 0,
+            "right": 1
+          },
+          {
+            "key": "[\"LayoutTableCell\",\"member search member id last name search\"]",
+            "left": 1,
+            "right": 0
+          },
+          {
+            "key": "[\"LayoutTableCell\",\"member search member number surname find\"]",
+            "left": 0,
+            "right": 2
+          },
+          {
+            "key": "[\"LayoutTableCell\",\"riverbend federal credit union corebank servicing 8.2.14\"]",
+            "left": 1,
+            "right": 0
+          },
+          {
+            "key": "[\"LayoutTableCell\",\"search\"]",
+            "left": 1,
+            "right": 0
+          },
+          {
+            "key": "[\"LayoutTableCell\",\"signed in as oper-csr2 (synthetic)\"]",
+            "left": 0,
+            "right": 1
+          },
+          {
+            "key": "[\"LayoutTableCell\",\"signed in as oper-teller1 (synthetic)\"]",
+            "left": 1,
+            "right": 0
+          },
+          {
+            "key": "[\"LayoutTableCell\",\"summit community bank corebank servicing 8.4.02\"]",
+            "left": 0,
+            "right": 1
+          }
+        ],
+        "changedTruncated": false
+      },
+      "interactive": {
+        "band": "interactive",
+        "leftNodes": 7,
+        "rightNodes": 7,
+        "shared": 6,
+        "union": 8,
+        "divergence": 0.25,
+        "changed": [
+          {
+            "key": "[\"button\",\"find\"]",
+            "left": 0,
+            "right": 1
+          },
+          {
+            "key": "[\"button\",\"search\"]",
+            "left": 1,
+            "right": 0
+          }
+        ],
+        "changedTruncated": false
+      }
+    },
+    {
+      "screen": "member-results",
+      "all": {
+        "band": "all",
+        "leftNodes": 130,
+        "rightNodes": 138,
+        "shared": 103,
+        "union": 165,
+        "divergence": 0.3758,
+        "changed": [
+          {
+            "key": "[\"LayoutTable\",\"\"]",
+            "left": 7,
+            "right": 8
+          },
+          {
+            "key": "[\"LayoutTableCell\",\"find\"]",
+            "left": 0,
+            "right": 1
+          },
+          {
+            "key": "[\"LayoutTableCell\",\"last name\"]",
+            "left": 1,
+            "right": 0
+          },
+          {
+            "key": "[\"LayoutTableCell\",\"member id\"]",
+            "left": 1,
+            "right": 0
+          },
+          {
+            "key": "[\"LayoutTableCell\",\"member number\"]",
+            "left": 0,
+            "right": 1
+          },
+          {
+            "key": "[\"LayoutTableCell\",\"member search member id <memberId> last name search search results (1 record)\"]",
+            "left": 1,
+            "right": 0
+          },
+          {
+            "key": "[\"LayoutTableCell\",\"member search member number <memberId> surname find member search results (1 record)\"]",
+            "left": 0,
+            "right": 2
+          },
+          {
+            "key": "[\"LayoutTableCell\",\"riverbend federal credit union corebank servicing 8.2.14\"]",
+            "left": 1,
+            "right": 0
+          },
+          {
+            "key": "[\"LayoutTableCell\",\"search\"]",
+            "left": 1,
+            "right": 0
+          },
+          {
+            "key": "[\"LayoutTableCell\",\"signed in as oper-csr2 (synthetic)\"]",
+            "left": 0,
+            "right": 1
+          },
+          {
+            "key": "[\"LayoutTableCell\",\"signed in as oper-teller1 (synthetic)\"]",
+            "left": 1,
+            "right": 0
+          },
+          {
+            "key": "[\"LayoutTableCell\",\"summit community bank corebank servicing 8.4.02\"]",
+            "left": 0,
+            "right": 1
+          }
+        ],
+        "changedTruncated": false
+      },
+      "interactive": {
+        "band": "interactive",
+        "leftNodes": 8,
+        "rightNodes": 9,
+        "shared": 7,
+        "union": 10,
+        "divergence": 0.3,
+        "changed": [
+          {
+            "key": "[\"button\",\"find\"]",
+            "left": 0,
+            "right": 1
+          },
+          {
+            "key": "[\"button\",\"search\"]",
+            "left": 1,
+            "right": 0
+          },
+          {
+            "key": "[\"radio\",\"\"]",
+            "left": 0,
+            "right": 1
+          }
+        ],
+        "changedTruncated": false
+      }
+    },
+    {
+      "screen": "member-detail",
+      "all": {
+        "band": "all",
+        "leftNodes": 159,
+        "rightNodes": 163,
+        "shared": 131,
+        "union": 191,
+        "divergence": 0.3141,
+        "changed": [
+          {
+            "key": "[\"LayoutTable\",\"\"]",
+            "left": 8,
+            "right": 9
+          },
+          {
+            "key": "[\"LayoutTableCell\",\"acct status\"]",
+            "left": 0,
+            "right": 1
+          },
+          {
+            "key": "[\"LayoutTableCell\",\"member detail member id <memberId> name alvarez, dana (synthetic) branch 004 - river oaks (synthetic) joined 2019-03-11 status active total share balance 1,204.55 share accounts\"]",
+            "left": 1,
+            "right": 0
+          },
+          {
+            "key": "[\"LayoutTableCell\",\"member detail member number <memberId> member name alvarez, dana (synthetic) branch 004 - river oaks (synthetic) joined 2019-03-11 acct status active total savings balance 1,204.55 savings accounts\"]",
+            "left": 0,
+            "right": 2
+          },
+          {
+            "key": "[\"LayoutTableCell\",\"member id <memberId> name alvarez, dana (synthetic) branch 004 - river oaks (synthetic) joined 2019-03-11 status active total share balance 1,204.55\"]",
+            "left": 1,
+            "right": 0
+          },
+          {
+            "key": "[\"LayoutTableCell\",\"member id\"]",
+            "left": 1,
+            "right": 0
+          },
+          {
+            "key": "[\"LayoutTableCell\",\"member name\"]",
+            "left": 0,
+            "right": 1
+          },
+          {
+            "key": "[\"LayoutTableCell\",\"member number <memberId> member name alvarez, dana (synthetic) branch 004 - river oaks (synthetic) joined 2019-03-11 acct status active total savings balance 1,204.55\"]",
+            "left": 0,
+            "right": 1
+          },
+          {
+            "key": "[\"LayoutTableCell\",\"member number\"]",
+            "left": 0,
+            "right": 1
+          },
+          {
+            "key": "[\"LayoutTableCell\",\"name\"]",
+            "left": 1,
+            "right": 0
+          },
+          {
+            "key": "[\"LayoutTableCell\",\"riverbend federal credit union corebank servicing 8.2.14\"]",
+            "left": 1,
+            "right": 0
+          },
+          {
+            "key": "[\"LayoutTableCell\",\"signed in as oper-csr2 (synthetic)\"]",
+            "left": 0,
+            "right": 1
+          }
+        ],
+        "changedTruncated": false
+      },
+      "interactive": {
+        "band": "interactive",
+        "leftNodes": 5,
+        "rightNodes": 5,
+        "shared": 4,
+        "union": 6,
+        "divergence": 0.3333,
+        "changed": [
+          {
+            "key": "[\"button\",\"add sub-account\"]",
+            "left": 0,
+            "right": 1
+          },
+          {
+            "key": "[\"button\",\"open sub-account\"]",
+            "left": 1,
+            "right": 0
+          }
+        ],
+        "changedTruncated": false
+      }
+    },
+    {
+      "screen": "subaccount-new",
+      "all": {
+        "band": "all",
+        "leftNodes": 118,
+        "rightNodes": 122,
+        "shared": 94,
+        "union": 146,
+        "divergence": 0.3562,
+        "changed": [
+          {
+            "key": "[\"LayoutTable\",\"\"]",
+            "left": 6,
+            "right": 7
+          },
+          {
+            "key": "[\"LayoutTableCell\",\"account type\"]",
+            "left": 0,
+            "right": 1
+          },
+          {
+            "key": "[\"LayoutTableCell\",\"add account\"]",
+            "left": 0,
+            "right": 1
+          },
+          {
+            "key": "[\"LayoutTableCell\",\"add sub-account member number <memberId> member name alvarez, dana (synthetic) account type -- select -- opening deposit add account\"]",
+            "left": 0,
+            "right": 2
+          },
+          {
+            "key": "[\"LayoutTableCell\",\"initial deposit\"]",
+            "left": 1,
+            "right": 0
+          },
+          {
+            "key": "[\"LayoutTableCell\",\"member id\"]",
+            "left": 1,
+            "right": 0
+          },
+          {
+            "key": "[\"LayoutTableCell\",\"member name\"]",
+            "left": 0,
+            "right": 1
+          },
+          {
+            "key": "[\"LayoutTableCell\",\"member number\"]",
+            "left": 0,
+            "right": 1
+          },
+          {
+            "key": "[\"LayoutTableCell\",\"name\"]",
+            "left": 1,
+            "right": 0
+          },
+          {
+            "key": "[\"LayoutTableCell\",\"open account\"]",
+            "left": 1,
+            "right": 0
+          },
+          {
+            "key": "[\"LayoutTableCell\",\"open sub-account member id <memberId> name alvarez, dana (synthetic) sub-account type -- select -- initial deposit open account\"]",
+            "left": 1,
+            "right": 0
+          },
+          {
+            "key": "[\"LayoutTableCell\",\"opening deposit\"]",
+            "left": 0,
+            "right": 1
+          }
+        ],
+        "changedTruncated": false
+      },
+      "interactive": {
+        "band": "interactive",
+        "leftNodes": 11,
+        "rightNodes": 11,
+        "shared": 7,
+        "union": 15,
+        "divergence": 0.5333,
+        "changed": [
+          {
+            "key": "[\"button\",\"add account\"]",
+            "left": 0,
+            "right": 1
+          },
+          {
+            "key": "[\"button\",\"open account\"]",
+            "left": 1,
+            "right": 0
+          },
+          {
+            "key": "[\"option\",\"savings account - holiday club\"]",
+            "left": 0,
+            "right": 1
+          },
+          {
+            "key": "[\"option\",\"savings account - regular\"]",
+            "left": 0,
+            "right": 1
+          },
+          {
+            "key": "[\"option\",\"savings account - youth\"]",
+            "left": 0,
+            "right": 1
+          },
+          {
+            "key": "[\"option\",\"share account - holiday club\"]",
+            "left": 1,
+            "right": 0
+          },
+          {
+            "key": "[\"option\",\"share account - regular\"]",
+            "left": 1,
+            "right": 0
+          },
+          {
+            "key": "[\"option\",\"share account - youth\"]",
+            "left": 1,
+            "right": 0
+          }
+        ],
+        "changedTruncated": false
+      }
+    }
+  ]
+}

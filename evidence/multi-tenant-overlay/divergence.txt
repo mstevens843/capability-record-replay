@@ -1,0 +1,13 @@
+cross-tenant divergence  riverbend -> summit
+screen                    band          left  right  shared  union  divergence
+member-search             all              99     103       83     119        30.3%
+                          interactive       7       7        6       8        25.0%
+member-results            all             130     138      103     165        37.6%
+                          interactive       8       9        7      10        30.0%
+member-detail             all             159     163      131     191        31.4%
+                          interactive       5       5        4       6        33.3%
+subaccount-new            all             118     122       94     146        35.6%
+                          interactive      11      11        7      15        53.3%
+OVERALL                   all             506     526      411     621        33.8%
+                          interactive      31      32       24      39        38.5%
+needsSpecialization: null (no threshold ships; see OPEN-QUESTIONS-RESOLVED Q4)

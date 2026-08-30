@@ -25,8 +25,16 @@ from a run forced with `TURBO_FORCE=1` (or `--force`), so `Cached: 0` is part of
 > (`env -u ANTHROPIC_API_KEY -u ANTHROPIC_AUTH_TOKEN -u OPENAI_API_KEY -u CLAUDE_CODE_OAUTH_TOKEN
 > TURBO_FORCE=1 pnpm test`) exited 0 with **2,032 tests / 109 files / 14 of 14 tasks**, `Cached:
 > 0/14`. The forced-run ledger below remains the 2026-08-29 measurement and is preserved as history
-> rather than silently rewritten. The supplemental-inclusive `pnpm demo` was also run three times
-> with credentials unset; each run exited 0 with **241 files** and a clean whole-bundle canary.
+> rather than silently rewritten. The then-current supplemental-inclusive `pnpm demo` was also run
+> three times with credentials unset; each run exited 0 with a **241-file** bundle and a clean whole-bundle
+> canary. That was before the dedicated handoff and multi-tenant overlay evidence directories
+> existed, so it is historical, not the current bundle count.
+>
+> **ANNOTATED AGAIN ON 2026-08-30, AFTER THE HANDOFF / MULTI-TENANT EVIDENCE PASS.** The active
+> reviewer path is now `scripts/reviewer-check.sh`, `docs/FINAL-REVIEWER-GUIDE.md`, and
+> `docs/REQUIREMENT-TRACE.md`. It adds `evidence/handoff/` and `evidence/multi-tenant-overlay/`.
+> `scripts/reviewer-check.sh` was re-run with credentials unset and exited 0; its `pnpm demo`
+> section measured **278 files** and a clean whole-bundle canary.
 
 ---
 
@@ -42,9 +50,9 @@ $ env -u ANTHROPIC_API_KEY -u ANTHROPIC_AUTH_TOKEN -u OPENAI_API_KEY \
                                           → 2,032 passed, 109 files, 14/14 tasks, Cached 0/14
                                             1m32.414s  (re-taken 2026-08-30)               exit 0
 
-$ pnpm demo   (three credential-unset runs)
-                                          → 241 files, DEMO OK, whole-bundle canary CLEAN
-                                            every time   (re-taken 2026-08-30)             exit 0
+$ pnpm demo   (final reviewer-script run, credentials unset)
+                                          → 278 files, DEMO OK, whole-bundle canary CLEAN
+                                            (re-taken 2026-08-30)                         exit 0
 
 $ pnpm preflight        (no key in shell) → NOT READY, 1 blocker, 1 warning, 13 passed      exit 1
 $ ANTHROPIC_API_KEY=<shape-valid> pnpm preflight
@@ -121,25 +129,26 @@ section says `pnpm -F @crr/surface-browser exec playwright install chromium` is 
 
 ---
 
-## 2. `pnpm demo` — three runs, one file count
+## 2. `pnpm demo` — historical three-run count plus current count
 
 ```
-run 1: exit=0  files=241  whole-bundle canary CLEAN   DEMO OK
-run 2: exit=0  files=241  whole-bundle canary CLEAN   DEMO OK
-run 3: exit=0  files=241  whole-bundle canary CLEAN   DEMO OK
+historical run 1: exit=0  241-file bundle  whole-bundle canary CLEAN   DEMO OK
+historical run 2: exit=0  241-file bundle  whole-bundle canary CLEAN   DEMO OK
+historical run 3: exit=0  241-file bundle  whole-bundle canary CLEAN   DEMO OK
+current final reviewer-script run: exit=0  files=278  whole-bundle canary CLEAN   DEMO OK
 ```
 
 Commands: `env -u ANTHROPIC_API_KEY -u ANTHROPIC_AUTH_TOKEN -u OPENAI_API_KEY -u
 CLAUDE_CODE_OAUTH_TOKEN pnpm demo`. Byte totals were not re-quoted on 2026-08-30; the file count
-and canary verdict are the measured submission signals.
+and canary verdict are the measured submission signals. The 241-file run list predates the dedicated
+handoff and multi-tenant overlay exhibits; 278 is the current final reviewer-script count.
 
-**The file count is exact; the byte total is not, and the difference is the honest part.** Normalising
-the digest in every content-addressed blob name, the three runs produce a **byte-identical file
-list**. The digests themselves move every run by construction — a journal blob is named by the digest
-of a journal carrying that run's own timestamps — and `demo.log` is inside the bundle and prints its
-own wall-clock duration. So: **quote the count, re-measure the bytes.** The count is not narrated any
-more; the run compares its printed count against an independent walk of the finished directory and
-against the whole-bundle canary's own count, and a disagreement fails the run.
+**Each printed file count is exact; the byte total is not, and the difference is the honest part.**
+The digests themselves move every run by construction — a journal blob is named by the digest of a
+journal carrying that run's own timestamps — and `demo.log` is inside the bundle and prints its own
+wall-clock duration. So: **quote the current count, re-measure the bytes.** The count is not narrated
+any more; the run compares its printed count against an independent walk of the finished directory
+and against the whole-bundle canary's own count, and a disagreement fails the run.
 
 Each run also prints, and gates on:
 
@@ -148,7 +157,7 @@ Each run also prints, and gates on:
    7 blob directories checked, every file accounted for
 ── discovery-live ─ a live run is present; PENDING.md not written
 REDACTION CANARY  CLEAN   3 value(s) x 14 encodings = 26 needles, self-test 26/26, 0 hits, 0 credentials
-   whole-bundle canary pass: CLEAN - 241 files, 0 hits
+   whole-bundle canary pass: CLEAN - 278 files, 0 hits
 DEMO OK
 ```
 
@@ -442,7 +451,7 @@ git status --short          # nothing left but what you meant to commit
 
 env -u ANTHROPIC_API_KEY -u ANTHROPIC_AUTH_TOKEN -u OPENAI_API_KEY \
     -u CLAUDE_CODE_OAUTH_TOKEN TURBO_FORCE=1 pnpm test   # 2,032, exit 0
-pnpm demo                                                # 241 files, DEMO OK, exit 0
+pnpm demo                                                # 278 files, DEMO OK, exit 0
 ```
 
 Run `pnpm demo` **once, alone**, immediately before committing — a second concurrent run now refuses

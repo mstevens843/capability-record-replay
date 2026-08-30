@@ -1,0 +1,461 @@
+[
+  {
+    "seq": 0,
+    "runId": "run-handoff-success-1",
+    "at": "2026-02-11T14:00:00.000Z",
+    "type": "run.started",
+    "mode": "replay",
+    "capability": "mock.member.find.escalating",
+    "artifactDigest": "sha256:5a7fb2157b1f0e25635a70416e8bb9feb2ba36dad17adfff70c9d039ec7bc3fa",
+    "effectiveDigest": "sha256:5a7fb2157b1f0e25635a70416e8bb9feb2ba36dad17adfff70c9d039ec7bc3fa",
+    "tenantId": "riverbend",
+    "argsShape": {
+      "memberId": "digits(5)"
+    }
+  },
+  {
+    "seq": 1,
+    "runId": "run-handoff-success-1",
+    "at": "2026-02-11T14:00:00.000Z",
+    "type": "link.completed",
+    "checksRun": 29,
+    "errors": []
+  },
+  {
+    "seq": 2,
+    "runId": "run-handoff-success-1",
+    "at": "2026-02-11T14:00:00.000Z",
+    "type": "session.opened",
+    "sessionId": "static-session",
+    "sessionProfile": "mock-teller"
+  },
+  {
+    "seq": 3,
+    "runId": "run-handoff-success-1",
+    "at": "2026-02-11T14:00:00.000Z",
+    "type": "lease.acquired",
+    "holder": "automation",
+    "actorId": "run:run-handoff-success-1",
+    "epoch": 1
+  },
+  {
+    "seq": 4,
+    "runId": "run-handoff-success-1",
+    "at": "2026-02-11T14:00:00.000Z",
+    "type": "step.entered",
+    "stepId": "open-search",
+    "index": 0,
+    "attempt": 1,
+    "effect": "READ"
+  },
+  {
+    "seq": 5,
+    "runId": "run-handoff-success-1",
+    "at": "2026-02-11T14:00:00.000Z",
+    "type": "budget.charged",
+    "ledger": "observations",
+    "used": 1,
+    "limit": 120
+  },
+  {
+    "seq": 6,
+    "runId": "run-handoff-success-1",
+    "at": "2026-02-11T14:00:00.000Z",
+    "type": "observed",
+    "stepId": "open-search",
+    "obsSeq": 0,
+    "skeletonDigest": "sha256:4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+    "settled": true,
+    "nodeCount": 0,
+    "observationRef": null
+  },
+  {
+    "seq": 7,
+    "runId": "run-handoff-success-1",
+    "at": "2026-02-11T14:00:00.000Z",
+    "type": "classified",
+    "stepId": "open-search",
+    "phase": "pre",
+    "verdict": {
+      "kind": "advance",
+      "outputs": []
+    },
+    "alsoMatched": []
+  },
+  {
+    "seq": 8,
+    "runId": "run-handoff-success-1",
+    "at": "2026-02-11T14:00:00.000Z",
+    "type": "policy.decided",
+    "decision": {
+      "allow": true,
+      "effect": "READ",
+      "ruleId": "route:corebank/search"
+    },
+    "actionKind": "navigate",
+    "effect": "READ"
+  },
+  {
+    "seq": 9,
+    "runId": "run-handoff-success-1",
+    "at": "2026-02-11T14:00:00.000Z",
+    "type": "budget.charged",
+    "ledger": "actions",
+    "used": 1,
+    "limit": 20
+  },
+  {
+    "seq": 10,
+    "runId": "run-handoff-success-1",
+    "at": "2026-02-11T14:00:00.000Z",
+    "type": "acted",
+    "stepId": "open-search",
+    "actionKind": "navigate",
+    "targetTitle": "Open the search screen",
+    "valueRef": null,
+    "valueLength": null,
+    "result": "dispatched"
+  },
+  {
+    "seq": 11,
+    "runId": "run-handoff-success-1",
+    "at": "2026-02-11T14:00:00.000Z",
+    "type": "budget.charged",
+    "ledger": "observations",
+    "used": 2,
+    "limit": 120
+  },
+  {
+    "seq": 12,
+    "runId": "run-handoff-success-1",
+    "at": "2026-02-11T14:00:00.050Z",
+    "type": "budget.charged",
+    "ledger": "observations",
+    "used": 3,
+    "limit": 120
+  },
+  {
+    "seq": 13,
+    "runId": "run-handoff-success-1",
+    "at": "2026-02-11T14:00:00.050Z",
+    "type": "settled",
+    "stepId": "open-search",
+    "polls": 2,
+    "elapsedMs": 50,
+    "settled": true
+  },
+  {
+    "seq": 14,
+    "runId": "run-handoff-success-1",
+    "at": "2026-02-11T14:00:00.050Z",
+    "type": "observed",
+    "stepId": "open-search",
+    "obsSeq": 2,
+    "skeletonDigest": "sha256:63949c944bd0cb6f692fbc886742fe9ee15c0e6690df39cc80d58cde70f1f0c7",
+    "settled": true,
+    "nodeCount": 2,
+    "observationRef": null
+  },
+  {
+    "seq": 15,
+    "runId": "run-handoff-success-1",
+    "at": "2026-02-11T14:00:00.050Z",
+    "type": "classified",
+    "stepId": "open-search",
+    "phase": "post",
+    "verdict": {
+      "kind": "advance",
+      "outputs": []
+    },
+    "alsoMatched": []
+  },
+  {
+    "seq": 16,
+    "runId": "run-handoff-success-1",
+    "at": "2026-02-11T14:00:00.050Z",
+    "type": "checkpoint",
+    "stepId": "open-search",
+    "passed": true,
+    "trace": {
+      "rendered": "the surface has settled and the surface is on route search",
+      "clauses": [
+        {
+          "rendered": "the surface has settled",
+          "verdict": true
+        },
+        {
+          "rendered": "the surface is on route search",
+          "verdict": true
+        }
+      ]
+    }
+  },
+  {
+    "seq": 17,
+    "runId": "run-handoff-success-1",
+    "at": "2026-02-11T14:00:00.050Z",
+    "type": "step.entered",
+    "stepId": "enter-member-id",
+    "index": 1,
+    "attempt": 1,
+    "effect": "READ"
+  },
+  {
+    "seq": 18,
+    "runId": "run-handoff-success-1",
+    "at": "2026-02-11T14:00:00.050Z",
+    "type": "budget.charged",
+    "ledger": "observations",
+    "used": 4,
+    "limit": 120
+  },
+  {
+    "seq": 19,
+    "runId": "run-handoff-success-1",
+    "at": "2026-02-11T14:00:00.050Z",
+    "type": "observed",
+    "stepId": "enter-member-id",
+    "obsSeq": 3,
+    "skeletonDigest": "sha256:63949c944bd0cb6f692fbc886742fe9ee15c0e6690df39cc80d58cde70f1f0c7",
+    "settled": true,
+    "nodeCount": 2,
+    "observationRef": null
+  },
+  {
+    "seq": 20,
+    "runId": "run-handoff-success-1",
+    "at": "2026-02-11T14:00:00.050Z",
+    "type": "classified",
+    "stepId": "enter-member-id",
+    "phase": "pre",
+    "verdict": {
+      "kind": "advance",
+      "outputs": []
+    },
+    "alsoMatched": []
+  },
+  {
+    "seq": 21,
+    "runId": "run-handoff-success-1",
+    "at": "2026-02-11T14:00:00.050Z",
+    "type": "resolved",
+    "stepId": "enter-member-id",
+    "descriptors": [
+      {
+        "id": "member-id-field-by-name",
+        "kind": "role-name",
+        "evidenceSource": "accessibleName",
+        "verdict": "resolved",
+        "nodeId": "textbox:member-id"
+      },
+      {
+        "id": "member-id-field-by-position",
+        "kind": "ordinal-in-container",
+        "evidenceSource": "ordinal",
+        "verdict": "resolved",
+        "nodeId": "textbox:member-id"
+      }
+    ],
+    "agreed": true,
+    "distinctSources": 2
+  },
+  {
+    "seq": 22,
+    "runId": "run-handoff-success-1",
+    "at": "2026-02-11T14:00:00.050Z",
+    "type": "policy.decided",
+    "decision": {
+      "allow": true,
+      "effect": "READ",
+      "ruleId": "route:corebank/search"
+    },
+    "actionKind": "type",
+    "effect": "READ"
+  },
+  {
+    "seq": 23,
+    "runId": "run-handoff-success-1",
+    "at": "2026-02-11T14:00:00.050Z",
+    "type": "budget.charged",
+    "ledger": "actions",
+    "used": 2,
+    "limit": 20
+  },
+  {
+    "seq": 24,
+    "runId": "run-handoff-success-1",
+    "at": "2026-02-11T14:00:00.050Z",
+    "type": "acted",
+    "stepId": "enter-member-id",
+    "actionKind": "type",
+    "targetTitle": "the textbox named <member-id-field>, inside frame exactly \"content\", inside the form",
+    "valueRef": "taint:memberId-1",
+    "valueLength": 5,
+    "result": "dispatched"
+  },
+  {
+    "seq": 25,
+    "runId": "run-handoff-success-1",
+    "at": "2026-02-11T14:00:00.050Z",
+    "type": "budget.charged",
+    "ledger": "observations",
+    "used": 5,
+    "limit": 120
+  },
+  {
+    "seq": 26,
+    "runId": "run-handoff-success-1",
+    "at": "2026-02-11T14:00:00.100Z",
+    "type": "budget.charged",
+    "ledger": "observations",
+    "used": 6,
+    "limit": 120
+  },
+  {
+    "seq": 27,
+    "runId": "run-handoff-success-1",
+    "at": "2026-02-11T14:00:00.100Z",
+    "type": "settled",
+    "stepId": "enter-member-id",
+    "polls": 2,
+    "elapsedMs": 50,
+    "settled": true
+  },
+  {
+    "seq": 28,
+    "runId": "run-handoff-success-1",
+    "at": "2026-02-11T14:00:00.100Z",
+    "type": "observed",
+    "stepId": "enter-member-id",
+    "obsSeq": 5,
+    "skeletonDigest": "sha256:8273d1a8ccb2903148293796c86a282d9e69a3026d1c5ac0a7b88241636e532d",
+    "settled": true,
+    "nodeCount": 5,
+    "observationRef": null
+  },
+  {
+    "seq": 29,
+    "runId": "run-handoff-success-1",
+    "at": "2026-02-11T14:00:00.100Z",
+    "type": "classified",
+    "stepId": "enter-member-id",
+    "phase": "post",
+    "verdict": {
+      "kind": "advance",
+      "outputs": []
+    },
+    "alsoMatched": []
+  },
+  {
+    "seq": 30,
+    "runId": "run-handoff-success-1",
+    "at": "2026-02-11T14:00:00.100Z",
+    "type": "checkpoint",
+    "stepId": "enter-member-id",
+    "passed": true,
+    "trace": {
+      "rendered": "the surface has settled",
+      "clauses": [
+        {
+          "rendered": "the surface has settled",
+          "verdict": true
+        }
+      ]
+    }
+  },
+  {
+    "seq": 31,
+    "runId": "run-handoff-success-1",
+    "at": "2026-02-11T14:00:00.100Z",
+    "type": "step.entered",
+    "stepId": "submit-search",
+    "index": 2,
+    "attempt": 1,
+    "effect": "READ"
+  },
+  {
+    "seq": 32,
+    "runId": "run-handoff-success-1",
+    "at": "2026-02-11T14:00:00.100Z",
+    "type": "budget.charged",
+    "ledger": "observations",
+    "used": 7,
+    "limit": 120
+  },
+  {
+    "seq": 33,
+    "runId": "run-handoff-success-1",
+    "at": "2026-02-11T14:00:00.100Z",
+    "type": "observed",
+    "stepId": "submit-search",
+    "obsSeq": 6,
+    "skeletonDigest": "sha256:8273d1a8ccb2903148293796c86a282d9e69a3026d1c5ac0a7b88241636e532d",
+    "settled": true,
+    "nodeCount": 5,
+    "observationRef": null
+  },
+  {
+    "seq": 34,
+    "runId": "run-handoff-success-1",
+    "at": "2026-02-11T14:00:00.100Z",
+    "type": "classified",
+    "stepId": "submit-search",
+    "phase": "pre",
+    "verdict": {
+      "kind": "recover",
+      "recoveryName": "SUPERVISOR_HOLD",
+      "remedy": {
+        "kind": "escalate",
+        "reason": "the core has placed a manual review hold on this member",
+        "brief": "Clear the supervisor hold with the Authorize control, then hand back. Do not search a different member."
+      },
+      "attempt": 1
+    },
+    "alsoMatched": []
+  },
+  {
+    "seq": 35,
+    "runId": "run-handoff-success-1",
+    "at": "2026-02-11T14:00:00.100Z",
+    "type": "budget.charged",
+    "ledger": "remediations",
+    "used": 1,
+    "limit": 4
+  },
+  {
+    "seq": 36,
+    "runId": "run-handoff-success-1",
+    "at": "2026-02-11T14:00:00.100Z",
+    "type": "recovery.applied",
+    "stepId": "submit-search",
+    "name": "SUPERVISOR_HOLD",
+    "attempt": 1,
+    "remedy": "escalate"
+  },
+  {
+    "seq": 37,
+    "runId": "run-handoff-success-1",
+    "at": "2026-02-11T14:00:00.100Z",
+    "type": "evidence.captured",
+    "ref": "obs:ed978cf474d52c93c9081b3a4ef94924837a7257e4022e20a4068ff31053dcad",
+    "kind": "observation",
+    "maskedRegions": 0,
+    "stepId": "submit-search",
+    "phase": "pre"
+  },
+  {
+    "seq": 38,
+    "runId": "run-handoff-success-1",
+    "at": "2026-02-11T14:00:00.100Z",
+    "type": "intervention.raised",
+    "interventionId": "itv-handoff-success-1",
+    "reason": "recovery-exhausted"
+  },
+  {
+    "seq": 39,
+    "runId": "run-handoff-success-1",
+    "at": "2026-02-11T14:00:00.100Z",
+    "type": "run.finished",
+    "status": "suspended"
+  }
+]

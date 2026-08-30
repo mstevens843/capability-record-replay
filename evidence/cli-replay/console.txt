@@ -3,7 +3,7 @@
 
 $ node packages/runtime/dist/cli.js replay evidence/artifact/contract.json evidence/artifact/artifact.json --surface packages/runtime/demo/surface-entry.mjs --args '{"memberId":"<A FIVE-DIGIT MEMBER NUMBER>"}' --allowlist evidence/artifact/allowlist.json --trusted-key ops-approval-key-1:evidence/artifact/approver.spki.pem --tenant riverbend --app riverbend-corebank-fixture --journal evidence/cli-replay/journal.jsonl --evidence evidence/cli-replay/observations
 
-OK  run run-ee2bfb18-5fc9-431d-aa60-31aa817f6bab  9/9 steps  1775ms
+OK  run run-5916e59d-2448-4b45-87c5-316956b70b31  9/9 steps  1702ms
 {
   "memberName": "ALVAREZ, DANA (SYNTHETIC)",
   "shareBalance": {

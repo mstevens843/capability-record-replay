@@ -1,0 +1,27 @@
+{
+  "vocabularyTokens": [
+    "action-column",
+    "balance-column",
+    "initial-deposit-label",
+    "member-column",
+    "member-id-label",
+    "name-column",
+    "open-subaccount-button",
+    "search-button",
+    "status-column",
+    "subaccount-list-heading",
+    "subaccount-product-column",
+    "subaccount-type-label"
+  ],
+  "routeBasePathRoutes": [
+    "member-detail",
+    "member-results",
+    "member-search",
+    "subaccount-new"
+  ],
+  "settleOverrideSteps": [
+    "open-member-record",
+    "submit-search"
+  ],
+  "forbiddenSemanticFieldsAbsent": true
+}

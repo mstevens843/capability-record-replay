@@ -30,6 +30,8 @@ with no model in the decision path.
 | [`outcome-promotion/`](outcome-promotion/) | a reviewer walking the live artifact through `crr probe` / `crr promote` / `crr verify` | **none — the two documents it starts from came from the live run; nothing else here did** |
 | [`write-boundary/`](write-boundary/) | `pnpm -F @crr/runtime exec tsx demo/write-boundary.ts` | **none** |
 | [`semantic-denials/`](semantic-denials/) | `pnpm -F @crr/runtime exec tsx test/evidence/semantic-denials.ts` | **none** |
+| [`handoff/`](handoff/) | `pnpm -F @crr/runtime exec tsx demo/handoff.ts` | **none** |
+| [`multi-tenant-overlay/`](multi-tenant-overlay/) | `pnpm -F @crr/runtime exec tsx demo/multi-tenant-overlay.ts` | **none** |
 | [`terminal-survivors/`](terminal-survivors/) | `pnpm -F @crr/conformance exec tsx test/evidence/terminal-survivors.ts` | **none** |
 | [`discovery-live/`](discovery-live/) | `pnpm discover` — the `anthropic` adapter against the Messages API | see `discovery-live/provenance.json` |
 
@@ -95,10 +97,14 @@ commit-route permission faults. Those are covered by supplemental exhibits inste
   rejected approvals, policy refusal, idempotency repeat, and effect-in-doubt.
 - `semantic-denials/` covers record-denial business outcome vs role-denial entitlement failure
   against the browser write fixture.
+- `handoff/` covers suspend, intervention context, same-session lease claim, policy-checked
+  human action, safe handback and refused handback.
+- `multi-tenant-overlay/` covers one base browser artifact running at a second tenant through
+  overlay-only vocabulary, route and wait-budget changes, plus a no-overlay negative control.
 - `terminal-survivors/` covers the green-screen mutant survivor ledger.
 
-The second-tenant browser overlay remains in `packages/runtime/test/browser-overlay.test.ts`
-rather than the main bundle, because `pnpm demo` keeps to one browser fixture tenant.
+`pnpm demo` includes these supplemental directories when they already exist; the commands
+above regenerate them explicitly.
 
 ## The redaction canary
 
@@ -113,11 +119,11 @@ alignment, which is too few to tell from noise. Those pairs are listed under `no
 [`redaction-canary/report.txt`](redaction-canary/report.txt). An encoding that was never searched
 for is not coverage, and a report that quietly dropped it would be claiming more than it checked.
 
-Result of the run that produced the main demo bundle: **CLEAN** — 237 files, 5674049 bytes, 26 distinct needles, 0 hits, 0 credential-shaped strings, self-test passed (26/26).
+Result of the run that produced the main demo bundle: **CLEAN** — 274 files, 6000007 bytes, 26 distinct needles, 0 hits, 0 credential-shaped strings, self-test passed (26/26).
 
-The supplemental write and semantic-denial exhibits also write canary summaries for the
-sensitive values they use. `terminal-survivors/` contains only scenario and mutant names, not
-caller inputs.
+The supplemental write, semantic-denial, handoff and multi-tenant overlay exhibits also write
+canary summaries for the sensitive values they use. `terminal-survivors/` contains only
+scenario and mutant names, not caller inputs.
 
 That report covers every file that existed when it ran. This `README.md`, the report itself and
 the finished `demo.log` are written afterwards, so a **second whole-bundle pass** runs once every
@@ -137,6 +143,8 @@ pnpm -F @crr/surface-browser exec playwright install chromium   # once
 pnpm demo
 pnpm -F @crr/runtime exec tsx demo/write-boundary.ts
 pnpm -F @crr/runtime exec tsx test/evidence/semantic-denials.ts
+pnpm -F @crr/runtime exec tsx demo/handoff.ts
+pnpm -F @crr/runtime exec tsx demo/multi-tenant-overlay.ts
 pnpm -F @crr/conformance exec tsx test/evidence/terminal-survivors.ts
 ```
 

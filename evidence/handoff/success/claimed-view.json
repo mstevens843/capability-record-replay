@@ -1,0 +1,103 @@
+{
+  "interventionId": "itv-handoff-success-1",
+  "state": "HUMAN_HELD",
+  "holder": "human",
+  "actorId": "operator:pat",
+  "epoch": 3,
+  "surface": "web-legacy",
+  "capture": {
+    "ref": "mock-capture-1",
+    "digest": "sha256:e7f1b413c3fada0adb10e31e20eee67e83e11dcf5af550564ca733127eefcc68",
+    "maskedRegions": 1
+  },
+  "captureFormat": "image",
+  "captureRefused": [],
+  "observed": {
+    "route": {
+      "originAlias": "corebank",
+      "path": "/search",
+      "query": {},
+      "frame": "content"
+    },
+    "settled": true,
+    "pendingReason": null,
+    "skeletonDigest": "sha256:8273d1a8ccb2903148293796c86a282d9e69a3026d1c5ac0a7b88241636e532d",
+    "nodeCount": 5,
+    "nativeDialog": null,
+    "inputIntercepted": false,
+    "salient": [
+      {
+        "role": "button",
+        "name": "Search",
+        "disabled": false,
+        "visible": true
+      },
+      {
+        "role": "status",
+        "name": "",
+        "disabled": false,
+        "visible": true
+      },
+      {
+        "role": "button",
+        "name": "Authorize",
+        "disabled": false,
+        "visible": true
+      },
+      {
+        "role": "link",
+        "name": "Main Menu",
+        "disabled": false,
+        "visible": true
+      }
+    ],
+    "redactionsApplied": 0
+  },
+  "nodes": [
+    {
+      "id": "textbox:member-id",
+      "role": "textbox",
+      "name": "Member ID",
+      "disabled": false,
+      "visible": true,
+      "actionable": true,
+      "masked": false
+    },
+    {
+      "id": "button:search",
+      "role": "button",
+      "name": "Search",
+      "disabled": false,
+      "visible": true,
+      "actionable": true,
+      "masked": false
+    },
+    {
+      "id": "button:authorize",
+      "role": "button",
+      "name": "Authorize",
+      "disabled": false,
+      "visible": true,
+      "actionable": true,
+      "masked": false
+    },
+    {
+      "id": "link:menu",
+      "role": "link",
+      "name": "Main Menu",
+      "disabled": false,
+      "visible": true,
+      "actionable": true,
+      "masked": false
+    },
+    {
+      "id": "status:hold",
+      "role": "status",
+      "name": "Manual review required before this member can be searched",
+      "disabled": false,
+      "visible": true,
+      "actionable": false,
+      "masked": false
+    }
+  ]
+}

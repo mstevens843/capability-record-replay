@@ -1,0 +1,66 @@
+{
+  "result": {
+    "finalStatus": "failed",
+    "finalFailureClass": "precondition-not-met"
+  },
+  "attribution": {
+    "by": "human-assisted",
+    "transfers": [
+      {
+        "at": "2026-02-11T14:00:00.100Z",
+        "from": "automation",
+        "to": "human",
+        "actorId": "operator:itv-handoff-refused-1",
+        "interventionId": "itv-handoff-refused-1",
+        "actionsPerformed": []
+      },
+      {
+        "at": "2026-02-11T14:00:00.100Z",
+        "from": "human",
+        "to": "human",
+        "actorId": "operator:pat",
+        "interventionId": "itv-handoff-refused-1",
+        "actionsPerformed": []
+      },
+      {
+        "at": "2026-02-11T14:00:00.100Z",
+        "from": "human",
+        "to": "automation",
+        "actorId": "operator:pat",
+        "interventionId": null,
+        "actionsPerformed": [
+          {
+            "kind": "click",
+            "targetTitle": "Main Menu"
+          }
+        ]
+      }
+    ]
+  },
+  "resumeChecks": [
+    {
+      "step": 1,
+      "name": "lease re-acquired at a new epoch",
+      "passed": true,
+      "note": "the automation holds the session again (handoff-resume)"
+    },
+    {
+      "step": 2,
+      "name": "surface re-observed",
+      "passed": true,
+      "note": "1 nodes at /menu, settled"
+    },
+    {
+      "step": 3,
+      "name": "screen re-classified",
+      "passed": true,
+      "note": "the screen matched no environment, interception or recovery rule"
+    },
+    {
+      "step": 4,
+      "name": "step precondition re-verified",
+      "passed": false,
+      "note": "step submit-search requires the surface has settled and the surface is on route search and a button named <search-button> inside frame exactly \"content\", inside the form is present"
+    }
+  ]
+}

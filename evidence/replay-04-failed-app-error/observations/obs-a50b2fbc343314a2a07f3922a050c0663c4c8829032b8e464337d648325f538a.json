@@ -1,12 +1,12 @@
 {
-  "seq": 19,
+  "seq": 29,
   "surface": {
     "kind": "web-legacy",
     "driver": "surface-browser@0.1.0"
   },
   "route": {
     "originAlias": "corebank",
-    "path": "/member/:memberId/subaccount/commit",
+    "path": "/member/:memberId",
     "query": {},
     "frame": "content"
   },
@@ -2407,7 +2407,7 @@
       ],
       "parent": "structure:f0-10",
       "children": [
-        "structure:f3-329"
+        "structure:f3-514"
       ],
       "labelledBy": [],
       "tablePosition": null,
@@ -2417,10 +2417,10 @@
       "masked": false
     },
     {
-      "id": "structure:f3-329",
+      "id": "structure:f3-514",
       "rawRole": "RootWebArea",
       "ariaRole": null,
-      "name": "Request Refused - Riverbend Federal Credit Union",
+      "name": "Server Error in '/' Application.",
       "value": null,
       "text": null,
       "description": null,
@@ -2444,7 +2444,7 @@
       ],
       "parent": "structure:f0-12",
       "children": [
-        "structure:f3-330"
+        "structure:f3-515"
       ],
       "labelledBy": [],
       "tablePosition": null,
@@ -2454,7 +2454,7 @@
       "masked": false
     },
     {
-      "id": "structure:f3-330",
+      "id": "structure:f3-515",
       "rawRole": "none",
       "ariaRole": null,
       "name": "",
@@ -2483,9 +2483,9 @@
           "name": "content"
         }
       ],
-      "parent": "structure:f3-329",
+      "parent": "structure:f3-514",
       "children": [
-        "structure:f3-333"
+        "structure:f3-518"
       ],
       "labelledBy": [],
       "tablePosition": null,
@@ -2495,7 +2495,7 @@
       "masked": false
     },
     {
-      "id": "structure:f3-333",
+      "id": "structure:f3-518",
       "rawRole": "none",
       "ariaRole": null,
       "name": "",
@@ -2524,10 +2524,25 @@
           "name": "content"
         }
       ],
-      "parent": "structure:f3-330",
+      "parent": "structure:f3-515",
       "children": [
-        "structure:f3-334",
-        "structure:f3-340"
+        "structure:f3-519",
+        "heading:f3-526",
+        "heading:f3-529",
+        "structure:f3-546",
+        "structure:f3-547",
+        "structure:f3-533",
+        "structure:f3-534",
+        "structure:f3-548",
+        "structure:f3-549",
+        "structure:f3-536",
+        "structure:f3-537",
+        "structure:f3-550",
+        "structure:f3-551",
+        "structure:f3-539",
+        "structure:f3-540",
+        "structure:f3-552",
+        "structure:f3-542"
       ],
       "labelledBy": [],
       "tablePosition": null,
@@ -2537,7 +2552,7 @@
       "masked": false
     },
     {
-      "id": "structure:f3-334",
+      "id": "structure:f3-519",
       "rawRole": "LayoutTable",
       "ariaRole": null,
       "name": "",
@@ -2566,9 +2581,9 @@
           "name": "content"
         }
       ],
-      "parent": "structure:f3-333",
+      "parent": "structure:f3-518",
       "children": [
-        "structure:f3-335"
+        "structure:f3-520"
       ],
       "labelledBy": [],
       "tablePosition": null,
@@ -2578,7 +2593,7 @@
       "masked": false
     },
     {
-      "id": "structure:f3-335",
+      "id": "structure:f3-520",
       "rawRole": "none",
       "ariaRole": null,
       "name": "",
@@ -2607,9 +2622,9 @@
           "name": "content"
         }
       ],
-      "parent": "structure:f3-334",
+      "parent": "structure:f3-519",
       "children": [
-        "structure:f3-336"
+        "structure:f3-521"
       ],
       "labelledBy": [],
       "tablePosition": null,
@@ -2619,7 +2634,7 @@
       "masked": false
     },
     {
-      "id": "structure:f3-336",
+      "id": "structure:f3-521",
       "rawRole": "LayoutTableRow",
       "ariaRole": null,
       "name": "",
@@ -2648,9 +2663,9 @@
           "name": "content"
         }
       ],
-      "parent": "structure:f3-335",
+      "parent": "structure:f3-520",
       "children": [
-        "structure:f3-337"
+        "structure:f3-522"
       ],
       "labelledBy": [],
       "tablePosition": null,
@@ -2660,7 +2675,7 @@
       "masked": false
     },
     {
-      "id": "structure:f3-337",
+      "id": "structure:f3-522",
       "rawRole": "LayoutTableCell",
       "ariaRole": null,
       "name": "TEST FIXTURE — SYNTHETIC DATA ONLY. Not a real financial system. Every member, account, balance and branch below is invented.",
@@ -2689,9 +2704,9 @@
           "name": "content"
         }
       ],
-      "parent": "structure:f3-336",
+      "parent": "structure:f3-521",
       "children": [
-        "structure:f3-364"
+        "structure:f3-543"
       ],
       "labelledBy": [],
       "tablePosition": null,
@@ -2701,7 +2716,7 @@
       "masked": false
     },
     {
-      "id": "structure:f3-364",
+      "id": "structure:f3-543",
       "rawRole": "StaticText",
       "ariaRole": null,
       "name": "TEST FIXTURE — SYNTHETIC DATA ONLY. Not a real financial system. Every member, account, balance and branch below is invented.",
@@ -2720,8 +2735,8 @@
         "readonly": null
       },
       "bounds": {
-        "x": 192,
-        "y": 84,
+        "x": 196,
+        "y": 88,
         "w": 639,
         "h": 12,
         "unit": "px"
@@ -2736,7 +2751,7 @@
           "name": "content"
         }
       ],
-      "parent": "structure:f3-337",
+      "parent": "structure:f3-522",
       "children": [],
       "labelledBy": [],
       "tablePosition": null,
@@ -2746,344 +2761,12 @@
       "masked": false
     },
     {
-      "id": "structure:f3-340",
-      "rawRole": "LayoutTable",
-      "ariaRole": null,
-      "name": "",
+      "id": "heading:f3-526",
+      "rawRole": "heading",
+      "ariaRole": "heading",
+      "name": "Server Error in '/' Application.",
       "value": null,
-      "text": null,
-      "description": null,
-      "state": {
-        "disabled": false,
-        "focused": false,
-        "visible": true,
-        "checked": null,
-        "expanded": null,
-        "selected": null,
-        "required": null,
-        "invalid": null,
-        "readonly": null
-      },
-      "bounds": null,
-      "containerPath": [
-        {
-          "kind": "frame",
-          "name": "top"
-        },
-        {
-          "kind": "frame",
-          "name": "content"
-        }
-      ],
-      "parent": "structure:f3-333",
-      "children": [
-        "structure:f3-341"
-      ],
-      "labelledBy": [],
-      "tablePosition": null,
-      "capacity": null,
-      "confidence": 1,
-      "live": false,
-      "masked": false
-    },
-    {
-      "id": "structure:f3-341",
-      "rawRole": "none",
-      "ariaRole": null,
-      "name": "",
-      "value": null,
-      "text": null,
-      "description": null,
-      "state": {
-        "disabled": false,
-        "focused": false,
-        "visible": false,
-        "checked": null,
-        "expanded": null,
-        "selected": null,
-        "required": null,
-        "invalid": null,
-        "readonly": null
-      },
-      "bounds": null,
-      "containerPath": [
-        {
-          "kind": "frame",
-          "name": "top"
-        },
-        {
-          "kind": "frame",
-          "name": "content"
-        }
-      ],
-      "parent": "structure:f3-340",
-      "children": [
-        "structure:f3-342"
-      ],
-      "labelledBy": [],
-      "tablePosition": null,
-      "capacity": null,
-      "confidence": 1,
-      "live": false,
-      "masked": false
-    },
-    {
-      "id": "structure:f3-342",
-      "rawRole": "LayoutTableRow",
-      "ariaRole": null,
-      "name": "",
-      "value": null,
-      "text": null,
-      "description": null,
-      "state": {
-        "disabled": false,
-        "focused": false,
-        "visible": true,
-        "checked": null,
-        "expanded": null,
-        "selected": null,
-        "required": null,
-        "invalid": null,
-        "readonly": null
-      },
-      "bounds": null,
-      "containerPath": [
-        {
-          "kind": "frame",
-          "name": "top"
-        },
-        {
-          "kind": "frame",
-          "name": "content"
-        }
-      ],
-      "parent": "structure:f3-341",
-      "children": [
-        "structure:f3-343"
-      ],
-      "labelledBy": [],
-      "tablePosition": null,
-      "capacity": null,
-      "confidence": 1,
-      "live": false,
-      "masked": false
-    },
-    {
-      "id": "structure:f3-343",
-      "rawRole": "LayoutTableCell",
-      "ariaRole": null,
-      "name": "Request Refused Member <taint:memberId-1> is restricted. A member services supervisor must service this record.   Reference CB-4417 Return to Member ID <taint:memberId-1>",
-      "value": null,
-      "text": null,
-      "description": null,
-      "state": {
-        "disabled": false,
-        "focused": false,
-        "visible": true,
-        "checked": null,
-        "expanded": null,
-        "selected": null,
-        "required": null,
-        "invalid": null,
-        "readonly": null
-      },
-      "bounds": null,
-      "containerPath": [
-        {
-          "kind": "frame",
-          "name": "top"
-        },
-        {
-          "kind": "frame",
-          "name": "content"
-        }
-      ],
-      "parent": "structure:f3-342",
-      "children": [
-        "structure:f3-344",
-        "structure:f3-350",
-        "structure:f3-351",
-        "structure:f3-361",
-        "link:f3-362"
-      ],
-      "labelledBy": [],
-      "tablePosition": null,
-      "capacity": null,
-      "confidence": 1,
-      "live": false,
-      "masked": false
-    },
-    {
-      "id": "structure:f3-344",
-      "rawRole": "LayoutTable",
-      "ariaRole": null,
-      "name": "",
-      "value": null,
-      "text": null,
-      "description": null,
-      "state": {
-        "disabled": false,
-        "focused": false,
-        "visible": true,
-        "checked": null,
-        "expanded": null,
-        "selected": null,
-        "required": null,
-        "invalid": null,
-        "readonly": null
-      },
-      "bounds": null,
-      "containerPath": [
-        {
-          "kind": "frame",
-          "name": "top"
-        },
-        {
-          "kind": "frame",
-          "name": "content"
-        }
-      ],
-      "parent": "structure:f3-343",
-      "children": [
-        "structure:f3-345"
-      ],
-      "labelledBy": [],
-      "tablePosition": null,
-      "capacity": null,
-      "confidence": 1,
-      "live": false,
-      "masked": false
-    },
-    {
-      "id": "structure:f3-345",
-      "rawRole": "none",
-      "ariaRole": null,
-      "name": "",
-      "value": null,
-      "text": null,
-      "description": null,
-      "state": {
-        "disabled": false,
-        "focused": false,
-        "visible": false,
-        "checked": null,
-        "expanded": null,
-        "selected": null,
-        "required": null,
-        "invalid": null,
-        "readonly": null
-      },
-      "bounds": null,
-      "containerPath": [
-        {
-          "kind": "frame",
-          "name": "top"
-        },
-        {
-          "kind": "frame",
-          "name": "content"
-        }
-      ],
-      "parent": "structure:f3-344",
-      "children": [
-        "structure:f3-346"
-      ],
-      "labelledBy": [],
-      "tablePosition": null,
-      "capacity": null,
-      "confidence": 1,
-      "live": false,
-      "masked": false
-    },
-    {
-      "id": "structure:f3-346",
-      "rawRole": "LayoutTableRow",
-      "ariaRole": null,
-      "name": "",
-      "value": null,
-      "text": null,
-      "description": null,
-      "state": {
-        "disabled": false,
-        "focused": false,
-        "visible": true,
-        "checked": null,
-        "expanded": null,
-        "selected": null,
-        "required": null,
-        "invalid": null,
-        "readonly": null
-      },
-      "bounds": null,
-      "containerPath": [
-        {
-          "kind": "frame",
-          "name": "top"
-        },
-        {
-          "kind": "frame",
-          "name": "content"
-        }
-      ],
-      "parent": "structure:f3-345",
-      "children": [
-        "structure:f3-347"
-      ],
-      "labelledBy": [],
-      "tablePosition": null,
-      "capacity": null,
-      "confidence": 1,
-      "live": false,
-      "masked": false
-    },
-    {
-      "id": "structure:f3-347",
-      "rawRole": "LayoutTableCell",
-      "ariaRole": null,
-      "name": "Request Refused",
-      "value": null,
-      "text": null,
-      "description": null,
-      "state": {
-        "disabled": false,
-        "focused": false,
-        "visible": true,
-        "checked": null,
-        "expanded": null,
-        "selected": null,
-        "required": null,
-        "invalid": null,
-        "readonly": null
-      },
-      "bounds": null,
-      "containerPath": [
-        {
-          "kind": "frame",
-          "name": "top"
-        },
-        {
-          "kind": "frame",
-          "name": "content"
-        }
-      ],
-      "parent": "structure:f3-346",
-      "children": [
-        "structure:f3-365"
-      ],
-      "labelledBy": [],
-      "tablePosition": null,
-      "capacity": null,
-      "confidence": 1,
-      "live": false,
-      "masked": false
-    },
-    {
-      "id": "structure:f3-365",
-      "rawRole": "StaticText",
-      "ariaRole": null,
-      "name": "Request Refused",
-      "value": null,
-      "text": "Request Refused",
+      "text": "Server Error in '/' Application.",
       "description": null,
       "state": {
         "disabled": false,
@@ -3098,8 +2781,232 @@
       },
       "bounds": {
         "x": 193,
-        "y": 102,
-        "w": 106,
+        "y": 123,
+        "w": 1079,
+        "h": 56,
+        "unit": "px"
+      },
+      "containerPath": [
+        {
+          "kind": "frame",
+          "name": "top"
+        },
+        {
+          "kind": "frame",
+          "name": "content"
+        }
+      ],
+      "parent": "structure:f3-518",
+      "children": [
+        "structure:f3-544",
+        "structure:f3-528"
+      ],
+      "labelledBy": [],
+      "tablePosition": null,
+      "capacity": null,
+      "confidence": 1,
+      "live": false,
+      "masked": false
+    },
+    {
+      "id": "structure:f3-544",
+      "rawRole": "StaticText",
+      "ariaRole": null,
+      "name": "Server Error in '/' Application.",
+      "value": null,
+      "text": "Server Error in '/' Application.",
+      "description": null,
+      "state": {
+        "disabled": false,
+        "focused": false,
+        "visible": true,
+        "checked": null,
+        "expanded": null,
+        "selected": null,
+        "required": null,
+        "invalid": null,
+        "readonly": null
+      },
+      "bounds": {
+        "x": 193,
+        "y": 123,
+        "w": 544,
+        "h": 39,
+        "unit": "px"
+      },
+      "containerPath": [
+        {
+          "kind": "frame",
+          "name": "top"
+        },
+        {
+          "kind": "frame",
+          "name": "content"
+        }
+      ],
+      "parent": "heading:f3-526",
+      "children": [],
+      "labelledBy": [],
+      "tablePosition": null,
+      "capacity": null,
+      "confidence": 1,
+      "live": false,
+      "masked": false
+    },
+    {
+      "id": "structure:f3-528",
+      "rawRole": "separator",
+      "ariaRole": null,
+      "name": "",
+      "value": null,
+      "text": null,
+      "description": null,
+      "state": {
+        "disabled": false,
+        "focused": false,
+        "visible": true,
+        "checked": null,
+        "expanded": null,
+        "selected": null,
+        "required": null,
+        "invalid": null,
+        "readonly": null
+      },
+      "bounds": null,
+      "containerPath": [
+        {
+          "kind": "frame",
+          "name": "top"
+        },
+        {
+          "kind": "frame",
+          "name": "content"
+        }
+      ],
+      "parent": "heading:f3-526",
+      "children": [],
+      "labelledBy": [],
+      "tablePosition": null,
+      "capacity": null,
+      "confidence": 1,
+      "live": false,
+      "masked": false
+    },
+    {
+      "id": "heading:f3-529",
+      "rawRole": "heading",
+      "ariaRole": "heading",
+      "name": "Object reference not set to an instance of an object.",
+      "value": null,
+      "text": "Object reference not set to an instance of an object.",
+      "description": null,
+      "state": {
+        "disabled": false,
+        "focused": false,
+        "visible": true,
+        "checked": null,
+        "expanded": null,
+        "selected": null,
+        "required": null,
+        "invalid": null,
+        "readonly": null
+      },
+      "bounds": {
+        "x": 193,
+        "y": 201,
+        "w": 1079,
+        "h": 28,
+        "unit": "px"
+      },
+      "containerPath": [
+        {
+          "kind": "frame",
+          "name": "top"
+        },
+        {
+          "kind": "frame",
+          "name": "content"
+        }
+      ],
+      "parent": "structure:f3-518",
+      "children": [
+        "structure:f3-545"
+      ],
+      "labelledBy": [],
+      "tablePosition": null,
+      "capacity": null,
+      "confidence": 1,
+      "live": false,
+      "masked": false
+    },
+    {
+      "id": "structure:f3-545",
+      "rawRole": "StaticText",
+      "ariaRole": null,
+      "name": "Object reference not set to an instance of an object.",
+      "value": null,
+      "text": "Object reference not set to an instance of an object.",
+      "description": null,
+      "state": {
+        "disabled": false,
+        "focused": false,
+        "visible": true,
+        "checked": null,
+        "expanded": null,
+        "selected": null,
+        "required": null,
+        "invalid": null,
+        "readonly": null
+      },
+      "bounds": {
+        "x": 193,
+        "y": 201,
+        "w": 507,
+        "h": 28,
+        "unit": "px"
+      },
+      "containerPath": [
+        {
+          "kind": "frame",
+          "name": "top"
+        },
+        {
+          "kind": "frame",
+          "name": "content"
+        }
+      ],
+      "parent": "heading:f3-529",
+      "children": [],
+      "labelledBy": [],
+      "tablePosition": null,
+      "capacity": null,
+      "confidence": 1,
+      "live": false,
+      "masked": false
+    },
+    {
+      "id": "structure:f3-546",
+      "rawRole": "StaticText",
+      "ariaRole": null,
+      "name": "Description:",
+      "value": null,
+      "text": "Description:",
+      "description": null,
+      "state": {
+        "disabled": false,
+        "focused": false,
+        "visible": true,
+        "checked": null,
+        "expanded": null,
+        "selected": null,
+        "required": null,
+        "invalid": null,
+        "readonly": null
+      },
+      "bounds": {
+        "x": 193,
+        "y": 249,
+        "w": 76,
         "h": 15,
         "unit": "px"
       },
@@ -3113,7 +3020,7 @@
           "name": "content"
         }
       ],
-      "parent": "structure:f3-347",
+      "parent": "structure:f3-518",
       "children": [],
       "labelledBy": [],
       "tablePosition": null,
@@ -3123,7 +3030,52 @@
       "masked": false
     },
     {
-      "id": "structure:f3-350",
+      "id": "structure:f3-547",
+      "rawRole": "StaticText",
+      "ariaRole": null,
+      "name": " An unhandled exception occurred during the execution of the current web request.",
+      "value": null,
+      "text": " An unhandled exception occurred during the execution of the current web request.",
+      "description": null,
+      "state": {
+        "disabled": false,
+        "focused": false,
+        "visible": true,
+        "checked": null,
+        "expanded": null,
+        "selected": null,
+        "required": null,
+        "invalid": null,
+        "readonly": null
+      },
+      "bounds": {
+        "x": 269,
+        "y": 249,
+        "w": 476,
+        "h": 15,
+        "unit": "px"
+      },
+      "containerPath": [
+        {
+          "kind": "frame",
+          "name": "top"
+        },
+        {
+          "kind": "frame",
+          "name": "content"
+        }
+      ],
+      "parent": "structure:f3-518",
+      "children": [],
+      "labelledBy": [],
+      "tablePosition": null,
+      "capacity": null,
+      "confidence": 1,
+      "live": false,
+      "masked": false
+    },
+    {
+      "id": "structure:f3-533",
       "rawRole": "LineBreak",
       "ariaRole": null,
       "name": "\n",
@@ -3152,7 +3104,7 @@
           "name": "content"
         }
       ],
-      "parent": "structure:f3-343",
+      "parent": "structure:f3-518",
       "children": [],
       "labelledBy": [],
       "tablePosition": null,
@@ -3162,466 +3114,7 @@
       "masked": false
     },
     {
-      "id": "structure:f3-351",
-      "rawRole": "LayoutTable",
-      "ariaRole": null,
-      "name": "",
-      "value": null,
-      "text": null,
-      "description": null,
-      "state": {
-        "disabled": false,
-        "focused": false,
-        "visible": true,
-        "checked": null,
-        "expanded": null,
-        "selected": null,
-        "required": null,
-        "invalid": null,
-        "readonly": null
-      },
-      "bounds": null,
-      "containerPath": [
-        {
-          "kind": "frame",
-          "name": "top"
-        },
-        {
-          "kind": "frame",
-          "name": "content"
-        }
-      ],
-      "parent": "structure:f3-343",
-      "children": [
-        "structure:f3-352"
-      ],
-      "labelledBy": [],
-      "tablePosition": null,
-      "capacity": null,
-      "confidence": 1,
-      "live": false,
-      "masked": false
-    },
-    {
-      "id": "structure:f3-352",
-      "rawRole": "none",
-      "ariaRole": null,
-      "name": "",
-      "value": null,
-      "text": null,
-      "description": null,
-      "state": {
-        "disabled": false,
-        "focused": false,
-        "visible": false,
-        "checked": null,
-        "expanded": null,
-        "selected": null,
-        "required": null,
-        "invalid": null,
-        "readonly": null
-      },
-      "bounds": null,
-      "containerPath": [
-        {
-          "kind": "frame",
-          "name": "top"
-        },
-        {
-          "kind": "frame",
-          "name": "content"
-        }
-      ],
-      "parent": "structure:f3-351",
-      "children": [
-        "structure:f3-353",
-        "structure:f3-356",
-        "structure:f3-358"
-      ],
-      "labelledBy": [],
-      "tablePosition": null,
-      "capacity": null,
-      "confidence": 1,
-      "live": false,
-      "masked": false
-    },
-    {
-      "id": "structure:f3-353",
-      "rawRole": "LayoutTableRow",
-      "ariaRole": null,
-      "name": "",
-      "value": null,
-      "text": null,
-      "description": null,
-      "state": {
-        "disabled": false,
-        "focused": false,
-        "visible": true,
-        "checked": null,
-        "expanded": null,
-        "selected": null,
-        "required": null,
-        "invalid": null,
-        "readonly": null
-      },
-      "bounds": null,
-      "containerPath": [
-        {
-          "kind": "frame",
-          "name": "top"
-        },
-        {
-          "kind": "frame",
-          "name": "content"
-        }
-      ],
-      "parent": "structure:f3-352",
-      "children": [
-        "structure:f3-354"
-      ],
-      "labelledBy": [],
-      "tablePosition": null,
-      "capacity": null,
-      "confidence": 1,
-      "live": false,
-      "masked": false
-    },
-    {
-      "id": "structure:f3-354",
-      "rawRole": "LayoutTableCell",
-      "ariaRole": null,
-      "name": "Member <taint:memberId-1> is restricted. A member services supervisor must service this record.",
-      "value": null,
-      "text": null,
-      "description": null,
-      "state": {
-        "disabled": false,
-        "focused": false,
-        "visible": true,
-        "checked": null,
-        "expanded": null,
-        "selected": null,
-        "required": null,
-        "invalid": null,
-        "readonly": null
-      },
-      "bounds": null,
-      "containerPath": [
-        {
-          "kind": "frame",
-          "name": "top"
-        },
-        {
-          "kind": "frame",
-          "name": "content"
-        }
-      ],
-      "parent": "structure:f3-353",
-      "children": [
-        "structure:f3-366"
-      ],
-      "labelledBy": [],
-      "tablePosition": null,
-      "capacity": null,
-      "confidence": 1,
-      "live": false,
-      "masked": false
-    },
-    {
-      "id": "structure:f3-366",
-      "rawRole": "StaticText",
-      "ariaRole": null,
-      "name": "Member <taint:memberId-1> is restricted. A member services supervisor must service this record.",
-      "value": null,
-      "text": "Member <taint:memberId-1> is restricted. A member services supervisor must service this record.",
-      "description": null,
-      "state": {
-        "disabled": false,
-        "focused": false,
-        "visible": true,
-        "checked": null,
-        "expanded": null,
-        "selected": null,
-        "required": null,
-        "invalid": null,
-        "readonly": null
-      },
-      "bounds": {
-        "x": 191,
-        "y": 141,
-        "w": 483,
-        "h": 15,
-        "unit": "px"
-      },
-      "containerPath": [
-        {
-          "kind": "frame",
-          "name": "top"
-        },
-        {
-          "kind": "frame",
-          "name": "content"
-        }
-      ],
-      "parent": "structure:f3-354",
-      "children": [],
-      "labelledBy": [],
-      "tablePosition": null,
-      "capacity": null,
-      "confidence": 1,
-      "live": false,
-      "masked": false
-    },
-    {
-      "id": "structure:f3-356",
-      "rawRole": "LayoutTableRow",
-      "ariaRole": null,
-      "name": "",
-      "value": null,
-      "text": null,
-      "description": null,
-      "state": {
-        "disabled": false,
-        "focused": false,
-        "visible": true,
-        "checked": null,
-        "expanded": null,
-        "selected": null,
-        "required": null,
-        "invalid": null,
-        "readonly": null
-      },
-      "bounds": null,
-      "containerPath": [
-        {
-          "kind": "frame",
-          "name": "top"
-        },
-        {
-          "kind": "frame",
-          "name": "content"
-        }
-      ],
-      "parent": "structure:f3-352",
-      "children": [
-        "structure:f3-357"
-      ],
-      "labelledBy": [],
-      "tablePosition": null,
-      "capacity": null,
-      "confidence": 1,
-      "live": false,
-      "masked": false
-    },
-    {
-      "id": "structure:f3-357",
-      "rawRole": "LayoutTableCell",
-      "ariaRole": null,
-      "name": " ",
-      "value": null,
-      "text": null,
-      "description": null,
-      "state": {
-        "disabled": false,
-        "focused": false,
-        "visible": true,
-        "checked": null,
-        "expanded": null,
-        "selected": null,
-        "required": null,
-        "invalid": null,
-        "readonly": null
-      },
-      "bounds": null,
-      "containerPath": [
-        {
-          "kind": "frame",
-          "name": "top"
-        },
-        {
-          "kind": "frame",
-          "name": "content"
-        }
-      ],
-      "parent": "structure:f3-356",
-      "children": [
-        "structure:f3-367"
-      ],
-      "labelledBy": [],
-      "tablePosition": null,
-      "capacity": null,
-      "confidence": 1,
-      "live": false,
-      "masked": false
-    },
-    {
-      "id": "structure:f3-367",
-      "rawRole": "StaticText",
-      "ariaRole": null,
-      "name": " ",
-      "value": null,
-      "text": " ",
-      "description": null,
-      "state": {
-        "disabled": false,
-        "focused": false,
-        "visible": true,
-        "checked": null,
-        "expanded": null,
-        "selected": null,
-        "required": null,
-        "invalid": null,
-        "readonly": null
-      },
-      "bounds": null,
-      "containerPath": [
-        {
-          "kind": "frame",
-          "name": "top"
-        },
-        {
-          "kind": "frame",
-          "name": "content"
-        }
-      ],
-      "parent": "structure:f3-357",
-      "children": [],
-      "labelledBy": [],
-      "tablePosition": null,
-      "capacity": null,
-      "confidence": 1,
-      "live": false,
-      "masked": false
-    },
-    {
-      "id": "structure:f3-358",
-      "rawRole": "LayoutTableRow",
-      "ariaRole": null,
-      "name": "",
-      "value": null,
-      "text": null,
-      "description": null,
-      "state": {
-        "disabled": false,
-        "focused": false,
-        "visible": true,
-        "checked": null,
-        "expanded": null,
-        "selected": null,
-        "required": null,
-        "invalid": null,
-        "readonly": null
-      },
-      "bounds": null,
-      "containerPath": [
-        {
-          "kind": "frame",
-          "name": "top"
-        },
-        {
-          "kind": "frame",
-          "name": "content"
-        }
-      ],
-      "parent": "structure:f3-352",
-      "children": [
-        "structure:f3-359"
-      ],
-      "labelledBy": [],
-      "tablePosition": null,
-      "capacity": null,
-      "confidence": 1,
-      "live": false,
-      "masked": false
-    },
-    {
-      "id": "structure:f3-359",
-      "rawRole": "LayoutTableCell",
-      "ariaRole": null,
-      "name": "Reference CB-4417",
-      "value": null,
-      "text": null,
-      "description": null,
-      "state": {
-        "disabled": false,
-        "focused": false,
-        "visible": true,
-        "checked": null,
-        "expanded": null,
-        "selected": null,
-        "required": null,
-        "invalid": null,
-        "readonly": null
-      },
-      "bounds": null,
-      "containerPath": [
-        {
-          "kind": "frame",
-          "name": "top"
-        },
-        {
-          "kind": "frame",
-          "name": "content"
-        }
-      ],
-      "parent": "structure:f3-358",
-      "children": [
-        "structure:f3-368"
-      ],
-      "labelledBy": [],
-      "tablePosition": null,
-      "capacity": null,
-      "confidence": 1,
-      "live": false,
-      "masked": false
-    },
-    {
-      "id": "structure:f3-368",
-      "rawRole": "StaticText",
-      "ariaRole": null,
-      "name": "Reference CB-4417",
-      "value": null,
-      "text": "Reference CB-4417",
-      "description": null,
-      "state": {
-        "disabled": false,
-        "focused": false,
-        "visible": true,
-        "checked": null,
-        "expanded": null,
-        "selected": null,
-        "required": null,
-        "invalid": null,
-        "readonly": null
-      },
-      "bounds": {
-        "x": 191,
-        "y": 182,
-        "w": 88,
-        "h": 11,
-        "unit": "px"
-      },
-      "containerPath": [
-        {
-          "kind": "frame",
-          "name": "top"
-        },
-        {
-          "kind": "frame",
-          "name": "content"
-        }
-      ],
-      "parent": "structure:f3-359",
-      "children": [],
-      "labelledBy": [],
-      "tablePosition": null,
-      "capacity": null,
-      "confidence": 1,
-      "live": false,
-      "masked": false
-    },
-    {
-      "id": "structure:f3-361",
+      "id": "structure:f3-534",
       "rawRole": "LineBreak",
       "ariaRole": null,
       "name": "\n",
@@ -3650,7 +3143,7 @@
           "name": "content"
         }
       ],
-      "parent": "structure:f3-343",
+      "parent": "structure:f3-518",
       "children": [],
       "labelledBy": [],
       "tablePosition": null,
@@ -3660,59 +3153,12 @@
       "masked": false
     },
     {
-      "id": "link:f3-362",
-      "rawRole": "link",
-      "ariaRole": "link",
-      "name": "Return to Member ID <taint:memberId-1>",
-      "value": null,
-      "text": "Return to Member ID <taint:memberId-1>",
-      "description": null,
-      "state": {
-        "disabled": false,
-        "focused": false,
-        "visible": true,
-        "checked": null,
-        "expanded": null,
-        "selected": null,
-        "required": null,
-        "invalid": null,
-        "readonly": null
-      },
-      "bounds": {
-        "x": 189,
-        "y": 211,
-        "w": 161,
-        "h": 18,
-        "unit": "px"
-      },
-      "containerPath": [
-        {
-          "kind": "frame",
-          "name": "top"
-        },
-        {
-          "kind": "frame",
-          "name": "content"
-        }
-      ],
-      "parent": "structure:f3-343",
-      "children": [
-        "structure:f3-369"
-      ],
-      "labelledBy": [],
-      "tablePosition": null,
-      "capacity": null,
-      "confidence": 1,
-      "live": false,
-      "masked": false
-    },
-    {
-      "id": "structure:f3-369",
+      "id": "structure:f3-548",
       "rawRole": "StaticText",
       "ariaRole": null,
-      "name": "Return to Member ID <taint:memberId-1>",
+      "name": "Exception Details:",
       "value": null,
-      "text": "Return to Member ID <taint:memberId-1>",
+      "text": "Exception Details:",
       "description": null,
       "state": {
         "disabled": false,
@@ -3726,9 +3172,9 @@
         "readonly": null
       },
       "bounds": {
-        "x": 189,
-        "y": 213,
-        "w": 161,
+        "x": 193,
+        "y": 279,
+        "w": 113,
         "h": 15,
         "unit": "px"
       },
@@ -3742,7 +3188,429 @@
           "name": "content"
         }
       ],
-      "parent": "link:f3-362",
+      "parent": "structure:f3-518",
+      "children": [],
+      "labelledBy": [],
+      "tablePosition": null,
+      "capacity": null,
+      "confidence": 1,
+      "live": false,
+      "masked": false
+    },
+    {
+      "id": "structure:f3-549",
+      "rawRole": "StaticText",
+      "ariaRole": null,
+      "name": " System.NullReferenceException: Object reference not set to an instance of an object.",
+      "value": null,
+      "text": " System.NullReferenceException: Object reference not set to an instance of an object.",
+      "description": null,
+      "state": {
+        "disabled": false,
+        "focused": false,
+        "visible": true,
+        "checked": null,
+        "expanded": null,
+        "selected": null,
+        "required": null,
+        "invalid": null,
+        "readonly": null
+      },
+      "bounds": {
+        "x": 306,
+        "y": 279,
+        "w": 495,
+        "h": 15,
+        "unit": "px"
+      },
+      "containerPath": [
+        {
+          "kind": "frame",
+          "name": "top"
+        },
+        {
+          "kind": "frame",
+          "name": "content"
+        }
+      ],
+      "parent": "structure:f3-518",
+      "children": [],
+      "labelledBy": [],
+      "tablePosition": null,
+      "capacity": null,
+      "confidence": 1,
+      "live": false,
+      "masked": false
+    },
+    {
+      "id": "structure:f3-536",
+      "rawRole": "LineBreak",
+      "ariaRole": null,
+      "name": "\n",
+      "value": null,
+      "text": null,
+      "description": null,
+      "state": {
+        "disabled": false,
+        "focused": false,
+        "visible": true,
+        "checked": null,
+        "expanded": null,
+        "selected": null,
+        "required": null,
+        "invalid": null,
+        "readonly": null
+      },
+      "bounds": null,
+      "containerPath": [
+        {
+          "kind": "frame",
+          "name": "top"
+        },
+        {
+          "kind": "frame",
+          "name": "content"
+        }
+      ],
+      "parent": "structure:f3-518",
+      "children": [],
+      "labelledBy": [],
+      "tablePosition": null,
+      "capacity": null,
+      "confidence": 1,
+      "live": false,
+      "masked": false
+    },
+    {
+      "id": "structure:f3-537",
+      "rawRole": "LineBreak",
+      "ariaRole": null,
+      "name": "\n",
+      "value": null,
+      "text": null,
+      "description": null,
+      "state": {
+        "disabled": false,
+        "focused": false,
+        "visible": true,
+        "checked": null,
+        "expanded": null,
+        "selected": null,
+        "required": null,
+        "invalid": null,
+        "readonly": null
+      },
+      "bounds": null,
+      "containerPath": [
+        {
+          "kind": "frame",
+          "name": "top"
+        },
+        {
+          "kind": "frame",
+          "name": "content"
+        }
+      ],
+      "parent": "structure:f3-518",
+      "children": [],
+      "labelledBy": [],
+      "tablePosition": null,
+      "capacity": null,
+      "confidence": 1,
+      "live": false,
+      "masked": false
+    },
+    {
+      "id": "structure:f3-550",
+      "rawRole": "StaticText",
+      "ariaRole": null,
+      "name": "Source Error:",
+      "value": null,
+      "text": "Source Error:",
+      "description": null,
+      "state": {
+        "disabled": false,
+        "focused": false,
+        "visible": true,
+        "checked": null,
+        "expanded": null,
+        "selected": null,
+        "required": null,
+        "invalid": null,
+        "readonly": null
+      },
+      "bounds": {
+        "x": 193,
+        "y": 309,
+        "w": 84,
+        "h": 15,
+        "unit": "px"
+      },
+      "containerPath": [
+        {
+          "kind": "frame",
+          "name": "top"
+        },
+        {
+          "kind": "frame",
+          "name": "content"
+        }
+      ],
+      "parent": "structure:f3-518",
+      "children": [],
+      "labelledBy": [],
+      "tablePosition": null,
+      "capacity": null,
+      "confidence": 1,
+      "live": false,
+      "masked": false
+    },
+    {
+      "id": "structure:f3-551",
+      "rawRole": "StaticText",
+      "ariaRole": null,
+      "name": " /member/<taint:memberId-1>",
+      "value": null,
+      "text": " /member/<taint:memberId-1>",
+      "description": null,
+      "state": {
+        "disabled": false,
+        "focused": false,
+        "visible": true,
+        "checked": null,
+        "expanded": null,
+        "selected": null,
+        "required": null,
+        "invalid": null,
+        "readonly": null
+      },
+      "bounds": {
+        "x": 277,
+        "y": 309,
+        "w": 95,
+        "h": 15,
+        "unit": "px"
+      },
+      "containerPath": [
+        {
+          "kind": "frame",
+          "name": "top"
+        },
+        {
+          "kind": "frame",
+          "name": "content"
+        }
+      ],
+      "parent": "structure:f3-518",
+      "children": [],
+      "labelledBy": [],
+      "tablePosition": null,
+      "capacity": null,
+      "confidence": 1,
+      "live": false,
+      "masked": false
+    },
+    {
+      "id": "structure:f3-539",
+      "rawRole": "LineBreak",
+      "ariaRole": null,
+      "name": "\n",
+      "value": null,
+      "text": null,
+      "description": null,
+      "state": {
+        "disabled": false,
+        "focused": false,
+        "visible": true,
+        "checked": null,
+        "expanded": null,
+        "selected": null,
+        "required": null,
+        "invalid": null,
+        "readonly": null
+      },
+      "bounds": null,
+      "containerPath": [
+        {
+          "kind": "frame",
+          "name": "top"
+        },
+        {
+          "kind": "frame",
+          "name": "content"
+        }
+      ],
+      "parent": "structure:f3-518",
+      "children": [],
+      "labelledBy": [],
+      "tablePosition": null,
+      "capacity": null,
+      "confidence": 1,
+      "live": false,
+      "masked": false
+    },
+    {
+      "id": "structure:f3-540",
+      "rawRole": "LineBreak",
+      "ariaRole": null,
+      "name": "\n",
+      "value": null,
+      "text": null,
+      "description": null,
+      "state": {
+        "disabled": false,
+        "focused": false,
+        "visible": true,
+        "checked": null,
+        "expanded": null,
+        "selected": null,
+        "required": null,
+        "invalid": null,
+        "readonly": null
+      },
+      "bounds": null,
+      "containerPath": [
+        {
+          "kind": "frame",
+          "name": "top"
+        },
+        {
+          "kind": "frame",
+          "name": "content"
+        }
+      ],
+      "parent": "structure:f3-518",
+      "children": [],
+      "labelledBy": [],
+      "tablePosition": null,
+      "capacity": null,
+      "confidence": 1,
+      "live": false,
+      "masked": false
+    },
+    {
+      "id": "structure:f3-552",
+      "rawRole": "StaticText",
+      "ariaRole": null,
+      "name": "Stack Trace:",
+      "value": null,
+      "text": "Stack Trace:",
+      "description": null,
+      "state": {
+        "disabled": false,
+        "focused": false,
+        "visible": true,
+        "checked": null,
+        "expanded": null,
+        "selected": null,
+        "required": null,
+        "invalid": null,
+        "readonly": null
+      },
+      "bounds": {
+        "x": 193,
+        "y": 339,
+        "w": 77,
+        "h": 15,
+        "unit": "px"
+      },
+      "containerPath": [
+        {
+          "kind": "frame",
+          "name": "top"
+        },
+        {
+          "kind": "frame",
+          "name": "content"
+        }
+      ],
+      "parent": "structure:f3-518",
+      "children": [],
+      "labelledBy": [],
+      "tablePosition": null,
+      "capacity": null,
+      "confidence": 1,
+      "live": false,
+      "masked": false
+    },
+    {
+      "id": "structure:f3-542",
+      "rawRole": "generic",
+      "ariaRole": null,
+      "name": "",
+      "value": null,
+      "text": null,
+      "description": null,
+      "state": {
+        "disabled": false,
+        "focused": false,
+        "visible": true,
+        "checked": null,
+        "expanded": null,
+        "selected": null,
+        "required": null,
+        "invalid": null,
+        "readonly": null
+      },
+      "bounds": null,
+      "containerPath": [
+        {
+          "kind": "frame",
+          "name": "top"
+        },
+        {
+          "kind": "frame",
+          "name": "content"
+        }
+      ],
+      "parent": "structure:f3-518",
+      "children": [
+        "structure:f3-553"
+      ],
+      "labelledBy": [],
+      "tablePosition": null,
+      "capacity": null,
+      "confidence": 1,
+      "live": false,
+      "masked": false
+    },
+    {
+      "id": "structure:f3-553",
+      "rawRole": "StaticText",
+      "ariaRole": null,
+      "name": "[NullReferenceException: Object reference not set to an instance of an object.]\n   CoreBank.Servicing.Web.MemberDetail.BindSubAccounts(Int32 mbrKey) +217\n   CoreBank.Servicing.Web.MemberDetail.Page_Load(Object sender, EventArgs e) +64\n   System.Web.UI.Control.OnLoad(EventArgs e) +99",
+      "value": null,
+      "text": "[NullReferenceException: Object reference not set to an instance of an object.]\n   CoreBank.Servicing.Web.MemberDetail.BindSubAccounts(Int32 mbrKey) +217\n   CoreBank.Servicing.Web.MemberDetail.Page_Load(Object sender, EventArgs e) +64\n   System.Web.UI.Control.OnLoad(EventArgs e) +99",
+      "description": null,
+      "state": {
+        "disabled": false,
+        "focused": false,
+        "visible": true,
+        "checked": null,
+        "expanded": null,
+        "selected": null,
+        "required": null,
+        "invalid": null,
+        "readonly": null
+      },
+      "bounds": {
+        "x": 193,
+        "y": 364,
+        "w": 481,
+        "h": 48,
+        "unit": "px"
+      },
+      "containerPath": [
+        {
+          "kind": "frame",
+          "name": "top"
+        },
+        {
+          "kind": "frame",
+          "name": "content"
+        }
+      ],
+      "parent": "structure:f3-542",
       "children": [],
       "labelledBy": [],
       "tablePosition": null,
@@ -3755,10 +3623,10 @@
   "roots": [
     "structure:f0-1"
   ],
-  "skeletonDigest": "sha256:524f441b18912f4d4e66140bdbf3ff9382179c8bea80226805897c6ece1053e6",
+  "skeletonDigest": "sha256:89ae112647051c26f14edd9813f0426095c77120b1e56154fadd16266b8326f0",
   "stability": {
     "settled": true,
-    "generation": 8,
+    "generation": 16,
     "pendingReason": null
   },
   "nativeDialog": null,

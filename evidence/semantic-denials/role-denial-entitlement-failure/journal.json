@@ -2,7 +2,7 @@
   {
     "seq": 0,
     "runId": "run-semantic-role-denial-entitlement-failure-1",
-    "at": "2026-08-30T07:27:10.830Z",
+    "at": "2026-08-30T08:24:21.348Z",
     "type": "run.started",
     "mode": "replay",
     "capability": "corebank.member.open_sub_account",
@@ -17,7 +17,7 @@
   {
     "seq": 1,
     "runId": "run-semantic-role-denial-entitlement-failure-1",
-    "at": "2026-08-30T07:27:10.834Z",
+    "at": "2026-08-30T08:24:21.352Z",
     "type": "link.completed",
     "checksRun": 29,
     "errors": []
@@ -25,7 +25,7 @@
   {
     "seq": 2,
     "runId": "run-semantic-role-denial-entitlement-failure-1",
-    "at": "2026-08-30T07:27:10.834Z",
+    "at": "2026-08-30T08:24:21.352Z",
     "type": "session.opened",
     "sessionId": "corebank-fixture",
     "sessionProfile": "corebank-teller"
@@ -33,7 +33,7 @@
   {
     "seq": 3,
     "runId": "run-semantic-role-denial-entitlement-failure-1",
-    "at": "2026-08-30T07:27:10.834Z",
+    "at": "2026-08-30T08:24:21.352Z",
     "type": "lease.acquired",
     "holder": "automation",
     "actorId": "run:run-semantic-role-denial-entitlement-failure-1",
@@ -42,7 +42,7 @@
   {
     "seq": 4,
     "runId": "run-semantic-role-denial-entitlement-failure-1",
-    "at": "2026-08-30T07:27:10.834Z",
+    "at": "2026-08-30T08:24:21.352Z",
     "type": "step.entered",
     "stepId": "open-subaccount-form",
     "index": 0,
@@ -52,7 +52,7 @@
   {
     "seq": 5,
     "runId": "run-semantic-role-denial-entitlement-failure-1",
-    "at": "2026-08-30T07:27:10.834Z",
+    "at": "2026-08-30T08:24:21.352Z",
     "type": "budget.charged",
     "ledger": "observations",
     "used": 1,
@@ -61,7 +61,7 @@
   {
     "seq": 6,
     "runId": "run-semantic-role-denial-entitlement-failure-1",
-    "at": "2026-08-30T07:27:10.842Z",
+    "at": "2026-08-30T08:24:21.360Z",
     "type": "observed",
     "stepId": "open-subaccount-form",
     "obsSeq": 0,
@@ -73,7 +73,7 @@
   {
     "seq": 7,
     "runId": "run-semantic-role-denial-entitlement-failure-1",
-    "at": "2026-08-30T07:27:10.842Z",
+    "at": "2026-08-30T08:24:21.360Z",
     "type": "classified",
     "stepId": "open-subaccount-form",
     "phase": "pre",
@@ -86,7 +86,7 @@
   {
     "seq": 8,
     "runId": "run-semantic-role-denial-entitlement-failure-1",
-    "at": "2026-08-30T07:27:10.842Z",
+    "at": "2026-08-30T08:24:21.360Z",
     "type": "policy.decided",
     "decision": {
       "allow": true,
@@ -99,7 +99,7 @@
   {
     "seq": 9,
     "runId": "run-semantic-role-denial-entitlement-failure-1",
-    "at": "2026-08-30T07:27:10.842Z",
+    "at": "2026-08-30T08:24:21.360Z",
     "type": "budget.charged",
     "ledger": "actions",
     "used": 1,
@@ -108,7 +108,7 @@
   {
     "seq": 10,
     "runId": "run-semantic-role-denial-entitlement-failure-1",
-    "at": "2026-08-30T07:27:10.846Z",
+    "at": "2026-08-30T08:24:21.364Z",
     "type": "acted",
     "stepId": "open-subaccount-form",
     "actionKind": "navigate",
@@ -120,7 +120,7 @@
   {
     "seq": 11,
     "runId": "run-semantic-role-denial-entitlement-failure-1",
-    "at": "2026-08-30T07:27:10.846Z",
+    "at": "2026-08-30T08:24:21.364Z",
     "type": "budget.charged",
     "ledger": "observations",
     "used": 2,
@@ -129,7 +129,7 @@
   {
     "seq": 12,
     "runId": "run-semantic-role-denial-entitlement-failure-1",
-    "at": "2026-08-30T07:27:10.976Z",
+    "at": "2026-08-30T08:24:21.493Z",
     "type": "budget.charged",
     "ledger": "observations",
     "used": 3,
@@ -138,7 +138,7 @@
   {
     "seq": 13,
     "runId": "run-semantic-role-denial-entitlement-failure-1",
-    "at": "2026-08-30T07:27:11.108Z",
+    "at": "2026-08-30T08:24:21.626Z",
     "type": "budget.charged",
     "ledger": "observations",
     "used": 4,
@@ -147,17 +147,17 @@
   {
     "seq": 14,
     "runId": "run-semantic-role-denial-entitlement-failure-1",
-    "at": "2026-08-30T07:27:11.121Z",
+    "at": "2026-08-30T08:24:21.637Z",
     "type": "settled",
     "stepId": "open-subaccount-form",
     "polls": 3,
-    "elapsedMs": 276,
+    "elapsedMs": 273,
     "settled": true
   },
   {
     "seq": 15,
     "runId": "run-semantic-role-denial-entitlement-failure-1",
-    "at": "2026-08-30T07:27:11.121Z",
+    "at": "2026-08-30T08:24:21.637Z",
     "type": "observed",
     "stepId": "open-subaccount-form",
     "obsSeq": 3,
@@ -169,7 +169,7 @@
   {
     "seq": 16,
     "runId": "run-semantic-role-denial-entitlement-failure-1",
-    "at": "2026-08-30T07:27:11.122Z",
+    "at": "2026-08-30T08:24:21.638Z",
     "type": "classified",
     "stepId": "open-subaccount-form",
     "phase": "post",
@@ -182,7 +182,7 @@
   {
     "seq": 17,
     "runId": "run-semantic-role-denial-entitlement-failure-1",
-    "at": "2026-08-30T07:27:11.122Z",
+    "at": "2026-08-30T08:24:21.638Z",
     "type": "checkpoint",
     "stepId": "open-subaccount-form",
     "passed": true,
@@ -212,7 +212,7 @@
   {
     "seq": 18,
     "runId": "run-semantic-role-denial-entitlement-failure-1",
-    "at": "2026-08-30T07:27:11.123Z",
+    "at": "2026-08-30T08:24:21.639Z",
     "type": "step.entered",
     "stepId": "choose-subaccount-type",
     "index": 1,
@@ -222,7 +222,7 @@
   {
     "seq": 19,
     "runId": "run-semantic-role-denial-entitlement-failure-1",
-    "at": "2026-08-30T07:27:11.123Z",
+    "at": "2026-08-30T08:24:21.639Z",
     "type": "budget.charged",
     "ledger": "observations",
     "used": 5,
@@ -231,7 +231,7 @@
   {
     "seq": 20,
     "runId": "run-semantic-role-denial-entitlement-failure-1",
-    "at": "2026-08-30T07:27:11.133Z",
+    "at": "2026-08-30T08:24:21.649Z",
     "type": "observed",
     "stepId": "choose-subaccount-type",
     "obsSeq": 4,
@@ -243,7 +243,7 @@
   {
     "seq": 21,
     "runId": "run-semantic-role-denial-entitlement-failure-1",
-    "at": "2026-08-30T07:27:11.134Z",
+    "at": "2026-08-30T08:24:21.650Z",
     "type": "classified",
     "stepId": "choose-subaccount-type",
     "phase": "pre",
@@ -256,7 +256,7 @@
   {
     "seq": 22,
     "runId": "run-semantic-role-denial-entitlement-failure-1",
-    "at": "2026-08-30T07:27:11.134Z",
+    "at": "2026-08-30T08:24:21.650Z",
     "type": "resolved",
     "stepId": "choose-subaccount-type",
     "descriptors": [
@@ -281,7 +281,7 @@
   {
     "seq": 23,
     "runId": "run-semantic-role-denial-entitlement-failure-1",
-    "at": "2026-08-30T07:27:11.134Z",
+    "at": "2026-08-30T08:24:21.650Z",
     "type": "policy.decided",
     "decision": {
       "allow": true,
@@ -294,7 +294,7 @@
   {
     "seq": 24,
     "runId": "run-semantic-role-denial-entitlement-failure-1",
-    "at": "2026-08-30T07:27:11.134Z",
+    "at": "2026-08-30T08:24:21.650Z",
     "type": "budget.charged",
     "ledger": "actions",
     "used": 2,
@@ -303,7 +303,7 @@
   {
     "seq": 25,
     "runId": "run-semantic-role-denial-entitlement-failure-1",
-    "at": "2026-08-30T07:27:11.137Z",
+    "at": "2026-08-30T08:24:21.653Z",
     "type": "acted",
     "stepId": "choose-subaccount-type",
     "actionKind": "select",
@@ -315,7 +315,7 @@
   {
     "seq": 26,
     "runId": "run-semantic-role-denial-entitlement-failure-1",
-    "at": "2026-08-30T07:27:11.137Z",
+    "at": "2026-08-30T08:24:21.653Z",
     "type": "budget.charged",
     "ledger": "observations",
     "used": 6,
@@ -324,7 +324,7 @@
   {
     "seq": 27,
     "runId": "run-semantic-role-denial-entitlement-failure-1",
-    "at": "2026-08-30T07:27:11.268Z",
+    "at": "2026-08-30T08:24:21.782Z",
     "type": "budget.charged",
     "ledger": "observations",
     "used": 7,
@@ -333,7 +333,7 @@
   {
     "seq": 28,
     "runId": "run-semantic-role-denial-entitlement-failure-1",
-    "at": "2026-08-30T07:27:11.401Z",
+    "at": "2026-08-30T08:24:21.915Z",
     "type": "budget.charged",
     "ledger": "observations",
     "used": 8,
@@ -342,17 +342,17 @@
   {
     "seq": 29,
     "runId": "run-semantic-role-denial-entitlement-failure-1",
-    "at": "2026-08-30T07:27:11.412Z",
+    "at": "2026-08-30T08:24:21.931Z",
     "type": "settled",
     "stepId": "choose-subaccount-type",
     "polls": 3,
-    "elapsedMs": 274,
+    "elapsedMs": 278,
     "settled": true
   },
   {
     "seq": 30,
     "runId": "run-semantic-role-denial-entitlement-failure-1",
-    "at": "2026-08-30T07:27:11.412Z",
+    "at": "2026-08-30T08:24:21.931Z",
     "type": "observed",
     "stepId": "choose-subaccount-type",
     "obsSeq": 7,
@@ -364,7 +364,7 @@
   {
     "seq": 31,
     "runId": "run-semantic-role-denial-entitlement-failure-1",
-    "at": "2026-08-30T07:27:11.412Z",
+    "at": "2026-08-30T08:24:21.932Z",
     "type": "classified",
     "stepId": "choose-subaccount-type",
     "phase": "post",
@@ -377,7 +377,7 @@
   {
     "seq": 32,
     "runId": "run-semantic-role-denial-entitlement-failure-1",
-    "at": "2026-08-30T07:27:11.413Z",
+    "at": "2026-08-30T08:24:21.932Z",
     "type": "checkpoint",
     "stepId": "choose-subaccount-type",
     "passed": true,
@@ -398,7 +398,7 @@
   {
     "seq": 33,
     "runId": "run-semantic-role-denial-entitlement-failure-1",
-    "at": "2026-08-30T07:27:11.413Z",
+    "at": "2026-08-30T08:24:21.932Z",
     "type": "step.entered",
     "stepId": "enter-opening-deposit",
     "index": 2,
@@ -408,7 +408,7 @@
   {
     "seq": 34,
     "runId": "run-semantic-role-denial-entitlement-failure-1",
-    "at": "2026-08-30T07:27:11.413Z",
+    "at": "2026-08-30T08:24:21.932Z",
     "type": "budget.charged",
     "ledger": "observations",
     "used": 9,
@@ -417,7 +417,7 @@
   {
     "seq": 35,
     "runId": "run-semantic-role-denial-entitlement-failure-1",
-    "at": "2026-08-30T07:27:11.423Z",
+    "at": "2026-08-30T08:24:21.942Z",
     "type": "observed",
     "stepId": "enter-opening-deposit",
     "obsSeq": 8,
@@ -429,7 +429,7 @@
   {
     "seq": 36,
     "runId": "run-semantic-role-denial-entitlement-failure-1",
-    "at": "2026-08-30T07:27:11.423Z",
+    "at": "2026-08-30T08:24:21.942Z",
     "type": "classified",
     "stepId": "enter-opening-deposit",
     "phase": "pre",
@@ -442,7 +442,7 @@
   {
     "seq": 37,
     "runId": "run-semantic-role-denial-entitlement-failure-1",
-    "at": "2026-08-30T07:27:11.424Z",
+    "at": "2026-08-30T08:24:21.942Z",
     "type": "resolved",
     "stepId": "enter-opening-deposit",
     "descriptors": [
@@ -467,7 +467,7 @@
   {
     "seq": 38,
     "runId": "run-semantic-role-denial-entitlement-failure-1",
-    "at": "2026-08-30T07:27:11.424Z",
+    "at": "2026-08-30T08:24:21.942Z",
     "type": "policy.decided",
     "decision": {
       "allow": true,
@@ -480,7 +480,7 @@
   {
     "seq": 39,
     "runId": "run-semantic-role-denial-entitlement-failure-1",
-    "at": "2026-08-30T07:27:11.424Z",
+    "at": "2026-08-30T08:24:21.942Z",
     "type": "budget.charged",
     "ledger": "actions",
     "used": 3,
@@ -489,7 +489,7 @@
   {
     "seq": 40,
     "runId": "run-semantic-role-denial-entitlement-failure-1",
-    "at": "2026-08-30T07:27:11.439Z",
+    "at": "2026-08-30T08:24:21.958Z",
     "type": "acted",
     "stepId": "enter-opening-deposit",
     "actionKind": "type",
@@ -501,7 +501,7 @@
   {
     "seq": 41,
     "runId": "run-semantic-role-denial-entitlement-failure-1",
-    "at": "2026-08-30T07:27:11.439Z",
+    "at": "2026-08-30T08:24:21.958Z",
     "type": "budget.charged",
     "ledger": "observations",
     "used": 10,
@@ -510,7 +510,7 @@
   {
     "seq": 42,
     "runId": "run-semantic-role-denial-entitlement-failure-1",
-    "at": "2026-08-30T07:27:11.569Z",
+    "at": "2026-08-30T08:24:22.088Z",
     "type": "budget.charged",
     "ledger": "observations",
     "used": 11,
@@ -519,7 +519,7 @@
   {
     "seq": 43,
     "runId": "run-semantic-role-denial-entitlement-failure-1",
-    "at": "2026-08-30T07:27:11.702Z",
+    "at": "2026-08-30T08:24:22.222Z",
     "type": "budget.charged",
     "ledger": "observations",
     "used": 12,
@@ -528,17 +528,17 @@
   {
     "seq": 44,
     "runId": "run-semantic-role-denial-entitlement-failure-1",
-    "at": "2026-08-30T07:27:11.719Z",
+    "at": "2026-08-30T08:24:22.238Z",
     "type": "settled",
     "stepId": "enter-opening-deposit",
     "polls": 3,
-    "elapsedMs": 281,
+    "elapsedMs": 280,
     "settled": true
   },
   {
     "seq": 45,
     "runId": "run-semantic-role-denial-entitlement-failure-1",
-    "at": "2026-08-30T07:27:11.719Z",
+    "at": "2026-08-30T08:24:22.238Z",
     "type": "observed",
     "stepId": "enter-opening-deposit",
     "obsSeq": 11,
@@ -550,7 +550,7 @@
   {
     "seq": 46,
     "runId": "run-semantic-role-denial-entitlement-failure-1",
-    "at": "2026-08-30T07:27:11.720Z",
+    "at": "2026-08-30T08:24:22.239Z",
     "type": "classified",
     "stepId": "enter-opening-deposit",
     "phase": "post",
@@ -563,7 +563,7 @@
   {
     "seq": 47,
     "runId": "run-semantic-role-denial-entitlement-failure-1",
-    "at": "2026-08-30T07:27:11.720Z",
+    "at": "2026-08-30T08:24:22.239Z",
     "type": "checkpoint",
     "stepId": "enter-opening-deposit",
     "passed": true,
@@ -584,7 +584,7 @@
   {
     "seq": 48,
     "runId": "run-semantic-role-denial-entitlement-failure-1",
-    "at": "2026-08-30T07:27:11.720Z",
+    "at": "2026-08-30T08:24:22.239Z",
     "type": "step.entered",
     "stepId": "submit-subaccount-form",
     "index": 3,
@@ -594,7 +594,7 @@
   {
     "seq": 49,
     "runId": "run-semantic-role-denial-entitlement-failure-1",
-    "at": "2026-08-30T07:27:11.720Z",
+    "at": "2026-08-30T08:24:22.239Z",
     "type": "budget.charged",
     "ledger": "observations",
     "used": 13,
@@ -603,7 +603,7 @@
   {
     "seq": 50,
     "runId": "run-semantic-role-denial-entitlement-failure-1",
-    "at": "2026-08-30T07:27:11.730Z",
+    "at": "2026-08-30T08:24:22.248Z",
     "type": "observed",
     "stepId": "submit-subaccount-form",
     "obsSeq": 12,
@@ -615,7 +615,7 @@
   {
     "seq": 51,
     "runId": "run-semantic-role-denial-entitlement-failure-1",
-    "at": "2026-08-30T07:27:11.730Z",
+    "at": "2026-08-30T08:24:22.248Z",
     "type": "classified",
     "stepId": "submit-subaccount-form",
     "phase": "pre",
@@ -628,7 +628,7 @@
   {
     "seq": 52,
     "runId": "run-semantic-role-denial-entitlement-failure-1",
-    "at": "2026-08-30T07:27:11.730Z",
+    "at": "2026-08-30T08:24:22.248Z",
     "type": "resolved",
     "stepId": "submit-subaccount-form",
     "descriptors": [
@@ -653,7 +653,7 @@
   {
     "seq": 53,
     "runId": "run-semantic-role-denial-entitlement-failure-1",
-    "at": "2026-08-30T07:27:11.730Z",
+    "at": "2026-08-30T08:24:22.248Z",
     "type": "policy.decided",
     "decision": {
       "allow": true,
@@ -666,7 +666,7 @@
   {
     "seq": 54,
     "runId": "run-semantic-role-denial-entitlement-failure-1",
-    "at": "2026-08-30T07:27:11.730Z",
+    "at": "2026-08-30T08:24:22.248Z",
     "type": "budget.charged",
     "ledger": "actions",
     "used": 4,
@@ -675,7 +675,7 @@
   {
     "seq": 55,
     "runId": "run-semantic-role-denial-entitlement-failure-1",
-    "at": "2026-08-30T07:27:11.732Z",
+    "at": "2026-08-30T08:24:22.250Z",
     "type": "acted",
     "stepId": "submit-subaccount-form",
     "actionKind": "click",
@@ -687,7 +687,7 @@
   {
     "seq": 56,
     "runId": "run-semantic-role-denial-entitlement-failure-1",
-    "at": "2026-08-30T07:27:11.732Z",
+    "at": "2026-08-30T08:24:22.250Z",
     "type": "budget.charged",
     "ledger": "observations",
     "used": 14,
@@ -696,7 +696,7 @@
   {
     "seq": 57,
     "runId": "run-semantic-role-denial-entitlement-failure-1",
-    "at": "2026-08-30T07:27:11.868Z",
+    "at": "2026-08-30T08:24:22.387Z",
     "type": "budget.charged",
     "ledger": "observations",
     "used": 15,
@@ -705,7 +705,7 @@
   {
     "seq": 58,
     "runId": "run-semantic-role-denial-entitlement-failure-1",
-    "at": "2026-08-30T07:27:12.002Z",
+    "at": "2026-08-30T08:24:22.522Z",
     "type": "budget.charged",
     "ledger": "observations",
     "used": 16,
@@ -714,17 +714,17 @@
   {
     "seq": 59,
     "runId": "run-semantic-role-denial-entitlement-failure-1",
-    "at": "2026-08-30T07:27:12.014Z",
+    "at": "2026-08-30T08:24:22.537Z",
     "type": "settled",
     "stepId": "submit-subaccount-form",
     "polls": 3,
-    "elapsedMs": 283,
+    "elapsedMs": 286,
     "settled": true
   },
   {
     "seq": 60,
     "runId": "run-semantic-role-denial-entitlement-failure-1",
-    "at": "2026-08-30T07:27:12.014Z",
+    "at": "2026-08-30T08:24:22.537Z",
     "type": "observed",
     "stepId": "submit-subaccount-form",
     "obsSeq": 15,
@@ -736,7 +736,7 @@
   {
     "seq": 61,
     "runId": "run-semantic-role-denial-entitlement-failure-1",
-    "at": "2026-08-30T07:27:12.015Z",
+    "at": "2026-08-30T08:24:22.538Z",
     "type": "classified",
     "stepId": "submit-subaccount-form",
     "phase": "post",
@@ -749,7 +749,7 @@
   {
     "seq": 62,
     "runId": "run-semantic-role-denial-entitlement-failure-1",
-    "at": "2026-08-30T07:27:12.015Z",
+    "at": "2026-08-30T08:24:22.538Z",
     "type": "checkpoint",
     "stepId": "submit-subaccount-form",
     "passed": true,
@@ -774,7 +774,7 @@
   {
     "seq": 63,
     "runId": "run-semantic-role-denial-entitlement-failure-1",
-    "at": "2026-08-30T07:27:12.019Z",
+    "at": "2026-08-30T08:24:22.542Z",
     "type": "evidence.captured",
     "ref": "obs:a82e72b332305bd8e46d3f36cdee690ddb6e6f1e7703bc9e8bc28a212ed56b5c",
     "kind": "observation",
@@ -785,7 +785,7 @@
   {
     "seq": 64,
     "runId": "run-semantic-role-denial-entitlement-failure-1",
-    "at": "2026-08-30T07:27:12.019Z",
+    "at": "2026-08-30T08:24:22.542Z",
     "type": "step.entered",
     "stepId": "commit-subaccount",
     "index": 4,
@@ -795,7 +795,7 @@
   {
     "seq": 65,
     "runId": "run-semantic-role-denial-entitlement-failure-1",
-    "at": "2026-08-30T07:27:12.019Z",
+    "at": "2026-08-30T08:24:22.542Z",
     "type": "budget.charged",
     "ledger": "observations",
     "used": 17,
@@ -804,7 +804,7 @@
   {
     "seq": 66,
     "runId": "run-semantic-role-denial-entitlement-failure-1",
-    "at": "2026-08-30T07:27:12.029Z",
+    "at": "2026-08-30T08:24:22.553Z",
     "type": "observed",
     "stepId": "commit-subaccount",
     "obsSeq": 16,
@@ -816,7 +816,7 @@
   {
     "seq": 67,
     "runId": "run-semantic-role-denial-entitlement-failure-1",
-    "at": "2026-08-30T07:27:12.030Z",
+    "at": "2026-08-30T08:24:22.553Z",
     "type": "classified",
     "stepId": "commit-subaccount",
     "phase": "pre",
@@ -829,7 +829,7 @@
   {
     "seq": 68,
     "runId": "run-semantic-role-denial-entitlement-failure-1",
-    "at": "2026-08-30T07:27:12.030Z",
+    "at": "2026-08-30T08:24:22.554Z",
     "type": "resolved",
     "stepId": "commit-subaccount",
     "descriptors": [
@@ -854,7 +854,7 @@
   {
     "seq": 69,
     "runId": "run-semantic-role-denial-entitlement-failure-1",
-    "at": "2026-08-30T07:27:12.030Z",
+    "at": "2026-08-30T08:24:22.554Z",
     "type": "approval.accepted",
     "approvalId": "approval-semantic-role-denial-entitlement-failure",
     "subject": "invocation",
@@ -869,7 +869,7 @@
   {
     "seq": 70,
     "runId": "run-semantic-role-denial-entitlement-failure-1",
-    "at": "2026-08-30T07:27:12.030Z",
+    "at": "2026-08-30T08:24:22.554Z",
     "type": "policy.decided",
     "decision": {
       "allow": true,
@@ -882,7 +882,7 @@
   {
     "seq": 71,
     "runId": "run-semantic-role-denial-entitlement-failure-1",
-    "at": "2026-08-30T07:27:12.030Z",
+    "at": "2026-08-30T08:24:22.554Z",
     "type": "budget.charged",
     "ledger": "actions",
     "used": 5,
@@ -891,7 +891,7 @@
   {
     "seq": 72,
     "runId": "run-semantic-role-denial-entitlement-failure-1",
-    "at": "2026-08-30T07:27:12.032Z",
+    "at": "2026-08-30T08:24:22.556Z",
     "type": "acted",
     "stepId": "commit-subaccount",
     "actionKind": "click",
@@ -903,7 +903,7 @@
   {
     "seq": 73,
     "runId": "run-semantic-role-denial-entitlement-failure-1",
-    "at": "2026-08-30T07:27:12.032Z",
+    "at": "2026-08-30T08:24:22.556Z",
     "type": "budget.charged",
     "ledger": "observations",
     "used": 18,
@@ -912,7 +912,7 @@
   {
     "seq": 74,
     "runId": "run-semantic-role-denial-entitlement-failure-1",
-    "at": "2026-08-30T07:27:12.162Z",
+    "at": "2026-08-30T08:24:22.688Z",
     "type": "budget.charged",
     "ledger": "observations",
     "used": 19,
@@ -921,7 +921,7 @@
   {
     "seq": 75,
     "runId": "run-semantic-role-denial-entitlement-failure-1",
-    "at": "2026-08-30T07:27:12.294Z",
+    "at": "2026-08-30T08:24:22.818Z",
     "type": "budget.charged",
     "ledger": "observations",
     "used": 20,
@@ -930,17 +930,17 @@
   {
     "seq": 76,
     "runId": "run-semantic-role-denial-entitlement-failure-1",
-    "at": "2026-08-30T07:27:12.302Z",
+    "at": "2026-08-30T08:24:22.834Z",
     "type": "settled",
     "stepId": "commit-subaccount",
     "polls": 3,
-    "elapsedMs": 270,
+    "elapsedMs": 279,
     "settled": true
   },
   {
     "seq": 77,
     "runId": "run-semantic-role-denial-entitlement-failure-1",
-    "at": "2026-08-30T07:27:12.302Z",
+    "at": "2026-08-30T08:24:22.834Z",
     "type": "observed",
     "stepId": "commit-subaccount",
     "obsSeq": 19,
@@ -952,7 +952,7 @@
   {
     "seq": 78,
     "runId": "run-semantic-role-denial-entitlement-failure-1",
-    "at": "2026-08-30T07:27:12.302Z",
+    "at": "2026-08-30T08:24:22.835Z",
     "type": "classified",
     "stepId": "commit-subaccount",
     "phase": "post",
@@ -1022,7 +1022,7 @@
   {
     "seq": 79,
     "runId": "run-semantic-role-denial-entitlement-failure-1",
-    "at": "2026-08-30T07:27:12.306Z",
+    "at": "2026-08-30T08:24:22.840Z",
     "type": "evidence.captured",
     "ref": "obs:5d7041a7dc23e311706ab4a149ae83fa8fb11bf00077ca85c34d5487764873fe",
     "kind": "observation",
@@ -1033,7 +1033,7 @@
   {
     "seq": 80,
     "runId": "run-semantic-role-denial-entitlement-failure-1",
-    "at": "2026-08-30T07:27:12.306Z",
+    "at": "2026-08-30T08:24:22.840Z",
     "type": "run.finished",
     "status": "failed",
     "failureClass": "entitlement-denied"

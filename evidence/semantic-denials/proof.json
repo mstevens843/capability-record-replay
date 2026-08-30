@@ -5,7 +5,7 @@
     "proverVersion": "crr-prover/1",
     "positives": [
       {
-        "observation": "sha256:ea196a2a74098ea27a9a15fe57eda80e93261e0abdd950a95436cd56ec22da09",
+        "observation": "sha256:927ac5f6b5b3d03931d20dcfe32ee1e4b78d5845460e934e2ced1c0514891257",
         "atStep": "commit-subaccount",
         "outcome": "fires"
       }
@@ -27,7 +27,7 @@
     "proverVersion": "crr-prover/1",
     "positives": [
       {
-        "observation": "sha256:ea196a2a74098ea27a9a15fe57eda80e93261e0abdd950a95436cd56ec22da09",
+        "observation": "sha256:927ac5f6b5b3d03931d20dcfe32ee1e4b78d5845460e934e2ced1c0514891257",
         "atStep": "commit-subaccount",
         "outcome": "fires"
       }

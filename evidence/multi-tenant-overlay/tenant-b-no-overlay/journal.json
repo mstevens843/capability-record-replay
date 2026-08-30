@@ -1,0 +1,49 @@
+[
+  {
+    "seq": 0,
+    "runId": "run-overlay-tenant-b-no-overlay-1",
+    "at": "2026-08-30T08:24:27.581Z",
+    "type": "run.started",
+    "mode": "replay",
+    "capability": "corebank.member.read_share_position",
+    "artifactDigest": "sha256:2e45d5f8b847027d8a5fda4d2e54943f70e9abba07fde8106775ac7cc34dab63",
+    "effectiveDigest": "sha256:2e45d5f8b847027d8a5fda4d2e54943f70e9abba07fde8106775ac7cc34dab63",
+    "tenantId": "summit",
+    "argsShape": {
+      "memberId": "digits(5)"
+    }
+  },
+  {
+    "seq": 1,
+    "runId": "run-overlay-tenant-b-no-overlay-1",
+    "at": "2026-08-30T08:24:27.587Z",
+    "type": "link.completed",
+    "checksRun": 29,
+    "errors": [
+      {
+        "check": 26,
+        "code": "route-not-in-allowlist",
+        "message": "the caller's allowlist has no entry covering corebank/search, and this program can navigate there",
+        "where": "flow.routes"
+      },
+      {
+        "check": 26,
+        "code": "route-not-in-allowlist",
+        "message": "the caller's allowlist has no entry covering corebank/search/results, and this program can navigate there",
+        "where": "flow.routes"
+      },
+      {
+        "check": 26,
+        "code": "route-not-in-allowlist",
+        "message": "the caller's allowlist has no entry covering corebank/member/:memberId, and this program can navigate there",
+        "where": "flow.routes"
+      },
+      {
+        "check": 26,
+        "code": "route-not-in-allowlist",
+        "message": "the caller's allowlist has no entry covering corebank/member/:memberId/subaccount/new, and this program can navigate there",
+        "where": "flow.routes"
+      }
+    ]
+  }
+]

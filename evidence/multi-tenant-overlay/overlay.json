@@ -1,0 +1,75 @@
+{
+  "schemaVersion": "capability.overlay/v1",
+  "appliesTo": {
+    "artifactId": "corebank-member-share-position-web",
+    "version": {
+      "min": 1
+    }
+  },
+  "tenantId": "summit",
+  "appInstanceId": "summit-corebank-fixture",
+  "originAliases": {
+    "corebank": "http://127.0.0.1:49648"
+  },
+  "routeBasePath": {
+    "member-search": "/cb",
+    "member-results": "/cb",
+    "member-detail": "/cb",
+    "subaccount-new": "/cb"
+  },
+  "vocabulary": {
+    "member-id-label": [
+      "Member Number"
+    ],
+    "search-button": [
+      "Find"
+    ],
+    "member-column": [
+      "Member Number"
+    ],
+    "name-column": [
+      "Member Name"
+    ],
+    "balance-column": [
+      "Savings Balance"
+    ],
+    "status-column": [
+      "Acct Status"
+    ],
+    "action-column": [
+      "Select"
+    ],
+    "subaccount-list-heading": [
+      "Savings Accounts"
+    ],
+    "subaccount-product-column": [
+      "Savings Account"
+    ],
+    "open-subaccount-button": [
+      "Add Sub-Account"
+    ],
+    "subaccount-type-label": [
+      "Account Type"
+    ],
+    "initial-deposit-label": [
+      "Opening Deposit"
+    ]
+  },
+  "stripTokens": [
+    "Summit Community Bank",
+    "Summit"
+  ],
+  "steps": {
+    "submit-search": {
+      "settle": {
+        "maxWaitMs": 15000
+      }
+    },
+    "open-member-record": {
+      "settle": {
+        "maxWaitMs": 15000
+      }
+    }
+  },
+  "digest": "sha256:b02aec8a82f40688924e38403b5c7a6b362efdaf10b2fbd882434201dd4b5980"
+}

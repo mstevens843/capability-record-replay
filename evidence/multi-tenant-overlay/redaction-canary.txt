@@ -1,0 +1,10 @@
+REDACTION CANARY  CLEAN
+  bundle        /Users/devlegacy/Desktop/projects/ai-gap-coverage-projects/capability-record-replay/evidence/multi-tenant-overlay
+  scanned       14 files, 186431 bytes
+  searched for  1 value(s) x 14 encodings = 7 distinct needles
+  self-test     PASSED - 7/7 planted needles were found
+  not searched  OVERLAY_MEMBER_ID / base64 - no needle of at least 6 characters
+  not searched  OVERLAY_MEMBER_ID / base64url - no needle of at least 6 characters
+  hits          0
+  suppressed    0 (inside a digest-shaped hex run)
+  credentials   0

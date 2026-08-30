@@ -1,0 +1,80 @@
+{
+  "id": "itv-handoff-refused-1",
+  "runId": "run-handoff-refused-1",
+  "sessionId": "static-session",
+  "reason": "recovery-exhausted",
+  "raisedAt": "2026-02-11T14:00:00.100Z",
+  "expiresAt": "2026-02-11T14:10:00.100Z",
+  "state": "open",
+  "brief": {
+    "capabilityTitle": "Find a member (supervisor hold possible)",
+    "goalTemplate": "find member {memberId}",
+    "stepIndex": 2,
+    "stepTitle": "Run the search",
+    "whatWasExpected": {
+      "rendered": "the surface has settled and the surface is on route results and a link inside frame exactly \"content\", inside the form is present",
+      "clauses": [
+        {
+          "rendered": "the surface has settled",
+          "verdict": true
+        },
+        {
+          "rendered": "the surface is on route results",
+          "verdict": false
+        },
+        {
+          "rendered": "a link inside frame exactly \"content\", inside the form is present",
+          "verdict": true,
+          "nodeSummary": "matched the link named \"Main Menu\""
+        }
+      ]
+    },
+    "whatWasObserved": {
+      "route": {
+        "originAlias": "corebank",
+        "path": "/search",
+        "query": {},
+        "frame": "content"
+      },
+      "settled": true,
+      "pendingReason": null,
+      "skeletonDigest": "sha256:8273d1a8ccb2903148293796c86a282d9e69a3026d1c5ac0a7b88241636e532d",
+      "nodeCount": 5,
+      "nativeDialog": null,
+      "inputIntercepted": false,
+      "salient": [
+        {
+          "role": "button",
+          "name": "Search",
+          "disabled": false,
+          "visible": true
+        },
+        {
+          "role": "status",
+          "name": "",
+          "disabled": false,
+          "visible": true
+        },
+        {
+          "role": "button",
+          "name": "Authorize",
+          "disabled": false,
+          "visible": true
+        },
+        {
+          "role": "link",
+          "name": "Main Menu",
+          "disabled": false,
+          "visible": true
+        }
+      ],
+      "redactionsApplied": 0
+    },
+    "evidence": "obs:ed978cf474d52c93c9081b3a4ef94924837a7257e4022e20a4068ff31053dcad",
+    "whyStopped": "A declared recovery for this condition gave up, and it is declared to escalate rather than retry. the core has placed a manual review hold on this member",
+    "suggestedAction": "Clear the condition by hand, then hand back - or abort if the flow cannot continue."
+  },
+  "resumeToken": "lease-handoff-refused-3",
+  "consoleUrl": "crr://intervention/interventions/itv-handoff-refused-1",
+  "resolution": null
+}

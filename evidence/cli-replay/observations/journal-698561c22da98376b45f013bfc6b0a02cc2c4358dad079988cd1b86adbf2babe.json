@@ -1,8 +1,8 @@
 [
   {
     "seq": 0,
-    "runId": "run-0492cd8f-2b95-43fa-8737-456338c4871a",
-    "at": "2026-08-30T07:27:49.095Z",
+    "runId": "run-5916e59d-2448-4b45-87c5-316956b70b31",
+    "at": "2026-08-30T08:25:09.631Z",
     "type": "run.started",
     "mode": "replay",
     "capability": "corebank.member.read_share_position",
@@ -15,33 +15,33 @@
   },
   {
     "seq": 1,
-    "runId": "run-0492cd8f-2b95-43fa-8737-456338c4871a",
-    "at": "2026-08-30T07:27:49.109Z",
+    "runId": "run-5916e59d-2448-4b45-87c5-316956b70b31",
+    "at": "2026-08-30T08:25:09.655Z",
     "type": "link.completed",
     "checksRun": 29,
     "errors": []
   },
   {
     "seq": 2,
-    "runId": "run-0492cd8f-2b95-43fa-8737-456338c4871a",
-    "at": "2026-08-30T07:27:49.109Z",
+    "runId": "run-5916e59d-2448-4b45-87c5-316956b70b31",
+    "at": "2026-08-30T08:25:09.655Z",
     "type": "session.opened",
-    "sessionId": "corebank-demo",
+    "sessionId": "static-session",
     "sessionProfile": "corebank-teller"
   },
   {
     "seq": 3,
-    "runId": "run-0492cd8f-2b95-43fa-8737-456338c4871a",
-    "at": "2026-08-30T07:27:49.110Z",
+    "runId": "run-5916e59d-2448-4b45-87c5-316956b70b31",
+    "at": "2026-08-30T08:25:09.656Z",
     "type": "lease.acquired",
     "holder": "automation",
-    "actorId": "run:run-0492cd8f-2b95-43fa-8737-456338c4871a",
+    "actorId": "run:run-5916e59d-2448-4b45-87c5-316956b70b31",
     "epoch": 1
   },
   {
     "seq": 4,
-    "runId": "run-0492cd8f-2b95-43fa-8737-456338c4871a",
-    "at": "2026-08-30T07:27:49.110Z",
+    "runId": "run-5916e59d-2448-4b45-87c5-316956b70b31",
+    "at": "2026-08-30T08:25:09.656Z",
     "type": "step.entered",
     "stepId": "open-search",
     "index": 0,
@@ -50,8 +50,8 @@
   },
   {
     "seq": 5,
-    "runId": "run-0492cd8f-2b95-43fa-8737-456338c4871a",
-    "at": "2026-08-30T07:27:49.110Z",
+    "runId": "run-5916e59d-2448-4b45-87c5-316956b70b31",
+    "at": "2026-08-30T08:25:09.656Z",
     "type": "budget.charged",
     "ledger": "observations",
     "used": 1,
@@ -59,8 +59,8 @@
   },
   {
     "seq": 6,
-    "runId": "run-0492cd8f-2b95-43fa-8737-456338c4871a",
-    "at": "2026-08-30T07:27:49.124Z",
+    "runId": "run-5916e59d-2448-4b45-87c5-316956b70b31",
+    "at": "2026-08-30T08:25:09.668Z",
     "type": "observed",
     "stepId": "open-search",
     "obsSeq": 0,
@@ -71,8 +71,8 @@
   },
   {
     "seq": 7,
-    "runId": "run-0492cd8f-2b95-43fa-8737-456338c4871a",
-    "at": "2026-08-30T07:27:49.125Z",
+    "runId": "run-5916e59d-2448-4b45-87c5-316956b70b31",
+    "at": "2026-08-30T08:25:09.669Z",
     "type": "classified",
     "stepId": "open-search",
     "phase": "pre",
@@ -84,8 +84,8 @@
   },
   {
     "seq": 8,
-    "runId": "run-0492cd8f-2b95-43fa-8737-456338c4871a",
-    "at": "2026-08-30T07:27:49.126Z",
+    "runId": "run-5916e59d-2448-4b45-87c5-316956b70b31",
+    "at": "2026-08-30T08:25:09.670Z",
     "type": "policy.decided",
     "decision": {
       "allow": true,
@@ -97,8 +97,8 @@
   },
   {
     "seq": 9,
-    "runId": "run-0492cd8f-2b95-43fa-8737-456338c4871a",
-    "at": "2026-08-30T07:27:49.126Z",
+    "runId": "run-5916e59d-2448-4b45-87c5-316956b70b31",
+    "at": "2026-08-30T08:25:09.670Z",
     "type": "budget.charged",
     "ledger": "actions",
     "used": 1,
@@ -106,8 +106,8 @@
   },
   {
     "seq": 10,
-    "runId": "run-0492cd8f-2b95-43fa-8737-456338c4871a",
-    "at": "2026-08-30T07:27:49.130Z",
+    "runId": "run-5916e59d-2448-4b45-87c5-316956b70b31",
+    "at": "2026-08-30T08:25:09.674Z",
     "type": "acted",
     "stepId": "open-search",
     "actionKind": "navigate",
@@ -118,8 +118,8 @@
   },
   {
     "seq": 11,
-    "runId": "run-0492cd8f-2b95-43fa-8737-456338c4871a",
-    "at": "2026-08-30T07:27:49.130Z",
+    "runId": "run-5916e59d-2448-4b45-87c5-316956b70b31",
+    "at": "2026-08-30T08:25:09.675Z",
     "type": "budget.charged",
     "ledger": "observations",
     "used": 2,
@@ -127,8 +127,8 @@
   },
   {
     "seq": 12,
-    "runId": "run-0492cd8f-2b95-43fa-8737-456338c4871a",
-    "at": "2026-08-30T07:27:49.260Z",
+    "runId": "run-5916e59d-2448-4b45-87c5-316956b70b31",
+    "at": "2026-08-30T08:25:09.803Z",
     "type": "budget.charged",
     "ledger": "observations",
     "used": 3,
@@ -136,18 +136,18 @@
   },
   {
     "seq": 13,
-    "runId": "run-0492cd8f-2b95-43fa-8737-456338c4871a",
-    "at": "2026-08-30T07:27:49.267Z",
+    "runId": "run-5916e59d-2448-4b45-87c5-316956b70b31",
+    "at": "2026-08-30T08:25:09.810Z",
     "type": "settled",
     "stepId": "open-search",
     "polls": 2,
-    "elapsedMs": 137,
+    "elapsedMs": 135,
     "settled": true
   },
   {
     "seq": 14,
-    "runId": "run-0492cd8f-2b95-43fa-8737-456338c4871a",
-    "at": "2026-08-30T07:27:49.268Z",
+    "runId": "run-5916e59d-2448-4b45-87c5-316956b70b31",
+    "at": "2026-08-30T08:25:09.810Z",
     "type": "observed",
     "stepId": "open-search",
     "obsSeq": 2,
@@ -158,8 +158,8 @@
   },
   {
     "seq": 15,
-    "runId": "run-0492cd8f-2b95-43fa-8737-456338c4871a",
-    "at": "2026-08-30T07:27:49.268Z",
+    "runId": "run-5916e59d-2448-4b45-87c5-316956b70b31",
+    "at": "2026-08-30T08:25:09.811Z",
     "type": "classified",
     "stepId": "open-search",
     "phase": "post",
@@ -171,8 +171,8 @@
   },
   {
     "seq": 16,
-    "runId": "run-0492cd8f-2b95-43fa-8737-456338c4871a",
-    "at": "2026-08-30T07:27:49.269Z",
+    "runId": "run-5916e59d-2448-4b45-87c5-316956b70b31",
+    "at": "2026-08-30T08:25:09.812Z",
     "type": "checkpoint",
     "stepId": "open-search",
     "passed": true,
@@ -197,8 +197,8 @@
   },
   {
     "seq": 17,
-    "runId": "run-0492cd8f-2b95-43fa-8737-456338c4871a",
-    "at": "2026-08-30T07:27:49.269Z",
+    "runId": "run-5916e59d-2448-4b45-87c5-316956b70b31",
+    "at": "2026-08-30T08:25:09.812Z",
     "type": "step.entered",
     "stepId": "enter-member-id",
     "index": 1,
@@ -207,8 +207,8 @@
   },
   {
     "seq": 18,
-    "runId": "run-0492cd8f-2b95-43fa-8737-456338c4871a",
-    "at": "2026-08-30T07:27:49.269Z",
+    "runId": "run-5916e59d-2448-4b45-87c5-316956b70b31",
+    "at": "2026-08-30T08:25:09.812Z",
     "type": "budget.charged",
     "ledger": "observations",
     "used": 4,
@@ -216,8 +216,8 @@
   },
   {
     "seq": 19,
-    "runId": "run-0492cd8f-2b95-43fa-8737-456338c4871a",
-    "at": "2026-08-30T07:27:49.277Z",
+    "runId": "run-5916e59d-2448-4b45-87c5-316956b70b31",
+    "at": "2026-08-30T08:25:09.819Z",
     "type": "observed",
     "stepId": "enter-member-id",
     "obsSeq": 3,
@@ -228,8 +228,8 @@
   },
   {
     "seq": 20,
-    "runId": "run-0492cd8f-2b95-43fa-8737-456338c4871a",
-    "at": "2026-08-30T07:27:49.278Z",
+    "runId": "run-5916e59d-2448-4b45-87c5-316956b70b31",
+    "at": "2026-08-30T08:25:09.820Z",
     "type": "classified",
     "stepId": "enter-member-id",
     "phase": "pre",
@@ -241,8 +241,8 @@
   },
   {
     "seq": 21,
-    "runId": "run-0492cd8f-2b95-43fa-8737-456338c4871a",
-    "at": "2026-08-30T07:27:49.279Z",
+    "runId": "run-5916e59d-2448-4b45-87c5-316956b70b31",
+    "at": "2026-08-30T08:25:09.821Z",
     "type": "resolved",
     "stepId": "enter-member-id",
     "descriptors": [
@@ -251,14 +251,14 @@
         "kind": "label-anchored",
         "evidenceSource": "labelText",
         "verdict": "resolved",
-        "nodeId": "textbox:f3-158"
+        "nodeId": "textbox:f3-161"
       },
       {
         "id": "member-id-first-in-form",
         "kind": "ordinal-in-container",
         "evidenceSource": "ordinal",
         "verdict": "resolved",
-        "nodeId": "textbox:f3-158"
+        "nodeId": "textbox:f3-161"
       }
     ],
     "agreed": true,
@@ -266,8 +266,8 @@
   },
   {
     "seq": 22,
-    "runId": "run-0492cd8f-2b95-43fa-8737-456338c4871a",
-    "at": "2026-08-30T07:27:49.279Z",
+    "runId": "run-5916e59d-2448-4b45-87c5-316956b70b31",
+    "at": "2026-08-30T08:25:09.821Z",
     "type": "policy.decided",
     "decision": {
       "allow": true,
@@ -279,8 +279,8 @@
   },
   {
     "seq": 23,
-    "runId": "run-0492cd8f-2b95-43fa-8737-456338c4871a",
-    "at": "2026-08-30T07:27:49.279Z",
+    "runId": "run-5916e59d-2448-4b45-87c5-316956b70b31",
+    "at": "2026-08-30T08:25:09.821Z",
     "type": "budget.charged",
     "ledger": "actions",
     "used": 2,
@@ -288,8 +288,8 @@
   },
   {
     "seq": 24,
-    "runId": "run-0492cd8f-2b95-43fa-8737-456338c4871a",
-    "at": "2026-08-30T07:27:49.292Z",
+    "runId": "run-5916e59d-2448-4b45-87c5-316956b70b31",
+    "at": "2026-08-30T08:25:09.835Z",
     "type": "acted",
     "stepId": "enter-member-id",
     "actionKind": "type",
@@ -300,8 +300,8 @@
   },
   {
     "seq": 25,
-    "runId": "run-0492cd8f-2b95-43fa-8737-456338c4871a",
-    "at": "2026-08-30T07:27:49.292Z",
+    "runId": "run-5916e59d-2448-4b45-87c5-316956b70b31",
+    "at": "2026-08-30T08:25:09.836Z",
     "type": "budget.charged",
     "ledger": "observations",
     "used": 5,
@@ -309,8 +309,8 @@
   },
   {
     "seq": 26,
-    "runId": "run-0492cd8f-2b95-43fa-8737-456338c4871a",
-    "at": "2026-08-30T07:27:49.421Z",
+    "runId": "run-5916e59d-2448-4b45-87c5-316956b70b31",
+    "at": "2026-08-30T08:25:09.963Z",
     "type": "budget.charged",
     "ledger": "observations",
     "used": 6,
@@ -318,18 +318,18 @@
   },
   {
     "seq": 27,
-    "runId": "run-0492cd8f-2b95-43fa-8737-456338c4871a",
-    "at": "2026-08-30T07:27:49.428Z",
+    "runId": "run-5916e59d-2448-4b45-87c5-316956b70b31",
+    "at": "2026-08-30T08:25:09.971Z",
     "type": "settled",
     "stepId": "enter-member-id",
     "polls": 2,
-    "elapsedMs": 136,
+    "elapsedMs": 135,
     "settled": true
   },
   {
     "seq": 28,
-    "runId": "run-0492cd8f-2b95-43fa-8737-456338c4871a",
-    "at": "2026-08-30T07:27:49.428Z",
+    "runId": "run-5916e59d-2448-4b45-87c5-316956b70b31",
+    "at": "2026-08-30T08:25:09.971Z",
     "type": "observed",
     "stepId": "enter-member-id",
     "obsSeq": 5,
@@ -340,8 +340,8 @@
   },
   {
     "seq": 29,
-    "runId": "run-0492cd8f-2b95-43fa-8737-456338c4871a",
-    "at": "2026-08-30T07:27:49.429Z",
+    "runId": "run-5916e59d-2448-4b45-87c5-316956b70b31",
+    "at": "2026-08-30T08:25:09.972Z",
     "type": "classified",
     "stepId": "enter-member-id",
     "phase": "post",
@@ -353,8 +353,8 @@
   },
   {
     "seq": 30,
-    "runId": "run-0492cd8f-2b95-43fa-8737-456338c4871a",
-    "at": "2026-08-30T07:27:49.430Z",
+    "runId": "run-5916e59d-2448-4b45-87c5-316956b70b31",
+    "at": "2026-08-30T08:25:09.972Z",
     "type": "checkpoint",
     "stepId": "enter-member-id",
     "passed": true,
@@ -375,8 +375,8 @@
   },
   {
     "seq": 31,
-    "runId": "run-0492cd8f-2b95-43fa-8737-456338c4871a",
-    "at": "2026-08-30T07:27:49.430Z",
+    "runId": "run-5916e59d-2448-4b45-87c5-316956b70b31",
+    "at": "2026-08-30T08:25:09.972Z",
     "type": "step.entered",
     "stepId": "submit-search",
     "index": 2,
@@ -385,8 +385,8 @@
   },
   {
     "seq": 32,
-    "runId": "run-0492cd8f-2b95-43fa-8737-456338c4871a",
-    "at": "2026-08-30T07:27:49.430Z",
+    "runId": "run-5916e59d-2448-4b45-87c5-316956b70b31",
+    "at": "2026-08-30T08:25:09.972Z",
     "type": "budget.charged",
     "ledger": "observations",
     "used": 7,
@@ -394,8 +394,8 @@
   },
   {
     "seq": 33,
-    "runId": "run-0492cd8f-2b95-43fa-8737-456338c4871a",
-    "at": "2026-08-30T07:27:49.437Z",
+    "runId": "run-5916e59d-2448-4b45-87c5-316956b70b31",
+    "at": "2026-08-30T08:25:09.979Z",
     "type": "observed",
     "stepId": "submit-search",
     "obsSeq": 6,
@@ -406,8 +406,8 @@
   },
   {
     "seq": 34,
-    "runId": "run-0492cd8f-2b95-43fa-8737-456338c4871a",
-    "at": "2026-08-30T07:27:49.437Z",
+    "runId": "run-5916e59d-2448-4b45-87c5-316956b70b31",
+    "at": "2026-08-30T08:25:09.979Z",
     "type": "classified",
     "stepId": "submit-search",
     "phase": "pre",
@@ -419,8 +419,8 @@
   },
   {
     "seq": 35,
-    "runId": "run-0492cd8f-2b95-43fa-8737-456338c4871a",
-    "at": "2026-08-30T07:27:49.438Z",
+    "runId": "run-5916e59d-2448-4b45-87c5-316956b70b31",
+    "at": "2026-08-30T08:25:09.980Z",
     "type": "resolved",
     "stepId": "submit-search",
     "descriptors": [
@@ -429,14 +429,14 @@
         "kind": "role-name",
         "evidenceSource": "accessibleName",
         "verdict": "resolved",
-        "nodeId": "button:f3-168"
+        "nodeId": "button:f3-171"
       },
       {
         "id": "search-right-of-member-id",
         "kind": "geometric",
         "evidenceSource": "geometry",
         "verdict": "resolved",
-        "nodeId": "button:f3-168"
+        "nodeId": "button:f3-171"
       }
     ],
     "agreed": true,
@@ -444,8 +444,8 @@
   },
   {
     "seq": 36,
-    "runId": "run-0492cd8f-2b95-43fa-8737-456338c4871a",
-    "at": "2026-08-30T07:27:49.438Z",
+    "runId": "run-5916e59d-2448-4b45-87c5-316956b70b31",
+    "at": "2026-08-30T08:25:09.980Z",
     "type": "policy.decided",
     "decision": {
       "allow": true,
@@ -457,8 +457,8 @@
   },
   {
     "seq": 37,
-    "runId": "run-0492cd8f-2b95-43fa-8737-456338c4871a",
-    "at": "2026-08-30T07:27:49.438Z",
+    "runId": "run-5916e59d-2448-4b45-87c5-316956b70b31",
+    "at": "2026-08-30T08:25:09.980Z",
     "type": "budget.charged",
     "ledger": "actions",
     "used": 3,
@@ -466,8 +466,8 @@
   },
   {
     "seq": 38,
-    "runId": "run-0492cd8f-2b95-43fa-8737-456338c4871a",
-    "at": "2026-08-30T07:27:49.440Z",
+    "runId": "run-5916e59d-2448-4b45-87c5-316956b70b31",
+    "at": "2026-08-30T08:25:09.982Z",
     "type": "acted",
     "stepId": "submit-search",
     "actionKind": "click",
@@ -478,8 +478,8 @@
   },
   {
     "seq": 39,
-    "runId": "run-0492cd8f-2b95-43fa-8737-456338c4871a",
-    "at": "2026-08-30T07:27:49.440Z",
+    "runId": "run-5916e59d-2448-4b45-87c5-316956b70b31",
+    "at": "2026-08-30T08:25:09.982Z",
     "type": "budget.charged",
     "ledger": "observations",
     "used": 8,
@@ -487,8 +487,8 @@
   },
   {
     "seq": 40,
-    "runId": "run-0492cd8f-2b95-43fa-8737-456338c4871a",
-    "at": "2026-08-30T07:27:49.583Z",
+    "runId": "run-5916e59d-2448-4b45-87c5-316956b70b31",
+    "at": "2026-08-30T08:25:10.128Z",
     "type": "budget.charged",
     "ledger": "observations",
     "used": 9,
@@ -496,39 +496,30 @@
   },
   {
     "seq": 41,
-    "runId": "run-0492cd8f-2b95-43fa-8737-456338c4871a",
-    "at": "2026-08-30T07:27:49.719Z",
-    "type": "budget.charged",
-    "ledger": "observations",
-    "used": 10,
-    "limit": 400
-  },
-  {
-    "seq": 42,
-    "runId": "run-0492cd8f-2b95-43fa-8737-456338c4871a",
-    "at": "2026-08-30T07:27:49.736Z",
+    "runId": "run-5916e59d-2448-4b45-87c5-316956b70b31",
+    "at": "2026-08-30T08:25:10.138Z",
     "type": "settled",
     "stepId": "submit-search",
-    "polls": 3,
-    "elapsedMs": 297,
+    "polls": 2,
+    "elapsedMs": 156,
     "settled": true
   },
   {
-    "seq": 43,
-    "runId": "run-0492cd8f-2b95-43fa-8737-456338c4871a",
-    "at": "2026-08-30T07:27:49.737Z",
+    "seq": 42,
+    "runId": "run-5916e59d-2448-4b45-87c5-316956b70b31",
+    "at": "2026-08-30T08:25:10.138Z",
     "type": "observed",
     "stepId": "submit-search",
-    "obsSeq": 9,
+    "obsSeq": 8,
     "skeletonDigest": "sha256:8be7e5b0e9750e40cd59049e6b76df8a9fdd68cacd9ea33dad97cd28d9f46800",
     "settled": true,
     "nodeCount": 130,
     "observationRef": null
   },
   {
-    "seq": 44,
-    "runId": "run-0492cd8f-2b95-43fa-8737-456338c4871a",
-    "at": "2026-08-30T07:27:49.738Z",
+    "seq": 43,
+    "runId": "run-5916e59d-2448-4b45-87c5-316956b70b31",
+    "at": "2026-08-30T08:25:10.140Z",
     "type": "classified",
     "stepId": "submit-search",
     "phase": "post",
@@ -539,9 +530,9 @@
     "alsoMatched": []
   },
   {
-    "seq": 45,
-    "runId": "run-0492cd8f-2b95-43fa-8737-456338c4871a",
-    "at": "2026-08-30T07:27:49.739Z",
+    "seq": 44,
+    "runId": "run-5916e59d-2448-4b45-87c5-316956b70b31",
+    "at": "2026-08-30T08:25:10.141Z",
     "type": "checkpoint",
     "stepId": "submit-search",
     "passed": true,
@@ -569,9 +560,9 @@
     }
   },
   {
-    "seq": 46,
-    "runId": "run-0492cd8f-2b95-43fa-8737-456338c4871a",
-    "at": "2026-08-30T07:27:49.739Z",
+    "seq": 45,
+    "runId": "run-5916e59d-2448-4b45-87c5-316956b70b31",
+    "at": "2026-08-30T08:25:10.141Z",
     "type": "step.entered",
     "stepId": "read-member-summary",
     "index": 3,
@@ -579,30 +570,30 @@
     "effect": "READ"
   },
   {
-    "seq": 47,
-    "runId": "run-0492cd8f-2b95-43fa-8737-456338c4871a",
-    "at": "2026-08-30T07:27:49.739Z",
+    "seq": 46,
+    "runId": "run-5916e59d-2448-4b45-87c5-316956b70b31",
+    "at": "2026-08-30T08:25:10.141Z",
     "type": "budget.charged",
     "ledger": "observations",
-    "used": 11,
+    "used": 10,
     "limit": 400
   },
   {
-    "seq": 48,
-    "runId": "run-0492cd8f-2b95-43fa-8737-456338c4871a",
-    "at": "2026-08-30T07:27:49.750Z",
+    "seq": 47,
+    "runId": "run-5916e59d-2448-4b45-87c5-316956b70b31",
+    "at": "2026-08-30T08:25:10.151Z",
     "type": "observed",
     "stepId": "read-member-summary",
-    "obsSeq": 10,
+    "obsSeq": 9,
     "skeletonDigest": "sha256:8be7e5b0e9750e40cd59049e6b76df8a9fdd68cacd9ea33dad97cd28d9f46800",
     "settled": true,
     "nodeCount": 130,
     "observationRef": null
   },
   {
-    "seq": 49,
-    "runId": "run-0492cd8f-2b95-43fa-8737-456338c4871a",
-    "at": "2026-08-30T07:27:49.750Z",
+    "seq": 48,
+    "runId": "run-5916e59d-2448-4b45-87c5-316956b70b31",
+    "at": "2026-08-30T08:25:10.151Z",
     "type": "classified",
     "stepId": "read-member-summary",
     "phase": "pre",
@@ -613,9 +604,18 @@
     "alsoMatched": []
   },
   {
+    "seq": 49,
+    "runId": "run-5916e59d-2448-4b45-87c5-316956b70b31",
+    "at": "2026-08-30T08:25:10.151Z",
+    "type": "budget.charged",
+    "ledger": "observations",
+    "used": 11,
+    "limit": 400
+  },
+  {
     "seq": 50,
-    "runId": "run-0492cd8f-2b95-43fa-8737-456338c4871a",
-    "at": "2026-08-30T07:27:49.751Z",
+    "runId": "run-5916e59d-2448-4b45-87c5-316956b70b31",
+    "at": "2026-08-30T08:25:10.282Z",
     "type": "budget.charged",
     "ledger": "observations",
     "used": 12,
@@ -623,39 +623,30 @@
   },
   {
     "seq": 51,
-    "runId": "run-0492cd8f-2b95-43fa-8737-456338c4871a",
-    "at": "2026-08-30T07:27:49.883Z",
-    "type": "budget.charged",
-    "ledger": "observations",
-    "used": 13,
-    "limit": 400
-  },
-  {
-    "seq": 52,
-    "runId": "run-0492cd8f-2b95-43fa-8737-456338c4871a",
-    "at": "2026-08-30T07:27:49.902Z",
+    "runId": "run-5916e59d-2448-4b45-87c5-316956b70b31",
+    "at": "2026-08-30T08:25:10.291Z",
     "type": "settled",
     "stepId": "read-member-summary",
     "polls": 2,
-    "elapsedMs": 152,
+    "elapsedMs": 140,
     "settled": true
   },
   {
-    "seq": 53,
-    "runId": "run-0492cd8f-2b95-43fa-8737-456338c4871a",
-    "at": "2026-08-30T07:27:49.903Z",
+    "seq": 52,
+    "runId": "run-5916e59d-2448-4b45-87c5-316956b70b31",
+    "at": "2026-08-30T08:25:10.292Z",
     "type": "observed",
     "stepId": "read-member-summary",
-    "obsSeq": 12,
+    "obsSeq": 11,
     "skeletonDigest": "sha256:8be7e5b0e9750e40cd59049e6b76df8a9fdd68cacd9ea33dad97cd28d9f46800",
     "settled": true,
     "nodeCount": 130,
     "observationRef": null
   },
   {
-    "seq": 54,
-    "runId": "run-0492cd8f-2b95-43fa-8737-456338c4871a",
-    "at": "2026-08-30T07:27:49.905Z",
+    "seq": 53,
+    "runId": "run-5916e59d-2448-4b45-87c5-316956b70b31",
+    "at": "2026-08-30T08:25:10.294Z",
     "type": "classified",
     "stepId": "read-member-summary",
     "phase": "post",
@@ -685,9 +676,9 @@
     "alsoMatched": []
   },
   {
-    "seq": 55,
-    "runId": "run-0492cd8f-2b95-43fa-8737-456338c4871a",
-    "at": "2026-08-30T07:27:49.905Z",
+    "seq": 54,
+    "runId": "run-5916e59d-2448-4b45-87c5-316956b70b31",
+    "at": "2026-08-30T08:25:10.294Z",
     "type": "extracted",
     "stepId": "read-member-summary",
     "output": "memberName",
@@ -695,9 +686,9 @@
     "present": true
   },
   {
-    "seq": 56,
-    "runId": "run-0492cd8f-2b95-43fa-8737-456338c4871a",
-    "at": "2026-08-30T07:27:49.905Z",
+    "seq": 55,
+    "runId": "run-5916e59d-2448-4b45-87c5-316956b70b31",
+    "at": "2026-08-30T08:25:10.294Z",
     "type": "extracted",
     "stepId": "read-member-summary",
     "output": "shareBalance",
@@ -705,9 +696,9 @@
     "present": true
   },
   {
-    "seq": 57,
-    "runId": "run-0492cd8f-2b95-43fa-8737-456338c4871a",
-    "at": "2026-08-30T07:27:49.905Z",
+    "seq": 56,
+    "runId": "run-5916e59d-2448-4b45-87c5-316956b70b31",
+    "at": "2026-08-30T08:25:10.294Z",
     "type": "extracted",
     "stepId": "read-member-summary",
     "output": "accountStatus",
@@ -715,9 +706,9 @@
     "present": true
   },
   {
-    "seq": 58,
-    "runId": "run-0492cd8f-2b95-43fa-8737-456338c4871a",
-    "at": "2026-08-30T07:27:49.906Z",
+    "seq": 57,
+    "runId": "run-5916e59d-2448-4b45-87c5-316956b70b31",
+    "at": "2026-08-30T08:25:10.295Z",
     "type": "checkpoint",
     "stepId": "read-member-summary",
     "passed": true,
@@ -736,9 +727,9 @@
     }
   },
   {
-    "seq": 59,
-    "runId": "run-0492cd8f-2b95-43fa-8737-456338c4871a",
-    "at": "2026-08-30T07:27:49.906Z",
+    "seq": 58,
+    "runId": "run-5916e59d-2448-4b45-87c5-316956b70b31",
+    "at": "2026-08-30T08:25:10.295Z",
     "type": "step.entered",
     "stepId": "open-member-record",
     "index": 4,
@@ -746,30 +737,30 @@
     "effect": "READ"
   },
   {
-    "seq": 60,
-    "runId": "run-0492cd8f-2b95-43fa-8737-456338c4871a",
-    "at": "2026-08-30T07:27:49.906Z",
+    "seq": 59,
+    "runId": "run-5916e59d-2448-4b45-87c5-316956b70b31",
+    "at": "2026-08-30T08:25:10.295Z",
     "type": "budget.charged",
     "ledger": "observations",
-    "used": 14,
+    "used": 13,
     "limit": 400
   },
   {
-    "seq": 61,
-    "runId": "run-0492cd8f-2b95-43fa-8737-456338c4871a",
-    "at": "2026-08-30T07:27:49.918Z",
+    "seq": 60,
+    "runId": "run-5916e59d-2448-4b45-87c5-316956b70b31",
+    "at": "2026-08-30T08:25:10.304Z",
     "type": "observed",
     "stepId": "open-member-record",
-    "obsSeq": 13,
+    "obsSeq": 12,
     "skeletonDigest": "sha256:8be7e5b0e9750e40cd59049e6b76df8a9fdd68cacd9ea33dad97cd28d9f46800",
     "settled": true,
     "nodeCount": 130,
     "observationRef": null
   },
   {
-    "seq": 62,
-    "runId": "run-0492cd8f-2b95-43fa-8737-456338c4871a",
-    "at": "2026-08-30T07:27:49.919Z",
+    "seq": 61,
+    "runId": "run-5916e59d-2448-4b45-87c5-316956b70b31",
+    "at": "2026-08-30T08:25:10.305Z",
     "type": "classified",
     "stepId": "open-member-record",
     "phase": "pre",
@@ -780,9 +771,9 @@
     "alsoMatched": []
   },
   {
-    "seq": 63,
-    "runId": "run-0492cd8f-2b95-43fa-8737-456338c4871a",
-    "at": "2026-08-30T07:27:49.920Z",
+    "seq": 62,
+    "runId": "run-5916e59d-2448-4b45-87c5-316956b70b31",
+    "at": "2026-08-30T08:25:10.306Z",
     "type": "resolved",
     "stepId": "open-member-record",
     "descriptors": [
@@ -791,23 +782,23 @@
         "kind": "table-cell",
         "evidenceSource": "columnHeader",
         "verdict": "resolved",
-        "nodeId": "link:f3-252"
+        "nodeId": "link:f3-255"
       },
       {
         "id": "open-by-link-text",
         "kind": "role-name",
         "evidenceSource": "accessibleName",
         "verdict": "resolved",
-        "nodeId": "link:f3-252"
+        "nodeId": "link:f3-255"
       }
     ],
     "agreed": true,
     "distinctSources": 2
   },
   {
-    "seq": 64,
-    "runId": "run-0492cd8f-2b95-43fa-8737-456338c4871a",
-    "at": "2026-08-30T07:27:49.920Z",
+    "seq": 63,
+    "runId": "run-5916e59d-2448-4b45-87c5-316956b70b31",
+    "at": "2026-08-30T08:25:10.306Z",
     "type": "policy.decided",
     "decision": {
       "allow": true,
@@ -818,18 +809,18 @@
     "effect": "READ"
   },
   {
-    "seq": 65,
-    "runId": "run-0492cd8f-2b95-43fa-8737-456338c4871a",
-    "at": "2026-08-30T07:27:49.920Z",
+    "seq": 64,
+    "runId": "run-5916e59d-2448-4b45-87c5-316956b70b31",
+    "at": "2026-08-30T08:25:10.306Z",
     "type": "budget.charged",
     "ledger": "actions",
     "used": 4,
     "limit": 40
   },
   {
-    "seq": 66,
-    "runId": "run-0492cd8f-2b95-43fa-8737-456338c4871a",
-    "at": "2026-08-30T07:27:49.925Z",
+    "seq": 65,
+    "runId": "run-5916e59d-2448-4b45-87c5-316956b70b31",
+    "at": "2026-08-30T08:25:10.313Z",
     "type": "acted",
     "stepId": "open-member-record",
     "actionKind": "click",
@@ -839,9 +830,18 @@
     "result": "dispatched"
   },
   {
+    "seq": 66,
+    "runId": "run-5916e59d-2448-4b45-87c5-316956b70b31",
+    "at": "2026-08-30T08:25:10.314Z",
+    "type": "budget.charged",
+    "ledger": "observations",
+    "used": 14,
+    "limit": 400
+  },
+  {
     "seq": 67,
-    "runId": "run-0492cd8f-2b95-43fa-8737-456338c4871a",
-    "at": "2026-08-30T07:27:49.925Z",
+    "runId": "run-5916e59d-2448-4b45-87c5-316956b70b31",
+    "at": "2026-08-30T08:25:10.447Z",
     "type": "budget.charged",
     "ledger": "observations",
     "used": 15,
@@ -849,8 +849,8 @@
   },
   {
     "seq": 68,
-    "runId": "run-0492cd8f-2b95-43fa-8737-456338c4871a",
-    "at": "2026-08-30T07:27:50.060Z",
+    "runId": "run-5916e59d-2448-4b45-87c5-316956b70b31",
+    "at": "2026-08-30T08:25:10.578Z",
     "type": "budget.charged",
     "ledger": "observations",
     "used": 16,
@@ -858,39 +858,30 @@
   },
   {
     "seq": 69,
-    "runId": "run-0492cd8f-2b95-43fa-8737-456338c4871a",
-    "at": "2026-08-30T07:27:50.198Z",
-    "type": "budget.charged",
-    "ledger": "observations",
-    "used": 17,
-    "limit": 400
-  },
-  {
-    "seq": 70,
-    "runId": "run-0492cd8f-2b95-43fa-8737-456338c4871a",
-    "at": "2026-08-30T07:27:50.220Z",
+    "runId": "run-5916e59d-2448-4b45-87c5-316956b70b31",
+    "at": "2026-08-30T08:25:10.589Z",
     "type": "settled",
     "stepId": "open-member-record",
     "polls": 3,
-    "elapsedMs": 295,
+    "elapsedMs": 275,
     "settled": true
   },
   {
-    "seq": 71,
-    "runId": "run-0492cd8f-2b95-43fa-8737-456338c4871a",
-    "at": "2026-08-30T07:27:50.220Z",
+    "seq": 70,
+    "runId": "run-5916e59d-2448-4b45-87c5-316956b70b31",
+    "at": "2026-08-30T08:25:10.589Z",
     "type": "observed",
     "stepId": "open-member-record",
-    "obsSeq": 16,
+    "obsSeq": 15,
     "skeletonDigest": "sha256:6725713cbb0da874b78434cfa7dd767fdb0e08707461775eb490ce717e14bf1c",
     "settled": true,
     "nodeCount": 159,
     "observationRef": null
   },
   {
-    "seq": 72,
-    "runId": "run-0492cd8f-2b95-43fa-8737-456338c4871a",
-    "at": "2026-08-30T07:27:50.221Z",
+    "seq": 71,
+    "runId": "run-5916e59d-2448-4b45-87c5-316956b70b31",
+    "at": "2026-08-30T08:25:10.590Z",
     "type": "classified",
     "stepId": "open-member-record",
     "phase": "post",
@@ -901,9 +892,9 @@
     "alsoMatched": []
   },
   {
-    "seq": 73,
-    "runId": "run-0492cd8f-2b95-43fa-8737-456338c4871a",
-    "at": "2026-08-30T07:27:50.221Z",
+    "seq": 72,
+    "runId": "run-5916e59d-2448-4b45-87c5-316956b70b31",
+    "at": "2026-08-30T08:25:10.590Z",
     "type": "checkpoint",
     "stepId": "open-member-record",
     "passed": true,
@@ -930,9 +921,9 @@
     }
   },
   {
-    "seq": 74,
-    "runId": "run-0492cd8f-2b95-43fa-8737-456338c4871a",
-    "at": "2026-08-30T07:27:50.221Z",
+    "seq": 73,
+    "runId": "run-5916e59d-2448-4b45-87c5-316956b70b31",
+    "at": "2026-08-30T08:25:10.590Z",
     "type": "step.entered",
     "stepId": "verify-member-record",
     "index": 5,
@@ -940,30 +931,30 @@
     "effect": "READ"
   },
   {
-    "seq": 75,
-    "runId": "run-0492cd8f-2b95-43fa-8737-456338c4871a",
-    "at": "2026-08-30T07:27:50.221Z",
+    "seq": 74,
+    "runId": "run-5916e59d-2448-4b45-87c5-316956b70b31",
+    "at": "2026-08-30T08:25:10.590Z",
     "type": "budget.charged",
     "ledger": "observations",
-    "used": 18,
+    "used": 17,
     "limit": 400
   },
   {
-    "seq": 76,
-    "runId": "run-0492cd8f-2b95-43fa-8737-456338c4871a",
-    "at": "2026-08-30T07:27:50.243Z",
+    "seq": 75,
+    "runId": "run-5916e59d-2448-4b45-87c5-316956b70b31",
+    "at": "2026-08-30T08:25:10.601Z",
     "type": "observed",
     "stepId": "verify-member-record",
-    "obsSeq": 17,
+    "obsSeq": 16,
     "skeletonDigest": "sha256:6725713cbb0da874b78434cfa7dd767fdb0e08707461775eb490ce717e14bf1c",
     "settled": true,
     "nodeCount": 159,
     "observationRef": null
   },
   {
-    "seq": 77,
-    "runId": "run-0492cd8f-2b95-43fa-8737-456338c4871a",
-    "at": "2026-08-30T07:27:50.244Z",
+    "seq": 76,
+    "runId": "run-5916e59d-2448-4b45-87c5-316956b70b31",
+    "at": "2026-08-30T08:25:10.602Z",
     "type": "classified",
     "stepId": "verify-member-record",
     "phase": "pre",
@@ -974,9 +965,18 @@
     "alsoMatched": []
   },
   {
+    "seq": 77,
+    "runId": "run-5916e59d-2448-4b45-87c5-316956b70b31",
+    "at": "2026-08-30T08:25:10.602Z",
+    "type": "budget.charged",
+    "ledger": "observations",
+    "used": 18,
+    "limit": 400
+  },
+  {
     "seq": 78,
-    "runId": "run-0492cd8f-2b95-43fa-8737-456338c4871a",
-    "at": "2026-08-30T07:27:50.244Z",
+    "runId": "run-5916e59d-2448-4b45-87c5-316956b70b31",
+    "at": "2026-08-30T08:25:10.733Z",
     "type": "budget.charged",
     "ledger": "observations",
     "used": 19,
@@ -984,39 +984,30 @@
   },
   {
     "seq": 79,
-    "runId": "run-0492cd8f-2b95-43fa-8737-456338c4871a",
-    "at": "2026-08-30T07:27:50.377Z",
-    "type": "budget.charged",
-    "ledger": "observations",
-    "used": 20,
-    "limit": 400
-  },
-  {
-    "seq": 80,
-    "runId": "run-0492cd8f-2b95-43fa-8737-456338c4871a",
-    "at": "2026-08-30T07:27:50.392Z",
+    "runId": "run-5916e59d-2448-4b45-87c5-316956b70b31",
+    "at": "2026-08-30T08:25:10.744Z",
     "type": "settled",
     "stepId": "verify-member-record",
     "polls": 2,
-    "elapsedMs": 149,
+    "elapsedMs": 142,
     "settled": true
   },
   {
-    "seq": 81,
-    "runId": "run-0492cd8f-2b95-43fa-8737-456338c4871a",
-    "at": "2026-08-30T07:27:50.392Z",
+    "seq": 80,
+    "runId": "run-5916e59d-2448-4b45-87c5-316956b70b31",
+    "at": "2026-08-30T08:25:10.744Z",
     "type": "observed",
     "stepId": "verify-member-record",
-    "obsSeq": 19,
+    "obsSeq": 18,
     "skeletonDigest": "sha256:6725713cbb0da874b78434cfa7dd767fdb0e08707461775eb490ce717e14bf1c",
     "settled": true,
     "nodeCount": 159,
     "observationRef": null
   },
   {
-    "seq": 82,
-    "runId": "run-0492cd8f-2b95-43fa-8737-456338c4871a",
-    "at": "2026-08-30T07:27:50.394Z",
+    "seq": 81,
+    "runId": "run-5916e59d-2448-4b45-87c5-316956b70b31",
+    "at": "2026-08-30T08:25:10.745Z",
     "type": "classified",
     "stepId": "verify-member-record",
     "phase": "post",
@@ -1027,9 +1018,9 @@
     "alsoMatched": []
   },
   {
-    "seq": 83,
-    "runId": "run-0492cd8f-2b95-43fa-8737-456338c4871a",
-    "at": "2026-08-30T07:27:50.394Z",
+    "seq": 82,
+    "runId": "run-5916e59d-2448-4b45-87c5-316956b70b31",
+    "at": "2026-08-30T08:25:10.745Z",
     "type": "checkpoint",
     "stepId": "verify-member-record",
     "passed": true,
@@ -1053,9 +1044,9 @@
     }
   },
   {
-    "seq": 84,
-    "runId": "run-0492cd8f-2b95-43fa-8737-456338c4871a",
-    "at": "2026-08-30T07:27:50.394Z",
+    "seq": 83,
+    "runId": "run-5916e59d-2448-4b45-87c5-316956b70b31",
+    "at": "2026-08-30T08:25:10.745Z",
     "type": "step.entered",
     "stepId": "read-share-accounts",
     "index": 6,
@@ -1063,30 +1054,30 @@
     "effect": "READ"
   },
   {
-    "seq": 85,
-    "runId": "run-0492cd8f-2b95-43fa-8737-456338c4871a",
-    "at": "2026-08-30T07:27:50.394Z",
+    "seq": 84,
+    "runId": "run-5916e59d-2448-4b45-87c5-316956b70b31",
+    "at": "2026-08-30T08:25:10.746Z",
     "type": "budget.charged",
     "ledger": "observations",
-    "used": 21,
+    "used": 20,
     "limit": 400
   },
   {
-    "seq": 86,
-    "runId": "run-0492cd8f-2b95-43fa-8737-456338c4871a",
-    "at": "2026-08-30T07:27:50.406Z",
+    "seq": 85,
+    "runId": "run-5916e59d-2448-4b45-87c5-316956b70b31",
+    "at": "2026-08-30T08:25:10.764Z",
     "type": "observed",
     "stepId": "read-share-accounts",
-    "obsSeq": 20,
+    "obsSeq": 19,
     "skeletonDigest": "sha256:6725713cbb0da874b78434cfa7dd767fdb0e08707461775eb490ce717e14bf1c",
     "settled": true,
     "nodeCount": 159,
     "observationRef": null
   },
   {
-    "seq": 87,
-    "runId": "run-0492cd8f-2b95-43fa-8737-456338c4871a",
-    "at": "2026-08-30T07:27:50.407Z",
+    "seq": 86,
+    "runId": "run-5916e59d-2448-4b45-87c5-316956b70b31",
+    "at": "2026-08-30T08:25:10.765Z",
     "type": "classified",
     "stepId": "read-share-accounts",
     "phase": "pre",
@@ -1097,9 +1088,18 @@
     "alsoMatched": []
   },
   {
+    "seq": 87,
+    "runId": "run-5916e59d-2448-4b45-87c5-316956b70b31",
+    "at": "2026-08-30T08:25:10.765Z",
+    "type": "budget.charged",
+    "ledger": "observations",
+    "used": 21,
+    "limit": 400
+  },
+  {
     "seq": 88,
-    "runId": "run-0492cd8f-2b95-43fa-8737-456338c4871a",
-    "at": "2026-08-30T07:27:50.407Z",
+    "runId": "run-5916e59d-2448-4b45-87c5-316956b70b31",
+    "at": "2026-08-30T08:25:10.897Z",
     "type": "budget.charged",
     "ledger": "observations",
     "used": 22,
@@ -1107,39 +1107,30 @@
   },
   {
     "seq": 89,
-    "runId": "run-0492cd8f-2b95-43fa-8737-456338c4871a",
-    "at": "2026-08-30T07:27:50.539Z",
-    "type": "budget.charged",
-    "ledger": "observations",
-    "used": 23,
-    "limit": 400
-  },
-  {
-    "seq": 90,
-    "runId": "run-0492cd8f-2b95-43fa-8737-456338c4871a",
-    "at": "2026-08-30T07:27:50.555Z",
+    "runId": "run-5916e59d-2448-4b45-87c5-316956b70b31",
+    "at": "2026-08-30T08:25:10.907Z",
     "type": "settled",
     "stepId": "read-share-accounts",
     "polls": 2,
-    "elapsedMs": 149,
+    "elapsedMs": 142,
     "settled": true
   },
   {
-    "seq": 91,
-    "runId": "run-0492cd8f-2b95-43fa-8737-456338c4871a",
-    "at": "2026-08-30T07:27:50.555Z",
+    "seq": 90,
+    "runId": "run-5916e59d-2448-4b45-87c5-316956b70b31",
+    "at": "2026-08-30T08:25:10.907Z",
     "type": "observed",
     "stepId": "read-share-accounts",
-    "obsSeq": 22,
+    "obsSeq": 21,
     "skeletonDigest": "sha256:6725713cbb0da874b78434cfa7dd767fdb0e08707461775eb490ce717e14bf1c",
     "settled": true,
     "nodeCount": 159,
     "observationRef": null
   },
   {
-    "seq": 92,
-    "runId": "run-0492cd8f-2b95-43fa-8737-456338c4871a",
-    "at": "2026-08-30T07:27:50.557Z",
+    "seq": 91,
+    "runId": "run-5916e59d-2448-4b45-87c5-316956b70b31",
+    "at": "2026-08-30T08:25:10.908Z",
     "type": "classified",
     "stepId": "read-share-accounts",
     "phase": "post",
@@ -1163,9 +1154,9 @@
     "alsoMatched": []
   },
   {
-    "seq": 93,
-    "runId": "run-0492cd8f-2b95-43fa-8737-456338c4871a",
-    "at": "2026-08-30T07:27:50.557Z",
+    "seq": 92,
+    "runId": "run-5916e59d-2448-4b45-87c5-316956b70b31",
+    "at": "2026-08-30T08:25:10.908Z",
     "type": "extracted",
     "stepId": "read-share-accounts",
     "output": "shareAccounts",
@@ -1173,9 +1164,9 @@
     "present": true
   },
   {
-    "seq": 94,
-    "runId": "run-0492cd8f-2b95-43fa-8737-456338c4871a",
-    "at": "2026-08-30T07:27:50.558Z",
+    "seq": 93,
+    "runId": "run-5916e59d-2448-4b45-87c5-316956b70b31",
+    "at": "2026-08-30T08:25:10.909Z",
     "type": "checkpoint",
     "stepId": "read-share-accounts",
     "passed": true,
@@ -1195,9 +1186,9 @@
     }
   },
   {
-    "seq": 95,
-    "runId": "run-0492cd8f-2b95-43fa-8737-456338c4871a",
-    "at": "2026-08-30T07:27:50.558Z",
+    "seq": 94,
+    "runId": "run-5916e59d-2448-4b45-87c5-316956b70b31",
+    "at": "2026-08-30T08:25:10.909Z",
     "type": "step.entered",
     "stepId": "open-subaccount-form",
     "index": 7,
@@ -1205,30 +1196,30 @@
     "effect": "READ"
   },
   {
-    "seq": 96,
-    "runId": "run-0492cd8f-2b95-43fa-8737-456338c4871a",
-    "at": "2026-08-30T07:27:50.558Z",
+    "seq": 95,
+    "runId": "run-5916e59d-2448-4b45-87c5-316956b70b31",
+    "at": "2026-08-30T08:25:10.909Z",
     "type": "budget.charged",
     "ledger": "observations",
-    "used": 24,
+    "used": 23,
     "limit": 400
   },
   {
-    "seq": 97,
-    "runId": "run-0492cd8f-2b95-43fa-8737-456338c4871a",
-    "at": "2026-08-30T07:27:50.570Z",
+    "seq": 96,
+    "runId": "run-5916e59d-2448-4b45-87c5-316956b70b31",
+    "at": "2026-08-30T08:25:10.918Z",
     "type": "observed",
     "stepId": "open-subaccount-form",
-    "obsSeq": 23,
+    "obsSeq": 22,
     "skeletonDigest": "sha256:6725713cbb0da874b78434cfa7dd767fdb0e08707461775eb490ce717e14bf1c",
     "settled": true,
     "nodeCount": 159,
     "observationRef": null
   },
   {
-    "seq": 98,
-    "runId": "run-0492cd8f-2b95-43fa-8737-456338c4871a",
-    "at": "2026-08-30T07:27:50.571Z",
+    "seq": 97,
+    "runId": "run-5916e59d-2448-4b45-87c5-316956b70b31",
+    "at": "2026-08-30T08:25:10.919Z",
     "type": "classified",
     "stepId": "open-subaccount-form",
     "phase": "pre",
@@ -1239,9 +1230,9 @@
     "alsoMatched": []
   },
   {
-    "seq": 99,
-    "runId": "run-0492cd8f-2b95-43fa-8737-456338c4871a",
-    "at": "2026-08-30T07:27:50.571Z",
+    "seq": 98,
+    "runId": "run-5916e59d-2448-4b45-87c5-316956b70b31",
+    "at": "2026-08-30T08:25:10.919Z",
     "type": "resolved",
     "stepId": "open-subaccount-form",
     "descriptors": [
@@ -1250,23 +1241,23 @@
         "kind": "role-name",
         "evidenceSource": "accessibleName",
         "verdict": "resolved",
-        "nodeId": "button:f3-349"
+        "nodeId": "button:f3-352"
       },
       {
         "id": "open-subaccount-only-control",
         "kind": "ordinal-in-container",
         "evidenceSource": "ordinal",
         "verdict": "resolved",
-        "nodeId": "button:f3-349"
+        "nodeId": "button:f3-352"
       }
     ],
     "agreed": true,
     "distinctSources": 2
   },
   {
-    "seq": 100,
-    "runId": "run-0492cd8f-2b95-43fa-8737-456338c4871a",
-    "at": "2026-08-30T07:27:50.571Z",
+    "seq": 99,
+    "runId": "run-5916e59d-2448-4b45-87c5-316956b70b31",
+    "at": "2026-08-30T08:25:10.919Z",
     "type": "policy.decided",
     "decision": {
       "allow": true,
@@ -1277,18 +1268,18 @@
     "effect": "READ"
   },
   {
-    "seq": 101,
-    "runId": "run-0492cd8f-2b95-43fa-8737-456338c4871a",
-    "at": "2026-08-30T07:27:50.571Z",
+    "seq": 100,
+    "runId": "run-5916e59d-2448-4b45-87c5-316956b70b31",
+    "at": "2026-08-30T08:25:10.919Z",
     "type": "budget.charged",
     "ledger": "actions",
     "used": 5,
     "limit": 40
   },
   {
-    "seq": 102,
-    "runId": "run-0492cd8f-2b95-43fa-8737-456338c4871a",
-    "at": "2026-08-30T07:27:50.573Z",
+    "seq": 101,
+    "runId": "run-5916e59d-2448-4b45-87c5-316956b70b31",
+    "at": "2026-08-30T08:25:10.920Z",
     "type": "acted",
     "stepId": "open-subaccount-form",
     "actionKind": "click",
@@ -1298,9 +1289,18 @@
     "result": "dispatched"
   },
   {
+    "seq": 102,
+    "runId": "run-5916e59d-2448-4b45-87c5-316956b70b31",
+    "at": "2026-08-30T08:25:10.920Z",
+    "type": "budget.charged",
+    "ledger": "observations",
+    "used": 24,
+    "limit": 400
+  },
+  {
     "seq": 103,
-    "runId": "run-0492cd8f-2b95-43fa-8737-456338c4871a",
-    "at": "2026-08-30T07:27:50.573Z",
+    "runId": "run-5916e59d-2448-4b45-87c5-316956b70b31",
+    "at": "2026-08-30T08:25:11.049Z",
     "type": "budget.charged",
     "ledger": "observations",
     "used": 25,
@@ -1308,8 +1308,8 @@
   },
   {
     "seq": 104,
-    "runId": "run-0492cd8f-2b95-43fa-8737-456338c4871a",
-    "at": "2026-08-30T07:27:50.703Z",
+    "runId": "run-5916e59d-2448-4b45-87c5-316956b70b31",
+    "at": "2026-08-30T08:25:11.179Z",
     "type": "budget.charged",
     "ledger": "observations",
     "used": 26,
@@ -1317,39 +1317,30 @@
   },
   {
     "seq": 105,
-    "runId": "run-0492cd8f-2b95-43fa-8737-456338c4871a",
-    "at": "2026-08-30T07:27:50.839Z",
-    "type": "budget.charged",
-    "ledger": "observations",
-    "used": 27,
-    "limit": 400
-  },
-  {
-    "seq": 106,
-    "runId": "run-0492cd8f-2b95-43fa-8737-456338c4871a",
-    "at": "2026-08-30T07:27:50.856Z",
+    "runId": "run-5916e59d-2448-4b45-87c5-316956b70b31",
+    "at": "2026-08-30T08:25:11.187Z",
     "type": "settled",
     "stepId": "open-subaccount-form",
     "polls": 3,
-    "elapsedMs": 283,
+    "elapsedMs": 266,
     "settled": true
   },
   {
-    "seq": 107,
-    "runId": "run-0492cd8f-2b95-43fa-8737-456338c4871a",
-    "at": "2026-08-30T07:27:50.857Z",
+    "seq": 106,
+    "runId": "run-5916e59d-2448-4b45-87c5-316956b70b31",
+    "at": "2026-08-30T08:25:11.187Z",
     "type": "observed",
     "stepId": "open-subaccount-form",
-    "obsSeq": 25,
+    "obsSeq": 24,
     "skeletonDigest": "sha256:6b04886f6fde3e01b6d3612c04ff73504e429f1f8cd0f02682394209af62822a",
     "settled": true,
     "nodeCount": 118,
     "observationRef": null
   },
   {
-    "seq": 108,
-    "runId": "run-0492cd8f-2b95-43fa-8737-456338c4871a",
-    "at": "2026-08-30T07:27:50.857Z",
+    "seq": 107,
+    "runId": "run-5916e59d-2448-4b45-87c5-316956b70b31",
+    "at": "2026-08-30T08:25:11.187Z",
     "type": "classified",
     "stepId": "open-subaccount-form",
     "phase": "post",
@@ -1360,9 +1351,9 @@
     "alsoMatched": []
   },
   {
-    "seq": 109,
-    "runId": "run-0492cd8f-2b95-43fa-8737-456338c4871a",
-    "at": "2026-08-30T07:27:50.857Z",
+    "seq": 108,
+    "runId": "run-5916e59d-2448-4b45-87c5-316956b70b31",
+    "at": "2026-08-30T08:25:11.188Z",
     "type": "checkpoint",
     "stepId": "open-subaccount-form",
     "passed": true,
@@ -1385,9 +1376,9 @@
     }
   },
   {
-    "seq": 110,
-    "runId": "run-0492cd8f-2b95-43fa-8737-456338c4871a",
-    "at": "2026-08-30T07:27:50.857Z",
+    "seq": 109,
+    "runId": "run-5916e59d-2448-4b45-87c5-316956b70b31",
+    "at": "2026-08-30T08:25:11.188Z",
     "type": "step.entered",
     "stepId": "confirm-form-ready",
     "index": 8,
@@ -1395,30 +1386,30 @@
     "effect": "READ"
   },
   {
-    "seq": 111,
-    "runId": "run-0492cd8f-2b95-43fa-8737-456338c4871a",
-    "at": "2026-08-30T07:27:50.857Z",
+    "seq": 110,
+    "runId": "run-5916e59d-2448-4b45-87c5-316956b70b31",
+    "at": "2026-08-30T08:25:11.188Z",
     "type": "budget.charged",
     "ledger": "observations",
-    "used": 28,
+    "used": 27,
     "limit": 400
   },
   {
-    "seq": 112,
-    "runId": "run-0492cd8f-2b95-43fa-8737-456338c4871a",
-    "at": "2026-08-30T07:27:50.867Z",
+    "seq": 111,
+    "runId": "run-5916e59d-2448-4b45-87c5-316956b70b31",
+    "at": "2026-08-30T08:25:11.195Z",
     "type": "observed",
     "stepId": "confirm-form-ready",
-    "obsSeq": 26,
+    "obsSeq": 25,
     "skeletonDigest": "sha256:6b04886f6fde3e01b6d3612c04ff73504e429f1f8cd0f02682394209af62822a",
     "settled": true,
     "nodeCount": 118,
     "observationRef": null
   },
   {
-    "seq": 113,
-    "runId": "run-0492cd8f-2b95-43fa-8737-456338c4871a",
-    "at": "2026-08-30T07:27:50.868Z",
+    "seq": 112,
+    "runId": "run-5916e59d-2448-4b45-87c5-316956b70b31",
+    "at": "2026-08-30T08:25:11.196Z",
     "type": "classified",
     "stepId": "confirm-form-ready",
     "phase": "pre",
@@ -1429,9 +1420,18 @@
     "alsoMatched": []
   },
   {
+    "seq": 113,
+    "runId": "run-5916e59d-2448-4b45-87c5-316956b70b31",
+    "at": "2026-08-30T08:25:11.196Z",
+    "type": "budget.charged",
+    "ledger": "observations",
+    "used": 28,
+    "limit": 400
+  },
+  {
     "seq": 114,
-    "runId": "run-0492cd8f-2b95-43fa-8737-456338c4871a",
-    "at": "2026-08-30T07:27:50.868Z",
+    "runId": "run-5916e59d-2448-4b45-87c5-316956b70b31",
+    "at": "2026-08-30T08:25:11.323Z",
     "type": "budget.charged",
     "ledger": "observations",
     "used": 29,
@@ -1439,39 +1439,30 @@
   },
   {
     "seq": 115,
-    "runId": "run-0492cd8f-2b95-43fa-8737-456338c4871a",
-    "at": "2026-08-30T07:27:50.998Z",
-    "type": "budget.charged",
-    "ledger": "observations",
-    "used": 30,
-    "limit": 400
-  },
-  {
-    "seq": 116,
-    "runId": "run-0492cd8f-2b95-43fa-8737-456338c4871a",
-    "at": "2026-08-30T07:27:51.019Z",
+    "runId": "run-5916e59d-2448-4b45-87c5-316956b70b31",
+    "at": "2026-08-30T08:25:11.331Z",
     "type": "settled",
     "stepId": "confirm-form-ready",
     "polls": 2,
-    "elapsedMs": 151,
+    "elapsedMs": 135,
     "settled": true
   },
   {
-    "seq": 117,
-    "runId": "run-0492cd8f-2b95-43fa-8737-456338c4871a",
-    "at": "2026-08-30T07:27:51.019Z",
+    "seq": 116,
+    "runId": "run-5916e59d-2448-4b45-87c5-316956b70b31",
+    "at": "2026-08-30T08:25:11.332Z",
     "type": "observed",
     "stepId": "confirm-form-ready",
-    "obsSeq": 28,
+    "obsSeq": 27,
     "skeletonDigest": "sha256:6b04886f6fde3e01b6d3612c04ff73504e429f1f8cd0f02682394209af62822a",
     "settled": true,
     "nodeCount": 118,
     "observationRef": null
   },
   {
-    "seq": 118,
-    "runId": "run-0492cd8f-2b95-43fa-8737-456338c4871a",
-    "at": "2026-08-30T07:27:51.020Z",
+    "seq": 117,
+    "runId": "run-5916e59d-2448-4b45-87c5-316956b70b31",
+    "at": "2026-08-30T08:25:11.332Z",
     "type": "classified",
     "stepId": "confirm-form-ready",
     "phase": "post",
@@ -1482,9 +1473,9 @@
     "alsoMatched": []
   },
   {
-    "seq": 119,
-    "runId": "run-0492cd8f-2b95-43fa-8737-456338c4871a",
-    "at": "2026-08-30T07:27:51.020Z",
+    "seq": 118,
+    "runId": "run-5916e59d-2448-4b45-87c5-316956b70b31",
+    "at": "2026-08-30T08:25:11.332Z",
     "type": "checkpoint",
     "stepId": "confirm-form-ready",
     "passed": true,
@@ -1516,9 +1507,9 @@
     }
   },
   {
-    "seq": 120,
-    "runId": "run-0492cd8f-2b95-43fa-8737-456338c4871a",
-    "at": "2026-08-30T07:27:51.021Z",
+    "seq": 119,
+    "runId": "run-5916e59d-2448-4b45-87c5-316956b70b31",
+    "at": "2026-08-30T08:25:11.333Z",
     "type": "run.finished",
     "status": "ok"
   }

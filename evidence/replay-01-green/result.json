@@ -17,7 +17,7 @@
     ]
   },
   "run": {
-    "runId": "run-0492cd8f-2b95-43fa-8737-456338c4871a",
+    "runId": "run-d2797a13-1408-4f38-bf24-db4e543635f1",
     "capability": {
       "name": "corebank.member.read_share_position",
       "version": "1.0.0"
@@ -35,9 +35,9 @@
     },
     "surface": "web-legacy",
     "engineVersion": "crr-runtime/0.1.0",
-    "startedAt": "2026-08-30T07:27:49.095Z",
-    "endedAt": "2026-08-30T07:27:51.021Z",
-    "durationMs": 1926,
+    "startedAt": "2026-08-30T08:25:01.847Z",
+    "endedAt": "2026-08-30T08:25:03.536Z",
+    "durationMs": 1689,
     "stepsExecuted": 9,
     "stepsTotal": 9,
     "budgets": {
@@ -46,7 +46,7 @@
         "limit": 40
       },
       "observations": {
-        "used": 30,
+        "used": 29,
         "limit": 400
       },
       "remediations": {
@@ -58,7 +58,7 @@
         "limit": 1
       },
       "wallClockMs": {
-        "used": 1928,
+        "used": 1691,
         "limit": 180000
       }
     },
@@ -77,7 +77,7 @@
         },
         "skeletonDigest": "sha256:77133a7a47cabfb23d8a04fdd48bd97dff3e5670d891b221c3db0bf8275c79c4",
         "observationRef": null,
-        "elapsedMs": 159
+        "elapsedMs": 160
       },
       {
         "stepId": "enter-member-id",
@@ -88,7 +88,7 @@
         },
         "skeletonDigest": "sha256:014aa733ad56a65ca562941a1edf215144446165bd3145f7af8bce711be1ce89",
         "observationRef": null,
-        "elapsedMs": 161,
+        "elapsedMs": 160,
         "resolution": [
           {
             "descriptorId": "member-id-right-of-label",
@@ -115,7 +115,7 @@
         },
         "skeletonDigest": "sha256:8be7e5b0e9750e40cd59049e6b76df8a9fdd68cacd9ea33dad97cd28d9f46800",
         "observationRef": null,
-        "elapsedMs": 309,
+        "elapsedMs": 166,
         "resolution": [
           {
             "descriptorId": "search-by-name",
@@ -161,7 +161,7 @@
         },
         "skeletonDigest": "sha256:8be7e5b0e9750e40cd59049e6b76df8a9fdd68cacd9ea33dad97cd28d9f46800",
         "observationRef": null,
-        "elapsedMs": 167
+        "elapsedMs": 153
       },
       {
         "stepId": "open-member-record",
@@ -172,7 +172,7 @@
         },
         "skeletonDigest": "sha256:6725713cbb0da874b78434cfa7dd767fdb0e08707461775eb490ce717e14bf1c",
         "observationRef": null,
-        "elapsedMs": 316,
+        "elapsedMs": 294,
         "resolution": [
           {
             "descriptorId": "open-by-row-key",
@@ -199,7 +199,7 @@
         },
         "skeletonDigest": "sha256:6725713cbb0da874b78434cfa7dd767fdb0e08707461775eb490ce717e14bf1c",
         "observationRef": null,
-        "elapsedMs": 173
+        "elapsedMs": 155
       },
       {
         "stepId": "read-share-accounts",
@@ -223,7 +223,7 @@
         },
         "skeletonDigest": "sha256:6725713cbb0da874b78434cfa7dd767fdb0e08707461775eb490ce717e14bf1c",
         "observationRef": null,
-        "elapsedMs": 163
+        "elapsedMs": 156
       },
       {
         "stepId": "open-subaccount-form",
@@ -234,7 +234,7 @@
         },
         "skeletonDigest": "sha256:6b04886f6fde3e01b6d3612c04ff73504e429f1f8cd0f02682394209af62822a",
         "observationRef": null,
-        "elapsedMs": 300,
+        "elapsedMs": 280,
         "resolution": [
           {
             "descriptorId": "open-subaccount-by-name",
@@ -261,7 +261,7 @@
         },
         "skeletonDigest": "sha256:6b04886f6fde3e01b6d3612c04ff73504e429f1f8cd0f02682394209af62822a",
         "observationRef": null,
-        "elapsedMs": 163
+        "elapsedMs": 146
       }
     ],
     "drift": {
@@ -272,9 +272,9 @@
       "needsSpecialization": false
     },
     "evidence": [
-      "journal:a2a1aaaa84847769802f9f6f4a48a5c7bcb3f8a3257353147b2f0538b12000c0"
+      "journal:7be5f87c11999a511d7dc58900dcb947c095be1f6fe410c7bafdb238edac00d2"
     ],
-    "journalRef": "journal:a2a1aaaa84847769802f9f6f4a48a5c7bcb3f8a3257353147b2f0538b12000c0",
+    "journalRef": "journal:7be5f87c11999a511d7dc58900dcb947c095be1f6fe410c7bafdb238edac00d2",
     "warnings": []
   }
 }

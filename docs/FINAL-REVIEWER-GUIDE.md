@@ -36,12 +36,21 @@ reports business answers distinctly from failures, and refuses to improvise arou
 Run from the repository root. These commands do not call live model providers.
 
 ```sh
+scripts/reviewer-check.sh
+```
+
+Or run the same path manually:
+
+```sh
 env -u ANTHROPIC_API_KEY -u ANTHROPIC_AUTH_TOKEN -u OPENAI_API_KEY -u CLAUDE_CODE_OAUTH_TOKEN TURBO_FORCE=1 pnpm test
 env -u ANTHROPIC_API_KEY -u ANTHROPIC_AUTH_TOKEN -u OPENAI_API_KEY -u CLAUDE_CODE_OAUTH_TOKEN pnpm demo
 pnpm -F @crr/runtime exec tsx demo/write-boundary.ts
 pnpm -F @crr/runtime exec tsx test/evidence/semantic-denials.ts
+pnpm -F @crr/runtime exec tsx demo/handoff.ts
+pnpm -F @crr/runtime exec tsx demo/multi-tenant-overlay.ts
 pnpm -F @crr/conformance exec tsx test/evidence/terminal-survivors.ts
-rg -n '10041|250\.00|50001' evidence
+rg -n '\b10041\b|\b250\.00\b|\b50001\b' evidence
+rg -n '\b10043\b' evidence --glob '!evidence/discovery-live/**' --glob '!evidence/outcome-promotion/**'
 ```
 
 Expected current receipts:
@@ -49,11 +58,13 @@ Expected current receipts:
 | Command | Proves | Current receipt |
 |---|---|---|
 | `pnpm test` with provider env vars unset and `TURBO_FORCE=1` | Full workspace still passes without credentials or cached logs | 2,032 tests, 14/14 tasks, 0 cached |
-| `pnpm demo` with provider env vars unset | Main replay bundle runs without a model, evidence integrity passes, whole-bundle canary passes | 241 files, seven PASS lines, `DEMO OK` |
+| `pnpm demo` with provider env vars unset | Main replay bundle runs without a model, evidence integrity passes, whole-bundle canary passes | 278 files, seven PASS lines, `DEMO OK` |
 | `demo/write-boundary.ts` | Irreversible boundary and approval negatives | 18 scenarios, canary clean |
 | `test/evidence/semantic-denials.ts` | Record denial and role denial have different declared semantics | 3 scenarios, canary clean |
+| `demo/handoff.ts` | Same-session human handoff and refused handback are generated evidence | 2 scenarios, canary clean |
+| `demo/multi-tenant-overlay.ts` | One base browser artifact runs at a second tenant through overlay-only changes | 3 scenarios, canary clean |
 | `terminal-survivors.ts` | Terminal survivor matrix is generated and asserted | 14 scenarios, 4 documented survivors |
-| `rg` canary grep | Current write/semantic sensitive literals are absent from evidence | no matches, exit 1 |
+| scoped `rg` canary greps | Current write/semantic sensitive literals are absent from evidence; the live-discovery member is present only in documented live-discovery/promotion scopes | no matches, exit 1 |
 
 `rg` returning exit 1 is the expected "no matches" result.
 
@@ -64,7 +75,9 @@ pnpm -F @crr/core typecheck
 pnpm -F @crr/runtime typecheck
 pnpm -F @crr/conformance typecheck
 pnpm -F @crr/core test approval.test.ts classifier.test.ts
+pnpm -F @crr/runtime test escalation.test.ts
 pnpm -F @crr/runtime test write-boundary.test.ts browser-write.test.ts demo-contract.test.ts
+pnpm -F @crr/runtime test browser-overlay.test.ts
 pnpm -F @crr/conformance test terminal-conformance.test.ts
 env -u ANTHROPIC_API_KEY -u ANTHROPIC_AUTH_TOKEN -u OPENAI_API_KEY -u CLAUDE_CODE_OAUTH_TOKEN TURBO_FORCE=1 pnpm test
 ```
@@ -88,6 +101,8 @@ quoting the result.
 | Business outcome proof | `packages/core/src/promotion.ts`, `packages/core/src/classify.ts` |
 | Role-vs-record denial | `packages/runtime/test/fixtures/corebank-write.ts`, `packages/runtime/test/browser-write.test.ts` |
 | Write boundary tests | `packages/runtime/test/write-boundary.test.ts` |
+| Handoff and resume | `packages/runtime/src/intervention.ts`, `packages/runtime/src/resume.ts`, `packages/runtime/test/escalation.test.ts` |
+| Multi-tenant overlay | `packages/runtime/test/browser-overlay.test.ts`, `packages/runtime/demo/multi-tenant-overlay.ts` |
 | Terminal limits | `packages/conformance/test/terminal-conformance.test.ts`, `packages/conformance/test/evidence/terminal-survivors.ts` |
 | Desktop design only | `docs/design/DESKTOP-AUTOMATION.md` |
 
@@ -102,6 +117,8 @@ quoting the result.
 | `evidence/outcome-promotion/` | A reviewer promoted `MEMBER_NOT_FOUND`; the first broad attempt was refused; v2 replayed. |
 | `evidence/semantic-denials/` | `MEMBER_RESTRICTED` record denial differs from role `entitlement-denied`. |
 | `evidence/write-boundary/` | Approval refusal, dry run, valid approval, rejected approvals, policy refusal, idempotency, effect-in-doubt. |
+| `evidence/handoff/` | Automation suspends, intervention carries context, human claims the same session, stale automation is refused before dispatch, handback rechecks state. |
+| `evidence/multi-tenant-overlay/` | Riverbend base artifact, Summit overlay success, no-overlay linker refusal, divergence summary. |
 | `evidence/terminal-survivors/` | Five terminal-reachable mutants killed; four survivors documented as observationally indistinguishable. |
 | `evidence/redaction-canary/` | Main bundle redaction canary scope, searched encodings, and limitations. |
 
@@ -119,6 +136,15 @@ observation fails, the result is `effect-in-doubt`, not a retryable generic fail
 
 Policy and approval are separate. A valid approval can still be stopped by `maxEffect` or action
 allowlists; policy refusal is not approval refusal.
+
+Human handoff is not just a test fixture. `evidence/handoff/` shows a stuck run raising an
+intervention with context, a human claiming the same session, stale automation being refused before
+dispatch, a policy-checked human action, a seven-check handback resume, and a refused handback when
+the operator leaves the session on the wrong screen.
+
+Multi-tenant reuse is not broad infrastructure. `evidence/multi-tenant-overlay/` shows one base
+artifact at Riverbend, the same artifact at Summit through overlay-only changes, and a no-overlay
+Summit invocation failing before execution.
 
 ## Known Limitations
 
@@ -162,12 +188,16 @@ The host-level idempotency store returns the prior result for a repeated key. If
 dispatch occurs and the postcondition is not observable, the runtime returns `effect-in-doubt` and
 does not confidently retry.
 
+**Is human handoff real or just documentation?**
+Real at the runtime seam. The control plane parks the run, transfers the lease, refuses stale tokens,
+policy-checks human actions, journals controller transitions, and re-verifies before resume.
+
 **Why do terminal mutants survive?**  
 Some browser defects are not observable on the terminal fixture. For example, the terminal readiness
 signal is silence, and a torn repaint can also be silent, so `noSettleGate` is not distinguishable
 there. The survivor list is generated evidence, not a hidden gap.
 
 **What should I inspect first?**  
-`docs/REQUIREMENT-TRACE.md`, then `packages/runtime/test/write-boundary.test.ts`, then
-`packages/runtime/test/browser-write.test.ts`, then `evidence/write-boundary/MANIFEST.json` and
+`docs/REQUIREMENT-TRACE.md`, then `evidence/handoff/MANIFEST.json`, then
+`packages/runtime/test/write-boundary.test.ts`, then `evidence/write-boundary/MANIFEST.json` and
 `evidence/semantic-denials/proof.json`.

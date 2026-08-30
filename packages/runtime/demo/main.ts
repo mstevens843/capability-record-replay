@@ -756,6 +756,14 @@ const PRODUCERS: readonly { readonly prefix: string; readonly producer: string }
       "`pnpm -F @crr/runtime exec tsx test/evidence/semantic-denials.ts`, no model",
   },
   {
+    prefix: "handoff/",
+    producer: "`pnpm -F @crr/runtime exec tsx demo/handoff.ts`, no model",
+  },
+  {
+    prefix: "multi-tenant-overlay/",
+    producer: "`pnpm -F @crr/runtime exec tsx demo/multi-tenant-overlay.ts`, no model",
+  },
+  {
     prefix: "terminal-survivors/",
     producer:
       "`pnpm -F @crr/conformance exec tsx test/evidence/terminal-survivors.ts`, no model",
@@ -1110,6 +1118,16 @@ function bundleReadme(
           "| [`semantic-denials/`](semantic-denials/) | `pnpm -F @crr/runtime exec tsx test/evidence/semantic-denials.ts` | **none** |",
         ]
       : []),
+    ...(existsSync(join(EVIDENCE, "handoff"))
+      ? [
+          "| [`handoff/`](handoff/) | `pnpm -F @crr/runtime exec tsx demo/handoff.ts` | **none** |",
+        ]
+      : []),
+    ...(existsSync(join(EVIDENCE, "multi-tenant-overlay"))
+      ? [
+          "| [`multi-tenant-overlay/`](multi-tenant-overlay/) | `pnpm -F @crr/runtime exec tsx demo/multi-tenant-overlay.ts` | **none** |",
+        ]
+      : []),
     ...(existsSync(join(EVIDENCE, "terminal-survivors"))
       ? [
           "| [`terminal-survivors/`](terminal-survivors/) | `pnpm -F @crr/conformance exec tsx test/evidence/terminal-survivors.ts` | **none** |",
@@ -1185,10 +1203,14 @@ function bundleReadme(
     "  rejected approvals, policy refusal, idempotency repeat, and effect-in-doubt.",
     "- `semantic-denials/` covers record-denial business outcome vs role-denial entitlement failure",
     "  against the browser write fixture.",
+    "- `handoff/` covers suspend, intervention context, same-session lease claim, policy-checked",
+    "  human action, safe handback and refused handback.",
+    "- `multi-tenant-overlay/` covers one base browser artifact running at a second tenant through",
+    "  overlay-only vocabulary, route and wait-budget changes, plus a no-overlay negative control.",
     "- `terminal-survivors/` covers the green-screen mutant survivor ledger.",
     "",
-    "The second-tenant browser overlay remains in `packages/runtime/test/browser-overlay.test.ts`",
-    "rather than the main bundle, because `pnpm demo` keeps to one browser fixture tenant.",
+    "`pnpm demo` includes these supplemental directories when they already exist; the commands",
+    "above regenerate them explicitly.",
     "",
     "## The redaction canary",
     "",
@@ -1205,9 +1227,9 @@ function bundleReadme(
     "",
     `Result of the run that produced the main demo bundle: **${report.clean ? "CLEAN" : "FAILED"}** — ${report.filesScanned} files, ${report.bytesScanned} bytes, ${report.needles} distinct needles, ${report.hits.length} hits, ${report.forbidden.length} credential-shaped strings, self-test ${report.selfTest.ok ? "passed" : "FAILED"} (${report.selfTest.found}/${report.selfTest.planted}).`,
     "",
-    "The supplemental write and semantic-denial exhibits also write canary summaries for the",
-    "sensitive values they use. `terminal-survivors/` contains only scenario and mutant names, not",
-    "caller inputs.",
+    "The supplemental write, semantic-denial, handoff and multi-tenant overlay exhibits also write",
+    "canary summaries for the sensitive values they use. `terminal-survivors/` contains only",
+    "scenario and mutant names, not caller inputs.",
     "",
     "That report covers every file that existed when it ran. This `README.md`, the report itself and",
     "the finished `demo.log` are written afterwards, so a **second whole-bundle pass** runs once every",
@@ -1227,6 +1249,8 @@ function bundleReadme(
     "pnpm demo",
     "pnpm -F @crr/runtime exec tsx demo/write-boundary.ts",
     "pnpm -F @crr/runtime exec tsx test/evidence/semantic-denials.ts",
+    "pnpm -F @crr/runtime exec tsx demo/handoff.ts",
+    "pnpm -F @crr/runtime exec tsx demo/multi-tenant-overlay.ts",
     "pnpm -F @crr/conformance exec tsx test/evidence/terminal-survivors.ts",
     "```",
     "",

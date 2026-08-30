@@ -15,7 +15,8 @@ step, the expectation and the observation. The design write-up is [REPORT.md](./
 file is how to run it.
 
 For review, start with [docs/FINAL-REVIEWER-GUIDE.md](./docs/FINAL-REVIEWER-GUIDE.md). The
-assignment-to-evidence map is [docs/REQUIREMENT-TRACE.md](./docs/REQUIREMENT-TRACE.md).
+assignment-to-evidence map is [docs/REQUIREMENT-TRACE.md](./docs/REQUIREMENT-TRACE.md), and
+[`scripts/reviewer-check.sh`](./scripts/reviewer-check.sh) runs the no-provider verification path.
 
 ---
 
@@ -54,8 +55,8 @@ CLAUDE_CODE_OAUTH_TOKEN` prefixed, to prove it structurally rather than by inspe
 | **Replay is deterministic over the corpus**: 25 scenarios × 20 runs, flake rate 0.0%, 0 result documents that were not byte-identical | **measured, on a fixture I wrote** | same command |
 | **4 of 9 mutants survive the terminal corpus** (`noAssert`, `noSettleGate`, `noContinuity`, `noProvenance`), each with a written reason asserted by the test | **limitation, reported not hidden** | `pnpm -F @crr/conformance exec vitest run test/terminal-conformance.test.ts` → 10 passed |
 | **The whole repository builds and tests with zero credentials.** 2,032 tests, 8 workspace members | **measured** | `env -u … TURBO_FORCE=1 pnpm test` → `Tasks: 14 successful, 14 total`, exit 0 |
-| **`pnpm demo` produces the main replay evidence bundle with no live service**, all three arms of the taxonomy exhibited, redaction canary clean on both passes | **measured** | `env -u … pnpm demo` → seven `PASS` lines, `whole-bundle canary pass: CLEAN - 241 files, 0 hits`, `DEMO OK`, exit 0 |
-| **The bundle `pnpm demo` produces is the same bundle every time**: three consecutive runs, 241 files each, the same paths once content-address digests are normalized. The count is no longer narrated — the run compares it against an independent walk of the finished directory, and fails on any blob no run in the bundle claims | **measured, verified by injection** | `env -u … pnpm demo` ×3 → `241 files`, `7 blob directories checked, every file accounted for`, `DEMO OK`, exit 0; planting one stray blob gives `BUNDLE INTEGRITY FAILED - 2 stray blob(s)`, `DEMO FAILED`, exit 1 |
+| **`pnpm demo` produces the main replay evidence bundle with no live service**, all three arms of the taxonomy exhibited, redaction canary clean on both passes | **measured** | `env -u … pnpm demo` → seven `PASS` lines, `whole-bundle canary pass: CLEAN - 278 files, 0 hits`, `DEMO OK`, exit 0 |
+| **The bundle `pnpm demo` produces is integrity-audited every run.** The count is no longer narrated — the run compares it against an independent walk of the finished directory, and fails on any blob no run in the bundle claims | **measured, verified by injection** | latest `env -u … pnpm demo` → `278 files`, `7 blob directories checked, every file accounted for`, `DEMO OK`, exit 0; planting one stray blob gives `BUNDLE INTEGRITY FAILED - 2 stray blob(s)`, `DEMO FAILED`, exit 1 |
 | **The engine cannot read a clock, do I/O, or import a driver, and no package above the drivers contains CSS vocabulary** — read off disk, not asserted | **measured, verified by injection** | `pnpm -F @crr/core exec vitest run test/purity.test.ts test/no-locator-vocabulary.test.ts test/policy-chokepoint.test.ts` → 44 passed |
 | **The spend cap stops a run before it starts. It has never bound *mid-run*.** The between-turns guard fires on the projection, demonstrated free at the turn-0 boundary; it has no unit test and no run has ever crossed it at turn *n* | **partially proven** | `pnpm discover --dry-run --force --max-usd 0.02` → `status budget-exhausted`, `$0.0000 has been billed and turn 1 projects to at most $0.06 … which would cross the $0.02 ceiling`, exit 1 |
 | **Every file in the live bundle is covered by a gating canary pass, and the files that describe the run rather than record it are grepped for member data.** A fifth gating pass (`5 metadata`) takes its scope as the complement of the other four, so `provenance.json`, `spend.json` and the bundle README are covered and a file added later is covered by default | **measured, verified by injection** | `pnpm -F @crr/discovery exec vitest run test/canary-scopes.test.ts` → 56 passed; injecting the pre-fix `finish.summary` into a copy of `provenance.json` fails the pass naming the file and both needles, and restoring the bytes passes it |
@@ -103,9 +104,9 @@ REDACTION CANARY  CLEAN
   suppressed    0 (inside a digest-shaped hex run)
   credentials   0
 
-   241 files in the bundle, produced in 10s
+   278 files in the bundle, produced in 10s
    discovery-live/  a LIVE model run is present - see its own README.md and provenance.json
-   whole-bundle canary pass: CLEAN - 241 files, 0 hits
+   whole-bundle canary pass: CLEAN - 278 files, 0 hits
 DEMO OK
 ```
 
@@ -256,8 +257,8 @@ evidence generators instead:
 
 | Requirement | Command | Result |
 | --- | --- | ---: |
-| **Escalation & handoff** — detect stuck, raise an intervention with context, transfer the live session under a lease the executor enforces, re-verify on hand-back | `pnpm -F @crr/runtime exec vitest run test/escalation.test.ts` | 31 passed |
-| **Multi-tenant reuse** — *one* artifact replayed green against two tenant variants of the same vendor product through a vocabulary overlay, with a cross-tenant divergence report | `pnpm -F @crr/runtime exec vitest run test/browser-overlay.test.ts` | 4 passed |
+| **Escalation & handoff** — detect stuck, raise an intervention with context, transfer the live session under a lease the executor enforces, re-verify on hand-back | `pnpm -F @crr/runtime exec vitest run test/escalation.test.ts` · `pnpm -F @crr/runtime exec tsx demo/handoff.ts` | 31 passed · 2 evidence scenarios |
+| **Multi-tenant reuse** — *one* artifact replayed green against two tenant variants of the same vendor product through a vocabulary overlay, with a cross-tenant divergence report | `pnpm -F @crr/runtime exec vitest run test/browser-overlay.test.ts` · `pnpm -F @crr/runtime exec tsx demo/multi-tenant-overlay.ts` | 4 passed · 3 evidence scenarios |
 | **Heterogeneity** — the same `activate` step lowered to `F3` on one tenant's green screen and `F12` on the other's, from an artifact that contains no key and no escape byte | `pnpm -F @crr/conformance exec vitest run test/heterogeneity.test.ts` | 14 passed |
 | **The irreversible boundary** — a real sub-account opened against the fixture in a real browser, the modal confirmation as the postcondition, committed exactly once; plus a dry run that stops at the boundary and does not perform it | `pnpm -F @crr/runtime exec vitest run test/browser-write.test.ts` | 10 passed |
 | **Approval write-boundary negatives** — absent, stale, wrong-scope and insufficient approvals stop before the irreversible dispatch; valid approval commits once; post-dispatch uncertainty is `effect-in-doubt` | `pnpm -F @crr/runtime exec vitest run test/write-boundary.test.ts` · `pnpm -F @crr/runtime exec tsx demo/write-boundary.ts` | 23 passed · 18 evidence scenarios |
@@ -470,6 +471,8 @@ the bundle, and it names which adapter produced every directory.
 | [`outcome-promotion/`](./evidence/outcome-promotion) | A reviewer walking the live run's artifact from `outcomes: []` to a proven `MEMBER_NOT_FOUND`: the probes, the refused first attempt, the proof, `contract@2.0.0`, the re-verification, and the invocation that returns the typed arm | no — it starts from two documents the live run produced and nothing else in it came from a model |
 | [`write-boundary/`](./evidence/write-boundary) | No approval, dry run, valid approval, rejected approvals, policy refusal, idempotency repeat, and effect-in-doubt at the irreversible boundary | no |
 | [`semantic-denials/`](./evidence/semantic-denials) | Record-scoped denial as `MEMBER_RESTRICTED`, role-scoped denial as `entitlement-denied`, and a rejected over-broad detector | no |
+| [`handoff/`](./evidence/handoff) | Same-session human handoff: intervention context, lease claim, stale automation refusal before dispatch, policy-checked human action, safe resume and refused handback | no |
+| [`multi-tenant-overlay/`](./evidence/multi-tenant-overlay) | Riverbend base artifact, Summit overlay success, no-overlay linker refusal, and cross-tenant divergence summary | no |
 | [`terminal-survivors/`](./evidence/terminal-survivors) | The green-screen mutant survivor ledger: five killed on observable terminal facts, four documented survivors | no |
 
 **How to read one run.** `result.json` is what the calling agent receives. `journal.jsonl` is the

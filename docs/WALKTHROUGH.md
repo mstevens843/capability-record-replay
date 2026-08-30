@@ -30,11 +30,14 @@ pnpm -F @crr/runtime test write-boundary.test.ts browser-write.test.ts
 pnpm -F @crr/conformance test terminal-conformance.test.ts
 pnpm -F @crr/runtime exec tsx demo/write-boundary.ts
 pnpm -F @crr/runtime exec tsx test/evidence/semantic-denials.ts
+pnpm -F @crr/runtime exec tsx demo/handoff.ts
+pnpm -F @crr/runtime exec tsx demo/multi-tenant-overlay.ts
 pnpm -F @crr/conformance exec tsx test/evidence/terminal-survivors.ts
 ```
 
 Those commands cover the approval model, the irreversible write boundary, the role-vs-record denial
-split, the terminal mutant ledger, and the generated evidence bundle paths used below.
+split, human handoff, tenant overlays, the terminal mutant ledger, and the generated evidence bundle
+paths used below.
 
 ## 45-minute deep review path
 
@@ -51,7 +54,8 @@ split, the terminal mutant ledger, and the generated evidence bundle paths used 
    `packages/conformance/test/terminal-conformance.test.ts`.
 7. Open generated evidence:
    `evidence/outcome-promotion/`, `evidence/write-boundary/`,
-   `evidence/semantic-denials/`, `evidence/terminal-survivors/`, and
+   `evidence/semantic-denials/`, `evidence/handoff/`,
+   `evidence/multi-tenant-overlay/`, `evidence/terminal-survivors/`, and
    `evidence/redaction-canary/`.
 8. Run `pnpm test` only after the targeted checks are clean.
 
@@ -67,6 +71,8 @@ split, the terminal mutant ledger, and the generated evidence bundle paths used 
 | Irreversible writes require scoped approval | `packages/core/src/approval.ts`, `packages/runtime/src/interpreter.ts` | `packages/runtime/test/write-boundary.test.ts`, `evidence/write-boundary/` |
 | Policy and approval are separate gates | `packages/core/src/policy-engine.ts`, `packages/runtime/src/interpreter.ts` | `evidence/write-boundary/policy-read-ceiling/` |
 | Double-write safety is explicit | `packages/runtime/src/invoke.ts`, `packages/runtime/src/interpreter.ts` | `evidence/write-boundary/idempotency-repeat/`, `evidence/write-boundary/effect-in-doubt/` |
+| Human handoff is real control transfer | `packages/runtime/src/intervention.ts`, `packages/runtime/src/resume.ts` | `evidence/handoff/`, `packages/runtime/test/escalation.test.ts` |
+| Multi-tenant reuse uses overlays | `packages/core/src/overlay.ts`, `packages/runtime/test/fixtures/corebank-summit.ts` | `evidence/multi-tenant-overlay/`, `packages/runtime/test/browser-overlay.test.ts` |
 | Sensitive inputs stay tainted/redacted | `packages/runtime/src/evidence.ts`, `packages/runtime/src/canary.ts` | `evidence/redaction-canary/`, evidence canary fields |
 | Browser and terminal support are honest | `packages/surface-browser`, `packages/surface-terminal`, `packages/conformance` | `evidence/terminal-survivors/`, `packages/conformance/test/heterogeneity.test.ts` |
 | Desktop support is not overclaimed | `docs/design/DESKTOP-AUTOMATION.md` | design only, no production claim |
@@ -83,6 +89,14 @@ same final write boundary. Record denial returns `MEMBER_RESTRICTED`; role denia
 `evidence/write-boundary/` shows no approval, dry run, valid approval, rejected approvals, policy
 refusal, idempotency repeat, and effect-in-doubt. The summaries include final dispatch counts and
 approval journal counts.
+
+`evidence/handoff/` shows automation suspending on a supervisor hold, the intervention brief, same
+session lease claim, stale automation refused before dispatch, policy-checked human action,
+seven-check resume, and a refused handback when the operator leaves the session on the wrong screen.
+
+`evidence/multi-tenant-overlay/` shows one base browser artifact at Riverbend, the same artifact at
+Summit through an overlay, and no-overlay Summit refusal before execution. It also records a
+cross-tenant divergence summary without shipping a threshold.
 
 `evidence/terminal-survivors/` shows the terminal mutant matrix. Some mutants die on observable
 terminal facts; four survive because this terminal surface cannot distinguish them from the

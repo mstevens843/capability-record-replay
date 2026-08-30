@@ -65,10 +65,10 @@
     "attempts": [],
     "retriable": "same-inputs",
     "operatorAction": "The application returned its own error page; capture and report to the vendor.",
-    "observationRef": "obs:09adb420116943f708f54f8f9693d60c5045f76a5d1518f6b21d7cef52930932"
+    "observationRef": "obs:a50b2fbc343314a2a07f3922a050c0663c4c8829032b8e464337d648325f538a"
   },
   "run": {
-    "runId": "run-cde565b2-48bb-4c80-9519-4ca64ee0c55f",
+    "runId": "run-c4511923-270f-40ad-b821-734ea7f53e88",
     "capability": {
       "name": "corebank.member.read_share_position",
       "version": "1.0.0"
@@ -86,9 +86,9 @@
     },
     "surface": "web-legacy",
     "engineVersion": "crr-runtime/0.1.0",
-    "startedAt": "2026-08-30T07:27:54.094Z",
-    "endedAt": "2026-08-30T07:27:55.684Z",
-    "durationMs": 1590,
+    "startedAt": "2026-08-30T08:25:06.460Z",
+    "endedAt": "2026-08-30T08:25:07.968Z",
+    "durationMs": 1508,
     "stepsExecuted": 4,
     "stepsTotal": 9,
     "budgets": {
@@ -109,7 +109,7 @@
         "limit": 1
       },
       "wallClockMs": {
-        "used": 1592,
+        "used": 1509,
         "limit": 180000
       }
     },
@@ -135,7 +135,7 @@
         },
         "skeletonDigest": "sha256:77133a7a47cabfb23d8a04fdd48bd97dff3e5670d891b221c3db0bf8275c79c4",
         "observationRef": null,
-        "elapsedMs": 147
+        "elapsedMs": 144
       },
       {
         "stepId": "enter-member-id",
@@ -146,7 +146,7 @@
         },
         "skeletonDigest": "sha256:014aa733ad56a65ca562941a1edf215144446165bd3145f7af8bce711be1ce89",
         "observationRef": null,
-        "elapsedMs": 159,
+        "elapsedMs": 154,
         "resolution": [
           {
             "descriptorId": "member-id-right-of-label",
@@ -173,7 +173,7 @@
         },
         "skeletonDigest": "sha256:8be7e5b0e9750e40cd59049e6b76df8a9fdd68cacd9ea33dad97cd28d9f46800",
         "observationRef": null,
-        "elapsedMs": 163,
+        "elapsedMs": 153,
         "resolution": [
           {
             "descriptorId": "search-by-name",
@@ -219,7 +219,7 @@
         },
         "skeletonDigest": "sha256:8be7e5b0e9750e40cd59049e6b76df8a9fdd68cacd9ea33dad97cd28d9f46800",
         "observationRef": null,
-        "elapsedMs": 161
+        "elapsedMs": 151
       },
       {
         "stepId": "open-member-record",
@@ -240,7 +240,7 @@
         },
         "skeletonDigest": "sha256:89ae112647051c26f14edd9813f0426095c77120b1e56154fadd16266b8326f0",
         "observationRef": null,
-        "elapsedMs": 162,
+        "elapsedMs": 153,
         "resolution": [
           {
             "descriptorId": "open-by-row-key",
@@ -267,7 +267,7 @@
         },
         "skeletonDigest": "sha256:3ece383379d324a6b5bdff0a737d1bcc46e2ce4cd242fc56032c283c904771e7",
         "observationRef": null,
-        "elapsedMs": 154
+        "elapsedMs": 145
       },
       {
         "stepId": "enter-member-id",
@@ -278,7 +278,7 @@
         },
         "skeletonDigest": "sha256:014aa733ad56a65ca562941a1edf215144446165bd3145f7af8bce711be1ce89",
         "observationRef": null,
-        "elapsedMs": 151,
+        "elapsedMs": 144,
         "resolution": [
           {
             "descriptorId": "member-id-right-of-label",
@@ -305,7 +305,7 @@
         },
         "skeletonDigest": "sha256:8be7e5b0e9750e40cd59049e6b76df8a9fdd68cacd9ea33dad97cd28d9f46800",
         "observationRef": null,
-        "elapsedMs": 156,
+        "elapsedMs": 152,
         "resolution": [
           {
             "descriptorId": "search-by-name",
@@ -351,7 +351,7 @@
         },
         "skeletonDigest": "sha256:8be7e5b0e9750e40cd59049e6b76df8a9fdd68cacd9ea33dad97cd28d9f46800",
         "observationRef": null,
-        "elapsedMs": 165
+        "elapsedMs": 149
       },
       {
         "stepId": "open-member-record",
@@ -424,8 +424,8 @@
           }
         },
         "skeletonDigest": "sha256:89ae112647051c26f14edd9813f0426095c77120b1e56154fadd16266b8326f0",
-        "observationRef": "obs:09adb420116943f708f54f8f9693d60c5045f76a5d1518f6b21d7cef52930932",
-        "elapsedMs": 161,
+        "observationRef": "obs:a50b2fbc343314a2a07f3922a050c0663c4c8829032b8e464337d648325f538a",
+        "elapsedMs": 151,
         "resolution": [
           {
             "descriptorId": "open-by-row-key",
@@ -452,10 +452,10 @@
       "needsSpecialization": false
     },
     "evidence": [
-      "obs:09adb420116943f708f54f8f9693d60c5045f76a5d1518f6b21d7cef52930932",
-      "journal:638af6943ea6d36b6e6966124cbef697f9b242d6060b03194a67e96b30c971be"
+      "obs:a50b2fbc343314a2a07f3922a050c0663c4c8829032b8e464337d648325f538a",
+      "journal:f55083c184e02eae157ddb308ddf81e4f1912ad7a2f420ab416c66cb48e520f2"
     ],
-    "journalRef": "journal:638af6943ea6d36b6e6966124cbef697f9b242d6060b03194a67e96b30c971be",
+    "journalRef": "journal:f55083c184e02eae157ddb308ddf81e4f1912ad7a2f420ab416c66cb48e520f2",
     "warnings": []
   }
 }
